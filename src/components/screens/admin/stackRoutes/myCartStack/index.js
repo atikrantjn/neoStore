@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
 
-export default class HomeScreen extends Component {
+export default class index extends Component {
   render() {
     return (
       <View>
-        <Text> textInComponent </Text>
+        <Text> my cart screen </Text>
       </View>
     );
   }

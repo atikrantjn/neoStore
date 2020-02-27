@@ -7,7 +7,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Login from './src/components/screens/login/index';
 import Welcome from './src/components/screens/welcome/index';
 import Register from './src/components/screens/register/index';
-import Admin from './src/components/screens/admin/index';
+import Admin from './src/components/screens/admin';
 const Stack = createStackNavigator();
 class App extends Component {
   constructor(props) {

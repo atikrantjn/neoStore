@@ -6,7 +6,7 @@ class Welcome extends Component {
   componentDidMount() {
     this.timeout = setTimeout(() => {
       this.props.navigation.navigate('Login');
-    }, 5000);
+    }, 2000);
   }
   render() {
     return (
