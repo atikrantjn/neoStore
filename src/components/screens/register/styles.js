@@ -37,5 +37,23 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
   },
+  checkbox: {
+    marginLeft: 50,
+    marginRight: 50,
+    textAlign: 'center',
+    height: 50,
+    color: 'white',
+  },
+  customBtnBG: {
+    backgroundColor: 'white',
+    borderRadius: 7,
+  },
+
+  customBtnText: {
+    fontSize: 32,
+    fontWeight: '400',
+    color: 'red',
+    textAlign: 'center',
+  },
 });
 export default styles;

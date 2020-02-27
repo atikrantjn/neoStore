@@ -7,8 +7,7 @@ import {
   ToastAndroid,
   Alert,
 } from 'react-native';
-import {CheckBox} from 'native-base';
-
+import CheckBox from 'react-native-check-box';
 import RadioForm from 'react-native-simple-radio-button';
 import styles from './styles';
 
@@ -30,35 +29,35 @@ class Register extends Component {
           <View style={styles.registerInput}>
             <TextInput
               style={styles.input}
-              placeholder="Username"
+              placeholder="First Name"
               placeholderTextColor="white"
               underlineColorAndroid="transparent"></TextInput>
           </View>
           <View style={styles.registerInput}>
             <TextInput
               style={styles.input}
-              placeholder="Username"
+              placeholder="Last Name"
               placeholderTextColor="white"
               underlineColorAndroid="transparent"></TextInput>
           </View>
           <View style={styles.registerInput}>
             <TextInput
               style={styles.input}
-              placeholder="Username"
+              placeholder="Email"
               placeholderTextColor="white"
               underlineColorAndroid="transparent"></TextInput>
           </View>
           <View style={styles.registerInput}>
             <TextInput
               style={styles.input}
-              placeholder="Username"
+              placeholder="Password"
               placeholderTextColor="white"
               underlineColorAndroid="transparent"></TextInput>
           </View>
           <View style={styles.registerInput}>
             <TextInput
               style={styles.input}
-              placeholder="Username"
+              placeholder="Confirm Password"
               placeholderTextColor="white"
               underlineColorAndroid="transparent"></TextInput>
           </View>
@@ -80,11 +79,31 @@ class Register extends Component {
           <View style={styles.registerInput}>
             <TextInput
               style={styles.input}
-              placeholder="Username"
+              placeholder="Phone Number"
               placeholderTextColor="white"
               underlineColorAndroid="transparent"></TextInput>
           </View>
-          <View style={styles.registerInput}></View>
+          <View style={styles.checkbox}>
+            <CheckBox
+              style={{flex: 1, padding: 10}}
+              // onClick={() => {
+              //   this.setState({
+              //     isChecked: !this.state.isChecked,
+              //   });
+              // }}
+              // isChecked={this.state.isChecked}
+              rightText={'I agree Terms & Conditions'}
+            />
+          </View>
+          <View style={styles.registerInput}>
+            <TouchableOpacity
+              style={styles.customBtnBG}
+              onPress={() => {
+                this.props.navigation.navigate('Admin');
+              }}>
+              <Text style={styles.customBtnText}>REGISTER</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
