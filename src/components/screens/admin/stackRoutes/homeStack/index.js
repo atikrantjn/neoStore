@@ -5,6 +5,7 @@ import Home from '../../home';
 import appColors from '../../../../../utils/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5';
+
 const Stack = createStackNavigator();
 class HomeStack extends Component {
   render() {
