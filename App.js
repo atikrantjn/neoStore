@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-
+import appColors from './src/utils/colors';
 import Login from './src/components/screens/login/index';
 import Welcome from './src/components/screens/welcome/index';
 import Register from './src/components/screens/register/index';
@@ -28,7 +28,19 @@ class App extends Component {
             component={Login}
             options={{headerShown: false}}
           />
-          <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen
+            name="Register"
+            component={Register}
+            options={{
+              headerStyle: {
+                backgroundColor: appColors.themeColor,
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
           <Stack.Screen
             name="Admin"
             component={Admin}

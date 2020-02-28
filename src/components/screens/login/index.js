@@ -37,7 +37,7 @@ class Login extends Component {
             <TouchableOpacity
               style={styles.customBtnBG}
               onPress={() => {
-                Alert.alert('button pressed');
+                this.props.navigation.navigate('Admin');
               }}>
               <Text style={styles.customBtnText}>LOGIN</Text>
             </TouchableOpacity>

@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
-
-export default class index extends Component {
+import {createStackNavigator} from '@react-navigation/stack';
+import Home from '../../home';
+const Stack = createStackNavigator();
+class HomeStack extends Component {
   render() {
     return (
-      <View>
-        <Text> my cart screen </Text>
-      </View>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
     );
   }
 }
+
+export default HomeStack;

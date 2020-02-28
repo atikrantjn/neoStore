@@ -98,9 +98,10 @@ class Register extends Component {
           <View style={styles.registerInput}>
             <TouchableOpacity
               style={styles.customBtnBG}
-              onPress={() => {
-                this.props.navigation.navigate('Admin');
-              }}>
+              // onPress={() => {
+              //   this.props.navigation.navigate('Admin');
+              // }}
+            >
               <Text style={styles.customBtnText}>REGISTER</Text>
             </TouchableOpacity>
           </View>
