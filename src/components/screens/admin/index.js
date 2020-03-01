@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import {View, Text, Button} from 'react-native';
+import appColors from '../../../utils/colors';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import HomeStack from './stackRoutes/homeStack';
 import MyCart from './stackRoutes/myCartStack';
+
+import Sidebar from '../../custom/sidebarComponent/sidebar';
 class Admin extends Component {
   constructor() {
     super();
@@ -11,17 +13,26 @@ class Admin extends Component {
   render() {
     const Drawer = createDrawerNavigator();
     return (
-      <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Navigator
+        initialRouteName="Home"
+        drawerStyle={{
+          width: 280,
+          color: 'white',
+        }}
+        drawerType="slide"
+        drawerContent={props => {
+          return <Sidebar {...props} />;
+        }}>
         <Drawer.Screen name="Home" component={HomeStack} />
-        <Drawer.Screen name="My cart" component={MyCart} />
-        {/* <Drawer.Screen name="tables" component={HomeScreen} />
-        <Drawer.Screen name="sofas" component={NotificationsScreen} />
-        <Drawer.Screen name="Chairs" component={HomeScreen} />
-        <Drawer.Screen name="cupboards" component={NotificationsScreen} />
-        <Drawer.Screen name="My account" component={HomeScreen} />
-        <Drawer.Screen name="Store Locator" component={NotificationsScreen} />
-        <Drawer.Screen name="My order" component={HomeScreen} />
-        <Drawer.Screen name="Logout" component={NotificationsScreen} /> */}
+        <Drawer.Screen name="Mycart" component={MyCart} />
+        {/* <Drawer.Screen name="tables" component={HomeStack} />
+        <Drawer.Screen name="sofas" component={MyCart} />
+        <Drawer.Screen name="Chairs" component={HomeStack} />
+        <Drawer.Screen name="cupboards" component={MyCart} />
+        <Drawer.Screen name="My account" component={HomeStack} />
+        <Drawer.Screen name="Store Locator" component={MyCart} />
+        <Drawer.Screen name="My order" component={HomeStack} />
+        <Drawer.Screen name="Logout" component={MyCart} /> */}
       </Drawer.Navigator>
     );
   }

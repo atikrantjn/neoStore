@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../../home';
 import appColors from '../../../../../utils/colors';
@@ -41,6 +40,8 @@ class HomeStack extends Component {
               color: 'white',
               fontWeight: 'bold',
               textAlign: 'center',
+              fontSize: 30,
+              marginHorizontal: 85,
             },
           }}
         />

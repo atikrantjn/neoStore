@@ -3,6 +3,8 @@ const appColors = {
   themeColorLight: '',
   themeColorDarker: '',
   themeColorDarkest: '',
+
+  sidebarBgColor: '#464E56',
 };
 
 export default appColors;

@@ -5,6 +5,8 @@ const images = {
   sofaImage: require('../../assets/images/sofaIcon.png'),
   chairImage: require('../../assets/images/chairIcon.png'),
   bedImage: require('../../assets/images/bedIcon.png'),
+
+  sideDrawerImage: require('../../assets/images/sidebarImage.jpeg'),
 };
 export const myarrImages = [
   'http://t0.gstatic.com/images?q=tbn%3AANd9GcQMLlq4OG-_16GIwTPPXZqNMKAE65uJOWWzJrlYpe3ok-E3CCobz38oNJYrEbLUaqjLZQOlTNA&usqp=CAc',

@@ -7,7 +7,33 @@ import images from '../../../../utils/images';
 import {myarrImages} from '../../../../utils/images';
 
 export default class Home extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dataSource: [],
+    };
+  }
+
+  componentDidMount() {
+    return fetch('http://180.149.241.208:3022/getAllCategories')
+      .then(res => res.json())
+      .then(response => {
+        this.setState({
+          dataSource: response.category_details,
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
   render() {
+    // console.log(this.state.dataSource);
+    const imageData = this.state.dataSource;
+    let res = imageData.map(a => a.product_image);
+
+    console.log(res);
+
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -23,7 +49,7 @@ export default class Home extends Component {
           <View style={{flex: 1, marginTop: 25}}>
             <View
               style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-              <TouchableOpacity style={styles.tables}>
+              <TouchableOpacity style={styles.productCategoryCard}>
                 <Text
                   style={{
                     color: 'white',
@@ -38,7 +64,7 @@ export default class Home extends Component {
                 />
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.sofas}>
+              <TouchableOpacity style={styles.productCategoryCard}>
                 <Text
                   style={{
                     color: 'white',
@@ -60,7 +86,7 @@ export default class Home extends Component {
                 marginTop: 25,
                 marginBottom: 25,
               }}>
-              <TouchableOpacity style={styles.chairs}>
+              <TouchableOpacity style={styles.productCategoryCard}>
                 <Text
                   style={{
                     color: 'white',
@@ -75,7 +101,7 @@ export default class Home extends Component {
                 />
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.cupboards}>
+              <TouchableOpacity style={styles.productCategoryCard}>
                 <Text
                   style={{
                     color: 'white',
