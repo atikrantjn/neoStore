@@ -1,12 +1,5 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ToastAndroid,
-  Alert,
-} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import CheckBox from 'react-native-check-box';
 import RadioForm from 'react-native-simple-radio-button';
 import styles from './styles';

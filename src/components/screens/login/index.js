@@ -46,8 +46,7 @@ class Login extends Component {
           <View style={styles.forgotPassword}>
             <Text
               style={styles.forgotText}
-              // onPress={() => this.props.navigation.navigate('Register')}
-            >
+              onPress={() => this.props.navigation.navigate('Forgot Password')}>
               Forgot Password ?
             </Text>
           </View>

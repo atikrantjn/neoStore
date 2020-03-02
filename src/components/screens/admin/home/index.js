@@ -32,7 +32,7 @@ export default class Home extends Component {
     const imageData = this.state.dataSource;
     let res = imageData.map(a => a.product_image);
 
-    console.log(res);
+    console.log(res[0]);
 
     return (
       <ScrollView>

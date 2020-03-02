@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, ActivityIndicator} from 'react-native';
 import styles from './styles';
 
-class Welcome extends Component {
+class welcome extends Component {
   componentDidMount() {
     this.timeout = setTimeout(() => {
       this.props.navigation.navigate('Login');
@@ -23,4 +23,4 @@ class Welcome extends Component {
   }
 }
 
-export default Welcome;
+export default welcome;
