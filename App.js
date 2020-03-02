@@ -10,6 +10,7 @@ import Register from './src/components/screens/register/index';
 import Admin from './src/components/screens/admin';
 
 import ForgotPassword from './src/components/screens/forgotPassword/index';
+import SetPassword from './src/components/screens/setPassword/index';
 const Stack = createStackNavigator();
 class App extends Component {
   constructor(props) {
@@ -46,6 +47,19 @@ class App extends Component {
           <Stack.Screen
             name="Forgot Password"
             component={ForgotPassword}
+            options={{
+              headerStyle: {
+                backgroundColor: appColors.themeColor,
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="Set Password"
+            component={SetPassword}
             options={{
               headerStyle: {
                 backgroundColor: appColors.themeColor,

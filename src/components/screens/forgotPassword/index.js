@@ -4,7 +4,7 @@ import styles from './styles';
 import {InputGroup, Input} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 const screenWidth = Math.round(Dimensions.get('window').width);
-export class index extends Component {
+export class ForgotPassword extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -47,7 +47,7 @@ export class index extends Component {
             <TouchableOpacity
               style={styles.customBtnBG}
               onPress={() => {
-                this.props.navigation.navigate('Admin');
+                this.props.navigation.navigate('Set Password');
               }}>
               <Text style={styles.customBtnText}>Submit</Text>
             </TouchableOpacity>
@@ -58,4 +58,4 @@ export class index extends Component {
   }
 }
 
-export default index;
+export default ForgotPassword;

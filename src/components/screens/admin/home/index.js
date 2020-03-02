@@ -32,18 +32,19 @@ export default class Home extends Component {
     const imageData = this.state.dataSource;
     let res = imageData.map(a => a.product_image);
 
-    console.log(res[0]);
+    const url = 'http://180.149.241.208:3022/';
+
+    const ele = res.map(el => {
+      return url.concat(el);
+    });
+
+    console.log(ele);
 
     return (
       <ScrollView>
         <View style={styles.container}>
           <View>
-            <SliderBox
-              images={myarrImages}
-              sliderBoxHeight={300}
-              autoplay
-              circleLoop
-            />
+            <SliderBox images={ele} sliderBoxHeight={300} autoplay circleLoop />
           </View>
 
           <View style={{flex: 1, marginTop: 25}}>
