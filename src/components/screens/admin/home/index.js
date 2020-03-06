@@ -1,10 +1,16 @@
 import React, {Component} from 'react';
-import {Text, View, ScrollView, Image, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  View,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import {SliderBox} from 'react-native-image-slider-box';
 
 import styles from './styles';
 import images from '../../../../utils/images';
-import {myarrImages} from '../../../../utils/images';
 
 export default class Home extends Component {
   constructor(props) {
@@ -50,7 +56,11 @@ export default class Home extends Component {
           <View style={{flex: 1, marginTop: 25}}>
             <View
               style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-              <TouchableOpacity style={styles.productCategoryCard}>
+              <TouchableOpacity
+                style={styles.productCategoryCard}
+                onPress={() => {
+                  this.props.navigation.navigate('Bed');
+                }}>
                 <Text
                   style={{
                     color: 'white',

@@ -2,10 +2,11 @@ import {StyleSheet} from 'react-native';
 import appColors from '../../../utils/colors';
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    backgroundColor: appColors.themeColor,
+  },
   container: {
     flex: 1,
-    backgroundColor: appColors.themeColor,
-    justifyContent: 'center',
   },
   neostoreHeader: {
     textAlign: 'center',

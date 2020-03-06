@@ -8,6 +8,8 @@ import {DrawerContentScrollView} from '@react-navigation/drawer';
 
 import {List} from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+
+import styles from './styles';
 export default class Sidebar extends Component {
   constructor() {
     super();
@@ -38,19 +40,21 @@ export default class Sidebar extends Component {
         <DrawerContentScrollView {...props}>
           <List.Section>
             <List.Accordion
-              titleStyle={{fontSize: 22, marginLeft: 25}}
+              titleStyle={{fontSize: 22, marginLeft: 25, color: 'black'}}
               title="Account"
               left={() => <EnIcon name="users" size={22} />}>
-              <List.Item
-                titleStyle={{fontSize: 18, fontWeight: '500', marginLeft: 25}}
-                title="Login"
-                left={() => <FaIcon name="user" size={20} />}
-              />
-              <List.Item
-                titleStyle={{fontSize: 18, fontWeight: '500', marginLeft: 25}}
-                title="Register"
-                left={() => <AntDesign name="adduser" size={25} />}
-              />
+              <View style={{justifyContent: 'center'}}>
+                <List.Item
+                  titleStyle={{fontSize: 18, fontWeight: '500', marginLeft: 25}}
+                  title="Login"
+                  left={() => <FaIcon name="user" size={20} />}
+                />
+                <List.Item
+                  titleStyle={{fontSize: 18, fontWeight: '500', marginLeft: 25}}
+                  title="Register"
+                  left={() => <AntDesign name="adduser" size={20} />}
+                />
+              </View>
             </List.Accordion>
             <List.Item
               titleStyle={{fontSize: 22}}
@@ -97,14 +101,3 @@ export default class Sidebar extends Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  sideMenuContainer: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#fff',
-  },
-  sideMenuProfileIcon: {
-    height: 250,
-    width: 280,
-  },
-});
