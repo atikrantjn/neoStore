@@ -48,11 +48,17 @@ export default class Sidebar extends Component {
                   titleStyle={{fontSize: 18, fontWeight: '500', marginLeft: 25}}
                   title="Login"
                   left={() => <FaIcon name="user" size={20} />}
+                  onPress={() => {
+                    this.props.navigation.navigate('Login');
+                  }}
                 />
                 <List.Item
                   titleStyle={{fontSize: 18, fontWeight: '500', marginLeft: 25}}
                   title="Register"
                   left={() => <AntDesign name="adduser" size={20} />}
+                  onPress={() => {
+                    this.props.navigation.navigate('Register');
+                  }}
                 />
               </View>
             </List.Accordion>

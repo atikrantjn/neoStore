@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
-import {View, Text, TextInput, TouchableOpacity, Alert} from 'react-native';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
+import AwesomeAlert from 'react-native-awesome-alerts';
 import CheckBox from 'react-native-check-box';
 import RadioForm from 'react-native-simple-radio-button';
 import styles from './styles';
-import {ScrollView} from 'react-native-gesture-handler';
 
 class Register extends Component {
   constructor(props) {
@@ -20,6 +25,8 @@ class Register extends Component {
       phoneNumber: '',
       gender: '',
 
+      showAlert: false,
+
       firstNameErr: false,
       isChecked: false,
       lastNameErr: false,
@@ -29,6 +36,20 @@ class Register extends Component {
       phoneErr: false,
     };
   }
+
+  showAlert = () => {
+    this.setState({
+      showAlert: true,
+    });
+  };
+
+  hideAlert = () => {
+    this.setState({
+      showAlert: false,
+    });
+  };
+
+  //email validate function
 
   validateEmail = email => {
     let pattern = /^([a-zA-Z])+([0-9a-zA-Z_\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,5}$)$/;
@@ -41,6 +62,8 @@ class Register extends Component {
     }
   };
 
+  //password validate function
+
   validatePassword = password => {
     let passPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$/;
 
@@ -51,6 +74,8 @@ class Register extends Component {
       this.setState({password: password, passwordErr: false});
     }
   };
+
+  //confirm password validate function
 
   validateConfPass = confirmPassword => {
     let pass = this.state.password;
@@ -66,6 +91,8 @@ class Register extends Component {
     }
   };
 
+  //phone number input validation function
+
   validatePhone = phoneNumber => {
     let phoneValid = /^[0-9]*(?:\d{1,2})?$/;
 
@@ -76,6 +103,8 @@ class Register extends Component {
       this.setState({phoneNumber: phoneNumber, phoneErr: false});
     }
   };
+
+  //validate form on button click function
 
   validateRegisterForm = () => {
     const data = {...this.state};
@@ -90,7 +119,7 @@ class Register extends Component {
       data.confirmPasswordErr == false &&
       data.isChecked == true
     ) {
-      Alert.alert('registered successfully');
+      this.showAlert();
       setTimeout(() => {
         this.props.navigation.navigate('Login');
       }, 3000);
@@ -104,6 +133,8 @@ class Register extends Component {
       {label: 'Male', value: 'male'},
       {label: 'Female', value: 'female'},
     ];
+
+    const {showAlert} = this.state;
     return (
       <ScrollView style={styles.mainContainer}>
         <View style={styles.container}>
@@ -265,6 +296,16 @@ class Register extends Component {
                 <Text style={styles.customBtnText}>REGISTER</Text>
               </TouchableOpacity>
             </View>
+            <AwesomeAlert
+              show={showAlert}
+              showProgress={false}
+              title="Register form"
+              message="form submitted successfully"
+              closeOnTouchOutside={true}
+              closeOnHardwareBackPress={false}
+              messageStyle={{color: 'green', fontSize: 18}}
+              contentContainerStyle={{width: 350, height: 120}}
+            />
           </View>
         </View>
       </ScrollView>
