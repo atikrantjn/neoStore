@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList} from 'react-native';
+import {View} from 'react-native';
 import FlatList1 from '../../custom/flatList component/index';
-export default class BedList extends Component {
+export default class bedList extends Component {
   render(props) {
     return (
       <View>

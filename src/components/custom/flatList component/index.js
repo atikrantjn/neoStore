@@ -1,9 +1,19 @@
 import React, {Component} from 'react';
-import {Text, View, Image, FlatList, Dimensions} from 'react-native';
-import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
+import {
+  Text,
+  View,
+  Image,
+  FlatList,
+  Dimensions,
+  Toast,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
+
 import styles from './styles';
 
 import StarRating from 'react-native-star-rating';
+
 export default class FlatList1 extends Component {
   constructor(props) {
     super(props);
@@ -50,6 +60,7 @@ export default class FlatList1 extends Component {
                 <View
                   style={{
                     flex: 1,
+                    margin: 10,
                   }}>
                   <TouchableOpacity styles={styles.list}>
                     <View

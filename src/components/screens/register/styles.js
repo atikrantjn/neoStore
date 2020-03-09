@@ -19,13 +19,14 @@ const styles = StyleSheet.create({
     color: 'white',
     borderColor: 'white',
     borderWidth: 1.5,
-    fontSize: 22,
+    fontSize: 19,
   },
   registerInput: {
     marginLeft: 50,
     marginRight: 50,
     marginTop: 25,
     height: 50,
+    marginBottom: 10,
   },
   radioButtonContainer: {
     flexDirection: 'row',
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     height: 50,
     color: 'white',
+    marginTop: 25,
   },
   customBtnBG: {
     backgroundColor: 'white',

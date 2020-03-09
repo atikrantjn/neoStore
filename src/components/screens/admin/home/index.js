@@ -35,6 +35,7 @@ export default class Home extends Component {
   }
   render() {
     // console.log(this.state.dataSource);
+
     const imageData = this.state.dataSource;
     let res = imageData.map(a => a.product_image);
 
@@ -50,17 +51,19 @@ export default class Home extends Component {
       <ScrollView>
         <View style={styles.container}>
           <View>
-            <SliderBox images={ele} sliderBoxHeight={300} autoplay circleLoop />
+            <SliderBox
+              images={ele}
+              sliderBoxHeight={300}
+              autoplay
+              circleLoop
+              resizeMode={'cover'}
+            />
           </View>
 
           <View style={{flex: 1, marginTop: 25}}>
             <View
               style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-              <TouchableOpacity
-                style={styles.productCategoryCard}
-                onPress={() => {
-                  this.props.navigation.navigate('Bed');
-                }}>
+              <TouchableOpacity style={styles.productCategoryCard}>
                 <Text
                   style={{
                     color: 'white',
@@ -112,7 +115,11 @@ export default class Home extends Component {
                 />
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.productCategoryCard}>
+              <TouchableOpacity
+                style={styles.productCategoryCard}
+                onPress={() => {
+                  this.props.navigation.navigate('Bed');
+                }}>
                 <Text
                   style={{
                     color: 'white',
