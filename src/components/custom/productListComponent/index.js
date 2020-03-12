@@ -14,7 +14,7 @@ import styles from './styles';
 import * as contants from '../../../utils/contants';
 import StarRating from 'react-native-star-rating';
 
-export default class BedListModule extends Component {
+export default class ProductListModule extends Component {
   constructor(props) {
     super(props);
 
@@ -25,7 +25,7 @@ export default class BedListModule extends Component {
 
   componentDidMount() {
     return fetch(
-      'http://180.149.241.208:3022/commonProducts?category_id=5cfe3c65ea821930af69281f',
+      'http://180.149.241.208:3022/commonProducts?category_id=' + this.props.id,
     )
       .then(res => res.json())
       .then(response => {

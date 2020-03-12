@@ -126,17 +126,16 @@ class Register extends Component {
 
     console.log(data);
 
-    // if (
-    //   data.first_name == '' ||
-    //   data.last_name == '' ||
-    //   data.email == '' ||
-    //   data.pass == '' ||
-    //   data.confirmPass == '' ||
-    //   data.phone_no == ''
-    // ) {
-    //   alert('fields cannot be kept empty');
-    // }
     if (
+      data.first_name == '' ||
+      data.last_name == '' ||
+      data.email == '' ||
+      data.pass == '' ||
+      data.confirmPass == '' ||
+      data.phone_no == ''
+    ) {
+      alert('fields cannot be kept empty');
+    } else if (
       data.passwordErr == false &&
       data.phoneErr == false &&
       data.emailErr == false &&
@@ -273,7 +272,6 @@ class Register extends Component {
               <Text style={styles.genderText}>Gender</Text>
               <RadioForm
                 radio_props={gender}
-                initial={1}
                 buttonSize={20}
                 buttonOuterSize={30}
                 selectedButtonColor="white"

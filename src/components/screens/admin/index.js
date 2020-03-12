@@ -4,7 +4,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import HomeStack from './stackRoutes/homeStack';
 
 import Sidebar from '../../custom/sidebarComponent/sidebar';
-import bedList from '../bedList/bedList';
+import ProductList from '../ProductList/ProductList';
 class Admin extends Component {
   constructor() {
     super();
@@ -24,13 +24,12 @@ class Admin extends Component {
           return <Sidebar {...props} />;
         }}>
         <Drawer.Screen name="Home" component={HomeStack} />
-        {/* <Drawer.Screen name="Mycart" component={MyCart} /> */}
-        <Drawer.Screen name="Bed" component={bedList} />
-        {/* <Drawer.Screen name="sofas" component={MyCart} />
-        <Drawer.Screen name="Chairs" component={HomeStack} />
-        <Drawer.Screen name="cupboards" component={MyCart} />
-        <Drawer.Screen name="My account" component={HomeStack} />
-        <Drawer.Screen name="Store Locator" component={MyCart} />
+        <Drawer.Screen name="Bed" component={ProductList} />
+        <Drawer.Screen name="Sofa" component={ProductList} />
+        <Drawer.Screen name="Chair" component={ProductList} />
+        <Drawer.Screen name="Table" component={ProductList} />
+        <Drawer.Screen name="Almirah" component={ProductList} />
+        {/* <Drawer.Screen name="Store Locator" component={MyCart} />
         <Drawer.Screen name="My order" component={HomeStack} />
         <Drawer.Screen name="Logout" component={MyCart} /> */}
       </Drawer.Navigator>

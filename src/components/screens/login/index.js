@@ -7,7 +7,9 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
+import AwesomeAlert from 'react-native-awesome-alerts';
 import images from '../../../utils/images';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import styles from './styles';
 import axios from 'axios';
 class Login extends Component {
@@ -18,7 +20,11 @@ class Login extends Component {
       email: '',
       password: '',
 
+      emailErrr: false,
+      passErr: false,
+
       isLoading: false,
+      showAlert: false,
     };
   }
 
@@ -29,7 +35,7 @@ class Login extends Component {
     };
 
     if (userInput.email === '' || userInput.pass === '') {
-      alert('fields cannot be empty');
+      this.setState({emailErrr: true, passErr: true});
     } else {
       this.setState({isLoading: true});
       axios
@@ -37,16 +43,34 @@ class Login extends Component {
         .then(res => {
           if (res.status === 200) {
             this.setState({isLoading: false});
-            alert('login successful');
+            this.showAlert();
+            setTimeout(() => {
+              this.props.navigation.navigate('Admin');
+            }, 3000);
           }
         })
         .catch(err => {
-          console.log('err', err);
+          this.setState({isLoading: false, emailErrr: false, passErr: false});
+
+          alert('wrong credentials');
         });
     }
   };
 
+  showAlert = () => {
+    this.setState({
+      showAlert: true,
+    });
+  };
+
+  hideAlert = () => {
+    this.setState({
+      showAlert: false,
+    });
+  };
+
   render() {
+    const {showAlert} = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.headingContainer}>
@@ -59,9 +83,14 @@ class Login extends Component {
               placeholder="Username"
               placeholderTextColor="white"
               onChangeText={email => {
-                this.setState({email: email});
+                this.setState({email: email, emailErrr: false});
               }}
               underlineColorAndroid="transparent"></TextInput>
+            {this.state.emailErrr ? (
+              <Text style={{color: 'white', fontWeight: 'bold'}}>
+                * this field cannot be kept empty
+              </Text>
+            ) : null}
           </View>
 
           {this.state.isLoading ? (
@@ -77,10 +106,15 @@ class Login extends Component {
               placeholderTextColor="white"
               secureTextEntry
               onChangeText={password => {
-                this.setState({password: password});
+                this.setState({password: password, passErr: false});
               }}
               underlineColorAndroid="transparent"
             />
+            {this.state.passErr ? (
+              <Text style={{color: 'white'}}>
+                * this field cannot be kept empty
+              </Text>
+            ) : null}
           </View>
           <View style={styles.loginInput}>
             <TouchableOpacity
@@ -111,6 +145,15 @@ class Login extends Component {
             </TouchableOpacity>
           </View>
         </View>
+        <AwesomeAlert
+          show={showAlert}
+          title="Yeahh"
+          message="login successful,redirecting...."
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          messageStyle={{color: 'green', fontSize: 18}}
+          contentContainerStyle={{width: 350, height: 120}}
+        />
       </View>
     );
   }

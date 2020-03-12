@@ -8,7 +8,7 @@ import {DrawerContentScrollView} from '@react-navigation/drawer';
 
 import {List} from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 export default class Sidebar extends Component {
   constructor() {
@@ -62,6 +62,20 @@ export default class Sidebar extends Component {
                 />
               </View>
             </List.Accordion>
+            <List.Item
+              titleStyle={{fontSize: 22}}
+              title="Dashboard"
+              left={() => (
+                <MaterialIcon
+                  name="dashboard"
+                  size={22}
+                  style={{marginRight: 25}}
+                />
+              )}
+              onPress={() => {
+                this.props.navigation.navigate('Home');
+              }}
+            />
             <List.Item
               titleStyle={{fontSize: 22}}
               title="Bed"
