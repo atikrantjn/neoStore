@@ -5,24 +5,27 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  Alert,
+  ActivityIndicator,
 } from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import CheckBox from 'react-native-check-box';
 import RadioForm from 'react-native-simple-radio-button';
 import styles from './styles';
+import axios from 'axios';
 
 class Register extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      firstName: '',
-      lastName: '',
+      first_name: '',
+      last_name: '',
       email: '',
-      password: '',
-      confirmPassword: '',
+      pass: '',
+      confirmPass: '',
 
-      phoneNumber: '',
+      phone_no: '',
       gender: '',
 
       showAlert: false,
@@ -34,6 +37,8 @@ class Register extends Component {
       passwordErr: false,
       confirmPasswordErr: false,
       phoneErr: false,
+
+      isLoading: false,
     };
   }
 
@@ -64,28 +69,28 @@ class Register extends Component {
 
   //password validate function
 
-  validatePassword = password => {
+  validatePassword = pass => {
     let passPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$/;
 
-    if (passPattern.test(password) === false) {
+    if (passPattern.test(pass) === false) {
       this.setState({passwordErr: true});
       return false;
     } else {
-      this.setState({password: password, passwordErr: false});
+      this.setState({pass: pass, passwordErr: false});
     }
   };
 
   //confirm password validate function
 
-  validateConfPass = confirmPassword => {
-    let pass = this.state.password;
+  validateConfPass = confirmPass => {
+    let passv = this.state.pass;
 
-    if (!confirmPassword.match(pass)) {
+    if (!confirmPass.match(passv)) {
       this.setState({confirmPasswordErr: true});
       return false;
     } else {
       this.setState({
-        confirmPassword: confirmPassword,
+        confirmPass: confirmPass,
         confirmPasswordErr: false,
       });
     }
@@ -93,14 +98,14 @@ class Register extends Component {
 
   //phone number input validation function
 
-  validatePhone = phoneNumber => {
+  validatePhone = phone_no => {
     let phoneValid = /^[0-9]*(?:\d{1,2})?$/;
 
-    if (phoneValid.test(phoneNumber) === false) {
+    if (phoneValid.test(phone_no) === false) {
       this.setState({phoneErr: true});
       return false;
     } else {
-      this.setState({phoneNumber: phoneNumber, phoneErr: false});
+      this.setState({phone_no: phone_no, phoneErr: false});
     }
   };
 
@@ -108,8 +113,29 @@ class Register extends Component {
 
   validateRegisterForm = () => {
     const data = {...this.state};
+
+    const postData = {
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      email: this.state.email,
+      pass: this.state.pass,
+      confirmPass: this.state.confirmPass,
+      phone_no: this.state.phone_no,
+      gender: this.state.gender,
+    };
+
     console.log(data);
 
+    // if (
+    //   data.first_name == '' ||
+    //   data.last_name == '' ||
+    //   data.email == '' ||
+    //   data.pass == '' ||
+    //   data.confirmPass == '' ||
+    //   data.phone_no == ''
+    // ) {
+    //   alert('fields cannot be kept empty');
+    // }
     if (
       data.passwordErr == false &&
       data.phoneErr == false &&
@@ -119,12 +145,22 @@ class Register extends Component {
       data.confirmPasswordErr == false &&
       data.isChecked == true
     ) {
-      this.showAlert();
-      setTimeout(() => {
-        this.props.navigation.navigate('Login');
-      }, 3000);
+      this.setState({isLoading: true});
+      axios
+        .post('http://180.149.241.208:3022/register', postData)
+        .then(response => {
+          this.setState({isLoading: false});
+          this.showAlert();
+          setTimeout(() => {
+            this.props.navigation.navigate('Login');
+          }, 5000);
+        })
+
+        .catch(error => {
+          console.log('-------- error ------- ' + error);
+        });
     } else {
-      alert('failure');
+      Alert.alert('falied');
     }
   };
 
@@ -141,6 +177,11 @@ class Register extends Component {
           <View style={styles.registerContainer}>
             <Text style={styles.neostoreHeader}>NeoSTORE</Text>
           </View>
+          {this.state.isLoading ? (
+            <View style={styles.loader}>
+              <ActivityIndicator size="large" color="#0000ff" />
+            </View>
+          ) : null}
 
           <View>
             <View style={styles.registerInput}>
@@ -149,9 +190,9 @@ class Register extends Component {
                 placeholder="First Name"
                 placeholderTextColor="white"
                 underlineColorAndroid="transparent"
-                onChangeText={firstName => {
-                  this.setState({firstName}, () => {
-                    if (this.state.firstName.length < 4) {
+                onChangeText={first_name => {
+                  this.setState({first_name}, () => {
+                    if (this.state.first_name.length < 4) {
                       this.setState({firstNameErr: true});
                     } else {
                       this.setState({firstNameErr: false});
@@ -171,9 +212,9 @@ class Register extends Component {
                 placeholder="Last Name"
                 placeholderTextColor="white"
                 underlineColorAndroid="transparent"
-                onChangeText={lastName => {
-                  this.setState({lastName}, () => {
-                    if (this.state.lastName.length < 4) {
+                onChangeText={last_name => {
+                  this.setState({last_name}, () => {
+                    if (this.state.last_name.length < 4) {
                       this.setState({lastNameErr: true});
                     } else {
                       this.setState({lastNameErr: false});
@@ -206,9 +247,7 @@ class Register extends Component {
                 placeholderTextColor="white"
                 underlineColorAndroid="transparent"
                 secureTextEntry
-                onChangeText={password =>
-                  this.validatePassword(password)
-                }></TextInput>
+                onChangeText={pass => this.validatePassword(pass)}></TextInput>
               {this.state.passwordErr ? (
                 <Text style={{color: 'white'}}>
                   *Password must be 8-15 characters and include atleast one
@@ -223,8 +262,8 @@ class Register extends Component {
                 placeholderTextColor="white"
                 underlineColorAndroid="transparent"
                 secureTextEntry
-                onChangeText={confirmPassword => {
-                  this.validateConfPass(confirmPassword);
+                onChangeText={confirmPass => {
+                  this.validateConfPass(confirmPass);
                 }}></TextInput>
               {this.state.confirmPasswordErr ? (
                 <Text style={{color: 'white'}}>Password did'nt matched!!</Text>
@@ -257,8 +296,8 @@ class Register extends Component {
                 underlineColorAndroid="transparent"
                 maxLength={10}
                 keyboardType={'number-pad'}
-                onChangeText={phoneNumber =>
-                  this.validatePhone(phoneNumber)
+                onChangeText={phone_no =>
+                  this.validatePhone(phone_no)
                 }></TextInput>
               {this.state.phoneErr ? (
                 <Text style={{color: 'white'}}>
@@ -290,7 +329,6 @@ class Register extends Component {
               <TouchableOpacity
                 style={styles.customBtnBG}
                 onPress={() => {
-                  //   this.props.navigation.navigate('Login');
                   this.validateRegisterForm();
                 }}>
                 <Text style={styles.customBtnText}>REGISTER</Text>
@@ -298,9 +336,8 @@ class Register extends Component {
             </View>
             <AwesomeAlert
               show={showAlert}
-              showProgress={false}
               title="Register form"
-              message="form submitted successfully"
+              message="Registered successfully,redirecting to login screen...."
               closeOnTouchOutside={true}
               closeOnHardwareBackPress={false}
               messageStyle={{color: 'green', fontSize: 18}}

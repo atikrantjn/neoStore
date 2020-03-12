@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 1.5,
     fontSize: 19,
+    zIndex: -1,
   },
   registerInput: {
     marginLeft: 50,
@@ -57,6 +58,16 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: 'red',
     textAlign: 'center',
+  },
+
+  loader: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 export default styles;

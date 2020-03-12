@@ -68,6 +68,9 @@ export default class Sidebar extends Component {
               left={() => (
                 <FaIcon name="bed" size={22} style={{marginRight: 25}} />
               )}
+              onPress={() => {
+                this.props.navigation.navigate('Bed');
+              }}
             />
             <List.Item
               titleStyle={{fontSize: 22}}

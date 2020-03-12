@@ -5,6 +5,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  FlatList,
   Dimensions,
 } from 'react-native';
 import {SliderBox} from 'react-native-image-slider-box';
@@ -34,21 +35,18 @@ export default class Home extends Component {
       });
   }
   render() {
-    // console.log(this.state.dataSource);
+    const stateData = this.state.dataSource;
+    let res = stateData.map(a => a.product_image);
 
-    const imageData = this.state.dataSource;
-    let res = imageData.map(a => a.product_image);
-
-    const url = 'http://180.149.241.208:3022/';
-
+    let url = 'http://180.149.241.208:3022/';
     const ele = res.map(el => {
       return url.concat(el);
     });
 
-    console.log(ele);
-
+    console.log(name);
+    const screenWidth = Dimensions.get('window').width;
     return (
-      <ScrollView>
+      <ScrollView style={{width: screenWidth}}>
         <View style={styles.container}>
           <View>
             <SliderBox
@@ -61,79 +59,39 @@ export default class Home extends Component {
           </View>
 
           <View style={{flex: 1, marginTop: 25}}>
-            <View
-              style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-              <TouchableOpacity style={styles.productCategoryCard}>
-                <Text
-                  style={{
-                    color: 'white',
-                    fontSize: 35,
-                    textAlign: 'center',
-                  }}>
-                  Tables
-                </Text>
-                <Image
-                  style={{width: 90, height: 90, marginLeft: 25}}
-                  source={images.tableImage}
-                />
-              </TouchableOpacity>
+            <FlatList
+              data={this.state.dataSource}
+              numColumns={2}
+              renderItem={({item}) => {
+                return (
+                  <View>
+                    <TouchableOpacity
+                      style={styles.productCategoryCard}
+                      onPress={() => {
+                        console.log(item.category_id);
+                        this.props.navigation.navigate(item.category_name, {
+                          id: item.category_id,
+                        });
 
-              <TouchableOpacity style={styles.productCategoryCard}>
-                <Text
-                  style={{
-                    color: 'white',
-                    fontSize: 35,
-                    textAlign: 'center',
-                  }}>
-                  Sofas
-                </Text>
-                <Image
-                  style={{width: 90, height: 90, marginLeft: 25}}
-                  source={images.sofaImage}
-                />
-              </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-                marginTop: 25,
-                marginBottom: 25,
-              }}>
-              <TouchableOpacity style={styles.productCategoryCard}>
-                <Text
-                  style={{
-                    color: 'white',
-                    fontSize: 35,
-                    textAlign: 'center',
-                  }}>
-                  Chairs
-                </Text>
-                <Image
-                  style={{width: 90, height: 90, marginLeft: 25}}
-                  source={images.chairImage}
-                />
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.productCategoryCard}
-                onPress={() => {
-                  this.props.navigation.navigate('Bed');
-                }}>
-                <Text
-                  style={{
-                    color: 'white',
-                    fontSize: 35,
-                    textAlign: 'center',
-                  }}>
-                  Bed
-                </Text>
-                <Image
-                  style={{width: 90, height: 90, marginLeft: 25}}
-                  source={images.bedImage}
-                />
-              </TouchableOpacity>
-            </View>
+                        // this.props.navigation.navigate(item.category_id);
+                      }}>
+                      <Text
+                        style={{
+                          color: 'white',
+                          fontSize: 35,
+                          textAlign: 'center',
+                        }}>
+                        {item.category_name}
+                      </Text>
+                      <Image
+                        style={{width: 90, height: 90, marginLeft: 25}}
+                        source={images.tableImage}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                );
+              }}
+            />
           </View>
         </View>
       </ScrollView>

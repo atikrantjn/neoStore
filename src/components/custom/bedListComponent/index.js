@@ -11,10 +11,10 @@ import {
 } from 'react-native';
 
 import styles from './styles';
-
+import * as contants from '../../../utils/contants';
 import StarRating from 'react-native-star-rating';
 
-export default class FlatList1 extends Component {
+export default class BedListModule extends Component {
   constructor(props) {
     super(props);
 
@@ -25,7 +25,7 @@ export default class FlatList1 extends Component {
 
   componentDidMount() {
     return fetch(
-      'http://180.149.241.208:3022/commonProducts?category_id=5cfe3c65ea821930af69281f&pageNo=1&perPage=5',
+      'http://180.149.241.208:3022/commonProducts?category_id=5cfe3c65ea821930af69281f',
     )
       .then(res => res.json())
       .then(response => {
@@ -48,6 +48,7 @@ export default class FlatList1 extends Component {
   };
   render() {
     const deviceWidth = Dimensions.get('window').width;
+
     console.log(this.state.data);
     return (
       <View>

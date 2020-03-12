@@ -12,6 +12,8 @@ const styles = StyleSheet.create({
     height: 200,
     backgroundColor: appColor.themeColor,
     borderRadius: 10,
+    marginLeft: 15,
+    marginVertical: 5,
   },
 });
 export default styles;
