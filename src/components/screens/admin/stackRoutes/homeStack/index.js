@@ -1,12 +1,19 @@
 import React, {Component} from 'react';
+import {TouchableOpacity} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../../home';
 import appColors from '../../../../../utils/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5';
 import ProductList from '../../../ProductList/ProductList';
+import ProductDetails from '../../../productDetails/productDetails';
 const Stack = createStackNavigator();
 class HomeStack extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+  }
   render() {
     return (
       <Stack.Navigator>
@@ -18,12 +25,14 @@ class HomeStack extends Component {
               backgroundColor: appColors.themeColor,
             },
             headerRight: () => (
-              <Icon
-                name="search"
-                size={28}
-                color="white"
-                style={{marginRight: 10}}
-              />
+              <TouchableOpacity>
+                <Icon
+                  name="search"
+                  size={28}
+                  color="white"
+                  style={{marginRight: 10}}
+                />
+              </TouchableOpacity>
             ),
             headerLeft: () => (
               <FontAwesomeIcon
@@ -174,6 +183,11 @@ class HomeStack extends Component {
               marginHorizontal: 85,
             },
           }}
+        />
+        <Stack.Screen
+          name="ProductDetails"
+          component={ProductDetails}
+          options={{headerShown: true}}
         />
       </Stack.Navigator>
     );

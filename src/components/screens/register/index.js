@@ -24,11 +24,11 @@ class Register extends Component {
       email: '',
       pass: '',
       confirmPass: '',
-
       phone_no: '',
       gender: '',
 
       showAlert: false,
+      isLoading: false,
 
       firstNameErr: false,
       isChecked: false,
@@ -37,8 +37,6 @@ class Register extends Component {
       passwordErr: false,
       confirmPasswordErr: false,
       phoneErr: false,
-
-      isLoading: false,
     };
   }
 

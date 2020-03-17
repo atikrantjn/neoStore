@@ -8,9 +8,10 @@ import Login from './src/components/screens/login/index';
 import Welcome from './src/components/screens/welcome/index';
 import Register from './src/components/screens/register/index';
 import Admin from './src/components/screens/admin';
-
+import ProductDetails from './src/components/screens/productDetails/productDetails';
 import ForgotPassword from './src/components/screens/forgotPassword/index';
 import SetPassword from './src/components/screens/setPassword/index';
+
 const Stack = createStackNavigator();
 class App extends Component {
   constructor(props) {

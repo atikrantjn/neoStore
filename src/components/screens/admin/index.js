@@ -1,17 +1,19 @@
 import React, {Component} from 'react';
-import appColors from '../../../utils/colors';
+// import appColors from '../../../utils/colors';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import HomeStack from './stackRoutes/homeStack';
-
+import ProductDetails from '../productDetails/productDetails';
 import Sidebar from '../../custom/sidebarComponent/sidebar';
 import ProductList from '../ProductList/ProductList';
 class Admin extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   render() {
     const Drawer = createDrawerNavigator();
+
+    console.log('shdgfjhgdf', this.props);
     return (
       <Drawer.Navigator
         initialRouteName="Home"
@@ -29,9 +31,7 @@ class Admin extends Component {
         <Drawer.Screen name="Chair" component={ProductList} />
         <Drawer.Screen name="Table" component={ProductList} />
         <Drawer.Screen name="Almirah" component={ProductList} />
-        {/* <Drawer.Screen name="Store Locator" component={MyCart} />
-        <Drawer.Screen name="My order" component={HomeStack} />
-        <Drawer.Screen name="Logout" component={MyCart} /> */}
+        <Drawer.Screen name="ProductDetails" component={ProductDetails} />
       </Drawer.Navigator>
     );
   }

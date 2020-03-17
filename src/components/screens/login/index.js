@@ -46,6 +46,7 @@ class Login extends Component {
             this.showAlert();
             setTimeout(() => {
               this.props.navigation.navigate('Admin');
+              this.hideAlert();
             }, 3000);
           }
         })

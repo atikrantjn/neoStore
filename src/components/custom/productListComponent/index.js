@@ -5,13 +5,12 @@ import {
   Image,
   FlatList,
   Dimensions,
-  Toast,
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
 
 import styles from './styles';
-import * as contants from '../../../utils/contants';
+// import * as contants from '../../../utils/contants';
 import StarRating from 'react-native-star-rating';
 
 export default class ProductListModule extends Component {
@@ -49,7 +48,6 @@ export default class ProductListModule extends Component {
   render() {
     const deviceWidth = Dimensions.get('window').width;
 
-    console.log(this.state.data);
     return (
       <View>
         <FlatList
@@ -63,7 +61,13 @@ export default class ProductListModule extends Component {
                     flex: 1,
                     margin: 10,
                   }}>
-                  <TouchableOpacity styles={styles.list}>
+                  <TouchableOpacity
+                    styles={styles.list}
+                    onPress={() => {
+                      this.props.navigation.navigate('ProductDetails', {
+                        productId: item.product_id,
+                      });
+                    }}>
                     <View
                       style={{
                         flexDirection: 'row',

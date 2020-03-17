@@ -5,7 +5,7 @@ import styles from './styles';
 class welcome extends Component {
   componentDidMount() {
     this.timeout = setTimeout(() => {
-      this.props.navigation.navigate('Login');
+      this.props.navigation.navigate('Admin');
     }, 2000);
   }
   render() {

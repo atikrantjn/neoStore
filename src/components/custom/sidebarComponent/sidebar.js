@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Image} from 'react-native';
+import {View, Image} from 'react-native';
 
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 import images from '../../../utils/images';
@@ -11,8 +11,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 export default class Sidebar extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       expanded: true,
     };
@@ -117,6 +117,9 @@ export default class Sidebar extends Component {
                   style={{marginRight: 25}}
                 />
               )}
+              onPress={() => {
+                this.props.navigation.navigate('ProductDetails');
+              }}
             />
           </List.Section>
         </DrawerContentScrollView>
