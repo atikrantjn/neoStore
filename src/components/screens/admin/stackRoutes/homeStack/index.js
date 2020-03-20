@@ -7,6 +7,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5';
 import ProductList from '../../../ProductList/ProductList';
 import ProductDetails from '../../../productDetails/productDetails';
+import OrderSummary from '../../../orderSummary/index';
+
 const Stack = createStackNavigator();
 class HomeStack extends Component {
   constructor(props) {
@@ -187,7 +189,44 @@ class HomeStack extends Component {
         <Stack.Screen
           name="ProductDetails"
           component={ProductDetails}
-          options={{headerShown: true}}
+          options={{
+            headerStyle: {
+              backgroundColor: appColors.themeColor,
+            },
+            headerRight: () => (
+              <Icon
+                name="search"
+                size={28}
+                color="white"
+                style={{marginRight: 10}}
+              />
+            ),
+
+            headerTitleStyle: {
+              color: 'white',
+              fontWeight: 'bold',
+              textAlign: 'center',
+              fontSize: 30,
+              marginHorizontal: 85,
+            },
+          }}
+        />
+        <Stack.Screen
+          name="OrderSummary"
+          component={OrderSummary}
+          options={{
+            headerStyle: {
+              backgroundColor: appColors.themeColor,
+            },
+
+            headerTitleStyle: {
+              color: 'white',
+              fontWeight: 'bold',
+              textAlign: 'center',
+              fontSize: 30,
+              marginHorizontal: 85,
+            },
+          }}
         />
       </Stack.Navigator>
     );

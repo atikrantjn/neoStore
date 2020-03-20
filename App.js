@@ -8,15 +8,37 @@ import Login from './src/components/screens/login/index';
 import Welcome from './src/components/screens/welcome/index';
 import Register from './src/components/screens/register/index';
 import Admin from './src/components/screens/admin';
-import ProductDetails from './src/components/screens/productDetails/productDetails';
+
 import ForgotPassword from './src/components/screens/forgotPassword/index';
 import SetPassword from './src/components/screens/setPassword/index';
-
+import {AsyncStorage} from '@react-native-community/async-storage';
 const Stack = createStackNavigator();
 class App extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      userToken: '',
+    };
   }
+
+  componentDidMount() {
+    this.getData();
+  }
+
+  getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('token');
+      console.log('available', value);
+      if (value !== null) {
+        // value previously stored
+        this.setState({userToken: value});
+      }
+    } catch (e) {
+      // error reading value
+      console.log(e);
+    }
+  };
 
   render() {
     return (

@@ -12,6 +12,7 @@ import images from '../../../utils/images';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import styles from './styles';
 import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +26,9 @@ class Login extends Component {
 
       isLoading: false,
       showAlert: false,
+
+      userToken: '',
+      userData: {},
     };
   }
 
@@ -41,8 +45,13 @@ class Login extends Component {
       axios
         .post('http://180.149.241.208:3022/login', userInput)
         .then(res => {
+          // this.setState({
+          //   userToken: 'bearer ' + res.data.token,
+          //   userData: res.data,
+          // });
           if (res.status === 200) {
             this.setState({isLoading: false});
+
             this.showAlert();
             setTimeout(() => {
               this.props.navigation.navigate('Admin');
@@ -72,6 +81,7 @@ class Login extends Component {
 
   render() {
     const {showAlert} = this.state;
+    console.log('token', this.state.userToken);
     return (
       <View style={styles.container}>
         <View style={styles.headingContainer}>

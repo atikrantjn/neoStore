@@ -7,12 +7,15 @@ import {
   ScrollView,
   FlatList,
   Modal,
-  TouchableHighlight,
+  Alert,
 } from 'react-native';
-import images from '../../../utils/images';
+
 import StarRating from 'react-native-star-rating';
 import axios from 'axios';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
+import AsyncStorage from '@react-native-community/async-storage';
+import {request, API_URL} from '../../../config/api';
+
 export default class ProductDetails extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +26,13 @@ export default class ProductDetails extends Component {
       categoryName: [],
 
       modalVisible: false,
-      starCount: '',
+      starCount: null,
+
+      product_id: '',
+
+      userToken: '',
+
+      quantity: 1,
     };
   }
 
@@ -34,6 +43,9 @@ export default class ProductDetails extends Component {
   componentDidMount() {
     const {productId} = this.props.route.params;
     const url = 'http://180.149.241.208:3022/getProductByProdId/' + productId;
+    this.setState({
+      product_id: productId,
+    });
 
     axios.get(url).then(res => {
       this.setState({
@@ -44,23 +56,89 @@ export default class ProductDetails extends Component {
     });
   }
 
+  updateRating() {
+    // this.getData();
+
+    const data = {
+      product_id: this.state.product_id,
+      product_rating: this.state.starCount,
+    };
+
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization:
+        'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mjc1LCJpYXQiOjE1ODQ2MjEyNTF9.ND-nQ9tqQlIZHNGstw1QvhIW8kO8FAwSSPKygHjUT7w',
+    };
+
+    request(
+      this.ratingCallback,
+      data,
+      'PUT',
+      API_URL.UPDATE_RATING_API,
+      header,
+    );
+  }
+
   onStarRatingPress(rating) {
     this.setState({
       starCount: rating,
     });
   }
 
+  ratingCallback = {
+    success: response => {
+      Alert.alert('thank you for rating our product');
+    },
+    error: error => {
+      console.log('errr', error);
+    },
+  };
+
+  getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('token');
+      if (value !== null) {
+        // value previously stored
+        this.setState({userToken: value});
+      }
+    } catch (e) {
+      // error reading value
+      console.log(e);
+    }
+  };
+
+  //add product to cart to cart
+
+  addToCart() {
+    const data = {
+      product_id: this.state.product_id,
+      quantity: this.state.quantity,
+    };
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization:
+        'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mjc1LCJpYXQiOjE1ODQ2MjEyNTF9.ND-nQ9tqQlIZHNGstw1QvhIW8kO8FAwSSPKygHjUT7w',
+    };
+    request(
+      this.addToCartCallBack,
+      data,
+      'POST',
+      API_URL.ADD_TO_CART_API,
+      header,
+    );
+  }
+
+  addToCartCallBack = {
+    success: response => {
+      Alert.alert('product added to cart successfully');
+    },
+    error: error => {
+      console.log('errr', error);
+    },
+  };
+
   render() {
     const {productData} = this.state;
-    // const {subImages} = this.state;
-
-    // console.log('subimages', this.state.subImages);
-
-    // subImages.product_subImages.map(val => {
-    //   console.log('value', val);
-    // });
-
-    console.log(this.state.starCount);
 
     return (
       <View>
@@ -70,6 +148,8 @@ export default class ProductDetails extends Component {
               flex: 1,
               backgroundColor: 'white',
               justifyContent: 'space-evenly',
+              borderBottomWidth: 2,
+              borderBottomColor: '#D5D5D5',
             }}>
             <View style={{flex: 1, flexDirection: 'row', padding: 5}}>
               <Text style={{fontSize: 35}}>{productData.product_name}</Text>
@@ -143,6 +223,9 @@ export default class ProductDetails extends Component {
                       />
                     </View>
                     <TouchableOpacity
+                      onPress={() => {
+                        this.updateRating();
+                      }}
                       style={{
                         borderRadius: 7,
                         backgroundColor: '#fe3f3f',
@@ -189,6 +272,8 @@ export default class ProductDetails extends Component {
               backgroundColor: 'white',
               height: 400,
               margin: 15,
+              borderBottomWidth: 2,
+              borderBottomColor: '#D5D5D5',
             }}>
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -229,13 +314,21 @@ export default class ProductDetails extends Component {
             </View> */}
           </View>
           <View style={{flex: 1, margin: 15, flexDirection: 'column'}}>
-            <View>
+            <View style={{flexDirection: 'row'}}>
               <Text style={{fontSize: 35}}>Description</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  this.addToCart();
+                }}
+                style={{flex: 1, alignItems: 'flex-end', marginRight: 35}}>
+                <FaIcon name="cart-plus" size={50} />
+              </TouchableOpacity>
             </View>
             <View>
               <Text style={{fontSize: 18}}>{productData.product_desc}</Text>
             </View>
           </View>
+
           <View
             style={{
               flex: 1,
@@ -244,6 +337,11 @@ export default class ProductDetails extends Component {
               justifyContent: 'space-between',
             }}>
             <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate('OrderSummary', {
+                  sendProdData: productData,
+                });
+              }}
               style={{
                 borderRadius: 7,
                 backgroundColor: 'red',

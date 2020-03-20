@@ -38,6 +38,8 @@ target 'secondDemo' do
 
   pod 'SajjadBlurOverlay', :path => '../node_modules/react-native-blur-overlay'
 
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
   target 'secondDemoTests' do
     inherit! :search_paths
     # Pods for testing

@@ -117,8 +117,19 @@ export default class Sidebar extends Component {
                   style={{marginRight: 25}}
                 />
               )}
+            />
+            <List.Item
+              titleStyle={{fontSize: 22}}
+              title="My Cart"
+              left={() => (
+                <EnIcon
+                  name="shopping-cart"
+                  size={22}
+                  style={{marginRight: 25}}
+                />
+              )}
               onPress={() => {
-                this.props.navigation.navigate('ProductDetails');
+                this.props.navigation.navigate('MyCart');
               }}
             />
           </List.Section>
