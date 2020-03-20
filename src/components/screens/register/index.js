@@ -14,6 +14,8 @@ import RadioForm from 'react-native-simple-radio-button';
 import styles from './styles';
 import axios from 'axios';
 
+import {request, API_URL, BASE_URL} from '../../../config/api';
+
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -122,7 +124,9 @@ class Register extends Component {
       gender: this.state.gender,
     };
 
-    console.log(data);
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
 
     if (
       data.first_name == '' ||
@@ -143,22 +147,30 @@ class Register extends Component {
       data.isChecked == true
     ) {
       this.setState({isLoading: true});
-      axios
-        .post('http://180.149.241.208:3022/register', postData)
-        .then(response => {
-          this.setState({isLoading: false});
-          this.showAlert();
-          setTimeout(() => {
-            this.props.navigation.navigate('Login');
-          }, 5000);
-        })
 
-        .catch(error => {
-          console.log('-------- error ------- ' + error);
-        });
+      request(
+        this.registerCallBack,
+        postData,
+        'POST',
+        API_URL.REGISTER_API,
+        header,
+      );
     } else {
       Alert.alert('falied');
     }
+  };
+
+  registerCallBack = {
+    success: () => {
+      this.setState({isLoading: false});
+      this.showAlert();
+      setTimeout(() => {
+        this.props.navigation.navigate('Login');
+      }, 5000);
+    },
+    error: () => {
+      Alert.alert('oops something went wrong');
+    },
   };
 
   render() {

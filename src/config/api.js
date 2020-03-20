@@ -4,6 +4,10 @@ export const API_URL = {
   UPDATE_RATING_API: 'updateProductRatingByCustomer',
   ADD_TO_CART_API: 'addDataToCart',
   GET_CUST_CART_API: 'getCustCartData',
+  LOGIN_API: 'login',
+  REGISTER_API: 'register',
+  PRODUCT_DETAILS_API: 'getProductByProdId/',
+  PRODUCT_LIST_API: 'commonProducts?category_id=',
 };
 
 export const buildHeader = (headerParams = {}) => {

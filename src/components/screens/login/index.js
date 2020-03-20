@@ -9,10 +9,10 @@ import {
 } from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import images from '../../../utils/images';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import {request, API_URL} from '../../../config/api';
+
 import styles from './styles';
-import axios from 'axios';
-import AsyncStorage from '@react-native-community/async-storage';
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -38,33 +38,34 @@ class Login extends Component {
       pass: this.state.password,
     };
 
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+
     if (userInput.email === '' || userInput.pass === '') {
       this.setState({emailErrr: true, passErr: true});
     } else {
       this.setState({isLoading: true});
-      axios
-        .post('http://180.149.241.208:3022/login', userInput)
-        .then(res => {
-          // this.setState({
-          //   userToken: 'bearer ' + res.data.token,
-          //   userData: res.data,
-          // });
-          if (res.status === 200) {
-            this.setState({isLoading: false});
 
-            this.showAlert();
-            setTimeout(() => {
-              this.props.navigation.navigate('Admin');
-              this.hideAlert();
-            }, 3000);
-          }
-        })
-        .catch(err => {
-          this.setState({isLoading: false, emailErrr: false, passErr: false});
-
-          alert('wrong credentials');
-        });
+      request(this.loginCallback, userInput, 'POST', API_URL.LOGIN_API, header);
     }
+  };
+
+  loginCallback = {
+    success: response => {
+      this.setState({isLoading: false});
+
+      this.showAlert();
+      setTimeout(() => {
+        this.props.navigation.navigate('Admin');
+        this.hideAlert();
+      }, 3000);
+    },
+    error: error => {
+      this.setState({isLoading: false, emailErrr: false, passErr: false});
+
+      alert('wrong credentials');
+    },
   };
 
   showAlert = () => {
@@ -81,7 +82,7 @@ class Login extends Component {
 
   render() {
     const {showAlert} = this.state;
-    console.log('token', this.state.userToken);
+
     return (
       <View style={styles.container}>
         <View style={styles.headingContainer}>

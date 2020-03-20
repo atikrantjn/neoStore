@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import {BASE_URL, API_URL, request} from '../../../config/api';
 
 import styles from './styles';
 // import * as contants from '../../../utils/contants';
@@ -23,17 +24,30 @@ export default class ProductListModule extends Component {
   }
 
   componentDidMount() {
-    return fetch(
-      'http://180.149.241.208:3022/commonProducts?category_id=' + this.props.id,
-    )
-      .then(res => res.json())
-      .then(response => {
-        this.setState({data: response.product_details});
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    const id = this.props.id;
+    const data = null;
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+
+    request(
+      this.productListCallBack,
+      data,
+      'GET',
+      API_URL.PRODUCT_LIST_API + id,
+      header,
+    );
   }
+
+  productListCallBack = {
+    success: response => {
+      this.setState({data: response.product_details});
+    },
+    error: error => {
+      console.log('errr', error);
+    },
+  };
+
   FlatListItemSeparator = () => {
     return (
       <View
@@ -46,8 +60,6 @@ export default class ProductListModule extends Component {
     );
   };
   render() {
-    const deviceWidth = Dimensions.get('window').width;
-
     return (
       <View>
         <FlatList
@@ -56,11 +68,7 @@ export default class ProductListModule extends Component {
           renderItem={({item}) => {
             return (
               <ScrollView>
-                <View
-                  style={{
-                    flex: 1,
-                    margin: 10,
-                  }}>
+                <View style={styles.listContainer}>
                   <TouchableOpacity
                     styles={styles.list}
                     onPress={() => {
@@ -68,17 +76,11 @@ export default class ProductListModule extends Component {
                         productId: item.product_id,
                       });
                     }}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        margin: 10,
-                        width: deviceWidth,
-                      }}>
+                    <View style={styles.imageContainer}>
                       <Image
-                        style={{width: 120, height: 120}}
+                        style={styles.image}
                         source={{
-                          uri:
-                            'http://180.149.241.208:3022/' + item.product_image,
+                          uri: BASE_URL + item.product_image,
                         }}
                       />
 
@@ -90,12 +92,7 @@ export default class ProductListModule extends Component {
                           {item.product_material}
                         </Text>
 
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            marginVertical: 15,
-                          }}>
+                        <View style={styles.productCostContainer}>
                           <Text style={styles.productCost}>
                             {'Rs' + ' ' + item.product_cost}
                           </Text>

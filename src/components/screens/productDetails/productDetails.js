@@ -10,13 +10,12 @@ import {
   Alert,
 } from 'react-native';
 import styles from './styles';
-import {BASE_URL} from '../../../config/api';
 
 import StarRating from 'react-native-star-rating';
 import axios from 'axios';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-community/async-storage';
-import {request, API_URL} from '../../../config/api';
+import {request, API_URL, BASE_URL} from '../../../config/api';
 
 export default class ProductDetails extends Component {
   constructor(props) {
@@ -28,13 +27,15 @@ export default class ProductDetails extends Component {
       categoryName: [],
 
       modalVisible: false,
-      starCount: null,
+      starCount: 0,
 
       product_id: '',
 
       userToken: '',
 
       quantity: 1,
+
+      buttonDisabled: true,
     };
   }
 
@@ -44,19 +45,37 @@ export default class ProductDetails extends Component {
 
   componentDidMount() {
     const {productId} = this.props.route.params;
-    const url = 'http://180.149.241.208:3022/getProductByProdId/' + productId;
+
     this.setState({
       product_id: productId,
     });
 
-    axios.get(url).then(res => {
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+    const data = null;
+
+    request(
+      this.productDetailsCallBack,
+      data,
+      'GET',
+      API_URL.PRODUCT_DETAILS_API + productId,
+      header,
+    );
+  }
+
+  productDetailsCallBack = {
+    success: response => {
       this.setState({
         productData: res.data.product_details[0],
         categoryName: res.data.product_details[0].category_id,
         subImages: res.data.product_details[0].subImages_id,
       });
-    });
-  }
+    },
+    error: error => {
+      console.log('errr', error);
+    },
+  };
 
   updateRating() {
     // this.getData();
@@ -84,30 +103,32 @@ export default class ProductDetails extends Component {
   onStarRatingPress(rating) {
     this.setState({
       starCount: rating,
+      buttonDisabled: false,
     });
   }
 
   ratingCallback = {
     success: response => {
       Alert.alert('thank you for rating our product');
+      this.setState({modalVisible: false});
     },
     error: error => {
       console.log('errr', error);
     },
   };
 
-  getData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('token');
-      if (value !== null) {
-        // value previously stored
-        this.setState({userToken: value});
-      }
-    } catch (e) {
-      // error reading value
-      console.log(e);
-    }
-  };
+  // getData = async () => {
+  //   try {
+  //     const value = await AsyncStorage.getItem('token');
+  //     if (value !== null) {
+  //       // value previously stored
+  //       this.setState({userToken: value});
+  //     }
+  //   } catch (e) {
+  //     // error reading value
+  //     console.log(e);
+  //   }
+  // };
 
   //add product to cart to cart
 
@@ -190,6 +211,7 @@ export default class ProductDetails extends Component {
                       />
                     </View>
                     <TouchableOpacity
+                      disabled={this.state.buttonDisabled}
                       onPress={() => {
                         this.updateRating();
                       }}

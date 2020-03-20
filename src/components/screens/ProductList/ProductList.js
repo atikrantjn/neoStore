@@ -8,7 +8,6 @@ export default class ProductList extends Component {
   }
   render() {
     const {id} = this.props.route.params;
-    console.log('hsgdgjhdg bhaiiiiiiiii', this.props.route.params.id);
 
     return (
       <View>
