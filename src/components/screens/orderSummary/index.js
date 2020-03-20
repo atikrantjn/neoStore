@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Text, View, ScrollView, TouchableOpacity, Image} from 'react-native';
-import {Dropdown} from 'react-native-material-dropdown';
+import styles from './styles';
 
+import {BASE_URL} from '../../../config/api';
 export class OrderSummary extends Component {
   constructor(props) {
     super(props);
@@ -20,90 +21,51 @@ export class OrderSummary extends Component {
 
     return (
       <ScrollView>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'space-evenly',
-            margin: 15,
-          }}>
+        <View style={styles.userDetailContainer}>
           <View>
-            <Text style={{fontSize: 32}}>Naveen Patel</Text>
+            <Text style={styles.userName}>Naveen Patel</Text>
           </View>
 
-          <View style={{marginTop: 15}}>
-            <Text style={{fontSize: 25}}>
+          <View style={styles.userAddressContainer}>
+            <Text style={styles.userAddress}>
               Address kjdhbfjkhkjsdfb kjsdhdfkjh skjdhfkjhsdfkj kjshdkjfh
             </Text>
           </View>
-          <View style={{marginTop: 15}}>
-            <TouchableOpacity
-              style={{backgroundColor: 'red', borderRadius: 7, padding: 7}}>
-              <Text
-                style={{
-                  fontSize: 25,
-                  fontWeight: 'bold',
-                  color: 'white',
-                  textAlign: 'center',
-                }}>
+          <View style={styles.changeAddressBTNcontainer}>
+            <TouchableOpacity style={styles.changeAddressBTN}>
+              <Text style={styles.changeAddressBTNtext}>
                 Change Or Add Address
               </Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View
-          style={{
-            borderBottomWidth: 3,
-            height: 10,
-            borderColor: '#D5D5D5',
-          }}></View>
+        <View style={styles.moduleSeperatorline}></View>
 
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'column',
-
-            margin: 25,
-          }}>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
-            <View style={{width: '50%'}}>
-              <Text style={{fontSize: 30}}>
+        <View style={styles.productDetailsContainer}>
+          <View style={styles.productNameContainer}>
+            <View style={styles.productNameDetailsContainer}>
+              <Text style={styles.productName}>
                 {this.state.product_data.product_name}
               </Text>
             </View>
             <View>
               <Image
-                style={{
-                  width: 125,
-                  height: 122,
-                }}
+                style={styles.productImage}
                 source={{
-                  uri:
-                    'http://180.149.241.208:3022/' + product_data.product_image,
+                  uri: BASE_URL + product_data.product_image,
                 }}
               />
             </View>
           </View>
 
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginVertical: 15,
-            }}>
-            <View style={{width: '50%'}}>
-              <Text style={{fontSize: 30}}>
+          <View style={styles.productPriceDetailsContainer}>
+            <View style={styles.productMaterialContainer}>
+              <Text style={styles.productMaterial}>
                 {product_data.product_material}
               </Text>
             </View>
             <View>
-              <Text style={{fontSize: 30}}>
+              <Text style={styles.productCost}>
                 {'Rs' + ' ' + product_data.product_cost}
               </Text>
             </View>
@@ -113,78 +75,38 @@ export class OrderSummary extends Component {
           </View> */}
         </View>
 
-        <View
-          style={{
-            borderBottomWidth: 3,
-            height: 10,
-            borderColor: '#D5D5D5',
-          }}></View>
+        <View style={styles.moduleSeperatorline}></View>
 
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'column',
-            margin: 25,
-          }}>
-          <View
-            style={{
-              flex: 1,
-            }}>
-            <Text
-              style={{
-                fontSize: 28,
-                textTransform: 'uppercase',
-                textDecorationLine: 'underline',
-              }}>
-              Price Details
-            </Text>
+        <View style={styles.footerContainer}>
+          <View style={styles.footerPriceDetailsContainer}>
+            <Text style={styles.footerPriceDetails}>Price Details</Text>
           </View>
 
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-evenly',
-              marginVertical: 15,
-            }}>
+          <View style={styles.productCostContainer}>
             <View style={{width: '50%'}}>
-              <Text style={{fontSize: 25}}>Price</Text>
+              <Text style={styles.productPrice}>Price</Text>
             </View>
             <View>
-              <Text style={{fontSize: 25}}>
+              <Text style={styles.productPrice}>
                 {'Rs' + ' ' + product_data.product_cost}
               </Text>
             </View>
           </View>
 
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginVertical: 15,
-            }}>
+          <View style={styles.orderSummaryFooterContainer}>
             <View>
-              <Text style={{fontSize: 25}}>
+              <Text style={styles.productPrice}>
                 {'Rs' + ' ' + product_data.product_cost}
               </Text>
             </View>
 
             <View>
               <TouchableOpacity
-                style={{backgroundColor: 'red', borderRadius: 7, padding: 7}}
+                style={styles.orderNowBTN}
                 onPress={() => {
                   alert('hello');
                 }}>
-                <Text
-                  style={{
-                    fontSize: 25,
-                    fontWeight: 'bold',
-                    color: 'white',
-                    textAlign: 'center',
-                  }}>
-                  ORDER NOW
-                </Text>
+                <Text style={styles.orderNowBTNtext}>ORDER NOW</Text>
               </TouchableOpacity>
             </View>
           </View>

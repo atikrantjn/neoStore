@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import styles from './styles';
 import {request, API_URL, BASE_URL} from '../../../../config/api';
 
 export class MyCart extends Component {
@@ -41,7 +42,7 @@ export class MyCart extends Component {
         JSON.stringify(response.product_details),
       );
       this.setState({cartData: response.product_details});
-      console.log('product details', productDetails);
+      // console.log('product details', productDetails);
     },
     error: error => {
       console.log('errr', error);
@@ -49,45 +50,25 @@ export class MyCart extends Component {
   };
 
   FlatListItemSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: '100%',
-          backgroundColor: '#B4B4B4',
-        }}
-      />
-    );
+    return <View style={styles.itemSeperator} />;
   };
+
+  //footer component for flatlist
 
   footer = () => {
     return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          marginVertical: 15,
-        }}>
+      <View style={styles.footerComponentContainer}>
         <View>
-          <Text style={{fontSize: 25}}>price</Text>
+          <Text style={styles.footerPrice}>price</Text>
         </View>
 
         <View>
           <TouchableOpacity
-            style={{backgroundColor: 'red', borderRadius: 7, padding: 7}}
+            style={styles.footerOrderBTN}
             onPress={() => {
               alert('hello');
             }}>
-            <Text
-              style={{
-                fontSize: 25,
-                fontWeight: 'bold',
-                color: 'white',
-                textAlign: 'center',
-              }}>
-              ORDER NOW
-            </Text>
+            <Text style={styles.footerBTNtext}>ORDER NOW</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -95,8 +76,6 @@ export class MyCart extends Component {
   };
 
   render() {
-    console.log('cart data from api', this.state.cartData);
-
     return (
       <View>
         <FlatList
@@ -107,39 +86,26 @@ export class MyCart extends Component {
             const productItem = JSON.parse(JSON.stringify(item));
             return (
               <ScrollView>
-                <View
-                  style={{
-                    flex: 1,
-                    margin: 10,
-                  }}>
+                <View style={styles.container}>
                   <TouchableOpacity>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        margin: 10,
-                      }}>
+                    <View style={styles.listContainer}>
                       <Image
-                        style={{width: 120, height: 120}}
+                        style={styles.imageStyle}
                         source={{
                           uri: BASE_URL + productItem.product_id.product_image,
                         }}
                       />
 
-                      <View style={{flexDirection: 'column'}}>
-                        <Text numberOfLines={1} style={{fontSize: 30}}>
+                      <View style={styles.productNameContainer}>
+                        <Text numberOfLines={1} style={styles.productName}>
                           {productItem.product_id.product_name}
                         </Text>
-                        <Text numberOfLines={1} style={{fontSize: 20}}>
+                        <Text numberOfLines={1} style={styles.productMaterial}>
                           {productItem.product_id.product_material}
                         </Text>
 
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'flex-end',
-                            marginVertical: 15,
-                          }}>
-                          <Text style={{fontSize: 25}}>
+                        <View style={styles.productCostContainer}>
+                          <Text style={styles.productCost}>
                             {'Rs' + ' ' + productItem.product_cost}
                           </Text>
                         </View>

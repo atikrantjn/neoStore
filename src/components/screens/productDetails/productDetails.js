@@ -9,6 +9,8 @@ import {
   Modal,
   Alert,
 } from 'react-native';
+import styles from './styles';
+import {BASE_URL} from '../../../config/api';
 
 import StarRating from 'react-native-star-rating';
 import axios from 'axios';
@@ -143,24 +145,17 @@ export default class ProductDetails extends Component {
     return (
       <View>
         <ScrollView>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: 'white',
-              justifyContent: 'space-evenly',
-              borderBottomWidth: 2,
-              borderBottomColor: '#D5D5D5',
-            }}>
-            <View style={{flex: 1, flexDirection: 'row', padding: 5}}>
-              <Text style={{fontSize: 35}}>{productData.product_name}</Text>
+          <View style={styles.container}>
+            <View style={styles.productNameContainer}>
+              <Text style={styles.productName}>{productData.product_name}</Text>
             </View>
-            <View style={{flex: 1, flexDirection: 'row', padding: 5}}>
-              <Text style={{fontSize: 25}}>
+            <View style={styles.categoryNameContainer}>
+              <Text style={styles.categoryName}>
                 Category-{this.state.categoryName.category_name}
               </Text>
             </View>
 
-            <View style={{marginTop: 22}}>
+            <View style={styles.modalMainContainer}>
               <Modal
                 animationType="slide"
                 transparent={true}
@@ -168,50 +163,22 @@ export default class ProductDetails extends Component {
                   this.setModalVisible(false);
                 }}
                 visible={this.state.modalVisible}>
-                <View
-                  style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <View
-                    style={{
-                      height: 300,
-                      width: '75%',
-                      borderRadius: 10,
-                      borderWidth: 1,
-                      borderColor: '#fff',
-                      backgroundColor: '#DBB4B4',
-                    }}>
-                    <Text style={{fontSize: 35, textAlign: 'center'}}>
+                <View style={styles.modalDetailsContainer}>
+                  <View style={styles.modalProductNameContainer}>
+                    <Text style={styles.modalProductName}>
                       {productData.product_name}
                     </Text>
 
-                    <View
-                      style={{
-                        flex: 1,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}>
+                    <View style={styles.modalImageContainer}>
                       <Image
-                        style={{
-                          width: '50%',
-                          height: '70%',
-                        }}
+                        style={styles.modalImage}
                         source={{
-                          uri:
-                            'http://180.149.241.208:3022/' +
-                            productData.product_image,
+                          uri: BASE_URL + productData.product_image,
                         }}
                       />
                     </View>
 
-                    <View
-                      style={{
-                        width: '50%',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}>
+                    <View style={styles.modalStarContainer}>
                       <StarRating
                         halfStarEnabled={true}
                         disabled={false}
@@ -226,13 +193,7 @@ export default class ProductDetails extends Component {
                       onPress={() => {
                         this.updateRating();
                       }}
-                      style={{
-                        borderRadius: 7,
-                        backgroundColor: '#fe3f3f',
-                        width: '100%',
-                        height: 40,
-                        marginTop: 15,
-                      }}>
+                      style={styles.modalUpdateRatingBTN}>
                       <Text style={{textAlign: 'center', fontSize: 25}}>
                         Rate Now
                       </Text>
@@ -242,15 +203,9 @@ export default class ProductDetails extends Component {
               </Modal>
             </View>
 
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                padding: 5,
-              }}>
+            <View style={styles.productDetailsContainer}>
               <View>
-                <Text style={{fontSize: 20}}>
+                <Text style={styles.productMaterial}>
                   {productData.product_material}
                 </Text>
               </View>
@@ -266,19 +221,10 @@ export default class ProductDetails extends Component {
             </View>
           </View>
 
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: 'white',
-              height: 400,
-              margin: 15,
-              borderBottomWidth: 2,
-              borderBottomColor: '#D5D5D5',
-            }}>
-            <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={styles.productCostContainer}>
+            <View style={styles.productCostRow}>
               <View>
-                <Text style={{fontSize: 35, color: 'red'}}>
+                <Text style={styles.productCost}>
                   Rs. {productData.product_cost}
                 </Text>
               </View>
@@ -288,15 +234,11 @@ export default class ProductDetails extends Component {
                 </TouchableOpacity>
               </View>
             </View>
-            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <View style={styles.productImageContainer}>
               <Image
-                style={{
-                  width: '50%',
-                  height: '70%',
-                }}
+                style={styles.productImage}
                 source={{
-                  uri:
-                    'http://180.149.241.208:3022/' + productData.product_image,
+                  uri: BASE_URL + productData.product_image,
                 }}
               />
             </View>
@@ -313,57 +255,41 @@ export default class ProductDetails extends Component {
               />
             </View> */}
           </View>
-          <View style={{flex: 1, margin: 15, flexDirection: 'column'}}>
+          <View style={styles.productDescriptionContainer}>
             <View style={{flexDirection: 'row'}}>
-              <Text style={{fontSize: 35}}>Description</Text>
+              <Text style={styles.descriptionText}>Description</Text>
               <TouchableOpacity
                 onPress={() => {
                   this.addToCart();
                 }}
-                style={{flex: 1, alignItems: 'flex-end', marginRight: 35}}>
+                style={styles.addToCartIcon}>
                 <FaIcon name="cart-plus" size={50} />
               </TouchableOpacity>
             </View>
             <View>
-              <Text style={{fontSize: 18}}>{productData.product_desc}</Text>
+              <Text style={styles.productDescription}>
+                {productData.product_desc}
+              </Text>
             </View>
           </View>
 
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              margin: 15,
-              justifyContent: 'space-between',
-            }}>
+          <View style={styles.footerContainer}>
             <TouchableOpacity
               onPress={() => {
                 this.props.navigation.navigate('OrderSummary', {
                   sendProdData: productData,
                 });
               }}
-              style={{
-                borderRadius: 7,
-                backgroundColor: 'red',
-                width: 150,
-                height: 50,
-              }}>
-              <Text style={{textAlign: 'center', fontSize: 30, color: 'white'}}>
-                Buy Now
-              </Text>
+              style={styles.buyNowBTN}>
+              <Text style={styles.buyNowBTNtext}>Buy Now</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={{
-                borderRadius: 7,
-                backgroundColor: '#B7B7B7',
-                width: 150,
-                height: 50,
-              }}
+              style={styles.rateNowBTN}
               onPress={() => {
                 this.setModalVisible(true);
               }}>
-              <Text style={{textAlign: 'center', fontSize: 30}}>Rate </Text>
+              <Text style={styles.rateNowBTNtext}>Rate </Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
