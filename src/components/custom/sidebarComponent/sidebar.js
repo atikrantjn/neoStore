@@ -64,6 +64,20 @@ export default class Sidebar extends Component {
             </List.Accordion>
             <List.Item
               titleStyle={{fontSize: 22}}
+              title="MyAccount"
+              left={() => (
+                <MaterialIcon
+                  name="dashboard"
+                  size={22}
+                  style={{marginRight: 25}}
+                />
+              )}
+              onPress={() => {
+                this.props.navigation.navigate('My Account');
+              }}
+            />
+            <List.Item
+              titleStyle={{fontSize: 22}}
               title="Dashboard"
               left={() => (
                 <MaterialIcon

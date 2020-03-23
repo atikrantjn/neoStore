@@ -6,6 +6,8 @@ import ProductDetails from '../productDetails/productDetails';
 import Sidebar from '../../custom/sidebarComponent/sidebar';
 import ProductList from '../ProductList/ProductList';
 import MyCartStack from '../admin/stackRoutes/myCartStack/index';
+import UserProfileStack from '../admin/stackRoutes/userProfileStack/index';
+import userProfileStack from '../admin/stackRoutes/userProfileStack/index';
 class Admin extends Component {
   constructor(props) {
     super(props);
@@ -34,6 +36,7 @@ class Admin extends Component {
         <Drawer.Screen name="Almirah" component={ProductList} />
         <Drawer.Screen name="ProductDetails" component={ProductDetails} />
         <Drawer.Screen name="MyCart" component={MyCartStack} />
+        <Drawer.Screen name="My Account" component={userProfileStack} />
       </Drawer.Navigator>
     );
   }

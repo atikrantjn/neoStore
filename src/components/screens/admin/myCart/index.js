@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import {request, API_URL, BASE_URL} from '../../../../config/api';
-
+import RenderCartItem from './renderCartItem';
 export class MyCart extends Component {
   constructor(props) {
     super(props);
@@ -85,35 +85,41 @@ export class MyCart extends Component {
           renderItem={({item}) => {
             const productItem = JSON.parse(JSON.stringify(item));
             return (
-              <ScrollView>
-                <View style={styles.container}>
-                  <TouchableOpacity>
-                    <View style={styles.listContainer}>
-                      <Image
-                        style={styles.imageStyle}
-                        source={{
-                          uri: BASE_URL + productItem.product_id.product_image,
-                        }}
-                      />
+              <RenderCartItem
+                product_image={productItem.product_id.product_image}
+                product_name={productItem.product_id.product_name}
+                product_material={productItem.product_id.product_material}
+                product_cost={productItem.product_cost}
+              />
+              // <ScrollView>
+              //   <View style={styles.container}>
+              //     <TouchableOpacity>
+              //       <View style={styles.listContainer}>
+              //         <Image
+              //           style={styles.imageStyle}
+              //           source={{
+              //             uri: BASE_URL + productItem.product_id.product_image,
+              //           }}
+              //         />
 
-                      <View style={styles.productNameContainer}>
-                        <Text numberOfLines={1} style={styles.productName}>
-                          {productItem.product_id.product_name}
-                        </Text>
-                        <Text numberOfLines={1} style={styles.productMaterial}>
-                          {productItem.product_id.product_material}
-                        </Text>
+              //         <View style={styles.productNameContainer}>
+              //           <Text numberOfLines={1} style={styles.productName}>
+              //             {productItem.product_id.product_name}
+              //           </Text>
+              //           <Text numberOfLines={1} style={styles.productMaterial}>
+              //             {productItem.product_id.product_material}
+              //           </Text>
 
-                        <View style={styles.productCostContainer}>
-                          <Text style={styles.productCost}>
-                            {'Rs' + ' ' + productItem.product_cost}
-                          </Text>
-                        </View>
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              </ScrollView>
+              //           <View style={styles.productCostContainer}>
+              //             <Text style={styles.productCost}>
+              //               {'Rs' + ' ' + productItem.product_cost}
+              //             </Text>
+              //           </View>
+              //         </View>
+              //       </View>
+              //     </TouchableOpacity>
+              //   </View>
+              // </ScrollView>
             );
           }}
           keyExtractor={(item, index) => index}

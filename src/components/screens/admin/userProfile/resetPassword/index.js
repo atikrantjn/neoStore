@@ -1,16 +1,8 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  Dimensions,
-  TextInput,
-} from 'react-native';
+import {Text, View, TouchableOpacity, TextInput} from 'react-native';
 import styles from './styles';
 
-import Icon from 'react-native-vector-icons/FontAwesome5';
-const screenWidth = Math.round(Dimensions.get('window').width);
-export class SetPassword extends Component {
+export class ResetPassword extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -22,18 +14,19 @@ export class SetPassword extends Component {
           <View>
             <TextInput
               style={styles.input}
-              placeholder="otp"
-              placeholderTextColor="white"
-              underlineColorAndroid="transparent"></TextInput>
-            <TextInput
-              style={styles.input}
-              placeholder="new password"
+              placeholder="Current Password"
               placeholderTextColor="white"
               underlineColorAndroid="transparent"></TextInput>
 
             <TextInput
               style={styles.input}
-              placeholder="Re-enter password"
+              placeholder="New Password"
+              placeholderTextColor="white"
+              underlineColorAndroid="transparent"></TextInput>
+
+            <TextInput
+              style={styles.input}
+              placeholder="Confirm Password"
               placeholderTextColor="white"
               underlineColorAndroid="transparent"></TextInput>
           </View>
@@ -41,9 +34,9 @@ export class SetPassword extends Component {
             <TouchableOpacity
               style={styles.customBtnBG}
               onPress={() => {
-                this.props.navigation.navigate('Login');
+                alert('hello');
               }}>
-              <Text style={styles.customBtnText}>Submit</Text>
+              <Text style={styles.customBtnText}>RESET PASSWORD</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -52,4 +45,4 @@ export class SetPassword extends Component {
   }
 }
 
-export default SetPassword;
+export default ResetPassword;
