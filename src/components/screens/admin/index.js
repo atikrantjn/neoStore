@@ -6,7 +6,7 @@ import ProductDetails from '../productDetails/productDetails';
 import Sidebar from '../../custom/sidebarComponent/sidebar';
 import ProductList from '../ProductList/ProductList';
 import MyCartStack from '../admin/stackRoutes/myCartStack/index';
-
+import AddressStack from '../admin/stackRoutes/addressStack/index';
 import userProfileStack from '../admin/stackRoutes/userProfileStack/index';
 import StoreLocatorStack from '../admin/stackRoutes/storeLocatorStack/index';
 class Admin extends Component {
@@ -38,7 +38,7 @@ class Admin extends Component {
         <Drawer.Screen name="ProductDetails" component={ProductDetails} />
         <Drawer.Screen name="MyCart" component={MyCartStack} />
         <Drawer.Screen name="Store Locator" component={StoreLocatorStack} />
-
+        <Drawer.Screen name="Add Address" component={AddressStack} />
         <Drawer.Screen name="My Account" component={userProfileStack} />
       </Drawer.Navigator>
     );

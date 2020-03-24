@@ -70,7 +70,7 @@ class Register extends Component {
   //password validate function
 
   validatePassword = pass => {
-    let passPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$/;
+    let passPattern = /^[A-Za-z0-9]\w{8,115}$/;
 
     if (passPattern.test(pass) === false) {
       this.setState({passwordErr: true});
@@ -259,8 +259,7 @@ class Register extends Component {
                 onChangeText={pass => this.validatePassword(pass)}></TextInput>
               {this.state.passwordErr ? (
                 <Text style={{color: 'white'}}>
-                  *Password must be 8-15 characters and include atleast one
-                  uppercase one lowercase letter and one numeric digit.
+                  *Password must be 8-15 alphanumeric characters
                 </Text>
               ) : null}
             </View>

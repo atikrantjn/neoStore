@@ -149,6 +149,20 @@ export default class Sidebar extends Component {
                 this.props.navigation.navigate('MyCart');
               }}
             />
+            <List.Item
+              titleStyle={{fontSize: 22}}
+              title="Add Address"
+              onPress={() => {
+                this.props.navigation.navigate('Add Address');
+              }}
+              left={() => (
+                <EnIcon
+                  name="location-pin"
+                  size={22}
+                  style={{marginRight: 25}}
+                />
+              )}
+            />
           </List.Section>
         </DrawerContentScrollView>
       </View>

@@ -9,4 +9,9 @@ export default (
   initialState = {
     loginReducer,
   },
-) => createStore(combineReducers({}), initialState, applyMiddleware(logger));
+) =>
+  createStore(
+    combineReducers({loginReducer}),
+    initialState,
+    applyMiddleware(logger),
+  );
