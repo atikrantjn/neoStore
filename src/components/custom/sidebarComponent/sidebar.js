@@ -124,6 +124,9 @@ export default class Sidebar extends Component {
             <List.Item
               titleStyle={{fontSize: 22}}
               title="Store locator"
+              onPress={() => {
+                this.props.navigation.navigate('Store Locator');
+              }}
               left={() => (
                 <EnIcon
                   name="location-pin"

@@ -7,6 +7,8 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
+import {setLoginData} from '../../../redux/actions';
+import {connect} from 'react-redux';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import images from '../../../utils/images';
 import {request, API_URL} from '../../../config/api';
@@ -53,6 +55,8 @@ class Login extends Component {
 
   loginCallback = {
     success: response => {
+      this.props.setLoginData(response);
+
       this.setState({isLoading: false});
 
       this.showAlert();
@@ -171,4 +175,12 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  loginReducer: state.loginReducer,
+});
+
+const mapDispatchToProps = dispatch => ({
+  setLoginData: data => setLoginData(dispatch, data),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
