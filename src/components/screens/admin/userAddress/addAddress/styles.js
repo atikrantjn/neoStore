@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
   },
 
   saveAddressBtnBg: {
+    marginTop: 15,
     backgroundColor: 'red',
     borderRadius: 7,
     height: 60,
