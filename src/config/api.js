@@ -12,6 +12,7 @@ export const API_URL = {
   EDIT_USER_PROFILE_API: '',
   CHANGE_PASSWORD_API: '',
   GET_CUST_ADDRESS_API: 'getCustAddress',
+  SAVE_ADDRESS_API: 'address',
 };
 
 export const buildHeader = (headerParams = {}) => {

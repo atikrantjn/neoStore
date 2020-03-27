@@ -8,53 +8,108 @@ import {
   Alert,
 } from 'react-native';
 import styles from './styles';
+import AsyncStorage from '@react-native-community/async-storage';
+import {request, API_URL} from '../../../../../config/api';
 
 class AddAddress extends Component {
   constructor(props) {
     super(props);
-
-    this.myTextInput = React.createRef();
 
     this.state = {
       address: '',
       landmark: '',
       city: '',
       state: '',
-      zipCode: '',
+      pincode: '',
       country: '',
 
-      zipCodeErr: false,
+      pincodeErr: false,
       allFieldsRequired: false,
+
+      token: '',
     };
   }
 
-  validatezipCode = zipCode => {
-    if (zipCode.length < 6) {
-      this.setState({zipCodeErr: true});
-      return false;
+  getToken = async () => {
+    try {
+      const value = JSON.parse(await AsyncStorage.getItem('userData'));
+
+      if (value !== null) {
+        this.setState({token: value.token});
+      }
+    } catch (e) {
+      // error reading value
+      console.log(e);
     }
-    this.setState({zipCode: zipCode});
+  };
+
+  validatepincode = pincode => {
+    let pat1 = /^\d{6}$/;
+
+    if (pat1.test(pincode)) {
+      this.setState({pincodeErr: false, pincode: pincode});
+    } else {
+      this.setState({pincodeErr: true});
+    }
   };
 
   saveAddress = () => {
-    const {address, landmark, city, state, zipCode, country} = this.state;
+    const {address, landmark, city, state, pincode, country} = this.state;
 
     if (
       address === '' ||
       landmark === '' ||
       city === '' ||
       state === '' ||
-      zipCode === '' ||
+      pincode === '' ||
       country === ''
     ) {
       Alert.alert('fields cannot be kept empty');
+    } else {
+      this.submitAddress();
     }
-    Alert.alert('submitted');
+  };
+
+  submitAddress = () => {
+    const postAddressData = {
+      address: this.state.address,
+      pincode: this.state.pincode,
+      city: this.state.city,
+      state: this.state.state,
+      country: this.state.country,
+    };
+    const {token} = this.state;
+
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: 'Bearer ' + token,
+    };
+
+    request(
+      this.addAddressCallback,
+      postAddressData,
+      'POST',
+      API_URL.SAVE_ADDRESS_API,
+      header,
+    );
+  };
+
+  addAddressCallback = {
+    success: response => {
+      Alert.alert(response.message);
+    },
+    error: error => {
+      console.log('errr', error);
+    },
+  };
+
+  // get token method call in componentdidmount
+
+  componentDidMount = async () => {
+    await this.getToken();
   };
 
   render() {
-    const state = {...this.state};
-    console.log(state);
     return (
       <View style={styles.mainContainer}>
         <ScrollView>
@@ -112,15 +167,13 @@ class AddAddress extends Component {
               <View style={styles.zipContainer}>
                 <Text style={styles.zipText}>Zip Code</Text>
                 <TextInput
-                  ref={this.myTextInput}
                   keyboardType={'number-pad'}
-                  maxLength={6}
                   style={styles.zipTextInput}
-                  onChangeText={zipCode => {
-                    this.validatezipCode(zipCode);
+                  onChangeText={pincode => {
+                    this.validatepincode(pincode);
                   }}
                 />
-                {this.state.zipCodeErr ? (
+                {this.state.pincodeErr ? (
                   <Text style={{fontSize: 15, color: 'red', marginLeft: 15}}>
                     * should be 6 digits only
                   </Text>

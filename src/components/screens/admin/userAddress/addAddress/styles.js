@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 
-  zipCountryContainer: {flex: 1, flexDirection: 'row'},
+  zipCountryContainer: {flex: 1, flexDirection: 'row', marginBottom: 25},
 
   zipContainer: {flex: 1, flexDirection: 'column'},
   zipText: {marginLeft: 15, marginTop: 10, fontSize: 30},

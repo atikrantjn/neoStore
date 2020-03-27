@@ -58,7 +58,7 @@ class AddressStack extends Component {
                 color="white"
                 style={{marginLeft: 10}}
                 onPress={() => {
-                  this.props.navigation.navigate('Home');
+                  this.props.navigation.push('Add Address');
                 }}
               />
             ),

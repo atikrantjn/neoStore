@@ -29,6 +29,8 @@ export class AddressList extends Component {
     );
   };
 
+  //get data from asyncStorage
+
   getData = async () => {
     try {
       const value = JSON.parse(await AsyncStorage.getItem('userData'));
@@ -41,6 +43,7 @@ export class AddressList extends Component {
       console.log(e);
     }
   };
+
   componentDidMount = async () => {
     await this.getData();
 
@@ -61,7 +64,6 @@ export class AddressList extends Component {
 
   custAddressCallback = {
     success: response => {
-      // const addressDetails = JSON.parse(JSON.stringify(response));
       this.setState({addressData: response.customer_address});
     },
     error: error => {
