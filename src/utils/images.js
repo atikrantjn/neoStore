@@ -7,6 +7,7 @@ const images = {
   bedImage: require('../../assets/images/bedIcon.png'),
 
   sideDrawerImage: require('../../assets/images/sidebarImage.jpeg'),
+  userIcon: require('../../assets/images/userIcon.png'),
 };
 
 export default images;

@@ -8,7 +8,7 @@ export const API_URL = {
   REGISTER_API: 'register',
   PRODUCT_DETAILS_API: 'getProductByProdId/',
   PRODUCT_LIST_API: 'commonProducts?category_id=',
-  GET_CUST_PROFILE_API: '',
+  GET_CUST_PROFILE_API: 'getCustProfile',
   EDIT_USER_PROFILE_API: '',
   CHANGE_PASSWORD_API: '',
   GET_CUST_ADDRESS_API: 'getCustAddress',
