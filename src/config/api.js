@@ -11,6 +11,7 @@ export const API_URL = {
   GET_CUST_PROFILE_API: '',
   EDIT_USER_PROFILE_API: '',
   CHANGE_PASSWORD_API: '',
+  GET_CUST_ADDRESS_API: 'getCustAddress',
 };
 
 export const buildHeader = (headerParams = {}) => {
@@ -60,8 +61,9 @@ export const request = async (
       var responseJSON = await response.json();
     }
 
-    if (responseJSON.status_code === 200) onResponse.success(responseJSON);
-    else onResponse.error(responseJSON.description);
+    if (responseJSON.status_code === 200) {
+      onResponse.success(responseJSON);
+    } else onResponse.error(responseJSON.description);
   } catch (error) {
     error = 'Network Error: please check your internet connection';
     onResponse.error(error);

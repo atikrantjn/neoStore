@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, ScrollView, TouchableOpacity, Image} from 'react-native';
 import styles from './styles';
-
+import AsyncStorage from '@react-native-community/async-storage';
 import {BASE_URL} from '../../../config/api';
 export class OrderSummary extends Component {
   constructor(props) {
@@ -9,26 +9,50 @@ export class OrderSummary extends Component {
 
     this.state = {
       product_data: {},
+      loggedInData: {},
+
+      customerData: {},
     };
   }
+
   componentDidMount() {
     const {sendProdData} = this.props.route.params;
 
     this.setState({product_data: sendProdData});
+
+    this.getData();
   }
+
+  getData = async () => {
+    try {
+      const value = JSON.parse(await AsyncStorage.getItem('userData'));
+
+      if (value !== null) {
+        this.setState({
+          loggedInData: value,
+          customerData: value.customer_details,
+        });
+      }
+    } catch (e) {
+      // error reading value
+      console.log(e);
+    }
+  };
   render() {
-    const {product_data} = this.state;
+    const {product_data, customerData, loggedInData} = this.state;
+
+    const userFullName = customerData.first_name + ' ' + customerData.last_name;
 
     return (
       <ScrollView>
         <View style={styles.userDetailContainer}>
           <View>
-            <Text style={styles.userName}>Naveen Patel</Text>
+            <Text style={styles.userName}>{userFullName}</Text>
           </View>
 
           <View style={styles.userAddressContainer}>
             <Text style={styles.userAddress}>
-              Address kjdhbfjkhkjsdfb kjsdhdfkjh skjdhfkjhsdfkj kjshdkjfh
+              {loggedInData.customer_address}
             </Text>
           </View>
           <View style={styles.changeAddressBTNcontainer}>

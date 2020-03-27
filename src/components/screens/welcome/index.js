@@ -3,6 +3,12 @@ import {View, Text, ActivityIndicator} from 'react-native';
 import styles from './styles';
 
 class welcome extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {token: ''};
+  }
+
   componentDidMount() {
     this.timeout = setTimeout(() => {
       this.props.navigation.navigate('Admin');

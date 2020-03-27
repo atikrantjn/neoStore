@@ -5,14 +5,13 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  FlatList,
   Modal,
   Alert,
 } from 'react-native';
 import styles from './styles';
 
 import StarRating from 'react-native-star-rating';
-import axios from 'axios';
+
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-community/async-storage';
 import {request, API_URL, BASE_URL} from '../../../config/api';
@@ -31,11 +30,12 @@ export default class ProductDetails extends Component {
 
       product_id: '',
 
-      userToken: '',
+      token: '',
 
       quantity: 1,
 
       buttonDisabled: true,
+      buyNowbtn: true,
     };
   }
 
@@ -43,7 +43,8 @@ export default class ProductDetails extends Component {
     this.setState({modalVisible: visible});
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
+    await this.getToken();
     const {productId} = this.props.route.params;
 
     this.setState({
@@ -62,24 +63,24 @@ export default class ProductDetails extends Component {
       API_URL.PRODUCT_DETAILS_API + productId,
       header,
     );
-  }
+  };
 
   productDetailsCallBack = {
     success: response => {
       this.setState({
-        productData: res.data.product_details[0],
-        categoryName: res.data.product_details[0].category_id,
-        subImages: res.data.product_details[0].subImages_id,
+        productData: response.product_details[0],
+        categoryName: response.product_details[0].category_id,
+        subImages: response.product_details[0].subImages_id,
       });
     },
     error: error => {
-      console.log('errr', error);
+      console.log('errrbsdjgjhghjcgvjh', error);
     },
   };
 
   updateRating() {
-    // this.getData();
-
+    const {token} = this.state;
+    console.log('update rating', token);
     const data = {
       product_id: this.state.product_id,
       product_rating: this.state.starCount,
@@ -87,8 +88,7 @@ export default class ProductDetails extends Component {
 
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization:
-        'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mjc1LCJpYXQiOjE1ODQ2MjEyNTF9.ND-nQ9tqQlIZHNGstw1QvhIW8kO8FAwSSPKygHjUT7w',
+      Authorization: 'Bearer ' + token,
     };
 
     request(
@@ -113,34 +113,34 @@ export default class ProductDetails extends Component {
       this.setState({modalVisible: false});
     },
     error: error => {
-      console.log('errr', error);
+      Alert.alert('please login first');
     },
   };
 
-  // getData = async () => {
-  //   try {
-  //     const value = await AsyncStorage.getItem('token');
-  //     if (value !== null) {
-  //       // value previously stored
-  //       this.setState({userToken: value});
-  //     }
-  //   } catch (e) {
-  //     // error reading value
-  //     console.log(e);
-  //   }
-  // };
+  getToken = async () => {
+    try {
+      const value = JSON.parse(await AsyncStorage.getItem('userData'));
+
+      if (value !== null) {
+        this.setState({token: value.token, buyNowbtn: false});
+      }
+    } catch (e) {
+      // error reading value
+      console.log(e);
+    }
+  };
 
   //add product to cart to cart
 
   addToCart() {
+    const {token} = this.state;
     const data = {
       product_id: this.state.product_id,
       quantity: this.state.quantity,
     };
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization:
-        'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mjc1LCJpYXQiOjE1ODQ2MjEyNTF9.ND-nQ9tqQlIZHNGstw1QvhIW8kO8FAwSSPKygHjUT7w',
+      Authorization: 'Bearer ' + token,
     };
     request(
       this.addToCartCallBack,
@@ -153,10 +153,10 @@ export default class ProductDetails extends Component {
 
   addToCartCallBack = {
     success: response => {
-      Alert.alert('product added to cart successfully');
+      Alert.alert(response.message);
     },
     error: error => {
-      console.log('errr', error);
+      Alert.alert('please login first');
     },
   };
 
@@ -297,6 +297,7 @@ export default class ProductDetails extends Component {
 
           <View style={styles.footerContainer}>
             <TouchableOpacity
+              disabled={this.state.buyNowbtn}
               onPress={() => {
                 this.props.navigation.navigate('OrderSummary', {
                   sendProdData: productData,

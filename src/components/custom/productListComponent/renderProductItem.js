@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import {Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
 import styles from './styles';
+import StarRating from 'react-native-star-rating';
+import {BASE_URL} from '../../../config/api';
 export class RenderProductItem extends Component {
   constructor(props) {
     super(props);
   }
   render() {
     const data = this.props;
-    console.log('hello data', data);
+
     return (
       <ScrollView>
         <View style={styles.listContainer}>
@@ -15,7 +17,7 @@ export class RenderProductItem extends Component {
             styles={styles.list}
             onPress={() => {
               this.props.navigation.navigate('ProductDetails', {
-                productId: data.product_id,
+                productId: data.productId,
               });
             }}>
             <View style={styles.imageContainer}>

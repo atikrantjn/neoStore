@@ -50,7 +50,6 @@ class AddAddress extends Component {
       Alert.alert('fields cannot be kept empty');
     }
     Alert.alert('submitted');
-    this.myTextInput.current.clear();
   };
 
   render() {
@@ -131,7 +130,6 @@ class AddAddress extends Component {
               <View style={styles.countryContainer}>
                 <Text style={styles.countryText}>Country</Text>
                 <TextInput
-                  ref={this.myTextInput}
                   style={styles.countryTextInput}
                   onChangeText={country => {
                     this.setState({country: country});
@@ -148,6 +146,15 @@ class AddAddress extends Component {
               this.saveAddress();
             }}>
             <Text style={styles.saveAddressBtnText}>SAVE ADDRESS</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <TouchableOpacity
+            style={styles.saveAddressBtnBg}
+            onPress={() => {
+              this.props.navigation.navigate('Address List');
+            }}>
+            <Text style={styles.saveAddressBtnText}> ADDRESS List </Text>
           </TouchableOpacity>
         </View>
       </View>

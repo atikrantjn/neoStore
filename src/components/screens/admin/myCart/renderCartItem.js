@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 
 import styles from './styles';
 import {Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
+import {BASE_URL} from '../../../../config/api';
 export class RenderCartItem extends Component {
   constructor(props) {
     super(props);
   }
   render() {
     const data = this.props;
-    console.log('hello', data);
+
     return (
       <ScrollView>
         <View style={styles.container}>

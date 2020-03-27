@@ -15,14 +15,17 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
   },
-  productNameContainer: {flexDirection: 'column'},
+  productNameContainer: {flexDirection: 'column', marginHorizontal: 15},
 
   productName: {
     fontSize: 30,
+    width: 250,
   },
 
   productMaterial: {
     fontSize: 20,
+    width: 250,
+    color: '#A09F9F',
   },
 
   productCostContainer: {

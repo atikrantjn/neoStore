@@ -13,6 +13,8 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import images from '../../../utils/images';
 import {request, API_URL} from '../../../config/api';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
 import styles from './styles';
 
 class Login extends Component {
@@ -33,6 +35,16 @@ class Login extends Component {
       userData: {},
     };
   }
+
+  storeData = async response => {
+    console.log('in store data', response);
+    try {
+      await AsyncStorage.setItem('userData', JSON.stringify(response));
+    } catch (e) {
+      // saving error
+      console.log('error in storing data', e);
+    }
+  };
 
   validateUser = () => {
     const userInput = {
@@ -55,20 +67,22 @@ class Login extends Component {
 
   loginCallback = {
     success: response => {
-      this.props.setLoginData(response);
+      console.log('from login', response);
+      // this.props.setLoginData(response);
+      this.storeData(response);
 
       this.setState({isLoading: false});
 
       this.showAlert();
       setTimeout(() => {
-        this.props.navigation.navigate('Admin');
+        this.props.navigation.navigate('Home');
         this.hideAlert();
       }, 3000);
     },
     error: error => {
       this.setState({isLoading: false, emailErrr: false, passErr: false});
 
-      alert('wrong credentials');
+      console.log('wrong credentials', error);
     },
   };
 

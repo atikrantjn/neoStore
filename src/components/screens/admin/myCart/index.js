@@ -1,36 +1,49 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  ScrollView,
-  FlatList,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import {Text, View, FlatList, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import {request, API_URL, BASE_URL} from '../../../../config/api';
 import RenderCartItem from './renderCartItem';
+import AsyncStorage from '@react-native-community/async-storage';
 export class MyCart extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       cartData: [],
+
+      token: null,
     };
   }
 
   //cart data api function
 
-  componentDidMount() {
+  componentDidMount = async () => {
+    // this.cartData();
+    await this.getData();
+    console.log('in cartdata', this.state.token);
     this.cartData();
-  }
+  };
+
+  getData = async () => {
+    try {
+      const value = JSON.parse(await AsyncStorage.getItem('userData'));
+
+      if (value !== null) {
+        this.setState({token: value.token});
+      }
+    } catch (e) {
+      // error reading value
+      console.log(e);
+    }
+  };
 
   cartData() {
+    const {token} = this.state;
+
     const data = null;
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization:
-        'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mjc1LCJpYXQiOjE1ODQ2MjEyNTF9.ND-nQ9tqQlIZHNGstw1QvhIW8kO8FAwSSPKygHjUT7w',
+      Authorization: 'Bearer ' + token,
     };
 
     request(this.cartCallBack, data, 'GET', API_URL.GET_CUST_CART_API, header);
@@ -91,35 +104,6 @@ export class MyCart extends Component {
                 product_material={productItem.product_id.product_material}
                 product_cost={productItem.product_cost}
               />
-              // <ScrollView>
-              //   <View style={styles.container}>
-              //     <TouchableOpacity>
-              //       <View style={styles.listContainer}>
-              //         <Image
-              //           style={styles.imageStyle}
-              //           source={{
-              //             uri: BASE_URL + productItem.product_id.product_image,
-              //           }}
-              //         />
-
-              //         <View style={styles.productNameContainer}>
-              //           <Text numberOfLines={1} style={styles.productName}>
-              //             {productItem.product_id.product_name}
-              //           </Text>
-              //           <Text numberOfLines={1} style={styles.productMaterial}>
-              //             {productItem.product_id.product_material}
-              //           </Text>
-
-              //           <View style={styles.productCostContainer}>
-              //             <Text style={styles.productCost}>
-              //               {'Rs' + ' ' + productItem.product_cost}
-              //             </Text>
-              //           </View>
-              //         </View>
-              //       </View>
-              //     </TouchableOpacity>
-              //   </View>
-              // </ScrollView>
             );
           }}
           keyExtractor={(item, index) => index}

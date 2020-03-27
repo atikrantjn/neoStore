@@ -26,6 +26,7 @@ export default class ProductListModule extends Component {
 
   componentDidMount() {
     const id = this.props.id;
+
     const data = null;
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -67,54 +68,17 @@ export default class ProductListModule extends Component {
           data={this.state.data}
           ItemSeparatorComponent={this.FlatListItemSeparator}
           renderItem={({item}) => {
-            <RenderProductItem
-              productId={item.product_id}
-              product_image={item.product_image}
-              product_name={item.product_name}
-              product_material={item.product_material}
-              product_cost={item.product_cost}
-              rating={item.product_rating}
-            />;
-            // <ScrollView>
-            //   <View style={styles.listContainer}>
-            //     <TouchableOpacity
-            //       styles={styles.list}
-            //       onPress={() => {
-            //         this.props.navigation.navigate('ProductDetails', {
-            //           productId: item.product_id,
-            //         });
-            //       }}>
-            //       <View style={styles.imageContainer}>
-            //         <Image
-            //           style={styles.image}
-            //           source={{
-            //             uri: BASE_URL + item.product_image,
-            //           }}
-            //         />
-            //         <View style={{flexDirection: 'column'}}>
-            //           <Text numberOfLines={1} style={styles.listText}>
-            //             {item.product_name}
-            //           </Text>
-            //           <Text numberOfLines={1} style={styles.listSubText}>
-            //             {item.product_material}
-            //           </Text>
-            //           <View style={styles.productCostContainer}>
-            //             <Text style={styles.productCost}>
-            //               {'Rs' + ' ' + item.product_cost}
-            //             </Text>
-            //             <StarRating
-            //               disabled={false}
-            //               maxStars={5}
-            //               rating={item.product_rating}
-            //               fullStarColor={'#CD9922'}
-            //               starSize={20}
-            //             />
-            //           </View>
-            //         </View>
-            //       </View>
-            //     </TouchableOpacity>
-            //   </View>
-            // </ScrollView>
+            return (
+              <RenderProductItem
+                {...this.props}
+                productId={item.product_id}
+                product_image={item.product_image}
+                product_name={item.product_name}
+                product_material={item.product_material}
+                product_cost={item.product_cost}
+                product_rating={item.product_rating}
+              />
+            );
           }}
           keyExtractor={(item, index) => index}
         />
