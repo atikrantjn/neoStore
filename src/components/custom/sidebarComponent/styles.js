@@ -12,15 +12,15 @@ const styles = StyleSheet.create({
   customBtnBG: {
     backgroundColor: 'red',
     borderRadius: 7,
-    width: 150,
-    marginHorizontal: 25,
+    height: 45,
   },
 
   customBtnText: {
     fontSize: 25,
-    fontWeight: '400',
+    fontWeight: 'bold',
     color: 'white',
     textAlign: 'center',
+    padding: 5,
   },
 });
 

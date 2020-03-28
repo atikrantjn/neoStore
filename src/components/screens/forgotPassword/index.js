@@ -3,8 +3,57 @@ import {Text, View, TouchableOpacity, Dimensions} from 'react-native';
 import styles from './styles';
 import {InputGroup, Input} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import {API_URL, request} from '../../../config/api';
 const screenWidth = Math.round(Dimensions.get('window').width);
 export class ForgotPassword extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      emailErr: false,
+    };
+  }
+
+  emailValidation = email => {
+    // console.log('xyz', email);
+    let pattern = /^([a-zA-Z])+([0-9a-zA-Z_\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,5}$)$/;
+
+    if (pattern.test(email) === false) {
+      this.setState({emailErr: true});
+    } else {
+      this.setState({email: email, emailErr: false});
+    }
+  };
+
+  forgotPassHandler = () => {
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+
+    const {email} = this.state;
+    const data = this.state.email;
+    if (email === '') {
+      alert('fields cannot be kept empty');
+    } else {
+      request(
+        this.forgotPasscallback,
+        data,
+        'POST',
+        API_URL.FORGOT_PASS_API,
+        header,
+      );
+    }
+  };
+
+  forgotPasscallback = {
+    success: response => {
+      console.log('response forgot', response);
+    },
+    error: error => {
+      console.log('response err', error);
+    },
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -16,13 +65,6 @@ export class ForgotPassword extends Component {
             <Text style={styles.forgotText}>Forgot Password?</Text>
           </View>
           <View style={styles.forgotInput}>
-            {/* <TextInput
-              style={styles.input}
-              placeholder="Username"
-              placeholderTextColor="white"
-              inlineImageLeft="username"
-              underlineColorAndroid="transparent"></TextInput> */}
-
             <InputGroup
               style={{
                 marginVertical: 45,
@@ -37,17 +79,23 @@ export class ForgotPassword extends Component {
                 style={{marginRight: 40}}
               />
               <Input
-                placeholder="username"
+                placeholder="enter email"
                 placeholderTextColor="white"
                 style={styles.input}
+                onChangeText={email => {
+                  this.emailValidation(email);
+                }}
               />
             </InputGroup>
+            {this.state.emailErr ? (
+              <Text style={{color: 'white'}}>invalid email address</Text>
+            ) : null}
           </View>
           <View style={styles.loginInput}>
             <TouchableOpacity
               style={styles.customBtnBG}
               onPress={() => {
-                this.props.navigation.navigate('Set Password');
+                this.forgotPassHandler();
               }}>
               <Text style={styles.customBtnText}>Submit</Text>
             </TouchableOpacity>

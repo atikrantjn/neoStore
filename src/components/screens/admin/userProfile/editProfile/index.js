@@ -10,6 +10,8 @@ import {
 import styles from './styles';
 import images from '../../../../../utils/images';
 import DatePicker from 'react-native-datepicker';
+import FaIcon from 'react-native-vector-icons/FontAwesome5';
+import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export class EditProfile extends Component {
   constructor(props) {
@@ -19,7 +21,7 @@ export class EditProfile extends Component {
       first_name: '',
       last_name: '',
       email: '',
-
+      dob: '',
       phone_no: '',
 
       showAlert: false,
@@ -30,6 +32,8 @@ export class EditProfile extends Component {
       emailErr: false,
 
       phoneErr: false,
+
+      customerData: {},
     };
   }
 
@@ -55,6 +59,11 @@ export class EditProfile extends Component {
     }
   };
 
+  componentDidMount = () => {
+    const {customerData} = this.props.route.params;
+    this.setState({customerData: customerData});
+  };
+
   render() {
     return (
       <ScrollView style={styles.mainContainer}>
@@ -73,24 +82,55 @@ export class EditProfile extends Component {
           </View>
 
           <View style={styles.registerInput}>
+            <FaIcon
+              name="user"
+              size={25}
+              style={{
+                position: 'absolute',
+                top: 10,
+                left: 10,
+                color: 'white',
+              }}
+            />
             <TextInput
               style={styles.input}
-              value="read only name"
+              value={this.state.customerData.first_name}
               underlineColorAndroid="transparent"
             />
           </View>
 
           <View style={styles.registerInput}>
+            <FaIcon
+              name="user"
+              size={25}
+              style={{
+                position: 'absolute',
+                top: 10,
+                left: 10,
+                color: 'white',
+              }}
+            />
             <TextInput
               style={styles.input}
-              value="read only surname"
+              value={this.state.customerData.last_name}
               underlineColorAndroid="transparent"
             />
           </View>
 
           <View style={styles.registerInput}>
+            <MatIcon
+              name="email"
+              size={25}
+              style={{
+                position: 'absolute',
+                top: 10,
+                left: 10,
+                color: 'white',
+              }}
+            />
             <TextInput
               style={styles.input}
+              value={this.state.customerData.email}
               placeholder="email"
               placeholderTextColor="white"
               underlineColorAndroid="transparent"
@@ -102,8 +142,19 @@ export class EditProfile extends Component {
           </View>
 
           <View style={styles.registerInput}>
+            <FaIcon
+              name="phone"
+              size={25}
+              style={{
+                position: 'absolute',
+                top: 10,
+                left: 10,
+                color: 'white',
+              }}
+            />
             <TextInput
               style={styles.input}
+              value={this.state.customerData.phone_no}
               placeholder="phone no."
               placeholderTextColor="white"
               underlineColorAndroid="transparent"
@@ -120,6 +171,7 @@ export class EditProfile extends Component {
 
           <View style={styles.registerInput}>
             <DatePicker
+              date={this.state.customerData.dob}
               style={{width: '100%', borderColor: 'white', borderWidth: 1.5}}
               mode="date"
               placeholder="select date"
@@ -132,6 +184,9 @@ export class EditProfile extends Component {
                   left: 10,
                   top: 4,
                 },
+              }}
+              onDateChange={date => {
+                this.setState({dob: date});
               }}
             />
           </View>

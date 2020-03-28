@@ -4,6 +4,7 @@ import {request, API_URL} from '../../../../../config/api';
 import AsyncStorage from '@react-native-community/async-storage';
 // import RadioForm from 'react-native-simple-radio-button';
 import {RadioButton} from 'react-native-paper';
+import FaIcon from 'react-native-vector-icons/FontAwesome5';
 export class AddressList extends Component {
   constructor(props) {
     super(props);
@@ -83,46 +84,64 @@ export class AddressList extends Component {
           <Text style={{fontSize: 30, margin: 20, color: '#8B8888'}}>
             Shipping Address
           </Text>
-          <FlatList
-            data={this.state.addressData}
-            ItemSeparatorComponent={this.FlatListItemSeparator}
-            renderItem={({item}) => {
-              return (
-                <View
-                  style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                  }}>
-                  <View style={{marginTop: 40}}>
-                    <RadioButton
-                      status={checked ? true : false}
-                      onPress={() => {
-                        this.setState({checked: true});
-                      }}
-                    />
+          {Object.keys(this.state.addressData).length === 0 &&
+          this.state.addressData.constructor === Object ? (
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                flex: 1,
+              }}>
+              <View>
+                <FaIcon size={98} name="frown-open" />
+              </View>
+              <Text style={{fontSize: 24, textAlign: 'center'}}>
+                Oooopsssss address not found!!
+              </Text>
+            </View>
+          ) : (
+            <FlatList
+              data={this.state.addressData}
+              ItemSeparatorComponent={this.FlatListItemSeparator}
+              renderItem={({item}) => {
+                return (
+                  <View
+                    style={{
+                      flex: 1,
+                      flexDirection: 'row',
+                    }}>
+                    <View style={{marginTop: 40}}>
+                      <RadioButton
+                        status={checked ? true : false}
+                        onPress={() => {
+                          this.setState({checked: true});
+                        }}
+                      />
+                    </View>
+                    <TouchableOpacity>
+                      <View style={{flex: 1, flexDirection: 'column'}}>
+                        <Text style={{marginHorizontal: 10, fontSize: 30}}>
+                          {fullName}
+                        </Text>
+                        <Text style={{marginHorizontal: 10, fontSize: 25}}>
+                          {item.address}
+                        </Text>
+                        <Text
+                          style={{
+                            marginHorizontal: 10,
+                            fontSize: 20,
+                            marginBottom: 10,
+                          }}>
+                          {item.pincode} , {item.country}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
                   </View>
-
-                  <View style={{flex: 1, flexDirection: 'column'}}>
-                    <Text style={{marginHorizontal: 10, fontSize: 30}}>
-                      {fullName}
-                    </Text>
-                    <Text style={{marginHorizontal: 10, fontSize: 25}}>
-                      {item.address}
-                    </Text>
-                    <Text
-                      style={{
-                        marginHorizontal: 10,
-                        fontSize: 20,
-                        marginBottom: 10,
-                      }}>
-                      {item.pincode} , {item.country}
-                    </Text>
-                  </View>
-                </View>
-              );
-            }}
-            keyExtractor={item => item.id}
-          />
+                );
+              }}
+              keyExtractor={(index, item) => index}
+            />
+          )}
         </View>
         <TouchableOpacity
           style={{

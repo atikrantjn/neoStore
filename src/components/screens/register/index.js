@@ -13,6 +13,8 @@ import CheckBox from 'react-native-check-box';
 import RadioForm from 'react-native-simple-radio-button';
 import styles from './styles';
 import axios from 'axios';
+import FaIcon from 'react-native-vector-icons/FontAwesome5';
+import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {request, API_URL, BASE_URL} from '../../../config/api';
 
@@ -70,7 +72,7 @@ class Register extends Component {
   //password validate function
 
   validatePassword = pass => {
-    let passPattern = /^[A-Za-z0-9]\w{8,115}$/;
+    let passPattern = /^([a-zA-Z0-9@*#]{8,15})$/;
 
     if (passPattern.test(pass) === false) {
       this.setState({passwordErr: true});
@@ -194,6 +196,16 @@ class Register extends Component {
 
           <View>
             <View style={styles.registerInput}>
+              <FaIcon
+                name="user"
+                size={25}
+                style={{
+                  position: 'absolute',
+                  top: 10,
+                  left: 10,
+                  color: 'white',
+                }}
+              />
               <TextInput
                 style={styles.input}
                 placeholder="First Name"
@@ -216,6 +228,16 @@ class Register extends Component {
             </View>
 
             <View style={styles.registerInput}>
+              <FaIcon
+                name="user"
+                size={25}
+                style={{
+                  position: 'absolute',
+                  top: 10,
+                  left: 10,
+                  color: 'white',
+                }}
+              />
               <TextInput
                 style={styles.input}
                 placeholder="Last Name"
@@ -238,6 +260,16 @@ class Register extends Component {
             </View>
 
             <View style={styles.registerInput}>
+              <MatIcon
+                name="email"
+                size={25}
+                style={{
+                  position: 'absolute',
+                  top: 10,
+                  left: 10,
+                  color: 'white',
+                }}
+              />
               <TextInput
                 style={styles.input}
                 placeholder="Email"
@@ -250,6 +282,16 @@ class Register extends Component {
             </View>
 
             <View style={styles.registerInput}>
+              <FaIcon
+                name="lock"
+                size={25}
+                style={{
+                  position: 'absolute',
+                  top: 10,
+                  left: 10,
+                  color: 'white',
+                }}
+              />
               <TextInput
                 style={styles.input}
                 placeholder="Password"
@@ -264,6 +306,16 @@ class Register extends Component {
               ) : null}
             </View>
             <View style={styles.registerInput}>
+              <FaIcon
+                name="lock"
+                size={25}
+                style={{
+                  position: 'absolute',
+                  top: 10,
+                  left: 10,
+                  color: 'white',
+                }}
+              />
               <TextInput
                 style={styles.input}
                 placeholder="Confirm Password"
@@ -296,6 +348,16 @@ class Register extends Component {
             </View>
 
             <View style={styles.registerInput}>
+              <FaIcon
+                name="phone"
+                size={25}
+                style={{
+                  position: 'absolute',
+                  top: 10,
+                  left: 10,
+                  color: 'white',
+                }}
+              />
               <TextInput
                 style={styles.input}
                 placeholder="Phone Number"

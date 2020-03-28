@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
+    alignContent: 'flex-end',
     marginVertical: 15,
   },
 
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     borderRadius: 7,
     padding: 7,
+    height: 50,
   },
 
   footerBTNtext: {

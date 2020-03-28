@@ -12,6 +12,8 @@ import styles from './styles';
 import images from '../../../../../utils/images';
 
 import {request, API_URL} from '../../../../../config/api';
+import FaIcon from 'react-native-vector-icons/FontAwesome5';
+import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export class MyAccount extends Component {
   constructor(props) {
@@ -69,7 +71,7 @@ export class MyAccount extends Component {
     },
   };
 
-  componentWillMount = async () => {
+  componentDidMount = async () => {
     await this.getToken();
 
     this.customerProfile();
@@ -101,6 +103,16 @@ export class MyAccount extends Component {
           </View>
 
           <View style={styles.registerInput}>
+            <FaIcon
+              name="user"
+              size={25}
+              style={{
+                position: 'absolute',
+                top: 10,
+                left: 10,
+                color: 'white',
+              }}
+            />
             <TextInput
               style={styles.input}
               value={customerData.first_name}
@@ -109,6 +121,16 @@ export class MyAccount extends Component {
           </View>
 
           <View style={styles.registerInput}>
+            <FaIcon
+              name="user"
+              size={25}
+              style={{
+                position: 'absolute',
+                top: 10,
+                left: 10,
+                color: 'white',
+              }}
+            />
             <TextInput
               style={styles.input}
               value={customerData.last_name}
@@ -117,6 +139,16 @@ export class MyAccount extends Component {
           </View>
 
           <View style={styles.registerInput}>
+            <MatIcon
+              name="email"
+              size={25}
+              style={{
+                position: 'absolute',
+                top: 10,
+                left: 10,
+                color: 'white',
+              }}
+            />
             <TextInput
               style={styles.input}
               value={customerData.email}
@@ -125,6 +157,16 @@ export class MyAccount extends Component {
           </View>
 
           <View style={styles.registerInput}>
+            <FaIcon
+              name="phone"
+              size={25}
+              style={{
+                position: 'absolute',
+                top: 10,
+                left: 10,
+                color: 'white',
+              }}
+            />
             <TextInput
               style={styles.input}
               value={customerData.phone_no}

@@ -12,7 +12,8 @@ import {connect} from 'react-redux';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import images from '../../../utils/images';
 import {request, API_URL} from '../../../config/api';
-
+import FaIcon from 'react-native-vector-icons/FontAwesome5';
+import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import styles from './styles';
@@ -108,6 +109,16 @@ class Login extends Component {
         </View>
         <View>
           <View style={styles.loginInput}>
+            <FaIcon
+              name="user"
+              size={25}
+              style={{
+                position: 'absolute',
+                top: 10,
+                left: 10,
+                color: 'white',
+              }}
+            />
             <TextInput
               style={styles.input}
               placeholder="Username"
@@ -130,6 +141,16 @@ class Login extends Component {
           ) : null}
 
           <View style={styles.loginInput}>
+            <FaIcon
+              name="lock"
+              size={25}
+              style={{
+                position: 'absolute',
+                top: 10,
+                left: 10,
+                color: 'white',
+              }}
+            />
             <TextInput
               style={styles.input}
               placeholder="Password"

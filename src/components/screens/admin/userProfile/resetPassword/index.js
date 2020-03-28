@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Text, View, TouchableOpacity, TextInput} from 'react-native';
+import {Text, View, TouchableOpacity, TextInput, Alert} from 'react-native';
 import styles from './styles';
-
+import AsyncStorage from '@react-native-community/async-storage';
+import {API_URL, request} from '../../../../../config/api';
 export class ResetPassword extends Component {
   constructor(props) {
     super(props);
@@ -11,11 +12,57 @@ export class ResetPassword extends Component {
       pass: '',
       confirmPass: '',
 
+      token: '',
+
       passwordErr: false,
       confirmPasswordErr: false,
       newpassErr: false,
     };
   }
+
+  changePasswordHandler = () => {
+    const {pass, newpass, confirmPass} = this.state;
+    if (pass === '' || newpass === '' || confirmPass === '') {
+      Alert.alert('fields cannot be kept empty');
+      return false;
+    } else {
+      this.sendPassword();
+    }
+  };
+
+  sendPassword = () => {
+    const postData = {
+      oldPass: this.state.pass,
+      newPass: this.state.newpass,
+      confirmPass: this.state.confirmPass,
+    };
+    const {token} = this.state;
+
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: 'Bearer ' + token,
+    };
+
+    request(
+      this.changePassCallback,
+      postData,
+      'POST',
+      API_URL.CHANGE_PASSWORD_API,
+      header,
+    );
+  };
+
+  //callback of change password api
+
+  changePassCallback = {
+    success: response => {
+      Alert.alert(response.message);
+      this.props.navigation.navigate('My Account');
+    },
+    error: error => {
+      console.log('in change password err ', error);
+    },
+  };
 
   validatePassword = pass => {
     let passPattern = /^([a-zA-Z0-9@*#]{8,15})$/;
@@ -51,6 +98,25 @@ export class ResetPassword extends Component {
         confirmPasswordErr: false,
       });
     }
+  };
+
+  //get token from asyncstorage
+
+  getToken = async () => {
+    try {
+      const value = JSON.parse(await AsyncStorage.getItem('userData'));
+
+      if (value !== null) {
+        this.setState({token: value.token});
+      }
+    } catch (e) {
+      // error reading value
+      console.log(e);
+    }
+  };
+
+  componentDidMount = async () => {
+    await this.getToken();
   };
 
   render() {
@@ -108,7 +174,7 @@ export class ResetPassword extends Component {
             <TouchableOpacity
               style={styles.customBtnBG}
               onPress={() => {
-                alert('hello');
+                this.changePasswordHandler();
               }}>
               <Text style={styles.customBtnText}>RESET PASSWORD</Text>
             </TouchableOpacity>

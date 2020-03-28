@@ -72,6 +72,7 @@ export default class Sidebar extends Component {
     console.log('in component sidebar', this.state.data);
 
     this.getData();
+    setInterval(this.getData, 5000);
   }
 
   render(props) {
@@ -187,37 +188,72 @@ export default class Sidebar extends Component {
               this.props.navigation.navigate('Home');
             }}
           />
-          <List.Item
-            titleStyle={{fontSize: 22}}
-            title="Bed"
-            left={() => (
-              <FaIcon name="bed" size={22} style={{marginRight: 25}} />
-            )}
-            onPress={() => {
-              this.props.navigation.navigate('Bed');
-            }}
-          />
-          <List.Item
-            titleStyle={{fontSize: 22}}
-            title="Sofa"
-            left={() => (
-              <FaIcon name="couch" size={22} style={{marginRight: 25}} />
-            )}
-          />
-          <List.Item
-            titleStyle={{fontSize: 22}}
-            title="Table"
-            left={() => (
-              <FaIcon name="couch" size={22} style={{marginRight: 25}} />
-            )}
-          />
-          <List.Item
-            titleStyle={{fontSize: 22}}
-            title="Chair"
-            left={() => (
-              <FaIcon name="chair" size={22} style={{marginRight: 25}} />
-            )}
-          />
+          <List.Accordion
+            titleStyle={{fontSize: 22, marginLeft: 25, color: 'black'}}
+            title="Products"
+            left={() => <FaIcon name="sitemap" size={22} />}>
+            <List.Item
+              titleStyle={{fontSize: 22}}
+              title="Bed"
+              left={() => (
+                <FaIcon name="bed" size={22} style={{marginRight: 25}} />
+              )}
+              onPress={() => {
+                this.props.navigation.navigate('Bed', {
+                  id: '5cfe3c65ea821930af69281f',
+                });
+              }}
+            />
+            <List.Item
+              titleStyle={{fontSize: 22}}
+              onPress={() => {
+                this.props.navigation.navigate('Sofa', {
+                  id: '5cfe3c5aea821930af69281e',
+                });
+              }}
+              title="Sofa"
+              left={() => (
+                <FaIcon name="couch" size={22} style={{marginRight: 25}} />
+              )}
+            />
+            <List.Item
+              titleStyle={{fontSize: 22}}
+              title="Table"
+              left={() => (
+                <FaIcon name="table" size={22} style={{marginRight: 25}} />
+              )}
+              onPress={() => {
+                this.props.navigation.navigate('Table', {
+                  id: '5cfe3c79ea821930af692821',
+                });
+              }}
+            />
+            <List.Item
+              titleStyle={{fontSize: 22}}
+              title="Chair"
+              left={() => (
+                <FaIcon name="chair" size={22} style={{marginRight: 25}} />
+              )}
+              onPress={() => {
+                this.props.navigation.navigate('Chair', {
+                  id: '5cfe3c6fea821930af692820',
+                });
+              }}
+            />
+            <List.Item
+              titleStyle={{fontSize: 22}}
+              title="Almirah"
+              left={() => (
+                <FaIcon name="chair" size={22} style={{marginRight: 25}} />
+              )}
+              onPress={() => {
+                this.props.navigation.navigate('Almirah', {
+                  id: '5d14c15101ae103e6e94fbe0',
+                });
+              }}
+            />
+          </List.Accordion>
+
           <List.Item
             titleStyle={{fontSize: 22}}
             title="Store locator"

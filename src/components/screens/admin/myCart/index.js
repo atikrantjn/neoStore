@@ -68,32 +68,18 @@ export class MyCart extends Component {
 
   //footer component for flatlist
 
-  footer = () => {
-    return (
-      <View style={styles.footerComponentContainer}>
-        <View>
-          <Text style={styles.footerPrice}>price</Text>
-        </View>
+  // footer = () => {
+  //   return (
 
-        <View>
-          <TouchableOpacity
-            style={styles.footerOrderBTN}
-            onPress={() => {
-              alert('hello');
-            }}>
-            <Text style={styles.footerBTNtext}>ORDER NOW</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  };
+  //   );
+  // };
 
   render() {
     return (
       <View>
         <FlatList
           data={this.state.cartData}
-          ListFooterComponent={this.footer}
+          // ListFooterComponent={this.footer}
           ItemSeparatorComponent={this.FlatListItemSeparator}
           renderItem={({item}) => {
             const productItem = JSON.parse(JSON.stringify(item));
@@ -108,6 +94,21 @@ export class MyCart extends Component {
           }}
           keyExtractor={(item, index) => index}
         />
+        <View style={styles.footerComponentContainer}>
+          <View>
+            <Text style={styles.footerPrice}>price</Text>
+          </View>
+
+          <View>
+            <TouchableOpacity
+              style={styles.footerOrderBTN}
+              onPress={() => {
+                alert('hello');
+              }}>
+              <Text style={styles.footerBTNtext}>ORDER NOW</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     );
   }

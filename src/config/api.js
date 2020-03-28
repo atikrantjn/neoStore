@@ -10,9 +10,10 @@ export const API_URL = {
   PRODUCT_LIST_API: 'commonProducts?category_id=',
   GET_CUST_PROFILE_API: 'getCustProfile',
   EDIT_USER_PROFILE_API: '',
-  CHANGE_PASSWORD_API: '',
+  CHANGE_PASSWORD_API: 'changePassword',
   GET_CUST_ADDRESS_API: 'getCustAddress',
   SAVE_ADDRESS_API: 'address',
+  FORGOT_PASS_API: 'forgotPassword',
 };
 
 export const buildHeader = (headerParams = {}) => {
