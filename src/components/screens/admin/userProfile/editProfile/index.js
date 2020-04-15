@@ -6,12 +6,15 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import styles from './styles';
 import images from '../../../../../utils/images';
 import DatePicker from 'react-native-datepicker';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {API_URL, request} from '../../../../../config/api';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export class EditProfile extends Component {
   constructor(props) {
@@ -21,8 +24,11 @@ export class EditProfile extends Component {
       first_name: '',
       last_name: '',
       email: '',
-      dob: '',
+      dob: null,
       phone_no: '',
+      gender: '',
+
+      token: '',
 
       showAlert: false,
 
@@ -37,6 +43,19 @@ export class EditProfile extends Component {
     };
   }
 
+  getToken = async () => {
+    try {
+      const value = JSON.parse(await AsyncStorage.getItem('userData'));
+
+      if (value !== null) {
+        this.setState({token: value.token});
+      }
+    } catch (e) {
+      // error reading value
+      console.log(e);
+    }
+  };
+
   validatePhone = phone_no => {
     let phoneValid = /^[0-9]*(?:\d{1,2})?$/;
 
@@ -48,23 +67,66 @@ export class EditProfile extends Component {
     }
   };
 
-  validateEmail = email => {
-    let pattern = /^([a-zA-Z])+([0-9a-zA-Z_\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,5}$)$/;
+  // validateEmail = email => {
+  //   let pattern = /^([a-zA-Z])+([0-9a-zA-Z_\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]$)$/;
 
-    if (pattern.test(email) === false) {
-      this.setState({emailErr: true});
-      return false;
-    } else {
-      this.setState({email: email, emailErr: false});
-    }
+  //   if (pattern.test(email) === false) {
+  //     this.setState({emailErr: true});
+  //     return false;
+  //   } else {
+  //     this.setState({email: email, emailErr: false});
+  //   }
+  // };
+
+  updateProfile = () => {
+    console.log(this.state.token);
+    const data = {
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      email: this.state.email,
+      phone_no: this.state.phone_no,
+      dob: this.state.dob,
+      gender: this.state.gender,
+    };
+    const {token} = this.state;
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: 'Bearer ' + token,
+    };
+
+    request(
+      this.updateProfileCallback,
+      data,
+      'PUT',
+      API_URL.EDIT_USER_PROFILE_API,
+      header,
+    );
   };
 
-  componentDidMount = () => {
+  updateProfileCallback = {
+    success: response => {
+      Alert.alert('Your profile has been successfully updated');
+      this.props.navigation.navigate('My Account');
+    },
+    error: error => {
+      Alert.alert('something went wrong');
+    },
+  };
+
+  componentDidMount = async () => {
+    await this.getToken();
     const {customerData} = this.props.route.params;
-    this.setState({customerData: customerData});
+    this.setState({
+      first_name: customerData.first_name,
+      last_name: customerData.last_name,
+      email: customerData.email,
+      phone_no: customerData.phone_no,
+      gender: customerData.gender,
+    });
   };
 
   render() {
+    console.log('gjhgcjhgvjhdgfhjg', this.state.dob);
     return (
       <ScrollView style={styles.mainContainer}>
         <View style={styles.container}>
@@ -94,7 +156,10 @@ export class EditProfile extends Component {
             />
             <TextInput
               style={styles.input}
-              value={this.state.customerData.first_name}
+              value={this.state.first_name}
+              onChangeText={first_name => {
+                this.setState({first_name: first_name});
+              }}
               underlineColorAndroid="transparent"
             />
           </View>
@@ -112,8 +177,11 @@ export class EditProfile extends Component {
             />
             <TextInput
               style={styles.input}
-              value={this.state.customerData.last_name}
+              value={this.state.last_name}
               underlineColorAndroid="transparent"
+              onChangeText={last_name => {
+                this.setState({last_name: last_name});
+              }}
             />
           </View>
 
@@ -130,11 +198,11 @@ export class EditProfile extends Component {
             />
             <TextInput
               style={styles.input}
-              value={this.state.customerData.email}
+              value={this.state.email}
               placeholder="email"
               placeholderTextColor="white"
               underlineColorAndroid="transparent"
-              onChangeText={email => this.validateEmail(email)}
+              onChangeText={email => this.setState({email})}
             />
             {this.state.emailErr ? (
               <Text style={{color: 'white'}}>invalid email address</Text>
@@ -154,7 +222,7 @@ export class EditProfile extends Component {
             />
             <TextInput
               style={styles.input}
-              value={this.state.customerData.phone_no}
+              value={this.state.phone_no}
               placeholder="phone no."
               placeholderTextColor="white"
               underlineColorAndroid="transparent"
@@ -171,11 +239,11 @@ export class EditProfile extends Component {
 
           <View style={styles.registerInput}>
             <DatePicker
-              date={this.state.customerData.dob}
+              date={this.state.dob}
               style={{width: '100%', borderColor: 'white', borderWidth: 1.5}}
               mode="date"
               placeholder="select date"
-              format="YYYY-MM-DD"
+              format="DD-MM-YYYY"
               confirmBtnText="Confirm"
               cancelBtnText="Cancel"
               customStyles={{
@@ -194,7 +262,7 @@ export class EditProfile extends Component {
             <TouchableOpacity
               style={styles.customBtnBG}
               onPress={() => {
-                alert('hello');
+                this.updateProfile();
               }}>
               <Text style={styles.customBtnText}>SUBMIT</Text>
             </TouchableOpacity>

@@ -9,11 +9,13 @@ export const API_URL = {
   PRODUCT_DETAILS_API: 'getProductByProdId/',
   PRODUCT_LIST_API: 'commonProducts?category_id=',
   GET_CUST_PROFILE_API: 'getCustProfile',
-  EDIT_USER_PROFILE_API: '',
+  EDIT_USER_PROFILE_API: 'profile',
   CHANGE_PASSWORD_API: 'changePassword',
   GET_CUST_ADDRESS_API: 'getCustAddress',
   SAVE_ADDRESS_API: 'address',
   FORGOT_PASS_API: 'forgotPassword',
+  SET_PASSWORD_API: 'recoverPassword',
+  GET_ORDER_DETAILS_API: 'getOrderDetails',
 };
 
 export const buildHeader = (headerParams = {}) => {

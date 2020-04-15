@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import {setLoginData} from '../../../redux/actions';
 import {connect} from 'react-redux';
@@ -83,7 +84,7 @@ class Login extends Component {
     error: error => {
       this.setState({isLoading: false, emailErrr: false, passErr: false});
 
-      console.log('wrong credentials', error);
+      Alert.alert('wrong credentials');
     },
   };
 

@@ -29,8 +29,6 @@ export default class Sidebar extends Component {
     } catch (e) {
       // remove error
     }
-
-    console.log('Done.');
   };
 
   logoutHandler = () => {
@@ -60,7 +58,7 @@ export default class Sidebar extends Component {
       const value = JSON.parse(await AsyncStorage.getItem('userData'));
 
       if (value !== null) {
-        this.setState({isloggedIn: true, data: value});
+        this.setState({isloggedIn: true, data: value.customer_details});
       }
     } catch (e) {
       // error reading value
@@ -69,27 +67,57 @@ export default class Sidebar extends Component {
   };
 
   componentDidMount() {
-    console.log('in component sidebar', this.state.data);
-
     this.getData();
     setInterval(this.getData, 5000);
   }
 
   render(props) {
+    const {profile_img} = this.state.data;
     return (
       <View style={styles.sideMenuContainer}>
-        <Image
-          source={images.sideDrawerImage}
-          style={styles.sideMenuProfileIcon}
-        />
-
-        <View
-          style={{
-            width: '100%',
-            height: 1,
-            backgroundColor: '#e2e2e2',
-          }}
-        />
+        {this.state.isloggedIn === true ? (
+          <View style={{flexDirection: 'column'}}>
+            {profile_img === null ? (
+              <Image
+                source={images.sideDrawerImage}
+                style={styles.sideMenuProfileIcon}
+              />
+            ) : (
+              <Image source={profile_img} style={styles.sideMenuProfileIcon} />
+            )}
+            <Text style={{textAlign: 'center', fontSize: 25}}>
+              {this.state.data.first_name + ' ' + this.state.data.last_name}
+            </Text>
+            <Text style={{textAlign: 'center', fontSize: 25}}>
+              {this.state.data.email}
+            </Text>
+          </View>
+        ) : (
+          <View style={{flexDirection: 'column'}}>
+            <Image
+              source={images.sideDrawerImage}
+              style={styles.sideMenuProfileIconLog}
+            />
+          </View>
+        )}
+        {this.state.isloggedIn ? (
+          <View
+            style={{
+              width: '100%',
+              height: 1,
+              backgroundColor: '#e2e2e2',
+              marginVertical: 25,
+            }}
+          />
+        ) : (
+          <View
+            style={{
+              width: '100%',
+              height: 1,
+              backgroundColor: '#e2e2e2',
+            }}
+          />
+        )}
 
         <DrawerContentScrollView {...props}>
           {!this.state.isloggedIn === true ? (
@@ -169,6 +197,20 @@ export default class Sidebar extends Component {
                 )}
                 onPress={() => {
                   this.props.navigation.navigate('My Account');
+                }}
+              />
+              <List.Item
+                titleStyle={{fontSize: 22}}
+                title="My Orders"
+                left={() => (
+                  <EnIcon
+                    name="shopping-cart"
+                    size={22}
+                    style={{marginRight: 25}}
+                  />
+                )}
+                onPress={() => {
+                  this.props.navigation.navigate('My Orders');
                 }}
               />
             </View>

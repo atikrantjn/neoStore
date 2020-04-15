@@ -6,13 +6,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   sideMenuProfileIcon: {
-    height: 250,
-    width: 280,
+    height: 150,
+    width: 150,
+    borderRadius: 100,
+    marginHorizontal: 60,
   },
   customBtnBG: {
     backgroundColor: 'red',
     borderRadius: 7,
     height: 45,
+  },
+
+  sideMenuProfileIconLog: {
+    height: 320,
+    width: 280,
   },
 
   customBtnText: {

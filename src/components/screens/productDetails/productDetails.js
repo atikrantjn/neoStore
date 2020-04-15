@@ -21,7 +21,7 @@ export default class ProductDetails extends Component {
     super(props);
 
     this.state = {
-      productData: {},
+      productData: [],
       subImages: [],
       categoryName: [],
 

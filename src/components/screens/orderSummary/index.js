@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {Text, View, ScrollView, TouchableOpacity, Image} from 'react-native';
+import {
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  Picker,
+} from 'react-native';
 import styles from './styles';
 import AsyncStorage from '@react-native-community/async-storage';
 import {BASE_URL} from '../../../config/api';
@@ -8,10 +15,11 @@ export class OrderSummary extends Component {
     super(props);
 
     this.state = {
-      product_data: {},
+      product_data: [],
       loggedInData: {},
 
       customerData: {},
+      quantity: '',
     };
   }
 
@@ -38,8 +46,13 @@ export class OrderSummary extends Component {
       console.log(e);
     }
   };
+  updateQuantity = () => {
+    this.setState({quantity: quantity});
+  };
   render() {
     const {product_data, customerData, loggedInData} = this.state;
+
+    console.log('product data', product_data);
 
     const userFullName = customerData.first_name + ' ' + customerData.last_name;
 
@@ -94,9 +107,16 @@ export class OrderSummary extends Component {
               </Text>
             </View>
           </View>
-          {/* <View>
-            <Dropdown label="select" data={dropData} />
-          </View> */}
+          <View>
+            <Picker
+              selectedValue={this.state.quantity}
+              onValueChange={this.updateQuantity}>
+              <Picker.Item label="1" value="1" />
+              <Picker.Item label="2" value="2" />
+              <Picker.Item label="3" value="3" />
+            </Picker>
+            <Text style={styles.text}>{this.state.user}</Text>
+          </View>
         </View>
 
         <View style={styles.moduleSeperatorline}></View>

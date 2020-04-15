@@ -9,6 +9,8 @@ import MyCartStack from '../admin/stackRoutes/myCartStack/index';
 import AddressStack from '../admin/stackRoutes/addressStack/index';
 import userProfileStack from '../admin/stackRoutes/userProfileStack/index';
 import StoreLocatorStack from '../admin/stackRoutes/storeLocatorStack/index';
+
+import MyOrderStack from '../admin/stackRoutes/myOrderStack/index';
 class Admin extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +19,6 @@ class Admin extends Component {
   render() {
     const Drawer = createDrawerNavigator();
 
-    console.log('shdgfjhgdf', this.props);
     return (
       <Drawer.Navigator
         initialRouteName="Home"
@@ -40,6 +41,8 @@ class Admin extends Component {
         <Drawer.Screen name="Store Locator" component={StoreLocatorStack} />
         <Drawer.Screen name="Add Address" component={AddressStack} />
         <Drawer.Screen name="My Account" component={userProfileStack} />
+        <Drawer.Screen name="Order Id" component={MyOrderStack} />
+        <Drawer.Screen name="My Orders" component={MyOrderStack} />
       </Drawer.Navigator>
     );
   }

@@ -45,9 +45,7 @@ export class AddressList extends Component {
     }
   };
 
-  componentDidMount = async () => {
-    await this.getData();
-
+  recievedData = () => {
     const data = null;
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -63,6 +61,13 @@ export class AddressList extends Component {
     );
   };
 
+  componentDidMount = async () => {
+    await this.getData();
+
+    this.recievedData();
+    this.intervalId = setInterval(this.recievedData.bind(this), 5000);
+  };
+
   custAddressCallback = {
     success: response => {
       this.setState({addressData: response.customer_address});
@@ -73,7 +78,6 @@ export class AddressList extends Component {
   };
 
   render() {
-    console.log('user daata', this.state.addressData);
     const {checked} = this.state;
     const fullName =
       this.state.data.first_name + ' ' + this.state.data.last_name;
@@ -118,7 +122,7 @@ export class AddressList extends Component {
                         }}
                       />
                     </View>
-                    <TouchableOpacity>
+                    <TouchableOpacity style={{flex: 1}}>
                       <View style={{flex: 1, flexDirection: 'column'}}>
                         <Text style={{marginHorizontal: 10, fontSize: 30}}>
                           {fullName}
@@ -139,7 +143,7 @@ export class AddressList extends Component {
                   </View>
                 );
               }}
-              keyExtractor={(index, item) => index}
+              keyExtractor={(item, index) => index}
             />
           )}
         </View>

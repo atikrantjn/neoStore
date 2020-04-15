@@ -3,7 +3,10 @@ import {Text, View, TouchableOpacity, Dimensions} from 'react-native';
 import styles from './styles';
 import {InputGroup, Input} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import AwesomeAlert from 'react-native-awesome-alerts';
+import AsyncStorage from '@react-native-community/async-storage';
 import {API_URL, request} from '../../../config/api';
+
 const screenWidth = Math.round(Dimensions.get('window').width);
 export class ForgotPassword extends Component {
   constructor(props) {
@@ -11,11 +14,24 @@ export class ForgotPassword extends Component {
     this.state = {
       email: '',
       emailErr: false,
+      showAlert: false,
+      token: '',
     };
   }
 
+  showAlert = () => {
+    this.setState({
+      showAlert: true,
+    });
+  };
+
+  hideAlert = () => {
+    this.setState({
+      showAlert: false,
+    });
+  };
+
   emailValidation = email => {
-    // console.log('xyz', email);
     let pattern = /^([a-zA-Z])+([0-9a-zA-Z_\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,5}$)$/;
 
     if (pattern.test(email) === false) {
@@ -31,10 +47,12 @@ export class ForgotPassword extends Component {
     };
 
     const {email} = this.state;
-    const data = this.state.email;
+    const data = {
+      email: this.state.email,
+    };
     if (email === '') {
       alert('fields cannot be kept empty');
-    } else {
+    } else if (this.state.emailErr === false) {
       request(
         this.forgotPasscallback,
         data,
@@ -42,19 +60,38 @@ export class ForgotPassword extends Component {
         API_URL.FORGOT_PASS_API,
         header,
       );
+    } else {
+      alert('oops somethimg went wrong');
     }
   };
 
   forgotPasscallback = {
     success: response => {
-      console.log('response forgot', response);
+      this.showAlert();
+      this.storeData(response);
+
+      setTimeout(() => {
+        this.props.navigation.navigate('Set Password');
+        this.hideAlert();
+      }, 3000);
     },
     error: error => {
-      console.log('response err', error);
+      alert('this email is not registered with us');
     },
   };
 
+  storeData = async response => {
+    try {
+      await AsyncStorage.setItem('forgotPassData', JSON.stringify(response));
+    } catch (e) {
+      // saving error
+      console.log('error in storing data', e);
+    }
+  };
   render() {
+    console.log(this.state.token);
+    const {showAlert} = this.state;
+
     return (
       <View style={styles.container}>
         <View style={styles.textContainer}>
@@ -101,6 +138,15 @@ export class ForgotPassword extends Component {
             </TouchableOpacity>
           </View>
         </View>
+        <AwesomeAlert
+          show={showAlert}
+          title="forgot password"
+          message="check email for further instructions"
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          messageStyle={{color: 'green', fontSize: 18}}
+          contentContainerStyle={{width: 350, height: 120}}
+        />
       </View>
     );
   }

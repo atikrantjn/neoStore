@@ -75,10 +75,10 @@ export class MyAccount extends Component {
     await this.getToken();
 
     this.customerProfile();
+    setInterval(this.customerProfile, 5000);
   };
 
   render() {
-    console.log('adata ---', this.state.customerData);
     const {customerData} = this.state;
     return (
       <ScrollView style={styles.mainContainer}>
