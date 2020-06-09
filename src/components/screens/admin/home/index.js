@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   FlatList,
   Dimensions,
+  BackHandler,
 } from 'react-native';
 import {SliderBox} from 'react-native-image-slider-box';
 
@@ -34,6 +35,38 @@ export default class Home extends Component {
         console.log(error);
       });
   }
+
+  imageslider = index => {
+    console.log(index, 'iiiii');
+
+    switch (index) {
+      case 0:
+        this.props.navigation.navigate('Table', {
+          id: '5cfe3c79ea821930af692821',
+        });
+        break;
+      case 1:
+        this.props.navigation.navigate('Bed', {
+          id: '5cfe3c65ea821930af69281f',
+        });
+        break;
+      case 2:
+        this.props.navigation.navigate('Sofa', {
+          id: '5cfe3c5aea821930af69281e',
+        });
+        break;
+      case 3:
+        this.props.navigation.navigate('Chair', {
+          id: '5cfe3c6fea821930af692820',
+        });
+        break;
+      case 4:
+        this.props.navigation.navigate('Almirah', {
+          id: '5d14c15101ae103e6e94fbe0',
+        });
+    }
+  };
+
   render() {
     const stateData = this.state.dataSource;
     let res = stateData.map(a => a.product_image);
@@ -43,10 +76,10 @@ export default class Home extends Component {
       return url.concat(el);
     });
 
-    console.log(name);
     const screenWidth = Dimensions.get('window').width;
+
     return (
-      <ScrollView style={{width: screenWidth}}>
+      <ScrollView>
         <View style={styles.container}>
           <View>
             <SliderBox
@@ -54,11 +87,12 @@ export default class Home extends Component {
               sliderBoxHeight={300}
               autoplay
               circleLoop
+              onCurrentImagePressed={index => this.imageslider(index)}
               resizeMode={'cover'}
             />
           </View>
 
-          <View style={{flex: 1, marginTop: 25}}>
+          <View style={{flex: 1, marginTop: 25, width: screenWidth}}>
             <FlatList
               data={this.state.dataSource}
               numColumns={2}
@@ -68,12 +102,9 @@ export default class Home extends Component {
                     <TouchableOpacity
                       style={styles.productCategoryCard}
                       onPress={() => {
-                        console.log(item.category_id);
                         this.props.navigation.navigate(item.category_name, {
                           id: item.category_id,
                         });
-
-                        // this.props.navigation.navigate(item.category_id);
                       }}>
                       <Text
                         style={{
@@ -85,12 +116,23 @@ export default class Home extends Component {
                       </Text>
                       <Image
                         style={{width: 90, height: 90, marginLeft: 25}}
-                        source={images.tableImage}
+                        source={
+                          item.category_name === 'Sofa'
+                            ? images.sofaImage
+                            : item.category_name === 'Bed'
+                            ? images.bedImage
+                            : item.category_name === 'Chair'
+                            ? images.chairImage
+                            : item.category_name === 'Almirah'
+                            ? images.cupboardIcon
+                            : images.tableImage
+                        }
                       />
                     </TouchableOpacity>
                   </View>
                 );
               }}
+              keyExtractor={(item, index) => index}
             />
           </View>
         </View>

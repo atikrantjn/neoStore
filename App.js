@@ -9,6 +9,7 @@ import Login from './src/components/screens/login/index';
 import Welcome from './src/components/screens/welcome/index';
 import Register from './src/components/screens/register/index';
 import Admin from './src/components/screens/admin';
+import SearchBarHeader from './src/components/screens/searchbar/index';
 
 import ForgotPassword from './src/components/screens/forgotPassword/index';
 import SetPassword from './src/components/screens/setPassword/index';
@@ -100,6 +101,11 @@ class App extends Component {
             <Stack.Screen
               name="Admin"
               component={Admin}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="SearchBar"
+              component={SearchBarHeader}
               options={{headerShown: false}}
             />
           </Stack.Navigator>

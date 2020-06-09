@@ -7,6 +7,7 @@ import {
   ScrollView,
   Modal,
   Alert,
+  FlatList,
 } from 'react-native';
 import styles from './styles';
 
@@ -67,16 +68,20 @@ export default class ProductDetails extends Component {
 
   productDetailsCallBack = {
     success: response => {
+      const pr = JSON.parse(JSON.stringify(response.product_details));
+
       this.setState({
-        productData: response.product_details[0],
-        categoryName: response.product_details[0].category_id,
-        subImages: response.product_details[0].subImages_id,
+        productData: pr[0],
+        categoryName: pr[0].category_id,
+        subImages: pr[0].subImages_id,
       });
     },
     error: error => {
       console.log('errrbsdjgjhghjcgvjh', error);
     },
   };
+
+  // rating update function
 
   updateRating() {
     const {token} = this.state;
@@ -130,7 +135,7 @@ export default class ProductDetails extends Component {
     }
   };
 
-  //add product to cart to cart
+  //add product to cart
 
   addToCart() {
     const {token} = this.state;
@@ -162,6 +167,8 @@ export default class ProductDetails extends Component {
 
   render() {
     const {productData} = this.state;
+
+    console.log('sjdjh', this.state.subImages);
 
     return (
       <View>
@@ -267,7 +274,7 @@ export default class ProductDetails extends Component {
             {/* <View style={{height: 250}}>
               <FlatList
                 horizontal
-                data={}
+                data={this.state.subImages}
                 renderItem={({item}) => {
                   return (
                     <Image source={item} style={{height: 80, width: 80}} />

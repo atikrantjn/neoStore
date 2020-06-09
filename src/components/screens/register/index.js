@@ -12,7 +12,7 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import CheckBox from 'react-native-check-box';
 import RadioForm from 'react-native-simple-radio-button';
 import styles from './styles';
-import axios from 'axios';
+
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -29,7 +29,7 @@ class Register extends Component {
       pass: '',
       confirmPass: '',
       phone_no: '',
-      gender: '',
+      gender: 'male',
 
       showAlert: false,
       isLoading: false,
@@ -163,15 +163,19 @@ class Register extends Component {
   };
 
   registerCallBack = {
-    success: () => {
+    success: resp => {
+      console.log('resp.....', resp);
       this.setState({isLoading: false});
       this.showAlert();
       setTimeout(() => {
         this.props.navigation.navigate('Login');
       }, 5000);
     },
-    error: () => {
+    error: err => {
+      console.log('err.....', err);
+
       Alert.alert('oops something went wrong');
+      this.setState({isLoading: false});
     },
   };
 

@@ -33,6 +33,9 @@ class HomeStack extends Component {
                   size={28}
                   color="white"
                   style={{marginRight: 10}}
+                  onPress={() => {
+                    this.props.navigation.navigate('SearchBar');
+                  }}
                 />
               </TouchableOpacity>
             ),

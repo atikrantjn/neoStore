@@ -1,12 +1,6 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  Picker,
-} from 'react-native';
+import {Text, View, ScrollView, TouchableOpacity, Image} from 'react-native';
+import NumericInput from 'react-native-numeric-input';
 import styles from './styles';
 import AsyncStorage from '@react-native-community/async-storage';
 import {BASE_URL} from '../../../config/api';
@@ -16,10 +10,10 @@ export class OrderSummary extends Component {
 
     this.state = {
       product_data: [],
-      loggedInData: {},
+      loggedInData: [],
 
       customerData: {},
-      quantity: '',
+      quantity: '1',
     };
   }
 
@@ -37,7 +31,7 @@ export class OrderSummary extends Component {
 
       if (value !== null) {
         this.setState({
-          loggedInData: value,
+          loggedInData: value.customer_address[0],
           customerData: value.customer_details,
         });
       }
@@ -46,15 +40,19 @@ export class OrderSummary extends Component {
       console.log(e);
     }
   };
+
   updateQuantity = () => {
     this.setState({quantity: quantity});
   };
+
   render() {
     const {product_data, customerData, loggedInData} = this.state;
 
-    console.log('product data', product_data);
-
     const userFullName = customerData.first_name + ' ' + customerData.last_name;
+
+    const total_price = this.state.quantity * product_data.product_cost;
+
+    console.log(loggedInData.address);
 
     return (
       <ScrollView>
@@ -64,19 +62,21 @@ export class OrderSummary extends Component {
           </View>
 
           <View style={styles.userAddressContainer}>
-            <Text style={styles.userAddress}>
-              {loggedInData.customer_address}
-            </Text>
+            <Text style={styles.userAddress}>{loggedInData.address}</Text>
           </View>
           <View style={styles.changeAddressBTNcontainer}>
-            <TouchableOpacity style={styles.changeAddressBTN}>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate('Add Address');
+              }}
+              style={styles.changeAddressBTN}>
               <Text style={styles.changeAddressBTNtext}>
                 Change Or Add Address
               </Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.moduleSeperatorline}></View>
+        <View style={styles.moduleSeperatorline} />
 
         <View style={styles.productDetailsContainer}>
           <View style={styles.productNameContainer}>
@@ -102,24 +102,31 @@ export class OrderSummary extends Component {
               </Text>
             </View>
             <View>
-              <Text style={styles.productCost}>
-                {'Rs' + ' ' + product_data.product_cost}
-              </Text>
+              <Text style={styles.productCost}>{'Rs' + ' ' + total_price}</Text>
             </View>
           </View>
           <View>
-            <Picker
-              selectedValue={this.state.quantity}
-              onValueChange={this.updateQuantity}>
-              <Picker.Item label="1" value="1" />
-              <Picker.Item label="2" value="2" />
-              <Picker.Item label="3" value="3" />
-            </Picker>
-            <Text style={styles.text}>{this.state.user}</Text>
+            <NumericInput
+              value={this.state.quantity}
+              onChange={quantity => this.setState({quantity})}
+              totalWidth={200}
+              totalHeight={40}
+              iconSize={25}
+              initValue={1}
+              minValue={1}
+              maxValue={20}
+              step={1}
+              valueType="real"
+              rounded
+              textColor="#B0228C"
+              iconStyle={{color: 'white'}}
+              rightButtonBackgroundColor="#EA3788"
+              leftButtonBackgroundColor="#E56B70"
+            />
           </View>
         </View>
 
-        <View style={styles.moduleSeperatorline}></View>
+        <View style={styles.moduleSeperatorline} />
 
         <View style={styles.footerContainer}>
           <View style={styles.footerPriceDetailsContainer}>
@@ -132,15 +139,17 @@ export class OrderSummary extends Component {
             </View>
             <View>
               <Text style={styles.productPrice}>
-                {'Rs' + ' ' + product_data.product_cost}
+                {'Rs' + ' ' + total_price}
               </Text>
             </View>
           </View>
 
+          <View style={styles.moduleSeperatorline} />
+
           <View style={styles.orderSummaryFooterContainer}>
             <View>
               <Text style={styles.productPrice}>
-                {'Rs' + ' ' + product_data.product_cost}
+                {'Rs' + ' ' + total_price}
               </Text>
             </View>
 
@@ -156,6 +165,9 @@ export class OrderSummary extends Component {
           </View>
         </View>
       </ScrollView>
+      // <View>
+      //   <Text>jhsdkhskjdhkjshd</Text>
+      // </View>
     );
   }
 }

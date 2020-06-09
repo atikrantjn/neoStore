@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
   },
 
   productCostContainer: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end',
     marginVertical: 15,
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignContent: 'flex-end',
+
     marginVertical: 15,
   },
 

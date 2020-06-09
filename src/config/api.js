@@ -16,6 +16,7 @@ export const API_URL = {
   FORGOT_PASS_API: 'forgotPassword',
   SET_PASSWORD_API: 'recoverPassword',
   GET_ORDER_DETAILS_API: 'getOrderDetails',
+  GET_PRODUCT_BY_SEARCH_API: 'getProductBySearchText/',
 };
 
 export const buildHeader = (headerParams = {}) => {

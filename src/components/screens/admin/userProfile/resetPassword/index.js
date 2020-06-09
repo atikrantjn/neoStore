@@ -3,6 +3,8 @@ import {Text, View, TouchableOpacity, TextInput, Alert} from 'react-native';
 import styles from './styles';
 import AsyncStorage from '@react-native-community/async-storage';
 import {API_URL, request} from '../../../../../config/api';
+
+import FaIcon from 'react-native-vector-icons/FontAwesome5';
 export class ResetPassword extends Component {
   constructor(props) {
     super(props);
@@ -128,35 +130,68 @@ export class ResetPassword extends Component {
 
         <View style={{marginLeft: 50}}>
           <View>
+            <FaIcon
+              name="lock"
+              size={25}
+              style={{
+                position: 'absolute',
+                top: 12,
+                left: 10,
+                color: 'white',
+              }}
+            />
             <TextInput
               style={styles.input}
               placeholder="Current Password"
               placeholderTextColor="white"
               underlineColorAndroid="transparent"
               secureTextEntry
-              onChangeText={pass => this.validatePassword(pass)}></TextInput>
+              onChangeText={pass => this.validatePassword(pass)}
+            />
 
             {this.state.passwordErr ? (
               <Text style={{color: 'white'}}>
                 *Password must be 8-15 alphanumeric characters
               </Text>
             ) : null}
-
+          </View>
+          <View>
+            <FaIcon
+              name="lock"
+              size={25}
+              style={{
+                position: 'absolute',
+                top: 12,
+                left: 10,
+                color: 'white',
+              }}
+            />
             <TextInput
               style={styles.input}
               placeholder="New Password"
               placeholderTextColor="white"
               underlineColorAndroid="transparent"
               secureTextEntry
-              onChangeText={newpass =>
-                this.validateNewPassword(newpass)
-              }></TextInput>
+              onChangeText={newpass => this.validateNewPassword(newpass)}
+            />
 
             {this.state.newpassErr ? (
               <Text style={{color: 'white'}}>
                 *Password must be 8-15 alphanumeric characters
               </Text>
             ) : null}
+          </View>
+          <View>
+            <FaIcon
+              name="lock"
+              size={25}
+              style={{
+                position: 'absolute',
+                top: 12,
+                left: 10,
+                color: 'white',
+              }}
+            />
             <TextInput
               style={styles.input}
               placeholder="Confirm Password"
@@ -165,7 +200,8 @@ export class ResetPassword extends Component {
               onChangeText={confirmPass => {
                 this.validateConfPass(confirmPass);
               }}
-              underlineColorAndroid="transparent"></TextInput>
+              underlineColorAndroid="transparent"
+            />
             {this.state.confirmPasswordErr ? (
               <Text style={{color: 'white'}}>Password did'nt matched!!</Text>
             ) : null}

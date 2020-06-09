@@ -42,6 +42,7 @@ export class ForgotPassword extends Component {
   };
 
   forgotPassHandler = () => {
+    console.log('hello');
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
@@ -67,6 +68,7 @@ export class ForgotPassword extends Component {
 
   forgotPasscallback = {
     success: response => {
+      console.log('resp', response);
       this.showAlert();
       this.storeData(response);
 

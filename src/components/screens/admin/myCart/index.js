@@ -22,7 +22,7 @@ export class MyCart extends Component {
   componentDidMount = async () => {
     // this.cartData();
     await this.getData();
-    console.log('in cartdata', this.state.token);
+
     this.cartData();
   };
 
@@ -81,7 +81,7 @@ export class MyCart extends Component {
               flex: 1,
             }}>
             <View>
-              <FaIcon size={98} name="frown-open" />
+              <FaIcon size={78} name="frown-open" />
             </View>
             <Text style={{fontSize: 24, textAlign: 'center'}}>
               Oooopsssss no product found in your cart!!
