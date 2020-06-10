@@ -57,7 +57,7 @@ export class MyCart extends Component {
         JSON.stringify(response.product_details),
       );
       this.setState({cartData: response.product_details});
-      // console.log('product details', productDetails);
+      console.log('product details', productDetails);
     },
     error: error => {
       console.log('errr', error);

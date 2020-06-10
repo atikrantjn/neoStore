@@ -7,7 +7,6 @@ import {
   ScrollView,
   Modal,
   Alert,
-  FlatList,
 } from 'react-native';
 import styles from './styles';
 
@@ -34,6 +33,7 @@ export default class ProductDetails extends Component {
       token: '',
 
       quantity: 1,
+      cartCount: 1,
 
       buttonDisabled: true,
       buyNowbtn: true,
@@ -137,38 +137,51 @@ export default class ProductDetails extends Component {
 
   //add product to cart
 
-  addToCart() {
-    const {token} = this.state;
-    const data = {
-      product_id: this.state.product_id,
-      quantity: this.state.quantity,
+  addToCart = async (id, productData) => {
+    // try {
+    let mainData = {
+      _id: productData._id,
+      product_id: productData,
+      product_cost: productData.product_cost,
+      quantity: 1,
     };
-    const header = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: 'Bearer ' + token,
-    };
-    request(
-      this.addToCartCallBack,
-      data,
-      'POST',
-      API_URL.ADD_TO_CART_API,
-      header,
-    );
-  }
 
-  addToCartCallBack = {
-    success: response => {
-      Alert.alert(response.message);
-    },
-    error: error => {
-      Alert.alert('please login first');
-    },
+    const existingProducts = await AsyncStorage.getItem('cart');
+
+    let newProduct = JSON.parse(existingProducts);
+    console.log(newProduct, 'dhdh');
+    if (!newProduct) {
+      newProduct = [];
+      newProduct.push(mainData);
+
+      AsyncStorage.setItem('cart', JSON.stringify(newProduct))
+        .then(() => {
+          alert('product added to cart successfully');
+        })
+        .catch(() => {
+          alert('There was an error saving the product');
+        });
+    } else {
+      let existed_item = newProduct.find(item => id === item._id);
+      if (existed_item) {
+        alert('product already exist');
+      } else {
+        newProduct.push(mainData);
+        AsyncStorage.setItem('cart', JSON.stringify(newProduct));
+
+        this.setState({cartCount: 1});
+        alert('product added to cart successfully');
+
+        this.setState({cartCount: this.state.cartCount + 1});
+      }
+    }
   };
 
   render() {
     const {productData} = this.state;
 
-    console.log('sjdjh', this.state.subImages);
+    const {product_id} = this.state;
+    console.log(this.state.cartCount);
 
     return (
       <View>
@@ -289,7 +302,7 @@ export default class ProductDetails extends Component {
               <Text style={styles.descriptionText}>Description</Text>
               <TouchableOpacity
                 onPress={() => {
-                  this.addToCart();
+                  this.addToCart(product_id, productData);
                 }}
                 style={styles.addToCartIcon}>
                 <FaIcon name="cart-plus" size={50} />

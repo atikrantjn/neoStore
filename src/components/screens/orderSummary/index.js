@@ -3,7 +3,7 @@ import {Text, View, ScrollView, TouchableOpacity, Image} from 'react-native';
 import NumericInput from 'react-native-numeric-input';
 import styles from './styles';
 import AsyncStorage from '@react-native-community/async-storage';
-import {BASE_URL} from '../../../config/api';
+import {BASE_URL, API_URL, request} from '../../../config/api';
 export class OrderSummary extends Component {
   constructor(props) {
     super(props);
@@ -14,8 +14,42 @@ export class OrderSummary extends Component {
 
       customerData: {},
       quantity: '1',
+
+      token: '',
     };
   }
+
+  //order now
+
+  orderNow = () => {
+    const data = {
+      product_id: this.state.product_data.product_id,
+      quantity: this.state.quantity,
+    };
+    console.log('data', data);
+    const {token} = this.state;
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: 'Bearer ' + token,
+    };
+
+    request(
+      this.orderNowCallback,
+      data,
+      'POST',
+      API_URL.ADD_PRODUCT_TO_CART_CHECKOUT_API,
+      header,
+    );
+  };
+
+  orderNowCallback = {
+    success: response => {
+      console.log('repsspshsjshj', response);
+    },
+    error: error => {
+      console.log('errr', error);
+    },
+  };
 
   componentDidMount() {
     const {sendProdData} = this.props.route.params;
@@ -29,8 +63,11 @@ export class OrderSummary extends Component {
     try {
       const value = JSON.parse(await AsyncStorage.getItem('userData'));
 
+      console.log('val', value);
+
       if (value !== null) {
         this.setState({
+          token: value.token,
           loggedInData: value.customer_address[0],
           customerData: value.customer_details,
         });
@@ -51,8 +88,7 @@ export class OrderSummary extends Component {
     const userFullName = customerData.first_name + ' ' + customerData.last_name;
 
     const total_price = this.state.quantity * product_data.product_cost;
-
-    console.log(loggedInData.address);
+    console.log('prod', this.state.token);
 
     return (
       <ScrollView>
@@ -157,7 +193,7 @@ export class OrderSummary extends Component {
               <TouchableOpacity
                 style={styles.orderNowBTN}
                 onPress={() => {
-                  alert('hello');
+                  this.orderNow();
                 }}>
                 <Text style={styles.orderNowBTNtext}>ORDER NOW</Text>
               </TouchableOpacity>

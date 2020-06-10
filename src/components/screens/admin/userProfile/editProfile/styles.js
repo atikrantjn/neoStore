@@ -11,8 +11,7 @@ const styles = StyleSheet.create({
     color: 'white',
     borderColor: 'white',
     borderWidth: 1.5,
-    fontSize: 19,
-    zIndex: -1,
+    fontSize: 20,
   },
   registerInput: {
     marginLeft: 50,

@@ -17,6 +17,7 @@ export const API_URL = {
   SET_PASSWORD_API: 'recoverPassword',
   GET_ORDER_DETAILS_API: 'getOrderDetails',
   GET_PRODUCT_BY_SEARCH_API: 'getProductBySearchText/',
+  ADD_PRODUCT_TO_CART_CHECKOUT_API: 'addProductToCartCheckout',
 };
 
 export const buildHeader = (headerParams = {}) => {

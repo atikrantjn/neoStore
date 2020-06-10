@@ -24,7 +24,7 @@ export class EditProfile extends Component {
       first_name: '',
       last_name: '',
       email: '',
-      dob: null,
+      dob: '',
       phone_no: '',
       gender: '',
 
@@ -240,8 +240,14 @@ export class EditProfile extends Component {
           <View style={styles.registerInput}>
             <DatePicker
               date={this.state.dob}
-              style={{width: '100%', borderColor: 'white', borderWidth: 1.5}}
+              style={{
+                width: '100%',
+                color: 'white',
+                borderColor: 'white',
+                borderWidth: 1.5,
+              }}
               mode="date"
+              maxDate={new Date()}
               placeholder="select date"
               format="DD-MM-YYYY"
               confirmBtnText="Confirm"
@@ -249,8 +255,12 @@ export class EditProfile extends Component {
               customStyles={{
                 dateIcon: {
                   position: 'absolute',
-                  left: 10,
+                  left: 5,
                   top: 4,
+                },
+                dateText: {
+                  color: 'white',
+                  fontSize: 20,
                 },
               }}
               onDateChange={date => {
