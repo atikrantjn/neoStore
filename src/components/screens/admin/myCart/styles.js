@@ -8,18 +8,18 @@ const styles = StyleSheet.create({
 
   listContainer: {
     flexDirection: 'row',
-    margin: 10,
+    // margin: 10,
   },
 
   imageStyle: {
-    width: 120,
-    height: 120,
+    width: 80,
+    height: 80,
   },
   productNameContainer: {flexDirection: 'column', marginHorizontal: 15},
 
   productName: {
-    fontSize: 30,
-    width: 250,
+    fontSize: 25,
+    width: 260,
   },
 
   productMaterial: {
@@ -32,11 +32,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginVertical: 15,
+    // marginVertical: 15,
   },
 
   productCost: {
-    fontSize: 25,
+    fontSize: 20,
   },
 
   footerComponentContainer: {
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
 
-    marginVertical: 15,
+    margin: 20,
   },
 
   footerPrice: {fontSize: 25},

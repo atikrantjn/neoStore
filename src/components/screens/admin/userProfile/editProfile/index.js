@@ -126,7 +126,6 @@ export class EditProfile extends Component {
   };
 
   render() {
-    console.log('gjhgcjhgvjhdgfhjg', this.state.dob);
     return (
       <ScrollView style={styles.mainContainer}>
         <View style={styles.container}>

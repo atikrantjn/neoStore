@@ -23,10 +23,8 @@ export class RenderCartItem extends Component {
               />
 
               <View style={styles.productNameContainer}>
-                <Text numberOfLines={1} style={styles.productName}>
-                  {data.product_name}
-                </Text>
-                <Text numberOfLines={1} style={styles.productMaterial}>
+                <Text style={styles.productName}>{data.product_name}</Text>
+                <Text style={styles.productMaterial}>
                   {data.product_material}
                 </Text>
 

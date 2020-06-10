@@ -89,10 +89,12 @@ const styles = StyleSheet.create({
     margin: 15,
     borderBottomWidth: 2,
     borderBottomColor: '#D5D5D5',
+    borderRadius: 10,
   },
   productCostRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    padding: 10,
   },
 
   productCost: {
@@ -105,8 +107,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   productImage: {
-    width: '50%',
-    height: '70%',
+    width: 350,
+    height: 180,
   },
 
   productDescriptionContainer: {

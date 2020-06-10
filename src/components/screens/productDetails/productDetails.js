@@ -7,6 +7,7 @@ import {
   ScrollView,
   Modal,
   Alert,
+  FlatList,
 } from 'react-native';
 import styles from './styles';
 
@@ -72,8 +73,9 @@ export default class ProductDetails extends Component {
 
       this.setState({
         productData: pr[0],
+        productImg: pr[0].product_image,
         categoryName: pr[0].category_id,
-        subImages: pr[0].subImages_id,
+        subImages: pr[0].subImages_id.product_subImages,
       });
     },
     error: error => {
@@ -149,7 +151,7 @@ export default class ProductDetails extends Component {
     const existingProducts = await AsyncStorage.getItem('cart');
 
     let newProduct = JSON.parse(existingProducts);
-    console.log(newProduct, 'dhdh');
+
     if (!newProduct) {
       newProduct = [];
       newProduct.push(mainData);
@@ -177,11 +179,18 @@ export default class ProductDetails extends Component {
     }
   };
 
+  //subimage click
+
+  onpressSubImage = id => {
+    this.setState({productImg: id});
+  };
+
   render() {
     const {productData} = this.state;
 
     const {product_id} = this.state;
-    console.log(this.state.cartCount);
+
+    const {productImg} = this.state;
 
     return (
       <View>
@@ -214,7 +223,7 @@ export default class ProductDetails extends Component {
                       <Image
                         style={styles.modalImage}
                         source={{
-                          uri: BASE_URL + productData.product_image,
+                          uri: BASE_URL + productImg,
                         }}
                       />
                     </View>
@@ -280,23 +289,41 @@ export default class ProductDetails extends Component {
               <Image
                 style={styles.productImage}
                 source={{
-                  uri: BASE_URL + productData.product_image,
+                  uri: BASE_URL + productImg,
                 }}
               />
             </View>
-            {/* <View style={{height: 250}}>
-              <FlatList
-                horizontal
-                data={this.state.subImages}
-                renderItem={({item}) => {
-                  return (
-                    <Image source={item} style={{height: 80, width: 80}} />
-                  );
-                }}
-                keyExtractor={item => item.id}
-              />
-            </View> */}
+
+            {/* subimages */}
+
+            <FlatList
+              horizontal
+              data={this.state.subImages}
+              renderItem={({item}) => {
+                return (
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.onpressSubImage(item);
+                    }}
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      padding: 10,
+                    }}>
+                    <View style={{borderWidth: 1, borderColor: 'black'}}>
+                      <Image
+                        style={{width: 110, height: 120}}
+                        source={{uri: BASE_URL + item}}
+                      />
+                    </View>
+                  </TouchableOpacity>
+                );
+              }}
+              keyExtractor={item => item.id}
+            />
           </View>
+
           <View style={styles.productDescriptionContainer}>
             <View style={{flexDirection: 'row'}}>
               <Text style={styles.descriptionText}>Description</Text>
