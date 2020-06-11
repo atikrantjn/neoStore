@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, FlatList, TouchableOpacity} from 'react-native';
 import styles from './styles';
-import {request, API_URL, BASE_URL} from '../../../../config/api';
+
 import RenderCartItem from './renderCartItem';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -23,6 +23,8 @@ export class MyCart extends Component {
     // this.cartData();
     await this.getData();
     await this.getProductData();
+
+    setInterval(this.getProductData, 5000);
   };
 
   getData = async () => {
@@ -55,8 +57,6 @@ export class MyCart extends Component {
     return <View style={styles.itemSeperator} />;
   };
 
-  //footer component for flatlist
-
   render() {
     return (
       <View>
@@ -66,12 +66,17 @@ export class MyCart extends Component {
               style={{
                 justifyContent: 'center',
                 alignItems: 'center',
-                flex: 1,
               }}>
               <View>
                 <FaIcon size={78} name="frown-open" />
               </View>
-              <Text style={{fontSize: 24, textAlign: 'center'}}>
+              <Text
+                style={{
+                  fontSize: 24,
+                  textAlign: 'center',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
                 Oooopsssss no product found in your cart!!
               </Text>
             </View>
@@ -108,16 +113,13 @@ export class MyCart extends Component {
                     product_name={productItem.product_id.product_name}
                     product_material={productItem.product_id.product_material}
                     product_cost={productItem.product_cost}
+                    product_id={productItem._id}
                   />
                 );
               }}
               keyExtractor={(item, index) => index}
             />
           )}
-        </View>
-
-        <View>
-          <Text>hdgfhgdf</Text>
         </View>
       </View>
     );

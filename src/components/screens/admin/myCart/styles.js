@@ -68,6 +68,18 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#B4B4B4',
   },
+  removeBTN: {
+    borderRadius: 7,
+    padding: 7,
+    backgroundColor: 'red',
+    height: 30,
+  },
+  removeBTNText: {
+    fontSize: 15,
+
+    color: 'white',
+    textAlign: 'center',
+  },
 });
 
 export default styles;
