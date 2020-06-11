@@ -37,10 +37,7 @@ export class RenderCartItem extends Component {
 
   //remove from cart
   removeItem = async id => {
-    console.log(id);
     let data = JSON.parse(await AsyncStorage.getItem('cart'));
-
-    console.log(data);
 
     let cart = data.filter(item => {
       return item._id !== id;

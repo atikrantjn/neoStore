@@ -11,13 +11,13 @@ export class MyCart extends Component {
     super(props);
 
     this.state = {
-      cartData: {},
+      cartData: [],
+
+      total_cost: '',
 
       token: null,
     };
   }
-
-  //cart data api function
 
   componentDidMount = async () => {
     // this.cartData();
@@ -26,6 +26,8 @@ export class MyCart extends Component {
 
     setInterval(this.getProductData, 5000);
   };
+
+  // get user data from local storage
 
   getData = async () => {
     try {
@@ -40,6 +42,8 @@ export class MyCart extends Component {
     }
   };
 
+  // get cart data from local storage
+
   getProductData = async () => {
     try {
       const value = JSON.parse(await AsyncStorage.getItem('cart'));
@@ -47,6 +51,16 @@ export class MyCart extends Component {
       if (value !== null) {
         this.setState({cartData: value});
       }
+
+      let arr = value.map(item => {
+        return item.product_cost * item.quantity;
+      });
+
+      let totalCost = arr.reduce((a, b) => a + b, 0);
+
+      this.setState({
+        total_cost: totalCost,
+      });
     } catch (e) {
       // error reading value
       console.log(e);
@@ -87,15 +101,17 @@ export class MyCart extends Component {
                 return (
                   <View style={styles.footerComponentContainer}>
                     <View style={{flex: 1, flexDirection: 'column'}}>
-                      <Text style={styles.footerPrice}>price</Text>
-                      <Text>Total Cost : </Text>
+                      <Text style={styles.footerPrice}>Total Price:</Text>
+                      <Text style={styles.footerPrice}>
+                        {'Rs' + ' ' + this.state.total_cost}
+                      </Text>
                     </View>
 
                     <View>
                       <TouchableOpacity
                         style={styles.footerOrderBTN}
                         onPress={() => {
-                          alert('hello');
+                          this.props.navigation.navigate('OrderSummary');
                         }}>
                         <Text style={styles.footerBTNtext}>ORDER NOW</Text>
                       </TouchableOpacity>
