@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   orderSummaryFooterContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     marginVertical: 15,
   },
 
@@ -122,6 +122,87 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     textAlign: 'center',
+  },
+
+  /////ddjfhjdfhjdhfj
+
+  rendercontainer: {
+    flex: 1,
+    margin: 10,
+  },
+
+  renderlistContainer: {
+    flexDirection: 'row',
+    // margin: 10,
+  },
+
+  renderimageStyle: {
+    width: 80,
+    height: 80,
+  },
+  renderproductNameContainer: {flexDirection: 'column', marginHorizontal: 15},
+
+  renderproductName: {
+    fontSize: 25,
+    width: 260,
+  },
+
+  renderproductMaterial: {
+    fontSize: 20,
+    width: 250,
+    color: '#A09F9F',
+  },
+
+  renderproductCostContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    // marginVertical: 15,
+  },
+
+  renderproductCost: {
+    fontSize: 20,
+  },
+
+  renderfooterComponentContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+
+    margin: 20,
+  },
+
+  renderfooterPrice: {fontSize: 25},
+
+  renderfooterOrderBTN: {
+    backgroundColor: 'red',
+    borderRadius: 7,
+    padding: 7,
+    height: 50,
+  },
+
+  renderfooterBTNtext: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
+  },
+
+  renderitemSeperator: {
+    height: 1,
+    width: '100%',
+    backgroundColor: '#B4B4B4',
+  },
+  minusBtn: {
+    borderWidth: 1,
+    borderColor: 'red',
+    padding: 5,
+  },
+  plusBtn: {
+    borderWidth: 1,
+    borderColor: 'red',
+    padding: 5,
+    marginLeft: 10,
   },
 });
 
