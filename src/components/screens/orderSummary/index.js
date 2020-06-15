@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
+  Alert,
 } from 'react-native';
 
 import NumericInput from 'react-native-numeric-input';
@@ -22,55 +23,67 @@ export class OrderSummary extends Component {
     this.state = {
       cartData: [],
       product_cost: '',
-      loggedInData: [],
+      adress: '',
 
       customerData: {},
-      quantity: '1',
+      quantity: 1,
 
       token: '',
+
+      totalOrder: 0,
     };
   }
 
   //order now
 
-  // orderNow = () => {
-  //   const data = {
-  //     product_id: this.state.product_data.product_id,
-  //     quantity: this.state.quantity,
-  //   };
-  //   console.log('data', data);
-  //   const {token} = this.state;
-  //   const header = {
-  //     'Content-Type': 'application/x-www-form-urlencoded',
-  //     Authorization: 'Bearer ' + token,
-  //   };
+  orderNowHandler = async () => {
+    const title = 'Time to choose!';
+    const message = 'please confirm to place order';
+    const buttons = [
+      {text: 'Cancel', type: 'cancel'},
+      {
+        text: 'confirm',
+        onPress: () => {
+          this.placeOrder();
+        },
+      },
+    ];
 
-  //   request(
-  //     this.orderNowCallback,
-  //     data,
-  //     'POST',
-  //     API_URL.ADD_PRODUCT_TO_CART_CHECKOUT_API,
-  //     header,
-  //   );
-  // };
+    Alert.alert(title, message, buttons);
+  };
 
-  // orderNowCallback = {
-  //   success: response => {
-  //     console.log('repsspshsjshj', response);
-  //   },
-  //   error: error => {
-  //     console.log('errr', error);
-  //   },
-  // };
+  placeOrder = async () => {
+    let value = await AsyncStorage.getItem('cart');
+    const mainData = JSON.parse(value);
+
+    const existingOrders = await AsyncStorage.getItem('placeOrder');
+
+    let newOrder = JSON.parse(existingOrders);
+    console.log(newOrder);
+
+    if (!newOrder) {
+      newOrder = [];
+      newOrder.push(mainData);
+
+      AsyncStorage.setItem('placeOrder', JSON.stringify(newOrder))
+        .then(async () => {
+          await AsyncStorage.removeItem('cart');
+        })
+        .catch(() => {
+          console.log('There was an error placing the order');
+        });
+    }
+  };
 
   componentDidMount = async () => {
-    // const {sendProdData} = this.props.route.params;
-
-    // this.setState({product_data: sendProdData});
-
     await this.getData();
 
     await this.getProductData();
+
+    await this.getTotalCost();
+
+    // setInterval(this.getProductData, 2000);
+    // setInterval(this.getTotalCost, 2000);
   };
 
   getData = async () => {
@@ -80,7 +93,7 @@ export class OrderSummary extends Component {
       if (value !== null) {
         this.setState({
           token: value.token,
-          loggedInData: value.customer_address[0],
+          address: value.customer_address,
           customerData: value.customer_details,
         });
       }
@@ -108,21 +121,32 @@ export class OrderSummary extends Component {
   };
 
   decreaseQuantity = async id => {
-    const dataFromCart = JSON.parse(await AsyncStorage.getItem('cart'));
+    const title = 'Time to choose!';
+    const message = 'are u sure u wanna remove this item';
+    const buttons = [
+      {text: 'Cancel', type: 'cancel'},
+      {
+        text: 'yes',
+        onPress: () => {
+          this.remove_item(id);
+        },
+      },
+    ];
+
+    const dataFromCart = this.state.cartData;
     const index = dataFromCart.findIndex(result => {
       return result._id === id;
     });
     if (dataFromCart[index].quantity <= 1) {
-      const a = alert('are u sure u wanna remove item');
+      Alert.alert(title, message, buttons);
     } else if (dataFromCart[index].quantity > 1) {
       dataFromCart[index].quantity = dataFromCart[index].quantity - 1;
-      AsyncStorage.setItem('cart', JSON.stringify(dataFromCart));
-      this.setState({cartData: JSON.parse(AsyncStorage.getItem('cart'))});
+      await AsyncStorage.setItem('cart', JSON.stringify(dataFromCart));
     }
   };
 
   increaseQuantity = async id => {
-    const dataFromCart = JSON.parse(await AsyncStorage.getItem('cart'));
+    let dataFromCart = this.state.cartData;
 
     const index = dataFromCart.findIndex(result => {
       return result._id === id;
@@ -130,13 +154,51 @@ export class OrderSummary extends Component {
 
     if (dataFromCart[index].quantity > 0) {
       dataFromCart[index].quantity = dataFromCart[index].quantity + 1;
-      AsyncStorage.setItem('cart', JSON.stringify(dataFromCart));
-      this.setState({cartData: JSON.parse(AsyncStorage.getItem('cart'))});
+      await AsyncStorage.setItem('cart', JSON.stringify(dataFromCart));
     }
   };
 
+  getTotalCost = async () => {
+    const {cartData} = this.state;
+    let arr = cartData.map(item => {
+      return item.product_cost * item.quantity;
+    });
+
+    let totalCost = arr.reduce((a, b) => a + b, 0);
+
+    this.setState({totalOrder: totalCost});
+  };
+
+  removeFromList = id => {
+    const title = 'Time to choose!';
+    const message = 'are u sure u wanna remove this item';
+    const buttons = [
+      {text: 'Cancel', type: 'cancel'},
+      {
+        text: 'yes',
+        onPress: () => {
+          this.remove_item(id);
+        },
+      },
+    ];
+    Alert.alert(title, message, buttons);
+  };
+
+  remove_item = async id => {
+    let data = this.state.cartData;
+
+    let cart = data.filter(item => {
+      return item._id !== id;
+    });
+    AsyncStorage.setItem('cart', JSON.stringify(cart));
+
+    this.getProductData();
+
+    alert('item has been successfully removed');
+  };
+
   render() {
-    const {cartData, customerData, loggedInData} = this.state;
+    const {cartData, customerData, address} = this.state;
 
     const userFullName = customerData.first_name + ' ' + customerData.last_name;
 
@@ -148,7 +210,7 @@ export class OrderSummary extends Component {
           </View>
 
           <View style={styles.userAddressContainer}>
-            <Text style={styles.userAddress}>{loggedInData.address}</Text>
+            <Text style={styles.userAddress}>{address}</Text>
           </View>
           <View style={styles.changeAddressBTNcontainer}>
             <TouchableOpacity
@@ -166,6 +228,15 @@ export class OrderSummary extends Component {
         <View style={{flex: 1}}>
           <View style={{flex: 0.9}}>
             <FlatList
+              ListEmptyComponent={() => {
+                return (
+                  <View>
+                    <Text style={{fontSize: 40, textAlign: 'center'}}>
+                      no data found
+                    </Text>
+                  </View>
+                );
+              }}
               data={this.state.cartData}
               ItemSeparatorComponent={this.FlatListItemSeparator}
               renderItem={({item}) => {
@@ -231,6 +302,15 @@ export class OrderSummary extends Component {
                             </Text>
                           </View>
                         </View>
+                        <View>
+                          <TouchableOpacity
+                            style={styles.removeBTN}
+                            onPress={() => {
+                              this.removeFromList(item._id);
+                            }}>
+                            <Text style={styles.removeBTNText}>remove</Text>
+                          </TouchableOpacity>
+                        </View>
                       </View>
                     </TouchableOpacity>
                   </View>
@@ -251,7 +331,9 @@ export class OrderSummary extends Component {
                   <Text style={styles.productPrice}>Price</Text>
                 </View>
                 <View>
-                  <Text style={styles.productPrice}>{'Rs' + ' '}</Text>
+                  <Text style={styles.productPrice}>
+                    {'Rs.' + ' ' + this.state.totalOrder}
+                  </Text>
                 </View>
               </View>
             </View>
@@ -262,14 +344,16 @@ export class OrderSummary extends Component {
           <View style={{flex: 0.1}}>
             <View style={styles.orderSummaryFooterContainer}>
               <View>
-                <Text style={styles.productPrice}>{'Rs' + ' '}</Text>
+                <Text style={styles.productPrice}>
+                  {'Rs.' + ' ' + this.state.totalOrder}
+                </Text>
               </View>
 
               <View>
                 <TouchableOpacity
                   style={styles.orderNowBTN}
                   onPress={() => {
-                    this.orderNow();
+                    this.orderNowHandler();
                   }}>
                   <Text style={styles.orderNowBTNtext}>ORDER NOW</Text>
                 </TouchableOpacity>

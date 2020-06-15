@@ -87,7 +87,7 @@ export default class ProductDetails extends Component {
 
   updateRating() {
     const {token} = this.state;
-    console.log('update rating', token);
+
     const data = {
       product_id: this.state.product_id,
       product_rating: this.state.starCount,
@@ -127,6 +127,8 @@ export default class ProductDetails extends Component {
   getToken = async () => {
     try {
       const value = JSON.parse(await AsyncStorage.getItem('userData'));
+
+      console.log(value);
 
       if (value !== null) {
         this.setState({token: value.token, buyNowbtn: false});
@@ -181,7 +183,7 @@ export default class ProductDetails extends Component {
 
   //subimage click
 
-  onpressSubImage = id => {
+  onpressSubImage = async id => {
     this.setState({productImg: id});
   };
 

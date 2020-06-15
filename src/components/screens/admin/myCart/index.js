@@ -53,7 +53,7 @@ export class MyCart extends Component {
       }
 
       let arr = value.map(item => {
-        return item.product_cost * item.quantity;
+        return item.product_cost;
       });
 
       let totalCost = arr.reduce((a, b) => a + b, 0);

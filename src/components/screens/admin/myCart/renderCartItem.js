@@ -20,6 +20,7 @@ export class RenderCartItem extends Component {
       cartData: {},
     };
   }
+
   removeFromCart = id => {
     const title = 'Time to choose!';
     const message = 'are u sure u wanna remove this item';

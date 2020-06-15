@@ -204,6 +204,18 @@ const styles = StyleSheet.create({
     padding: 5,
     marginLeft: 10,
   },
+  removeBTN: {
+    borderRadius: 7,
+    padding: 7,
+    backgroundColor: 'red',
+    height: 30,
+  },
+  removeBTNText: {
+    fontSize: 15,
+
+    color: 'white',
+    textAlign: 'center',
+  },
 });
 
 export default styles;

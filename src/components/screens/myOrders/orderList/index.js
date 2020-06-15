@@ -30,62 +30,54 @@ export class OrderList extends Component {
     }
   };
 
-  getOrderDetails = () => {
-    const {token} = this.state;
-    const data = null;
-    const header = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: 'Bearer ' + token,
-    };
+  getOrderDetails = async () => {
+    try {
+      const value = JSON.parse(await AsyncStorage.getItem('placeOrder'));
 
-    request(
-      this.cartCallBack,
-      data,
-      'GET',
-      API_URL.GET_ORDER_DETAILS_API,
-      header,
-    );
-  };
-
-  cartCallBack = {
-    success: response => {
-      this.setState({orderData: response.product_details});
-    },
-    error: error => {
-      console.log('errr', error);
-    },
+      if (value !== null) {
+        console.log('placed', value);
+        this.setState({
+          orderData: value,
+        });
+      }
+    } catch (e) {
+      // error reading value
+      console.log(e);
+    }
   };
 
   render() {
     const {orderData} = this.state;
 
-    const result = orderData.map(item => {
-      item.product_details.map(dItem => {
-        const i1 = dItem.order_id;
+    // const result = orderData.map(item => {
+    //   item.product_details.map(dItem => {
+    //     const i1 = dItem.order_id;
 
-        return i1;
-      });
-    });
+    //     return i1;
+    //   });
+    // });
 
-    console.log(result);
+    console.log(orderData);
 
     return (
-      <View>
+      <View style={{flex: 1}}>
         <FlatList
           data={this.state.orderData}
           renderItem={({item}) => {
+            console.log(item);
             return (
-              <View>
-                <TouchableOpacity
+              <View style={{flex: 1}}>
+                {/* <TouchableOpacity
                   onPress={() => {
                     alert('hello');
                   }}>
                   <View>
                     <View style={{flexDirection: 'column'}}>
-                      <Text numberOfLines={1}>{item.order_id}</Text>
+                      <Text numberOfLines={1}>{item.product_id}</Text>
                     </View>
                   </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                <Text>{item.product_cost}</Text>
               </View>
             );
           }}
