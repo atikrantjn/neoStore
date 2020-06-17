@@ -23,14 +23,12 @@ export class OrderSummary extends Component {
     this.state = {
       cartData: [],
       product_cost: '',
-      adress: '',
-
+      address: [],
       customerData: {},
       quantity: 1,
-
       token: '',
-
       totalOrder: 0,
+      _id: '',
     };
   }
 
@@ -53,26 +51,43 @@ export class OrderSummary extends Component {
   };
 
   placeOrder = async () => {
-    let value = await AsyncStorage.getItem('cart');
-    const mainData = JSON.parse(value);
+    const {product_id, _id, cartData} = this.state;
 
-    const existingOrders = await AsyncStorage.getItem('placeOrder');
+    // let a = cartData.map((id, index) => {
+    //   console.log(id.quantity[index]);
+    // });
 
-    let newOrder = JSON.parse(existingOrders);
-    console.log(newOrder);
+    // const data = [
+    //   {
+    //     _id: _id,
+    //     product_id: _id,
+    //     quantity: quantity,
+    //   },
+    //   {flag: 'checkout'},
+    // ];
 
-    if (!newOrder) {
-      newOrder = [];
-      newOrder.push(mainData);
+    // const header = {
+    //   'Content-Type': 'application/x-www-form-urlencoded',
+    //   Authorization: 'Bearer ' + this.state.token,
+    // };
 
-      AsyncStorage.setItem('placeOrder', JSON.stringify(newOrder))
-        .then(async () => {
-          await AsyncStorage.removeItem('cart');
-        })
-        .catch(() => {
-          console.log('There was an error placing the order');
-        });
-    }
+    // request(
+    //   this.placeOrderCallback,
+    //   data,
+    //   'POST',
+    //   API_URL.ADD_PRODUCT_TO_CART_CHECKOUT_API,
+    //   header,
+    // );
+  };
+
+  placeOrderCallback = {
+    success: response => {
+      console.log('from place order', response);
+      // this.props.setLoginData(response);
+    },
+    error: error => {
+      console.log(error, 'err');
+    },
   };
 
   componentDidMount = async () => {
@@ -82,8 +97,8 @@ export class OrderSummary extends Component {
 
     await this.getTotalCost();
 
-    // setInterval(this.getProductData, 2000);
-    // setInterval(this.getTotalCost, 2000);
+    setInterval(this.getProductData, 1500);
+    setInterval(this.getTotalCost, 1500);
   };
 
   getData = async () => {
@@ -93,6 +108,7 @@ export class OrderSummary extends Component {
       if (value !== null) {
         this.setState({
           token: value.token,
+
           address: value.customer_address,
           customerData: value.customer_details,
         });
@@ -141,6 +157,7 @@ export class OrderSummary extends Component {
       Alert.alert(title, message, buttons);
     } else if (dataFromCart[index].quantity > 1) {
       dataFromCart[index].quantity = dataFromCart[index].quantity - 1;
+
       await AsyncStorage.setItem('cart', JSON.stringify(dataFromCart));
     }
   };
@@ -154,7 +171,9 @@ export class OrderSummary extends Component {
 
     if (dataFromCart[index].quantity > 0) {
       dataFromCart[index].quantity = dataFromCart[index].quantity + 1;
+
       await AsyncStorage.setItem('cart', JSON.stringify(dataFromCart));
+      //this.setState({cartData: AsyncStorage.getItem('cart')});
     }
   };
 
@@ -210,7 +229,7 @@ export class OrderSummary extends Component {
           </View>
 
           <View style={styles.userAddressContainer}>
-            <Text style={styles.userAddress}>{address}</Text>
+            <Text style={styles.userAddress}>abc</Text>
           </View>
           <View style={styles.changeAddressBTNcontainer}>
             <TouchableOpacity
@@ -316,7 +335,7 @@ export class OrderSummary extends Component {
                   </View>
                 );
               }}
-              keyExtractor={(item, index) => index}
+              keyExtractor={(item, index) => index.toString()}
             />
 
             <View style={styles.moduleSeperatorline} />

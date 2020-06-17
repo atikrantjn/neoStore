@@ -73,6 +73,7 @@ export default class Sidebar extends Component {
 
   render(props) {
     const {profile_img} = this.state.data;
+
     return (
       <View style={styles.sideMenuContainer}>
         {this.state.isloggedIn === true ? (

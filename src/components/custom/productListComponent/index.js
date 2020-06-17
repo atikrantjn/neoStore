@@ -68,6 +68,8 @@ export default class ProductListModule extends Component {
           data={this.state.data}
           ItemSeparatorComponent={this.FlatListItemSeparator}
           renderItem={({item}) => {
+            let rating = parseFloat(item.product_rating);
+
             return (
               <RenderProductItem
                 {...this.props}
@@ -76,11 +78,11 @@ export default class ProductListModule extends Component {
                 product_name={item.product_name}
                 product_material={item.product_material}
                 product_cost={item.product_cost}
-                product_rating={item.product_rating}
+                product_rating={rating}
               />
             );
           }}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item, index) => index.toString()}
         />
       </View>
     );

@@ -27,7 +27,7 @@ export default class ProductDetails extends Component {
       categoryName: [],
 
       modalVisible: false,
-      starCount: 0,
+      starCount: '',
 
       product_id: '',
 
@@ -47,24 +47,14 @@ export default class ProductDetails extends Component {
 
   componentDidMount = async () => {
     await this.getToken();
+
     const {productId} = this.props.route.params;
 
     this.setState({
       product_id: productId,
     });
 
-    const header = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    };
-    const data = null;
-
-    request(
-      this.productDetailsCallBack,
-      data,
-      'GET',
-      API_URL.PRODUCT_DETAILS_API + productId,
-      header,
-    );
+    await this.getProductDetails();
   };
 
   productDetailsCallBack = {
@@ -81,6 +71,21 @@ export default class ProductDetails extends Component {
     error: error => {
       console.log('errrbsdjgjhghjcgvjh', error);
     },
+  };
+
+  getProductDetails = () => {
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+    const data = null;
+
+    request(
+      this.productDetailsCallBack,
+      data,
+      'GET',
+      API_URL.PRODUCT_DETAILS_API + this.state.product_id,
+      header,
+    );
   };
 
   // rating update function
@@ -107,13 +112,6 @@ export default class ProductDetails extends Component {
     );
   }
 
-  onStarRatingPress(rating) {
-    this.setState({
-      starCount: rating,
-      buttonDisabled: false,
-    });
-  }
-
   ratingCallback = {
     success: response => {
       Alert.alert('thank you for rating our product');
@@ -124,11 +122,16 @@ export default class ProductDetails extends Component {
     },
   };
 
+  onStarRatingPress(rating) {
+    this.setState({
+      starCount: rating,
+      buttonDisabled: false,
+    });
+  }
+
   getToken = async () => {
     try {
       const value = JSON.parse(await AsyncStorage.getItem('userData'));
-
-      console.log(value);
 
       if (value !== null) {
         this.setState({token: value.token, buyNowbtn: false});
@@ -185,6 +188,18 @@ export default class ProductDetails extends Component {
 
   onpressSubImage = async id => {
     this.setState({productImg: id});
+  };
+
+  //updating component on recieving new props
+
+  componentDidUpdate = async prev => {
+    let product_id = prev.route.params.productId;
+    let prevProd = this.props.route.params.productId;
+
+    if (prevProd !== product_id) {
+      this.setState({product_id: prevProd});
+    }
+    this.getProductDetails();
   };
 
   render() {
@@ -322,7 +337,7 @@ export default class ProductDetails extends Component {
                   </TouchableOpacity>
                 );
               }}
-              keyExtractor={item => item.id}
+              keyExtractor={(item, index) => index.toString()}
             />
           </View>
 

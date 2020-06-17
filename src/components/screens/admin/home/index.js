@@ -37,8 +37,6 @@ export default class Home extends Component {
   }
 
   imageslider = index => {
-    console.log(index, 'iiiii');
-
     switch (index) {
       case 0:
         this.props.navigation.navigate('Table', {
@@ -79,64 +77,62 @@ export default class Home extends Component {
     const screenWidth = Dimensions.get('window').width;
 
     return (
-      <ScrollView>
-        <View style={styles.container}>
-          <View>
-            <SliderBox
-              images={ele}
-              sliderBoxHeight={300}
-              autoplay
-              circleLoop
-              onCurrentImagePressed={index => this.imageslider(index)}
-              resizeMode={'cover'}
-            />
-          </View>
-
-          <View style={{flex: 1, marginTop: 25, width: screenWidth}}>
-            <FlatList
-              data={this.state.dataSource}
-              numColumns={2}
-              renderItem={({item}) => {
-                return (
-                  <View>
-                    <TouchableOpacity
-                      style={styles.productCategoryCard}
-                      onPress={() => {
-                        this.props.navigation.navigate(item.category_name, {
-                          id: item.category_id,
-                        });
-                      }}>
-                      <Text
-                        style={{
-                          color: 'white',
-                          fontSize: 35,
-                          textAlign: 'center',
-                        }}>
-                        {item.category_name}
-                      </Text>
-                      <Image
-                        style={{width: 90, height: 90, marginLeft: 25}}
-                        source={
-                          item.category_name === 'Sofa'
-                            ? images.sofaImage
-                            : item.category_name === 'Bed'
-                            ? images.bedImage
-                            : item.category_name === 'Chair'
-                            ? images.chairImage
-                            : item.category_name === 'Almirah'
-                            ? images.cupboardIcon
-                            : images.tableImage
-                        }
-                      />
-                    </TouchableOpacity>
-                  </View>
-                );
-              }}
-              keyExtractor={(item, index) => index}
-            />
-          </View>
+      <View style={styles.container}>
+        <View>
+          <SliderBox
+            images={ele}
+            sliderBoxHeight={300}
+            autoplay
+            circleLoop
+            onCurrentImagePressed={index => this.imageslider(index)}
+            resizeMode={'cover'}
+          />
         </View>
-      </ScrollView>
+
+        <View style={{flex: 1, marginTop: 25, width: screenWidth}}>
+          <FlatList
+            data={this.state.dataSource}
+            numColumns={2}
+            renderItem={({item}) => {
+              return (
+                <View>
+                  <TouchableOpacity
+                    style={styles.productCategoryCard}
+                    onPress={() => {
+                      this.props.navigation.navigate(item.category_name, {
+                        id: item.category_id,
+                      });
+                    }}>
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontSize: 35,
+                        textAlign: 'center',
+                      }}>
+                      {item.category_name}
+                    </Text>
+                    <Image
+                      style={{width: 90, height: 90, marginLeft: 25}}
+                      source={
+                        item.category_name === 'Sofa'
+                          ? images.sofaImage
+                          : item.category_name === 'Bed'
+                          ? images.bedImage
+                          : item.category_name === 'Chair'
+                          ? images.chairImage
+                          : item.category_name === 'Almirah'
+                          ? images.cupboardIcon
+                          : images.tableImage
+                      }
+                    />
+                  </TouchableOpacity>
+                </View>
+              );
+            }}
+            keyExtractor={(item, index) => index}
+          />
+        </View>
+      </View>
     );
   }
 }
