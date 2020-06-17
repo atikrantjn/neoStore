@@ -15,7 +15,8 @@ export class AddressList extends Component {
       token: '',
       addressData: {},
       checked: false,
-      addr: null,
+      address: '',
+      custmorAddress: {},
     };
   }
 
@@ -67,7 +68,7 @@ export class AddressList extends Component {
     await this.getData();
 
     this.recievedData();
-    this.intervalId = setInterval(this.recievedData.bind(this), 5000);
+    // setInterval(this.recievedData, 5000);
   };
 
   custAddressCallback = {
@@ -84,7 +85,7 @@ export class AddressList extends Component {
     const fullName =
       this.state.data.first_name + ' ' + this.state.data.last_name;
 
-    let addr;
+    console.log(this.state.address);
 
     return (
       <View style={{flex: 1}}>
@@ -127,52 +128,44 @@ export class AddressList extends Component {
                       flexDirection: 'row',
                     }}>
                     <View style={{marginTop: 40}}>
-                      {/* <RadioButton
-                        status={checked === true ? 'checked' : 'unchecked'}
-                        onPress={() => {
-                          this.setState({checked: true});
-                          console.log(item);
-                        }}
-                      /> */}
                       <Radio
                         onPress={() => {
-                          console.log(item);
-                          //   this.setState({
-                          //     addr:
-                          //       item.address +
-                          //       ', ' +
-                          //       item.city +
-                          //       ', ' +
-                          //       item.state +
-                          //       ', ' +
-                          //       item.pincode +
-                          //       ', ' +
-                          //       item.country,
-                          //   });
-                          //   this.setState({
-                          //     custmorAddress: {
-                          //       address_id: item.address_id,
-                          //       address: item.address,
-                          //       pincode: item.pincode,
-                          //       city: item.city,
-                          //       state: item.state,
-                          //       country: item.country,
-                          //       isDeliveryAddress: true,
-                          //     },
-                          //   });
+                          this.setState({
+                            address:
+                              item.address +
+                              ', ' +
+                              item.city +
+                              ', ' +
+                              item.state +
+                              ', ' +
+                              item.pincode +
+                              ', ' +
+                              item.country,
+                          });
+                          this.setState({
+                            custmorAddress: {
+                              address_id: item.address_id,
+                              address: item.address,
+                              pincode: item.pincode,
+                              city: item.city,
+                              state: item.state,
+                              country: item.country,
+                              isDeliveryAddress: true,
+                            },
+                          });
                         }}
-                        // selected={
-                        //   addr ==
-                        //   item.address +
-                        //     ', ' +
-                        //     item.city +
-                        //     ', ' +
-                        //     item.state +
-                        //     ', ' +
-                        //     item.pincode +
-                        //     ', ' +
-                        //     item.country
-                        // }
+                        selected={
+                          this.state.address ==
+                          item.address +
+                            ', ' +
+                            item.city +
+                            ', ' +
+                            item.state +
+                            ', ' +
+                            item.pincode +
+                            ', ' +
+                            item.country
+                        }
                         selectedColor="blue"
                       />
                     </View>
