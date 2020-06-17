@@ -11,7 +11,7 @@ class welcome extends Component {
 
   componentDidMount() {
     this.timeout = setTimeout(() => {
-      this.props.navigation.navigate('Admin');
+      this.props.navigation.replace('Admin');
     }, 2000);
   }
   render() {

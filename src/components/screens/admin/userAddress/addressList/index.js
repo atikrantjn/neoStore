@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import {Text, View, FlatList, TouchableOpacity} from 'react-native';
 import {request, API_URL} from '../../../../../config/api';
 import AsyncStorage from '@react-native-community/async-storage';
-// import RadioForm from 'react-native-simple-radio-button';
+
 import {RadioButton} from 'react-native-paper';
+import {Radio} from 'native-base';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 export class AddressList extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ export class AddressList extends Component {
       token: '',
       addressData: {},
       checked: false,
+      addr: null,
     };
   }
 
@@ -69,8 +71,8 @@ export class AddressList extends Component {
   };
 
   custAddressCallback = {
-    success: response => {
-      this.setState({addressData: response.customer_address});
+    success: async response => {
+      await this.setState({addressData: response.customer_address});
     },
     error: error => {
       console.log('errr', error);
@@ -78,9 +80,11 @@ export class AddressList extends Component {
   };
 
   render() {
-    const {checked} = this.state;
+    // const {checked} = this.state;
     const fullName =
       this.state.data.first_name + ' ' + this.state.data.last_name;
+
+    let addr;
 
     return (
       <View style={{flex: 1}}>
@@ -88,6 +92,14 @@ export class AddressList extends Component {
           <Text style={{fontSize: 30, margin: 20, color: '#8B8888'}}>
             Shipping Address
           </Text>
+          <View
+            style={{
+              height: 2,
+              width: '100%',
+              backgroundColor: '#b4b4b4',
+              marginBottom: 15,
+            }}
+          />
           {Object.keys(this.state.addressData).length === 0 &&
           this.state.addressData.constructor === Object ? (
             <View
@@ -115,11 +127,53 @@ export class AddressList extends Component {
                       flexDirection: 'row',
                     }}>
                     <View style={{marginTop: 40}}>
-                      <RadioButton
-                        status={checked ? true : false}
+                      {/* <RadioButton
+                        status={checked === true ? 'checked' : 'unchecked'}
                         onPress={() => {
                           this.setState({checked: true});
+                          console.log(item);
                         }}
+                      /> */}
+                      <Radio
+                        onPress={() => {
+                          console.log(item);
+                          //   this.setState({
+                          //     addr:
+                          //       item.address +
+                          //       ', ' +
+                          //       item.city +
+                          //       ', ' +
+                          //       item.state +
+                          //       ', ' +
+                          //       item.pincode +
+                          //       ', ' +
+                          //       item.country,
+                          //   });
+                          //   this.setState({
+                          //     custmorAddress: {
+                          //       address_id: item.address_id,
+                          //       address: item.address,
+                          //       pincode: item.pincode,
+                          //       city: item.city,
+                          //       state: item.state,
+                          //       country: item.country,
+                          //       isDeliveryAddress: true,
+                          //     },
+                          //   });
+                        }}
+                        // selected={
+                        //   addr ==
+                        //   item.address +
+                        //     ', ' +
+                        //     item.city +
+                        //     ', ' +
+                        //     item.state +
+                        //     ', ' +
+                        //     item.pincode +
+                        //     ', ' +
+                        //     item.country
+                        // }
+                        selectedColor="blue"
                       />
                     </View>
                     <TouchableOpacity style={{flex: 1}}>
@@ -143,7 +197,7 @@ export class AddressList extends Component {
                   </View>
                 );
               }}
-              keyExtractor={(item, index) => index}
+              keyExtractor={(item, index) => index.toString()}
             />
           )}
         </View>

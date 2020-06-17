@@ -164,7 +164,7 @@ export default class Sidebar extends Component {
                   <EnIcon
                     name="shopping-cart"
                     size={22}
-                    style={{marginRight: 25}}
+                    style={{marginRight: 25, top: 8}}
                   />
                 )}
                 onPress={() => {
@@ -181,7 +181,7 @@ export default class Sidebar extends Component {
                   <EnIcon
                     name="location-pin"
                     size={22}
-                    style={{marginRight: 25}}
+                    style={{marginRight: 25, top: 9}}
                   />
                 )}
               />
@@ -193,7 +193,7 @@ export default class Sidebar extends Component {
                   <MaterialIcon
                     name="dashboard"
                     size={22}
-                    style={{marginRight: 25}}
+                    style={{marginRight: 25, top: 9}}
                   />
                 )}
                 onPress={() => {
@@ -207,7 +207,7 @@ export default class Sidebar extends Component {
                   <EnIcon
                     name="shopping-cart"
                     size={22}
-                    style={{marginRight: 25}}
+                    style={{marginRight: 25, top: 9}}
                   />
                 )}
                 onPress={() => {
@@ -224,7 +224,7 @@ export default class Sidebar extends Component {
               <MaterialIcon
                 name="dashboard"
                 size={22}
-                style={{marginRight: 25}}
+                style={{marginRight: 25, top: 9}}
               />
             )}
             onPress={() => {
@@ -304,7 +304,11 @@ export default class Sidebar extends Component {
               this.props.navigation.navigate('Store Locator');
             }}
             left={() => (
-              <EnIcon name="location-pin" size={22} style={{marginRight: 25}} />
+              <EnIcon
+                name="location-pin"
+                size={22}
+                style={{marginRight: 25, top: 9}}
+              />
             )}
           />
           {this.state.isloggedIn === true ? (

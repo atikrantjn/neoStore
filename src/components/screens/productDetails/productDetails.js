@@ -74,6 +74,7 @@ export default class ProductDetails extends Component {
   };
 
   getProductDetails = () => {
+    const {productId} = this.props.route.params;
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
@@ -83,7 +84,7 @@ export default class ProductDetails extends Component {
       this.productDetailsCallBack,
       data,
       'GET',
-      API_URL.PRODUCT_DETAILS_API + this.state.product_id,
+      API_URL.PRODUCT_DETAILS_API + productId,
       header,
     );
   };
@@ -114,11 +115,13 @@ export default class ProductDetails extends Component {
 
   ratingCallback = {
     success: response => {
+      //  console.log(response);
       Alert.alert('thank you for rating our product');
       this.setState({modalVisible: false});
     },
     error: error => {
       Alert.alert('please login first');
+      console.log('err', error);
     },
   };
 
@@ -197,9 +200,9 @@ export default class ProductDetails extends Component {
     let prevProd = this.props.route.params.productId;
 
     if (prevProd !== product_id) {
+      await this.getProductDetails();
       this.setState({product_id: prevProd});
     }
-    this.getProductDetails();
   };
 
   render() {
