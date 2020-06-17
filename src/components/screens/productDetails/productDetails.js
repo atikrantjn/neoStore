@@ -97,6 +97,7 @@ export default class ProductDetails extends Component {
     const data = {
       product_id: this.state.product_id,
       product_rating: this.state.starCount,
+      // product_rating: this.state.rating,
     };
 
     const header = {
