@@ -18,6 +18,7 @@ export const API_URL = {
   GET_ORDER_DETAILS_API: 'getOrderDetails',
   GET_PRODUCT_BY_SEARCH_API: 'getProductBySearchText/',
   ADD_PRODUCT_TO_CART_CHECKOUT_API: 'addProductToCartCheckout',
+  UPDATE_ADDRESS_API: 'updateAddress',
 };
 
 export const buildHeader = (headerParams = {}) => {

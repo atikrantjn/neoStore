@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList, TouchableOpacity} from 'react-native';
+import {Text, View, FlatList, TouchableOpacity, Alert} from 'react-native';
 import {request, API_URL} from '../../../../../config/api';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -80,12 +80,39 @@ export class AddressList extends Component {
     },
   };
 
+  updateAddress = () => {
+    const data = this.state.custmorAddress;
+
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: 'Bearer ' + this.state.token,
+    };
+
+    request(
+      this.updateAddressCallback,
+      data,
+      'PUT',
+      API_URL.UPDATE_ADDRESS_API,
+      header,
+    );
+  };
+
+  updateAddressCallback = {
+    success: response => {
+      Alert.alert(response.message);
+    },
+    error: error => {
+      console.log('errr', error);
+    },
+  };
+
   render() {
-    // const {checked} = this.state;
     const fullName =
       this.state.data.first_name + ' ' + this.state.data.last_name;
 
-    console.log(this.state.address);
+    //console.log(this.state.address);
+
+    console.log(this.state.addressData);
 
     return (
       <View style={{flex: 1}}>
@@ -127,7 +154,7 @@ export class AddressList extends Component {
                       flex: 1,
                       flexDirection: 'row',
                     }}>
-                    <View style={{marginTop: 40}}>
+                    <View style={{marginTop: 40, marginLeft: 10}}>
                       <Radio
                         onPress={() => {
                           this.setState({
@@ -169,7 +196,7 @@ export class AddressList extends Component {
                         selectedColor="blue"
                       />
                     </View>
-                    <TouchableOpacity style={{flex: 1}}>
+                    <View style={{flex: 1}}>
                       <View style={{flex: 1, flexDirection: 'column'}}>
                         <Text style={{marginHorizontal: 10, fontSize: 30}}>
                           {fullName}
@@ -186,7 +213,7 @@ export class AddressList extends Component {
                           {item.pincode} , {item.country}
                         </Text>
                       </View>
-                    </TouchableOpacity>
+                    </View>
                   </View>
                 );
               }}
@@ -202,7 +229,7 @@ export class AddressList extends Component {
             height: 55,
           }}
           onPress={() => {
-            alert('hello');
+            this.updateAddress();
           }}>
           <Text
             style={{
