@@ -1,11 +1,30 @@
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, FlatList} from 'react-native';
 
 export class OrderId extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      orderData: [],
+    };
+  }
+
+  componentDidMount = () => {
+    const {orderData} = this.props.route.params;
+    this.setState({orderData});
+  };
   render() {
+    this.state.orderData.map(el => {});
     return (
       <View>
-        <Text> textInComponent </Text>
+        <FlatList
+          data={this.state.orderData}
+          renderItem={({item}) => {
+            console.log(item, 'i');
+          }}
+          keyExtractor={(item, index) => index.toString()}
+        />
       </View>
     );
   }

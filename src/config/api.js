@@ -17,7 +17,7 @@ export const API_URL = {
   SET_PASSWORD_API: 'recoverPassword',
   GET_ORDER_DETAILS_API: 'getOrderDetails',
   GET_PRODUCT_BY_SEARCH_API: 'getProductBySearchText/',
-  ADD_PRODUCT_TO_CART_CHECKOUT_API: 'addProductToCartCheckout',
+  ADD_PRODUCT_CHECKOUT_API: 'addProductToCartCheckout',
   UPDATE_ADDRESS_API: 'updateAddress',
 };
 

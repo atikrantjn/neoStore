@@ -9,7 +9,6 @@ import {
   Alert,
 } from 'react-native';
 
-import NumericInput from 'react-native-numeric-input';
 import styles from './styles';
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -28,7 +27,7 @@ export class OrderSummary extends Component {
       quantity: 1,
       token: '',
       totalOrder: 0,
-      _id: '',
+      shippingAddress: '',
     };
   }
 
@@ -51,42 +50,34 @@ export class OrderSummary extends Component {
   };
 
   placeOrder = async () => {
-    const {product_id, _id, cartData} = this.state;
+    const {token} = this.state;
 
-    // let a = cartData.map((id, index) => {
-    //   console.log(id.quantity[index]);
-    // });
+    const data = await AsyncStorage.getItem('cart');
 
-    // const data = [
-    //   {
-    //     _id: _id,
-    //     product_id: _id,
-    //     quantity: quantity,
-    //   },
-    //   {flag: 'checkout'},
-    // ];
+    const data1 = JSON.parse(data);
 
-    // const header = {
-    //   'Content-Type': 'application/x-www-form-urlencoded',
-    //   Authorization: 'Bearer ' + this.state.token,
-    // };
+    data1.push({flag: 'checkout'});
 
-    // request(
-    //   this.placeOrderCallback,
-    //   data,
-    //   'POST',
-    //   API_URL.ADD_PRODUCT_TO_CART_CHECKOUT_API,
-    //   header,
-    // );
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: 'Bearer ' + token,
+    };
+
+    request(
+      this.placeOrderCallback,
+      data1,
+      'POST',
+      API_URL.ADD_PRODUCT_CHECKOUT_API,
+      header,
+    );
   };
 
   placeOrderCallback = {
     success: response => {
       console.log('from place order', response);
-      // this.props.setLoginData(response);
     },
     error: error => {
-      console.log(error, 'err');
+      console.log('error', error);
     },
   };
 
@@ -108,7 +99,6 @@ export class OrderSummary extends Component {
       if (value !== null) {
         this.setState({
           token: value.token,
-
           address: value.customer_address,
           customerData: value.customer_details,
         });
@@ -217,7 +207,7 @@ export class OrderSummary extends Component {
   };
 
   render() {
-    const {cartData, customerData, address} = this.state;
+    const {customerData} = this.state;
 
     const userFullName = customerData.first_name + ' ' + customerData.last_name;
 

@@ -99,7 +99,11 @@ export class AddressList extends Component {
 
   updateAddressCallback = {
     success: response => {
+      let addr = this.state.address;
       Alert.alert(response.message);
+      this.props.navigation.navigate('OrderSummary', {
+        addr: addr,
+      });
     },
     error: error => {
       console.log('errr', error);
@@ -111,8 +115,6 @@ export class AddressList extends Component {
       this.state.data.first_name + ' ' + this.state.data.last_name;
 
     //console.log(this.state.address);
-
-    console.log(this.state.addressData);
 
     return (
       <View style={{flex: 1}}>
@@ -157,6 +159,7 @@ export class AddressList extends Component {
                     <View style={{marginTop: 40, marginLeft: 10}}>
                       <Radio
                         onPress={() => {
+                          // console.log(item);
                           this.setState({
                             address:
                               item.address +

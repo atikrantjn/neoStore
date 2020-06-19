@@ -2,14 +2,16 @@ import React, {Component} from 'react';
 import {Text, View, FlatList, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {API_URL, request} from '../../../../config/api';
+import moment from 'moment';
 export class OrderList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       token: '',
-      orderData: [],
+      // orderData: [],
       dItem: {},
+      placedOrderDetails: [],
     };
   }
   componentDidMount = async () => {
@@ -31,57 +33,107 @@ export class OrderList extends Component {
   };
 
   getOrderDetails = async () => {
-    try {
-      const value = JSON.parse(await AsyncStorage.getItem('placeOrder'));
+    const {token} = this.state;
 
-      if (value !== null) {
-        console.log('placed', value);
-        this.setState({
-          orderData: value,
-        });
-      }
-    } catch (e) {
-      // error reading value
-      console.log(e);
-    }
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: 'Bearer ' + token,
+    };
+
+    request(
+      this.getOrderDetailsCallback,
+      null,
+      'GET',
+      API_URL.GET_ORDER_DETAILS_API,
+      header,
+    );
+  };
+
+  getOrderDetailsCallback = {
+    success: response => {
+      this.setState({placedOrderDetails: response.product_details});
+    },
+    error: error => {
+      console.log(error);
+    },
+  };
+
+  FlatListItemSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: '100%',
+          backgroundColor: '#B4B4B4',
+        }}
+      />
+    );
   };
 
   render() {
-    const {orderData} = this.state;
-
-    // const result = orderData.map(item => {
-    //   item.product_details.map(dItem => {
-    //     const i1 = dItem.order_id;
-
-    //     return i1;
-    //   });
-    // });
-
-    console.log(orderData);
-
     return (
       <View style={{flex: 1}}>
         <FlatList
-          data={this.state.orderData}
+          data={this.state.placedOrderDetails}
+          ItemSeparatorComponent={this.FlatListItemSeparator}
           renderItem={({item}) => {
-            console.log(item);
+            let totalCost = item.product_details[0].total_cartCost;
+
+            let date = item.product_details[0].createdAt;
+
+            const orderDate = moment(date).format('MMMM D, YYYY');
+
             return (
               <View style={{flex: 1}}>
-                {/* <TouchableOpacity
+                <TouchableOpacity
                   onPress={() => {
-                    alert('hello');
+                    this.props.navigation.navigate('Order Id', {
+                      orderData: item.product_details,
+                    });
                   }}>
-                  <View>
-                    <View style={{flexDirection: 'column'}}>
-                      <Text numberOfLines={1}>{item.product_id}</Text>
+                  <View style={{flexDirection: 'column', marginTop: 10}}>
+                    <View style={{flexDirection: 'row', flex: 1}}>
+                      <Text
+                        style={{
+                          fontSize: 25,
+                          marginHorizontal: 20,
+                          fontWeight: 'bold',
+                        }}>
+                        Id : {item._id}
+                      </Text>
+                    </View>
+
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        flex: 1,
+                        justifyContent: 'flex-end',
+                      }}>
+                      <Text
+                        style={{
+                          fontSize: 20,
+                          marginHorizontal: 20,
+                        }}>
+                        {`Rs. ${totalCost}`}
+                      </Text>
+                    </View>
+
+                    <View style={{flexDirection: 'row', flex: 1}}>
+                      <Text
+                        style={{
+                          fontSize: 20,
+                          marginHorizontal: 20,
+                          marginBottom: 5,
+                        }}>
+                        {`Order Date :  ${orderDate}`}
+                      </Text>
                     </View>
                   </View>
-                </TouchableOpacity> */}
-                <Text>{item.product_cost}</Text>
+                </TouchableOpacity>
               </View>
             );
           }}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item, index) => index.toString()}
         />
       </View>
     );
