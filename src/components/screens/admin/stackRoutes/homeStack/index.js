@@ -13,10 +13,11 @@ const Stack = createStackNavigator();
 class HomeStack extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {};
   }
+
   render() {
+    // const {title} = this.props.route.params;
+
     return (
       <Stack.Navigator>
         <Stack.Screen
@@ -193,17 +194,10 @@ class HomeStack extends Component {
           name="ProductDetails"
           component={ProductDetails}
           options={{
+            title: 'product details',
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
-            headerRight: () => (
-              <Icon
-                name="search"
-                size={28}
-                color="white"
-                style={{marginRight: 10}}
-              />
-            ),
 
             headerTitleStyle: {
               color: 'white',

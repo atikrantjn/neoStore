@@ -19,12 +19,12 @@ export const API_URL = {
   GET_PRODUCT_BY_SEARCH_API: 'getProductBySearchText/',
   ADD_PRODUCT_CHECKOUT_API: 'addProductToCartCheckout',
   UPDATE_ADDRESS_API: 'updateAddress',
+  REMOVE_ADDRESS_API: 'deladdress/',
 };
 
 export const buildHeader = (headerParams = {}) => {
   let header = {
     'Content-Type': 'application/x-www-form-urlencoded',
-    //'Content-Type': 'application/json',
     'Cache-Control': 'no-cache',
   };
   Object.assign(header, headerParams);
@@ -51,6 +51,12 @@ export const request = async (
   featureURL,
   secureRequest = buildHeader(),
 ) => {
+  console.log({onResponse});
+  console.log({data});
+  console.log({type});
+  console.log({featureURL});
+  console.log({secureRequest});
+
   let response = '';
   try {
     if (type === 'GET') {
@@ -67,10 +73,11 @@ export const request = async (
       });
       var responseJSON = await response.json();
     }
+    console.log({responseJSON});
 
-    if (responseJSON.status_code === 200) {
+    if (responseJSON.status_code === 200 || responseJSON.success === true) {
       onResponse.success(responseJSON);
-    } else onResponse.error(responseJSON.description);
+    } else onResponse.error(responseJSON);
   } catch (error) {
     error = 'Network Error: please check your internet connection';
     onResponse.error(error);

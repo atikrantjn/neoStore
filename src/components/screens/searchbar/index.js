@@ -1,9 +1,18 @@
 import React, {Component} from 'react';
-import {Text, View, TextInput, Keyboard} from 'react-native';
+import {
+  Text,
+  View,
+  TextInput,
+  Keyboard,
+  FlatList,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import Icons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
+import StarRating from 'react-native-star-rating';
 
-import {request, API_URL} from '../../../config/api';
+import {BASE_URL, request, API_URL} from '../../../config/api';
 
 class SearchBarHeader extends Component {
   constructor(props) {
@@ -66,11 +75,24 @@ class SearchBarHeader extends Component {
 
   searchCallback = {
     success: resp => {
-      console.log('resp.....', resp.product_details[0]);
+      console.log('resp.....', resp);
+      this.setState({searchedData: resp.product_details});
     },
     error: err => {
       console.log('err.....', err);
     },
+  };
+
+  FlatListItemSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: '100%',
+          backgroundColor: '#B4B4B4',
+        }}
+      />
+    );
   };
   render() {
     return (
@@ -84,11 +106,11 @@ class SearchBarHeader extends Component {
               style={{fontSize: 27}}
             />
             <TextInput
+              autoCapitalize="characters"
               onChangeText={searchText => {
                 this.setState({
                   searchText: searchText,
                 });
-                console.log(this.state.searchText);
               }}
               placeholder="search"
               style={{fontSize: 20, marginLeft: 13, flex: 1}}
@@ -97,6 +119,61 @@ class SearchBarHeader extends Component {
               }}
             />
           </View>
+        </View>
+
+        <View>
+          <FlatList
+            data={this.state.searchedData}
+            ItemSeparatorComponent={this.FlatListItemSeparator}
+            renderItem={({item}) => {
+              let rating = parseFloat(item.product_rating);
+              //console.log(item.product_id);
+
+              return (
+                <View style={styles.listContainer}>
+                  <TouchableOpacity
+                    styles={styles.list}
+                    onPress={() => {
+                      this.props.navigation.navigate('ProductDetails', {
+                        productId: item.product_id,
+                      });
+                    }}>
+                    <View style={styles.imageContainer}>
+                      <Image
+                        style={styles.image}
+                        source={{
+                          uri: BASE_URL + item.product_image,
+                        }}
+                      />
+
+                      <View style={{flexDirection: 'column'}}>
+                        <Text numberOfLines={1} style={styles.listText}>
+                          {item.product_name}
+                        </Text>
+                        <Text numberOfLines={1} style={styles.listSubText}>
+                          {item.product_material}
+                        </Text>
+
+                        <View style={styles.productCostContainer}>
+                          <Text style={styles.productCost}>
+                            {'Rs' + ' ' + item.product_cost}
+                          </Text>
+                          <StarRating
+                            disabled={false}
+                            maxStars={5}
+                            rating={rating}
+                            fullStarColor={'#CD9922'}
+                            starSize={20}
+                          />
+                        </View>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              );
+            }}
+            keyExtractor={(item, index) => index.toString()}
+          />
         </View>
       </View>
     );

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Text, View, FlatList, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {API_URL, request} from '../../../../config/api';
+import FaIcon from 'react-native-vector-icons/FontAwesome5';
+
 import moment from 'moment';
 export class OrderList extends Component {
   constructor(props) {
@@ -9,7 +11,7 @@ export class OrderList extends Component {
 
     this.state = {
       token: '',
-      // orderData: [],
+
       dItem: {},
       placedOrderDetails: [],
     };
@@ -51,6 +53,7 @@ export class OrderList extends Component {
 
   getOrderDetailsCallback = {
     success: response => {
+      console.log(response, 'dhjhsdjhsd');
       this.setState({placedOrderDetails: response.product_details});
     },
     error: error => {
@@ -75,6 +78,28 @@ export class OrderList extends Component {
       <View style={{flex: 1}}>
         <FlatList
           data={this.state.placedOrderDetails}
+          ListEmptyComponent={() => {
+            return (
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <View>
+                  <FaIcon size={78} name="frown-open" />
+                </View>
+                <Text
+                  style={{
+                    fontSize: 24,
+                    textAlign: 'center',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  Oooopsssss data not found !!
+                </Text>
+              </View>
+            );
+          }}
           ItemSeparatorComponent={this.FlatListItemSeparator}
           renderItem={({item}) => {
             let totalCost = item.product_details[0].total_cartCost;

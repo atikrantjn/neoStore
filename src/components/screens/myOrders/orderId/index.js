@@ -16,7 +16,6 @@ export class OrderId extends Component {
 
     this.state = {
       orderData: [],
-      totalCost: null,
     };
   }
 
@@ -28,11 +27,20 @@ export class OrderId extends Component {
   componentDidMount = async () => {
     await this.getDataFromParams();
 
-    setInterval(this.getDataFromParams, 1000);
+    // setInterval(this.getDataFromParams, 1000);
   };
 
   FlatListItemSeparator = () => {
     return <View style={styles.itemSeperator} />;
+  };
+
+  componentDidUpdate = async prev => {
+    let prev_id = prev.route.params.orderData[0].order_id;
+    let new_id = this.props.route.params.orderData[0].order_id;
+    let new_data = this.props.route.params.orderData;
+    if (prev_id !== new_id) {
+      this.setState({orderData: new_data});
+    }
   };
 
   render() {
@@ -41,8 +49,6 @@ export class OrderId extends Component {
     let result = this.state.orderData.map(i => {
       return i.total_cartCost;
     });
-
-    console.log(result);
 
     return (
       <View style={{flex: 1}}>

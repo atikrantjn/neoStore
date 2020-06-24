@@ -73,52 +73,34 @@ export class MyCart extends Component {
 
   render() {
     return (
-      <View>
-        {this.state.cartData.length === 0 ? (
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <View>
-              <FaIcon size={78} name="frown-open" />
-            </View>
-            <Text
-              style={{
-                fontSize: 24,
-                textAlign: 'center',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              Oooopsssss no product found in your cart!!
-            </Text>
-          </View>
-        ) : (
+      <View style={{flex: 1}}>
+        <View style={{flex: 1, flexDirection: 'column'}}>
           <FlatList
             data={this.state.cartData}
-            ListFooterComponent={() => {
+            ItemSeparatorComponent={this.FlatListItemSeparator}
+            ListFooterComponent={this.FlatListItemSeparator}
+            ListEmptyComponent={() => {
               return (
-                <View style={styles.footerComponentContainer}>
-                  <View style={{flex: 1, flexDirection: 'column'}}>
-                    <Text style={styles.footerPrice}>Total Price:</Text>
-                    <Text style={styles.footerPrice}>
-                      {'Rs' + ' ' + this.state.total_cost}
-                    </Text>
-                  </View>
-
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
                   <View>
-                    <TouchableOpacity
-                      style={styles.footerOrderBTN}
-                      onPress={() => {
-                        this.props.navigation.navigate('OrderSummary');
-                      }}>
-                      <Text style={styles.footerBTNtext}>ORDER NOW</Text>
-                    </TouchableOpacity>
+                    <FaIcon size={78} name="frown-open" />
                   </View>
+                  <Text
+                    style={{
+                      fontSize: 24,
+                      textAlign: 'center',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    Oooopsssss no product found in your cart!!
+                  </Text>
                 </View>
               );
             }}
-            ItemSeparatorComponent={this.FlatListItemSeparator}
             renderItem={({item}) => {
               const productItem = JSON.parse(JSON.stringify(item));
 
@@ -134,7 +116,26 @@ export class MyCart extends Component {
             }}
             keyExtractor={(item, index) => index.toString()}
           />
-        )}
+        </View>
+        <View
+          style={{borderBottomWidth: 3, height: 10, borderColor: '#D5D5D5'}}
+        />
+        <View style={styles.footerComponentContainer}>
+          <View style={{flex: 1, flexDirection: 'column'}}>
+            <Text style={styles.footerPrice}>Total Price:</Text>
+            <Text style={styles.footerPrice}>
+              {'Rs' + ' ' + this.state.total_cost}
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.footerOrderBTN}
+            onPress={() => {
+              this.props.navigation.navigate('OrderSummary');
+            }}>
+            <Text style={styles.footerBTNtext}>ORDER NOW</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }

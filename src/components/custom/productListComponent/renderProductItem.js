@@ -18,6 +18,7 @@ export class RenderProductItem extends Component {
             onPress={() => {
               this.props.navigation.navigate('ProductDetails', {
                 productId: data.productId,
+                title: data.product_name,
               });
             }}>
             <View style={styles.imageContainer}>

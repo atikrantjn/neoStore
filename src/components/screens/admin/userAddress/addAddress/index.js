@@ -97,6 +97,9 @@ class AddAddress extends Component {
   addAddressCallback = {
     success: response => {
       Alert.alert(response.message);
+      setTimeout(() => {
+        this.props.navigation.goBack(null);
+      }, 3000);
     },
     error: error => {
       console.log('errr', error);

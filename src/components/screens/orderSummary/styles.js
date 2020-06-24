@@ -2,14 +2,14 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   userDetailContainer: {
-    flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-evenly',
-    margin: 15,
+    // justifyContent: 'space-evenly',
+    margin: 5,
   },
 
   userName: {
-    fontSize: 32,
+    fontSize: 30,
+    marginHorizontal: 15,
   },
 
   userAddressContainer: {
@@ -82,33 +82,27 @@ const styles = StyleSheet.create({
   },
 
   footerContainer: {
-    flex: 1,
     flexDirection: 'column',
-    margin: 25,
-  },
-  footerPriceDetailsContainer: {
-    flex: 1,
   },
 
   footerPriceDetails: {
     fontSize: 28,
     textTransform: 'uppercase',
     textDecorationLine: 'underline',
+    marginHorizontal: 20,
   },
   productCostContainer: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginVertical: 15,
+    marginBottom: 15,
   },
 
   productPrice: {fontSize: 25},
 
   orderSummaryFooterContainer: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginVertical: 15,
+    marginTop: 15,
   },
 
   orderNowBTN: {
@@ -128,7 +122,7 @@ const styles = StyleSheet.create({
 
   rendercontainer: {
     flex: 1,
-    margin: 10,
+    margin: 20,
   },
 
   renderlistContainer: {
@@ -161,7 +155,7 @@ const styles = StyleSheet.create({
   },
 
   renderproductCost: {
-    fontSize: 20,
+    fontSize: 18,
   },
 
   renderfooterComponentContainer: {

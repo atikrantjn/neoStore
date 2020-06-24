@@ -22,12 +22,11 @@ export class OrderSummary extends Component {
     this.state = {
       cartData: [],
       product_cost: '',
-      address: [],
       customerData: {},
       quantity: 1,
       token: '',
       totalOrder: 0,
-      shippingAddress: '',
+      custAddress: [],
     };
   }
 
@@ -49,14 +48,21 @@ export class OrderSummary extends Component {
     Alert.alert(title, message, buttons);
   };
 
-  placeOrder = async () => {
+  placeOrder = () => {
     const {token} = this.state;
 
-    const data = await AsyncStorage.getItem('cart');
+    let data = this.state.cartData;
+    let flag = [{flag: 'checkout'}];
+    let data1 = [...data, ...flag];
 
-    const data1 = JSON.parse(data);
-
-    data1.push({flag: 'checkout'});
+    // let data1 = [
+    //   {
+    //     _id: '5cfe41a5b4db0f338946eac3',
+    //     product_id: '5cfe41a5b4db0f338946eac3',
+    //     quantity: 1,
+    //   },
+    //   {flag: 'checkout'},
+    // ];
 
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -77,7 +83,7 @@ export class OrderSummary extends Component {
       console.log('from place order', response);
     },
     error: error => {
-      console.log('error', error);
+      console.log('error1', error);
     },
   };
 
@@ -87,9 +93,11 @@ export class OrderSummary extends Component {
     await this.getProductData();
 
     await this.getTotalCost();
+    await this.getCustAddress();
 
     setInterval(this.getProductData, 1500);
     setInterval(this.getTotalCost, 1500);
+    setInterval(this.getCustAddress, 3000);
   };
 
   getData = async () => {
@@ -99,7 +107,6 @@ export class OrderSummary extends Component {
       if (value !== null) {
         this.setState({
           token: value.token,
-          address: value.customer_address,
           customerData: value.customer_details,
         });
       }
@@ -111,10 +118,12 @@ export class OrderSummary extends Component {
 
   getProductData = async () => {
     try {
-      const value = JSON.parse(await AsyncStorage.getItem('cart'));
+      let arr = JSON.parse(await AsyncStorage.getItem('cart'));
 
-      if (value !== null) {
-        this.setState({cartData: value});
+      if (arr !== null) {
+        arr = arr.map(item => ({...item}));
+        this.setState({cartData: arr});
+        clearInterval(this.getProductData);
       }
     } catch (e) {
       // error reading value
@@ -149,6 +158,7 @@ export class OrderSummary extends Component {
       dataFromCart[index].quantity = dataFromCart[index].quantity - 1;
 
       await AsyncStorage.setItem('cart', JSON.stringify(dataFromCart));
+      // this.setState({cartData: JSON.parse(AsyncStorage.getItem('cart'))});
     }
   };
 
@@ -206,20 +216,54 @@ export class OrderSummary extends Component {
     alert('item has been successfully removed');
   };
 
+  getCustAddress = () => {
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: 'Bearer ' + this.state.token,
+    };
+
+    request(
+      this.custAddressCallback,
+      null,
+      'GET',
+      API_URL.GET_CUST_ADDRESS_API,
+      header,
+    );
+  };
+
+  custAddressCallback = {
+    success: async response => {
+      const a = response.customer_address.filter(i => {
+        return i.isDeliveryAddress === true;
+      });
+
+      let address = a.map(s => {
+        return s.address + ',' + s.pincode + ',' + s.country;
+      });
+      this.setState({custAddress: address});
+    },
+    error: error => {
+      let empty = 'no address found please add address first';
+
+      this.setState({custAddress: empty});
+      console.log('errr', error);
+    },
+  };
+
   render() {
     const {customerData} = this.state;
 
     const userFullName = customerData.first_name + ' ' + customerData.last_name;
 
     return (
-      <ScrollView>
+      <View style={{flex: 1}}>
         <View style={styles.userDetailContainer}>
           <View>
             <Text style={styles.userName}>{userFullName}</Text>
           </View>
 
           <View style={styles.userAddressContainer}>
-            <Text style={styles.userAddress}>abc</Text>
+            <Text style={styles.userAddress}>{this.state.custAddress}</Text>
           </View>
           <View style={styles.changeAddressBTNcontainer}>
             <TouchableOpacity
@@ -271,7 +315,11 @@ export class OrderSummary extends Component {
                             {productItem.product_id.product_material}
                           </Text>
 
-                          <View style={{flex: 1, flexDirection: 'row'}}>
+                          <View
+                            style={{
+                              flex: 1,
+                              flexDirection: 'row',
+                            }}>
                             <TouchableOpacity style={styles.minusBtn}>
                               <FaIcon
                                 name={'minus'}
@@ -301,14 +349,13 @@ export class OrderSummary extends Component {
                                 }}
                               />
                             </TouchableOpacity>
-                          </View>
-
-                          <View style={styles.renderproductCostContainer}>
-                            <Text style={styles.productCost}>
-                              {'Rs' +
-                                ' ' +
-                                item.quantity * productItem.product_cost}
-                            </Text>
+                            <View style={styles.renderproductCostContainer}>
+                              <Text style={styles.productCost}>
+                                {'Rs' +
+                                  ' ' +
+                                  item.quantity * productItem.product_cost}
+                              </Text>
+                            </View>
                           </View>
                         </View>
                         <View>
@@ -350,7 +397,7 @@ export class OrderSummary extends Component {
 
           <View style={styles.moduleSeperatorline} />
 
-          <View style={{flex: 0.1}}>
+          <View>
             <View style={styles.orderSummaryFooterContainer}>
               <View>
                 <Text style={styles.productPrice}>
@@ -358,19 +405,17 @@ export class OrderSummary extends Component {
                 </Text>
               </View>
 
-              <View>
-                <TouchableOpacity
-                  style={styles.orderNowBTN}
-                  onPress={() => {
-                    this.orderNowHandler();
-                  }}>
-                  <Text style={styles.orderNowBTNtext}>ORDER NOW</Text>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity
+                style={styles.orderNowBTN}
+                onPress={() => {
+                  this.orderNowHandler();
+                }}>
+                <Text style={styles.orderNowBTNtext}>ORDER NOW</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
-      </ScrollView>
+      </View>
     );
   }
 }

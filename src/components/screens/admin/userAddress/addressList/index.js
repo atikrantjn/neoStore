@@ -1,9 +1,15 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList, TouchableOpacity, Alert} from 'react-native';
+import {
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  Alert,
+  Dimensions,
+} from 'react-native';
 import {request, API_URL} from '../../../../../config/api';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import {RadioButton} from 'react-native-paper';
 import {Radio} from 'native-base';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 export class AddressList extends Component {
@@ -49,7 +55,6 @@ export class AddressList extends Component {
   };
 
   recievedData = () => {
-    const data = null;
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
       Authorization: 'Bearer ' + this.state.token,
@@ -57,7 +62,7 @@ export class AddressList extends Component {
 
     request(
       this.custAddressCallback,
-      data,
+      null,
       'GET',
       API_URL.GET_CUST_ADDRESS_API,
       header,
@@ -67,16 +72,16 @@ export class AddressList extends Component {
   componentDidMount = async () => {
     await this.getData();
 
-    this.recievedData();
-    // setInterval(this.recievedData, 5000);
+    await this.recievedData();
+    setInterval(this.recievedData, 2000);
   };
 
   custAddressCallback = {
-    success: async response => {
-      await this.setState({addressData: response.customer_address});
+    success: response => {
+      this.setState({addressData: response.customer_address});
     },
     error: error => {
-      console.log('errr', error);
+      // alert('add atleast one address');
     },
   };
 
@@ -99,14 +104,63 @@ export class AddressList extends Component {
 
   updateAddressCallback = {
     success: response => {
-      let addr = this.state.address;
-      Alert.alert(response.message);
-      this.props.navigation.navigate('OrderSummary', {
-        addr: addr,
-      });
+      const title = 'success';
+      const message = response.message;
+      const buttons = [
+        {
+          text: 'ok',
+          onPress: () => {
+            this.props.navigation.navigate('OrderSummary');
+          },
+        },
+      ];
+      Alert.alert(title, message, buttons);
     },
     error: error => {
       console.log('errr', error);
+    },
+  };
+
+  removeAddress = id => {
+    const title = 'Time to choose!';
+    const message = 'are u sure u wanna remove this address';
+    const buttons = [
+      {text: 'Cancel', type: 'cancel'},
+      {
+        text: 'yes',
+        onPress: () => {
+          this.removeItem(id);
+        },
+      },
+    ];
+    Alert.alert(title, message, buttons);
+  };
+
+  removeItem = id => {
+    const data = {
+      address_id: id,
+    };
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: 'Bearer ' + this.state.token,
+    };
+
+    request(
+      this.deleteAddressCallback,
+      data,
+      'DELETE',
+      API_URL.REMOVE_ADDRESS_API + id,
+      header,
+    );
+  };
+
+  deleteAddressCallback = {
+    success: response => {
+      alert('one customer address deleted successfully');
+      // this.setState({state});
+    },
+    error: error => {
+      alert('error');
     },
   };
 
@@ -114,7 +168,7 @@ export class AddressList extends Component {
     const fullName =
       this.state.data.first_name + ' ' + this.state.data.last_name;
 
-    //console.log(this.state.address);
+    const deviceWidth = Dimensions.get('window').width;
 
     return (
       <View style={{flex: 1}}>
@@ -149,6 +203,7 @@ export class AddressList extends Component {
             <FlatList
               data={this.state.addressData}
               ItemSeparatorComponent={this.FlatListItemSeparator}
+              ListFooterComponent={this.FlatListItemSeparator}
               renderItem={({item}) => {
                 return (
                   <View
@@ -204,9 +259,38 @@ export class AddressList extends Component {
                         <Text style={{marginHorizontal: 10, fontSize: 30}}>
                           {fullName}
                         </Text>
-                        <Text style={{marginHorizontal: 10, fontSize: 25}}>
-                          {item.address}
-                        </Text>
+                        <View style={{flexDirection: 'row', flex: 1}}>
+                          <Text
+                            style={{
+                              marginHorizontal: 10,
+                              fontSize: 25,
+                              width: deviceWidth - 130,
+                            }}>
+                            {item.address}
+                          </Text>
+                          <View>
+                            <TouchableOpacity
+                              style={{
+                                borderRadius: 7,
+                                padding: 7,
+                                backgroundColor: 'red',
+                                height: 30,
+                              }}
+                              onPress={() => {
+                                this.removeAddress(item.address_id);
+                              }}>
+                              <Text
+                                style={{
+                                  fontSize: 15,
+                                  color: 'white',
+                                  textAlign: 'center',
+                                }}>
+                                remove
+                              </Text>
+                            </TouchableOpacity>
+                          </View>
+                        </View>
+
                         <Text
                           style={{
                             marginHorizontal: 10,
@@ -228,7 +312,7 @@ export class AddressList extends Component {
           style={{
             backgroundColor: 'red',
             borderRadius: 7,
-            marginBottom: 10,
+            marginBottom: 8,
             height: 55,
           }}
           onPress={() => {

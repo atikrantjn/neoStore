@@ -75,6 +75,7 @@ export default class ProductDetails extends Component {
 
   getProductDetails = () => {
     const {productId} = this.props.route.params;
+    console.log(productId, 'iheloo');
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
@@ -202,7 +203,7 @@ export default class ProductDetails extends Component {
 
     if (prevProd !== product_id) {
       await this.getProductDetails();
-      this.setState({product_id: prevProd});
+      // this.setState({product_id: prevProd});
     }
   };
 

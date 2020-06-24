@@ -11,6 +11,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 
+import {BASE_URL, API_URL, request} from '../../../config/api';
+
 import AsyncStorage from '@react-native-community/async-storage';
 export default class Sidebar extends Component {
   constructor(props) {
@@ -20,16 +22,66 @@ export default class Sidebar extends Component {
       isloggedIn: false,
       token: '',
       data: {},
+      cartData: [],
     };
   }
+
+  getProductData = async () => {
+    try {
+      let arr = JSON.parse(await AsyncStorage.getItem('cart'));
+
+      if (arr !== null) {
+        arr = arr.map(item => ({...item}));
+        this.setState({cartData: arr});
+      }
+    } catch (e) {
+      // error reading value
+      console.log(e);
+    }
+  };
 
   removeValue = async () => {
     try {
       await AsyncStorage.removeItem('userData');
     } catch (e) {
-      // remove error
+      console.log(e);
     }
+
+    // const {token} = this.state;
+
+    // let data = this.state.cartData;
+    // // let flag = [{flag: 'logout'}];
+    // // let data1 = [...data, ...flag];
+
+    // data.map(item => {
+    //   const header = {
+    //     'Content-Type': 'application/x-www-form-urlencoded',
+    //     Authorization: 'Bearer ' + token,
+    //   };
+    //   let data1 = {
+    //     _id: item._id,
+    //     product_id: item._id,
+    //     quantity: item.quantity,
+    //   };
+
+    //   request(
+    //     this.placeOrderCallback,
+    //     data1,
+    //     'POST',
+    //     API_URL.ADD_PRODUCT_CHECKOUT_API,
+    //     header,
+    //   );
+    // });
   };
+
+  // placeOrderCallback = {
+  //   success: response => {
+  //     console.log('from logout cart order', response);
+  //   },
+  //   error: error => {
+  //     console.log('error', error);
+  //   },
+  // };
 
   logoutHandler = () => {
     const title = 'Time to choose!';
@@ -38,10 +90,12 @@ export default class Sidebar extends Component {
       {text: 'Cancel', type: 'cancel'},
       {
         text: 'yes',
-        onPress: () => {
-          this.removeValue();
+        onPress: async () => {
+          await this.removeValue();
           this.setState({isloggedIn: false});
-          this.props.navigation.navigate('Home');
+          setTimeout(() => {
+            this.props.navigation.navigate('Home');
+          }, 2000);
         },
       },
     ];
@@ -57,8 +111,14 @@ export default class Sidebar extends Component {
     try {
       const value = JSON.parse(await AsyncStorage.getItem('userData'));
 
+      console.log(value.token);
+
       if (value !== null) {
-        this.setState({isloggedIn: true, data: value.customer_details});
+        this.setState({
+          isloggedIn: true,
+          data: value.customer_details,
+          token: value.token,
+        });
       }
     } catch (e) {
       // error reading value
@@ -66,8 +126,10 @@ export default class Sidebar extends Component {
     }
   };
 
-  componentDidMount() {
-    this.getData();
+  async componentDidMount() {
+    await this.getData();
+
+    await this.getProductData();
     setInterval(this.getData, 5000);
   }
 
