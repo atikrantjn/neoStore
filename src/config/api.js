@@ -83,3 +83,26 @@ export const request = async (
     onResponse.error(error);
   }
 };
+
+export const apiii = {
+  fetchapi: function(url, type, data, token) {
+    if (type === 'post' || type === 'put') {
+      return fetch(url, {
+        method: type,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token ? 'Bearer ' + token : null,
+        },
+        body: data,
+      });
+    } else {
+      return fetch(url, {
+        method: type,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token ? 'Bearer ' + token : null,
+        },
+      });
+    }
+  },
+};

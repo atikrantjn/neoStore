@@ -10,6 +10,7 @@ import {
 import styles from './styles';
 import AsyncStorage from '@react-native-community/async-storage';
 import {request, API_URL} from '../../../../../config/api';
+import Loader from '../../../../custom/loaderComponent/loader';
 
 class AddAddress extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class AddAddress extends Component {
       state: '',
       pincode: '',
       country: '',
-
+      isLoading: false,
       pincodeErr: false,
       allFieldsRequired: false,
 
@@ -85,6 +86,8 @@ class AddAddress extends Component {
       Authorization: 'Bearer ' + token,
     };
 
+    this.setState({isLoading: true});
+
     request(
       this.addAddressCallback,
       postAddressData,
@@ -96,13 +99,16 @@ class AddAddress extends Component {
 
   addAddressCallback = {
     success: response => {
+      this.setState({isLoading: false});
       Alert.alert(response.message);
+
       setTimeout(() => {
         this.props.navigation.goBack(null);
       }, 3000);
     },
     error: error => {
-      console.log('errr', error);
+      this.setState({isLoading: true});
+      Alert.alert('oopss something went wrong');
     },
   };
 
@@ -141,6 +147,8 @@ class AddAddress extends Component {
                 }}
               />
             </View>
+
+            {this.state.isLoading ? <Loader /> : null}
 
             <View style={styles.cityStateContainer}>
               <View style={styles.cityTextContainer}>

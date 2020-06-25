@@ -10,9 +10,11 @@ import {
 } from 'react-native';
 
 import styles from './styles';
+import Loader from '../../custom/loaderComponent/loader';
+import axios from 'axios';
 
 import AsyncStorage from '@react-native-community/async-storage';
-import {BASE_URL, API_URL, request} from '../../../config/api';
+import {BASE_URL, API_URL, request, apiii} from '../../../config/api';
 
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 export class OrderSummary extends Component {
@@ -27,6 +29,7 @@ export class OrderSummary extends Component {
       token: '',
       totalOrder: 0,
       custAddress: [],
+      isLoading: false,
     };
   }
 
@@ -55,36 +58,28 @@ export class OrderSummary extends Component {
     let flag = [{flag: 'checkout'}];
     let data1 = [...data, ...flag];
 
-    // let data1 = [
-    //   {
-    //     _id: '5cfe41a5b4db0f338946eac3',
-    //     product_id: '5cfe41a5b4db0f338946eac3',
-    //     quantity: 1,
-    //   },
-    //   {flag: 'checkout'},
-    // ];
+    this.setState({isLoading: true});
 
-    const header = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: 'Bearer ' + token,
-    };
+    apiii
+      .fetchapi(
+        'http://180.149.241.208:3022/addProductToCartCheckout',
+        'post',
+        JSON.stringify(data1),
+        token,
+      )
 
-    request(
-      this.placeOrderCallback,
-      data1,
-      'POST',
-      API_URL.ADD_PRODUCT_CHECKOUT_API,
-      header,
-    );
-  };
+      .then(response => response.json())
+      .then(async data => {
+        if (data.success) {
+          this.setState({isLoading: false});
 
-  placeOrderCallback = {
-    success: response => {
-      console.log('from place order', response);
-    },
-    error: error => {
-      console.log('error1', error);
-    },
+          Alert.alert(data.message);
+          AsyncStorage.removeItem('cart');
+          this.props.navigation.navigate('Home');
+        } else {
+          Alert.alert(data.message);
+        }
+      });
   };
 
   componentDidMount = async () => {
@@ -95,9 +90,9 @@ export class OrderSummary extends Component {
     await this.getTotalCost();
     await this.getCustAddress();
 
-    setInterval(this.getProductData, 1500);
+    setInterval(this.getProductData, 1000);
     setInterval(this.getTotalCost, 1500);
-    setInterval(this.getCustAddress, 3000);
+    // setInterval(this.getCustAddress, 3000);
   };
 
   getData = async () => {
@@ -123,7 +118,7 @@ export class OrderSummary extends Component {
       if (arr !== null) {
         arr = arr.map(item => ({...item}));
         this.setState({cartData: arr});
-        clearInterval(this.getProductData);
+        // clearInterval(this.getProductData);
       }
     } catch (e) {
       // error reading value
@@ -222,6 +217,8 @@ export class OrderSummary extends Component {
       Authorization: 'Bearer ' + this.state.token,
     };
 
+    this.setState({isLoading: true});
+
     request(
       this.custAddressCallback,
       null,
@@ -240,13 +237,12 @@ export class OrderSummary extends Component {
       let address = a.map(s => {
         return s.address + ',' + s.pincode + ',' + s.country;
       });
-      this.setState({custAddress: address});
+      this.setState({custAddress: address, isLoading: false});
     },
     error: error => {
       let empty = 'no address found please add address first';
 
-      this.setState({custAddress: empty});
-      console.log('errr', error);
+      this.setState({custAddress: empty, isLoading: false});
     },
   };
 
@@ -278,6 +274,9 @@ export class OrderSummary extends Component {
           </View>
         </View>
         <View style={styles.moduleSeperatorline} />
+
+        {this.state.isLoading ? <Loader /> : null}
+
         <View style={{flex: 1}}>
           <View style={{flex: 0.9}}>
             <FlatList

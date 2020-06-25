@@ -5,7 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  ActivityIndicator,
   Alert,
 } from 'react-native';
 import {setLoginData} from '../../../redux/actions';
@@ -13,8 +12,8 @@ import {connect} from 'react-redux';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import images from '../../../utils/images';
 import {request, API_URL} from '../../../config/api';
+import Loader from '../../custom/loaderComponent/loader';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
-import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import styles from './styles';
@@ -108,6 +107,7 @@ class Login extends Component {
         <View style={styles.headingContainer}>
           <Text style={styles.neostoreHeader}>NeoSTORE</Text>
         </View>
+        {this.state.isLoading ? <Loader /> : null}
         <View>
           <View style={styles.loginInput}>
             <FaIcon
@@ -127,19 +127,14 @@ class Login extends Component {
               onChangeText={email => {
                 this.setState({email: email, emailErrr: false});
               }}
-              underlineColorAndroid="transparent"></TextInput>
+              underlineColorAndroid="transparent"
+            />
             {this.state.emailErrr ? (
               <Text style={{color: 'white', fontWeight: 'bold'}}>
                 * this field cannot be kept empty
               </Text>
             ) : null}
           </View>
-
-          {this.state.isLoading ? (
-            <View style={styles.loader}>
-              <ActivityIndicator size="large" color="#0000ff" />
-            </View>
-          ) : null}
 
           <View style={styles.loginInput}>
             <FaIcon
@@ -219,4 +214,7 @@ const mapDispatchToProps = dispatch => ({
   setLoginData: data => setLoginData(dispatch, data),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Login);

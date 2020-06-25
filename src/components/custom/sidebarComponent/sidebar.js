@@ -11,7 +11,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 
-import {BASE_URL, API_URL, request} from '../../../config/api';
+import {BASE_URL, API_URL, request, apiii} from '../../../config/api';
 
 import AsyncStorage from '@react-native-community/async-storage';
 export default class Sidebar extends Component {
@@ -41,47 +41,32 @@ export default class Sidebar extends Component {
   };
 
   removeValue = async () => {
-    try {
-      await AsyncStorage.removeItem('userData');
-    } catch (e) {
-      console.log(e);
-    }
+    const {token} = this.state;
 
-    // const {token} = this.state;
+    let data = this.state.cartData;
+    let flag = [{flag: 'logout'}];
+    let data1 = [...data, ...flag];
 
-    // let data = this.state.cartData;
-    // // let flag = [{flag: 'logout'}];
-    // // let data1 = [...data, ...flag];
+    apiii
+      .fetchapi(
+        'http://180.149.241.208:3022/addProductToCartCheckout',
+        'post',
+        JSON.stringify(data1),
+        token,
+      )
 
-    // data.map(item => {
-    //   const header = {
-    //     'Content-Type': 'application/x-www-form-urlencoded',
-    //     Authorization: 'Bearer ' + token,
-    //   };
-    //   let data1 = {
-    //     _id: item._id,
-    //     product_id: item._id,
-    //     quantity: item.quantity,
-    //   };
+      .then(response => response.json())
+      .then(async data => {
+        if (data.success) {
+          Alert.alert(data.message);
+          await AsyncStorage.removeItem('userData');
 
-    //   request(
-    //     this.placeOrderCallback,
-    //     data1,
-    //     'POST',
-    //     API_URL.ADD_PRODUCT_CHECKOUT_API,
-    //     header,
-    //   );
-    // });
+          this.props.navigation.navigate('Home');
+        } else {
+          Alert.alert(data.message);
+        }
+      });
   };
-
-  // placeOrderCallback = {
-  //   success: response => {
-  //     console.log('from logout cart order', response);
-  //   },
-  //   error: error => {
-  //     console.log('error', error);
-  //   },
-  // };
 
   logoutHandler = () => {
     const title = 'Time to choose!';
@@ -110,8 +95,6 @@ export default class Sidebar extends Component {
   getData = async () => {
     try {
       const value = JSON.parse(await AsyncStorage.getItem('userData'));
-
-      console.log(value.token);
 
       if (value !== null) {
         this.setState({

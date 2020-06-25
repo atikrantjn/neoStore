@@ -8,12 +8,9 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import {BASE_URL, API_URL, request} from '../../../config/api';
+import {API_URL, request} from '../../../config/api';
 import RenderProductItem from './renderProductItem';
-
-import styles from './styles';
-// import * as contants from '../../../utils/contants';
-import StarRating from 'react-native-star-rating';
+import Loader from '../../custom/loaderComponent/loader';
 
 export default class ProductListModule extends Component {
   constructor(props) {
@@ -21,6 +18,7 @@ export default class ProductListModule extends Component {
 
     this.state = {
       data: [],
+      isLoading: false,
     };
   }
 
@@ -31,6 +29,8 @@ export default class ProductListModule extends Component {
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
+
+    this.setState({isLoading: true});
 
     request(
       this.productListCallBack,
@@ -43,7 +43,7 @@ export default class ProductListModule extends Component {
 
   productListCallBack = {
     success: response => {
-      this.setState({data: response.product_details});
+      this.setState({data: response.product_details, isLoading: false});
     },
     error: error => {
       console.log('errr', error);
@@ -64,26 +64,30 @@ export default class ProductListModule extends Component {
   render() {
     return (
       <View>
-        <FlatList
-          data={this.state.data}
-          ItemSeparatorComponent={this.FlatListItemSeparator}
-          renderItem={({item}) => {
-            let rating = parseFloat(item.product_rating);
+        {this.state.isLoading ? (
+          <Loader />
+        ) : (
+          <FlatList
+            data={this.state.data}
+            ItemSeparatorComponent={this.FlatListItemSeparator}
+            renderItem={({item}) => {
+              let rating = parseFloat(item.product_rating);
 
-            return (
-              <RenderProductItem
-                {...this.props}
-                productId={item.product_id}
-                product_image={item.product_image}
-                product_name={item.product_name}
-                product_material={item.product_material}
-                product_cost={item.product_cost}
-                product_rating={rating}
-              />
-            );
-          }}
-          keyExtractor={(item, index) => index.toString()}
-        />
+              return (
+                <RenderProductItem
+                  {...this.props}
+                  productId={item.product_id}
+                  product_image={item.product_image}
+                  product_name={item.product_name}
+                  product_material={item.product_material}
+                  product_cost={item.product_cost}
+                  product_rating={rating}
+                />
+              );
+            }}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        )}
       </View>
     );
   }

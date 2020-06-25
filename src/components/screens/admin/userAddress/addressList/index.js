@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {request, API_URL} from '../../../../../config/api';
 import AsyncStorage from '@react-native-community/async-storage';
+import Loader from '../../../../custom/loaderComponent/loader';
 
 import {Radio} from 'native-base';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
@@ -23,6 +24,7 @@ export class AddressList extends Component {
       checked: false,
       address: '',
       custmorAddress: {},
+      isLoading: false,
     };
   }
 
@@ -78,7 +80,7 @@ export class AddressList extends Component {
 
   custAddressCallback = {
     success: response => {
-      this.setState({addressData: response.customer_address});
+      this.setState({addressData: response.customer_address, isLoading: false});
     },
     error: error => {
       // alert('add atleast one address');
@@ -93,6 +95,8 @@ export class AddressList extends Component {
       Authorization: 'Bearer ' + this.state.token,
     };
 
+    this.setState({isLoading: true});
+
     request(
       this.updateAddressCallback,
       data,
@@ -104,6 +108,7 @@ export class AddressList extends Component {
 
   updateAddressCallback = {
     success: response => {
+      this.setState({isLoading: false});
       const title = 'success';
       const message = response.message;
       const buttons = [
@@ -184,6 +189,7 @@ export class AddressList extends Component {
               marginBottom: 15,
             }}
           />
+          {this.state.isLoading ? <Loader /> : null}
           {Object.keys(this.state.addressData).length === 0 &&
           this.state.addressData.constructor === Object ? (
             <View
