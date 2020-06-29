@@ -7,8 +7,8 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import {setLoginData} from '../../../redux/actions';
-import {connect} from 'react-redux';
+// import {setLoginData} from '../../../redux/actions';
+// import {connect} from 'react-redux';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import images from '../../../utils/images';
 import {request, API_URL} from '../../../config/api';
@@ -34,11 +34,13 @@ class Login extends Component {
 
       userToken: '',
       userData: {},
+
+      token: '',
     };
   }
 
   storeData = async response => {
-    console.log('in store data', response);
+    this.setState({token: response.token});
     try {
       await AsyncStorage.setItem('userData', JSON.stringify(response));
     } catch (e) {
@@ -67,14 +69,16 @@ class Login extends Component {
   };
 
   loginCallback = {
-    success: response => {
+    success: async response => {
       console.log('from login', response);
-      // this.props.setLoginData(response);
+
       this.storeData(response);
+      this.getCartData();
 
       this.setState({isLoading: false});
 
       this.showAlert();
+
       setTimeout(() => {
         this.props.navigation.navigate('Home');
         this.hideAlert();
@@ -97,6 +101,28 @@ class Login extends Component {
     this.setState({
       showAlert: false,
     });
+  };
+
+  getCartData = () => {
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: 'Bearer ' + this.state.token,
+    };
+    request(this.cartCallback, null, 'GET', API_URL.GET_CUST_CART_API, header);
+  };
+
+  cartCallback = {
+    success: response => {
+      console.log('from cart callback', response);
+
+      AsyncStorage.setItem(
+        'cartData',
+        JSON.stringify(response.product_details),
+      );
+    },
+    error: error => {
+      console.log('errr--------------------------', error);
+    },
   };
 
   render() {
@@ -206,15 +232,16 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  loginReducer: state.loginReducer,
-});
+// const mapStateToProps = state => ({
+//   loginReducer: state.loginReducer,
+// });
 
-const mapDispatchToProps = dispatch => ({
-  setLoginData: data => setLoginData(dispatch, data),
-});
+// const mapDispatchToProps = dispatch => ({
+//   setLoginData: data => setLoginData(dispatch, data),
+// });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Login);
+export default //  connect(
+//   mapStateToProps,
+//   mapDispatchToProps,
+// )
+Login;

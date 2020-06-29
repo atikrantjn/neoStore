@@ -2,8 +2,8 @@ export const BASE_URL = 'http://180.149.241.208:3022/';
 
 export const API_URL = {
   UPDATE_RATING_API: 'updateProductRatingByCustomer',
-  ADD_TO_CART_API: 'addDataToCart',
-  GET_CUST_CART_API: 'getCustCartData',
+  // ADD_TO_CART_API: 'addDataToCart',
+  GET_CUST_CART_API: 'getCartData',
   LOGIN_API: 'login',
   REGISTER_API: 'register',
   PRODUCT_DETAILS_API: 'getProductByProdId/',

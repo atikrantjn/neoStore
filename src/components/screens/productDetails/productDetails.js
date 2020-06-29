@@ -27,7 +27,7 @@ export default class ProductDetails extends Component {
       categoryName: [],
 
       modalVisible: false,
-      starCount: '',
+      starCount: null,
 
       product_id: '',
 
@@ -46,13 +46,12 @@ export default class ProductDetails extends Component {
   }
 
   componentDidMount = async () => {
-    await this.getToken();
-
     const {productId} = this.props.route.params;
 
     this.setState({
       product_id: productId,
     });
+    await this.getToken();
 
     await this.getProductDetails();
   };
@@ -75,15 +74,14 @@ export default class ProductDetails extends Component {
 
   getProductDetails = () => {
     const {productId} = this.props.route.params;
-    console.log(productId, 'iheloo');
+
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
-    const data = null;
 
     request(
       this.productDetailsCallBack,
-      data,
+      null,
       'GET',
       API_URL.PRODUCT_DETAILS_API + productId,
       header,
@@ -158,7 +156,7 @@ export default class ProductDetails extends Component {
       quantity: 1,
     };
 
-    const existingProducts = await AsyncStorage.getItem('cart');
+    const existingProducts = await AsyncStorage.getItem('cartData');
 
     let newProduct = JSON.parse(existingProducts);
 
@@ -166,7 +164,7 @@ export default class ProductDetails extends Component {
       newProduct = [];
       newProduct.push(mainData);
 
-      AsyncStorage.setItem('cart', JSON.stringify(newProduct))
+      AsyncStorage.setItem('cartData', JSON.stringify(newProduct))
         .then(() => {
           alert('product added to cart successfully');
         })
@@ -179,7 +177,7 @@ export default class ProductDetails extends Component {
         alert('product already exist');
       } else {
         newProduct.push(mainData);
-        AsyncStorage.setItem('cart', JSON.stringify(newProduct));
+        AsyncStorage.setItem('cartData', JSON.stringify(newProduct));
 
         this.setState({cartCount: 1});
         alert('product added to cart successfully');
@@ -254,7 +252,7 @@ export default class ProductDetails extends Component {
                       <StarRating
                         halfStarEnabled={true}
                         disabled={false}
-                        rating={this.state.starCount}
+                        rating={parseFloat(this.state.starCount)}
                         maxStars={5}
                         fullStarColor={'#CD9922'}
                         starSize={30}
@@ -284,7 +282,7 @@ export default class ProductDetails extends Component {
               </View>
               <View>
                 <StarRating
-                  rating={productData.product_rating}
+                  rating={parseFloat(productData.product_rating)}
                   disabled={false}
                   maxStars={5}
                   fullStarColor={'#CD9922'}

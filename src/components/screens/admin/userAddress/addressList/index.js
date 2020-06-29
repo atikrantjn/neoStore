@@ -75,7 +75,7 @@ export class AddressList extends Component {
     await this.getData();
 
     await this.recievedData();
-    setInterval(this.recievedData, 2000);
+    //setInterval(this.recievedData, 2000);
   };
 
   custAddressCallback = {
@@ -83,7 +83,8 @@ export class AddressList extends Component {
       this.setState({addressData: response.customer_address, isLoading: false});
     },
     error: error => {
-      // alert('add atleast one address');
+      console.log(error, 'rrrr');
+      this.setState({addressData: {}});
     },
   };
 
@@ -108,13 +109,13 @@ export class AddressList extends Component {
 
   updateAddressCallback = {
     success: response => {
-      this.setState({isLoading: false});
       const title = 'success';
       const message = response.message;
       const buttons = [
         {
           text: 'ok',
           onPress: () => {
+            this.setState({isLoading: false});
             this.props.navigation.navigate('OrderSummary');
           },
         },
@@ -161,8 +162,8 @@ export class AddressList extends Component {
 
   deleteAddressCallback = {
     success: response => {
-      alert('one customer address deleted successfully');
-      // this.setState({state});
+      this.recievedData();
+      Alert.alert('one customer address deleted successfully');
     },
     error: error => {
       alert('error');

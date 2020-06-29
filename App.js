@@ -26,91 +26,76 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    this.getData();
-  }
-
-  getData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('token');
-      console.log('available', value);
-      if (value !== null) {
-        // value previously stored
-        this.setState({userToken: value});
-      }
-    } catch (e) {
-      // error reading value
-      console.log(e);
-    }
-  };
-
   render() {
     return (
-      <Provider store={store}>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Welcome"
-              component={Welcome}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="Register"
-              component={Register}
-              options={{
-                headerStyle: {
-                  backgroundColor: appColors.themeColor,
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                },
-              }}
-            />
-            <Stack.Screen
-              name="Forgot Password"
-              component={ForgotPassword}
-              options={{
-                headerStyle: {
-                  backgroundColor: appColors.themeColor,
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                },
-              }}
-            />
-            <Stack.Screen
-              name="Set Password"
-              component={SetPassword}
-              options={{
-                headerStyle: {
-                  backgroundColor: appColors.themeColor,
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                },
-              }}
-            />
-            <Stack.Screen
-              name="Admin"
-              component={Admin}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="SearchBar"
-              component={SearchBarHeader}
-              options={{headerShown: false}}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </Provider>
+      // <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Welcome"
+            component={Welcome}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Register"
+            component={Register}
+            options={{
+              headerStyle: {
+                backgroundColor: appColors.themeColor,
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+                textAlign: 'center',
+                fontSize: 30,
+                marginHorizontal: 85,
+              },
+            }}
+          />
+          <Stack.Screen
+            name="Forgot Password"
+            component={ForgotPassword}
+            options={{
+              headerStyle: {
+                backgroundColor: appColors.themeColor,
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="Set Password"
+            component={SetPassword}
+            options={{
+              headerStyle: {
+                backgroundColor: appColors.themeColor,
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="Admin"
+            component={Admin}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="SearchBar"
+            component={SearchBarHeader}
+            options={{headerShown: false}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+      // </Provider>
     );
   }
 }

@@ -25,7 +25,6 @@ export default class ProductListModule extends Component {
   componentDidMount() {
     const id = this.props.id;
 
-    const data = null;
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
@@ -34,7 +33,7 @@ export default class ProductListModule extends Component {
 
     request(
       this.productListCallBack,
-      data,
+      null,
       'GET',
       API_URL.PRODUCT_LIST_API + id,
       header,

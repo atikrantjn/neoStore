@@ -15,6 +15,10 @@ class HomeStack extends Component {
     super(props);
   }
 
+  LogoTitle = () => {
+    return <Text>jdhj</Text>;
+  };
+
   render() {
     // const {title} = this.props.route.params;
 
@@ -70,6 +74,9 @@ class HomeStack extends Component {
             },
             headerRight: () => (
               <Icon
+                onPress={() => {
+                  this.props.navigation.navigate('SearchBar');
+                }}
                 name="search"
                 size={28}
                 color="white"
@@ -81,8 +88,8 @@ class HomeStack extends Component {
               color: 'white',
               fontWeight: 'bold',
               textAlign: 'center',
+              flex: 1,
               fontSize: 30,
-              marginHorizontal: 85,
             },
           }}
         />
@@ -100,6 +107,9 @@ class HomeStack extends Component {
                 size={28}
                 color="white"
                 style={{marginRight: 10}}
+                onPress={() => {
+                  this.props.navigation.navigate('SearchBar');
+                }}
               />
             ),
 
@@ -126,6 +136,9 @@ class HomeStack extends Component {
                 size={28}
                 color="white"
                 style={{marginRight: 10}}
+                onPress={() => {
+                  this.props.navigation.navigate('SearchBar');
+                }}
               />
             ),
 
@@ -152,6 +165,9 @@ class HomeStack extends Component {
                 size={28}
                 color="white"
                 style={{marginRight: 10}}
+                onPress={() => {
+                  this.props.navigation.navigate('SearchBar');
+                }}
               />
             ),
 
@@ -178,6 +194,9 @@ class HomeStack extends Component {
                 size={28}
                 color="white"
                 style={{marginRight: 10}}
+                onPress={() => {
+                  this.props.navigation.navigate('SearchBar');
+                }}
               />
             ),
 

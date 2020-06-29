@@ -158,13 +158,12 @@ class Register extends Component {
         header,
       );
     } else {
-      Alert.alert('falied');
+      Alert.alert('please enter correct details');
     }
   };
 
   registerCallBack = {
     success: resp => {
-      console.log('resp.....', resp);
       this.setState({isLoading: false});
       this.showAlert();
       setTimeout(() => {
@@ -172,8 +171,6 @@ class Register extends Component {
       }, 5000);
     },
     error: err => {
-      console.log('err.....', err);
-
       Alert.alert('oops something went wrong');
       this.setState({isLoading: false});
     },
@@ -223,7 +220,8 @@ class Register extends Component {
                       this.setState({firstNameErr: false});
                     }
                   });
-                }}></TextInput>
+                }}
+              />
               {this.state.firstNameErr ? (
                 <Text style={{color: 'white'}}>
                   this field must contain 3 characters
@@ -255,7 +253,8 @@ class Register extends Component {
                       this.setState({lastNameErr: false});
                     }
                   });
-                }}></TextInput>
+                }}
+              />
               {this.state.lastNameErr ? (
                 <Text style={{color: 'white'}}>
                   this field must contain 3 characters
@@ -279,7 +278,8 @@ class Register extends Component {
                 placeholder="Email"
                 placeholderTextColor="white"
                 underlineColorAndroid="transparent"
-                onChangeText={email => this.validateEmail(email)}></TextInput>
+                onChangeText={email => this.validateEmail(email)}
+              />
               {this.state.emailErr ? (
                 <Text style={{color: 'white'}}>invalid email address</Text>
               ) : null}
@@ -302,7 +302,8 @@ class Register extends Component {
                 placeholderTextColor="white"
                 underlineColorAndroid="transparent"
                 secureTextEntry
-                onChangeText={pass => this.validatePassword(pass)}></TextInput>
+                onChangeText={pass => this.validatePassword(pass)}
+              />
               {this.state.passwordErr ? (
                 <Text style={{color: 'white'}}>
                   *Password must be 8-15 alphanumeric characters
@@ -328,7 +329,8 @@ class Register extends Component {
                 secureTextEntry
                 onChangeText={confirmPass => {
                   this.validateConfPass(confirmPass);
-                }}></TextInput>
+                }}
+              />
               {this.state.confirmPasswordErr ? (
                 <Text style={{color: 'white'}}>Password did'nt matched!!</Text>
               ) : null}
@@ -369,9 +371,8 @@ class Register extends Component {
                 underlineColorAndroid="transparent"
                 maxLength={10}
                 keyboardType={'number-pad'}
-                onChangeText={phone_no =>
-                  this.validatePhone(phone_no)
-                }></TextInput>
+                onChangeText={phone_no => this.validatePhone(phone_no)}
+              />
               {this.state.phoneErr ? (
                 <Text style={{color: 'white'}}>
                   should not contain alphabets and characters and special

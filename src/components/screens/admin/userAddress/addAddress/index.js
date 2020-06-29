@@ -102,6 +102,8 @@ class AddAddress extends Component {
       this.setState({isLoading: false});
       Alert.alert(response.message);
 
+      this.textInput.clear();
+
       setTimeout(() => {
         this.props.navigation.goBack(null);
       }, 3000);
@@ -126,7 +128,9 @@ class AddAddress extends Component {
             <View style={styles.addressContainer}>
               <Text style={styles.addressText}>Address</Text>
               <TextInput
-                ref={this.myTextInput}
+                ref={input => {
+                  this.textInput = input;
+                }}
                 numberOfLines={4}
                 multiline
                 textAlignVertical={'top'}
@@ -140,7 +144,9 @@ class AddAddress extends Component {
             <View style={styles.landmarkContainer}>
               <Text style={styles.landmarkText}>Landmark</Text>
               <TextInput
-                ref={this.myTextInput}
+                ref={input => {
+                  this.textInput = input;
+                }}
                 style={styles.landmarkTextInput}
                 onChangeText={landmark => {
                   this.setState({landmark: landmark});
@@ -154,7 +160,9 @@ class AddAddress extends Component {
               <View style={styles.cityTextContainer}>
                 <Text style={styles.cityText}>City</Text>
                 <TextInput
-                  ref={this.myTextInput}
+                  ref={input => {
+                    this.textInput = input;
+                  }}
                   style={styles.cityTextInput}
                   onChangeText={city => {
                     this.setState({city: city});
@@ -165,7 +173,9 @@ class AddAddress extends Component {
               <View style={styles.stateTextContainer}>
                 <Text style={styles.stateText}>State</Text>
                 <TextInput
-                  ref={this.myTextInput}
+                  ref={input => {
+                    this.textInput = input;
+                  }}
                   style={styles.stateTextInput}
                   onChangeText={state => {
                     this.setState({state: state});

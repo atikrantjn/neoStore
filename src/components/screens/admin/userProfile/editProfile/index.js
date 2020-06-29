@@ -13,8 +13,10 @@ import images from '../../../../../utils/images';
 import DatePicker from 'react-native-datepicker';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {API_URL, request} from '../../../../../config/api';
+import {BASE_URL, API_URL, request} from '../../../../../config/api';
 import AsyncStorage from '@react-native-community/async-storage';
+import ImagePicker from 'react-native-image-picker';
+import RNFetchBlob from 'rn-fetch-blob';
 
 export class EditProfile extends Component {
   constructor(props) {
@@ -38,8 +40,9 @@ export class EditProfile extends Component {
       emailErr: false,
 
       phoneErr: false,
-
+      profile_img: null,
       customerData: {},
+      img: null,
     };
   }
 
@@ -79,38 +82,57 @@ export class EditProfile extends Component {
   // };
 
   updateProfile = () => {
-    console.log(this.state.token);
-    const data = {
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
-      email: this.state.email,
-      phone_no: this.state.phone_no,
-      dob: this.state.dob,
-      gender: this.state.gender,
-    };
-    const {token} = this.state;
-    const header = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: 'Bearer ' + token,
-    };
+    const {token, profile_img} = this.state;
 
-    request(
-      this.updateProfileCallback,
-      data,
+    RNFetchBlob.fetch(
       'PUT',
-      API_URL.EDIT_USER_PROFILE_API,
-      header,
-    );
-  };
+      'http://180.149.241.208:3022/profile',
+      {
+        Authorization: 'Bearer ' + token,
 
-  updateProfileCallback = {
-    success: response => {
-      Alert.alert('Your profile has been successfully updated');
-      this.props.navigation.navigate('My Account');
-    },
-    error: error => {
-      Alert.alert('something went wrong');
-    },
+        'Content-Type': 'multipart/form-data',
+      },
+
+      [
+        {
+          name: 'profile_img',
+          filename: profile_img.fileName,
+          type: profile_img.type,
+          data: RNFetchBlob.wrap(profile_img.path),
+        },
+        {name: 'first_name', data: this.state.first_name},
+        {name: 'last_name', data: this.state.last_name},
+        {name: 'email', data: this.state.email},
+        {name: 'dob', data: this.state.dob},
+        {name: 'phone_no', data: this.state.phone_no},
+        {name: 'gender', data: this.state.gender},
+      ],
+    )
+      .then(resp => {
+        // ...
+        const data = JSON.parse(resp.data);
+
+        if (data.success === true) {
+          Alert.alert(data.message);
+
+          AsyncStorage.getItem('userData')
+            .then(d => {
+              let iData = JSON.parse(d);
+
+              iData.customer_details.profile_img =
+                data.customer_details.profile_img;
+
+              AsyncStorage.setItem('userData', JSON.stringify(iData));
+            })
+            .done();
+
+          this.setState({img: data.customer_details.profile_img});
+        }
+      })
+      .catch(err => {
+        // ...
+        alert('oopsssss something went wrong');
+      });
   };
 
   componentDidMount = async () => {
@@ -122,6 +144,23 @@ export class EditProfile extends Component {
       email: customerData.email,
       phone_no: customerData.phone_no,
       gender: customerData.gender,
+      img: customerData.profile_img,
+    });
+  };
+
+  chooseFile = () => {
+    var options = {
+      title: 'Select Image',
+
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.showImagePicker(options, response => {
+      console.log('Response = ', response);
+
+      this.setState({profile_img: response});
     });
   };
 
@@ -136,10 +175,24 @@ export class EditProfile extends Component {
               justifyContent: 'center',
               marginTop: 20,
             }}>
-            <Image
-              source={images.sideDrawerImage}
-              style={{height: 150, width: 150, borderRadius: 100}}
-            />
+            <TouchableOpacity
+              onPress={() => {
+                this.chooseFile();
+              }}>
+              {this.state.img === null ? (
+                <Image
+                  source={images.userIcon}
+                  style={{height: 150, width: 150, borderRadius: 100}}
+                />
+              ) : (
+                <Image
+                  source={{
+                    uri: BASE_URL + this.state.img,
+                  }}
+                  style={{height: 150, width: 150, borderRadius: 100}}
+                />
+              )}
+            </TouchableOpacity>
           </View>
 
           <View style={styles.registerInput}>

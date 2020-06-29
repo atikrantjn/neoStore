@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import styles from './styles';
 import images from '../../../../../utils/images';
 
-import {request, API_URL} from '../../../../../config/api';
+import {request, API_URL, BASE_URL} from '../../../../../config/api';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -75,7 +75,6 @@ export class MyAccount extends Component {
     await this.getToken();
 
     this.customerProfile();
-    setInterval(this.customerProfile, 5000);
   };
 
   render() {
@@ -96,7 +95,9 @@ export class MyAccount extends Component {
               />
             ) : (
               <Image
-                source={customerData.profile_img}
+                source={{
+                  uri: BASE_URL + customerData.profile_img,
+                }}
                 style={{height: 150, width: 150, borderRadius: 100}}
               />
             )}
@@ -117,7 +118,8 @@ export class MyAccount extends Component {
               style={styles.input}
               value={customerData.first_name}
               underlineColorAndroid="transparent"
-              editable={false}></TextInput>
+              editable={false}
+            />
           </View>
 
           <View style={styles.registerInput}>
@@ -135,7 +137,8 @@ export class MyAccount extends Component {
               style={styles.input}
               value={customerData.last_name}
               underlineColorAndroid="transparent"
-              editable={false}></TextInput>
+              editable={false}
+            />
           </View>
 
           <View style={styles.registerInput}>
@@ -153,7 +156,8 @@ export class MyAccount extends Component {
               style={styles.input}
               value={customerData.email}
               underlineColorAndroid="transparent"
-              editable={false}></TextInput>
+              editable={false}
+            />
           </View>
 
           <View style={styles.registerInput}>
@@ -171,7 +175,8 @@ export class MyAccount extends Component {
               style={styles.input}
               value={customerData.phone_no}
               underlineColorAndroid="transparent"
-              editable={false}></TextInput>
+              editable={false}
+            />
           </View>
           <View style={styles.registerInput}>
             <TouchableOpacity

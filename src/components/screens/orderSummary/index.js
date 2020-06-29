@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {
   Text,
   View,
-  ScrollView,
   TouchableOpacity,
   Image,
   FlatList,
@@ -11,7 +10,6 @@ import {
 
 import styles from './styles';
 import Loader from '../../custom/loaderComponent/loader';
-import axios from 'axios';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import {BASE_URL, API_URL, request, apiii} from '../../../config/api';
@@ -73,9 +71,10 @@ export class OrderSummary extends Component {
         if (data.success) {
           this.setState({isLoading: false});
 
-          Alert.alert(data.message);
-          AsyncStorage.removeItem('cart');
-          this.props.navigation.navigate('Home');
+          Alert.alert(`Thank you for ordering products. ${data.message}`);
+          AsyncStorage.removeItem('cartData');
+          this.setState({cartData: []});
+          this.props.navigation.navigate('My Orders');
         } else {
           Alert.alert(data.message);
         }
@@ -92,7 +91,6 @@ export class OrderSummary extends Component {
 
     setInterval(this.getProductData, 1000);
     setInterval(this.getTotalCost, 1500);
-    // setInterval(this.getCustAddress, 3000);
   };
 
   getData = async () => {
@@ -113,12 +111,11 @@ export class OrderSummary extends Component {
 
   getProductData = async () => {
     try {
-      let arr = JSON.parse(await AsyncStorage.getItem('cart'));
+      let arr = JSON.parse(await AsyncStorage.getItem('cartData'));
 
       if (arr !== null) {
         arr = arr.map(item => ({...item}));
         this.setState({cartData: arr});
-        // clearInterval(this.getProductData);
       }
     } catch (e) {
       // error reading value
@@ -152,7 +149,7 @@ export class OrderSummary extends Component {
     } else if (dataFromCart[index].quantity > 1) {
       dataFromCart[index].quantity = dataFromCart[index].quantity - 1;
 
-      await AsyncStorage.setItem('cart', JSON.stringify(dataFromCart));
+      await AsyncStorage.setItem('cartData', JSON.stringify(dataFromCart));
       // this.setState({cartData: JSON.parse(AsyncStorage.getItem('cart'))});
     }
   };
@@ -167,7 +164,7 @@ export class OrderSummary extends Component {
     if (dataFromCart[index].quantity > 0) {
       dataFromCart[index].quantity = dataFromCart[index].quantity + 1;
 
-      await AsyncStorage.setItem('cart', JSON.stringify(dataFromCart));
+      await AsyncStorage.setItem('cartData', JSON.stringify(dataFromCart));
       //this.setState({cartData: AsyncStorage.getItem('cart')});
     }
   };
@@ -204,7 +201,7 @@ export class OrderSummary extends Component {
     let cart = data.filter(item => {
       return item._id !== id;
     });
-    AsyncStorage.setItem('cart', JSON.stringify(cart));
+    AsyncStorage.setItem('cartData', JSON.stringify(cart));
 
     this.getProductData();
 

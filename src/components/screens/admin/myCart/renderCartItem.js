@@ -38,21 +38,24 @@ export class RenderCartItem extends Component {
 
   //remove from cart
   removeItem = async id => {
-    let data = JSON.parse(await AsyncStorage.getItem('cart'));
+    let data = JSON.parse(await AsyncStorage.getItem('cartData'));
+
+    console.log(data, ' iiii');
 
     let cart = data.filter(item => {
       return item._id !== id;
     });
-    AsyncStorage.setItem('cart', JSON.stringify(cart));
 
-    this.getProductData();
+    console.log(cart, 'car');
 
-    alert('item has been successfully removed');
+    // AsyncStorage.setItem('cartData', JSON.stringify(cart)).then(() => {
+    //   Alert.alert('item has been successfully removed');
+    // });
   };
 
   getProductData = async () => {
     try {
-      const value = JSON.parse(await AsyncStorage.getItem('cart'));
+      const value = JSON.parse(await AsyncStorage.getItem('cartData'));
 
       if (value !== null) {
         this.setState({cartData: value});

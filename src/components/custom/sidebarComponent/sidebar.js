@@ -11,7 +11,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 
-import {BASE_URL, API_URL, request, apiii} from '../../../config/api';
+import {BASE_URL, apiii} from '../../../config/api';
 
 import AsyncStorage from '@react-native-community/async-storage';
 export default class Sidebar extends Component {
@@ -23,16 +23,16 @@ export default class Sidebar extends Component {
       token: '',
       data: {},
       cartData: [],
+      isLoading: false,
     };
   }
 
   getProductData = async () => {
     try {
-      let arr = JSON.parse(await AsyncStorage.getItem('cart'));
+      let value = JSON.parse(await AsyncStorage.getItem('cartData'));
 
-      if (arr !== null) {
-        arr = arr.map(item => ({...item}));
-        this.setState({cartData: arr});
+      if (value !== null) {
+        this.setState({cartData: value});
       }
     } catch (e) {
       // error reading value
@@ -44,8 +44,13 @@ export default class Sidebar extends Component {
     const {token} = this.state;
 
     let data = this.state.cartData;
+
     let flag = [{flag: 'logout'}];
     let data1 = [...data, ...flag];
+
+    console.log(data1);
+
+    this.setState({isLoading: true});
 
     apiii
       .fetchapi(
@@ -56,12 +61,17 @@ export default class Sidebar extends Component {
       )
 
       .then(response => response.json())
-      .then(async data => {
+      .then(data => {
+        console.log(data);
+        let keys = ['userData', 'cartData'];
+
         if (data.success) {
           Alert.alert(data.message);
-          await AsyncStorage.removeItem('userData');
+          this.setState({cartData: []});
 
-          this.props.navigation.navigate('Home');
+          AsyncStorage.multiRemove(keys, err => {
+            this.props.navigation.navigate('Home');
+          });
         } else {
           Alert.alert(data.message);
         }
@@ -87,10 +97,11 @@ export default class Sidebar extends Component {
     Alert.alert(title, message, buttons);
   };
 
-  _handlePress = () =>
+  _handlePress = () => {
     this.setState({
       expanded: !this.state.expanded,
     });
+  };
 
   getData = async () => {
     try {
@@ -113,7 +124,7 @@ export default class Sidebar extends Component {
     await this.getData();
 
     await this.getProductData();
-    setInterval(this.getData, 5000);
+    setInterval(this.getData, 2000);
   }
 
   render(props) {
@@ -125,11 +136,16 @@ export default class Sidebar extends Component {
           <View style={{flexDirection: 'column'}}>
             {profile_img === null ? (
               <Image
-                source={images.sideDrawerImage}
+                source={images.userIcon}
                 style={styles.sideMenuProfileIcon}
               />
             ) : (
-              <Image source={profile_img} style={styles.sideMenuProfileIcon} />
+              <Image
+                source={{
+                  uri: BASE_URL + profile_img,
+                }}
+                style={styles.sideMenuProfileIcon}
+              />
             )}
 
             <Text style={{textAlign: 'center', fontSize: 23}}>
@@ -263,7 +279,7 @@ export default class Sidebar extends Component {
             </View>
           ) : null}
 
-          <List.Item
+          {/* <List.Item
             titleStyle={{fontSize: 22}}
             title="Dashboard"
             left={() => (
@@ -276,7 +292,7 @@ export default class Sidebar extends Component {
             onPress={() => {
               this.props.navigation.navigate('Home');
             }}
-          />
+          /> */}
           <List.Accordion
             titleStyle={{fontSize: 22, marginLeft: 25, color: 'black'}}
             title="Products"

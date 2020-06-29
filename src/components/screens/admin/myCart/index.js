@@ -23,7 +23,7 @@ export class MyCart extends Component {
     await this.getData();
     await this.getProductData();
 
-    setInterval(this.getProductData, 1000);
+    // setInterval(this.getProductData, 1000);
   };
 
   // get user data from local storage
@@ -45,7 +45,7 @@ export class MyCart extends Component {
 
   getProductData = async () => {
     try {
-      const value = JSON.parse(await AsyncStorage.getItem('cart'));
+      const value = JSON.parse(await AsyncStorage.getItem('cartData'));
 
       if (value !== null) {
         this.setState({cartData: value});
