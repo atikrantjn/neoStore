@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import appColors from '../../../../../utils/colors';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import AddAddress from '../../userAddress/addAddress';
@@ -24,8 +25,8 @@ class AddressStack extends Component {
               backgroundColor: appColors.themeColor,
             },
             headerLeft: () => (
-              <AntDesign
-                name="back"
+              <Ionicons
+                name="md-arrow-back"
                 size={28}
                 color="white"
                 style={{marginLeft: 10}}
@@ -34,13 +35,13 @@ class AddressStack extends Component {
                 }}
               />
             ),
-
+            headerTintColor: 'white',
+            headerTitleAlign: 'center',
             headerTitleStyle: {
               color: 'white',
               fontWeight: 'bold',
 
               fontSize: 30,
-              marginHorizontal: 85,
             },
           }}
         />
@@ -51,9 +52,11 @@ class AddressStack extends Component {
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
+            headerTintColor: 'white',
+            headerTitleAlign: 'center',
             headerLeft: () => (
-              <AntDesign
-                name="back"
+              <Ionicons
+                name="md-arrow-back"
                 size={28}
                 color="white"
                 style={{marginLeft: 10}}
@@ -80,7 +83,6 @@ class AddressStack extends Component {
               fontWeight: 'bold',
 
               fontSize: 30,
-              marginHorizontal: 85,
             },
           }}
         />
