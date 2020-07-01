@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import appColors from '../../../../../utils/colors';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5';
 
 import StoreLocator from '../../../storeLocator/index';
 const Stack = createStackNavigator();
@@ -23,23 +23,23 @@ class StoreLocatorStack extends Component {
               backgroundColor: appColors.themeColor,
             },
             headerLeft: () => (
-              <AntDesign
-                name="back"
+              <FontAwesomeIcon
+                name="bars"
                 size={28}
                 color="white"
                 style={{marginLeft: 10}}
                 onPress={() => {
-                  this.props.navigation.navigate('Home');
+                  this.props.navigation.openDrawer();
                 }}
               />
             ),
 
+            headerTitleAlign: 'center',
+
             headerTitleStyle: {
               color: 'white',
               fontWeight: 'bold',
-
-              fontSize: 30,
-              marginHorizontal: 85,
+              fontSize: 28,
             },
           }}
         />

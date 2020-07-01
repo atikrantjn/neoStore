@@ -370,7 +370,16 @@ export default class ProductDetails extends Component {
                   this.addToCart(product_id, productData);
                 }}
                 style={styles.addToCartIcon}>
-                <FaIcon name="cart-plus" size={50} />
+                <FaIcon
+                  name="cart-plus"
+                  size={32}
+                  style={{
+                    backgroundColor: '#3089AB',
+                    color: 'white',
+                    borderRadius: 32,
+                    padding: 10,
+                  }}
+                />
               </TouchableOpacity>
             </View>
             <View>

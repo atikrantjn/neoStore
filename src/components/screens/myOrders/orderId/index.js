@@ -81,10 +81,10 @@ export class OrderId extends Component {
 
                         <View style={styles.productCostContainer}>
                           <Text style={styles.productQty}>
-                            {'Quantity : ' + ' ' + item.quantity}
+                            {'Quantity :' + ' ' + item.quantity}
                           </Text>
                           <Text style={styles.productCost}>
-                            {'Rs' + ' ' + item.product_details[0].product_cost}
+                            {'Rs.' + ' ' + item.product_details[0].product_cost}
                           </Text>
                         </View>
                       </View>

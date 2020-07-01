@@ -218,13 +218,14 @@ class HomeStack extends Component {
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
+            headerTintColor: 'white',
+            headerTitleAlign: 'center',
 
             headerTitleStyle: {
               color: 'white',
               fontWeight: 'bold',
               textAlign: 'center',
-              fontSize: 30,
-              marginHorizontal: 85,
+              fontSize: 28,
             },
           }}
         />
@@ -235,13 +236,13 @@ class HomeStack extends Component {
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
-
+            headerTintColor: 'white',
+            headerTitleAlign: 'center',
             headerTitleStyle: {
               color: 'white',
               fontWeight: 'bold',
               textAlign: 'center',
-              fontSize: 30,
-              marginHorizontal: 85,
+              fontSize: 28,
             },
           }}
         />

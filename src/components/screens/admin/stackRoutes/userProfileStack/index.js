@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import appColors from '../../../../../utils/colors';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import MyAccount from '../../userProfile/myAccount/index';
 import EditProfile from '../../userProfile/editProfile/index';
@@ -25,9 +25,11 @@ class userProfileStack extends Component {
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
+            headerTintColor: 'white',
+            headerTitleAlign: 'center',
             headerLeft: () => (
-              <AntDesign
-                name="back"
+              <Ionicons
+                name="md-arrow-back"
                 size={28}
                 color="white"
                 style={{marginLeft: 10}}
@@ -41,8 +43,7 @@ class userProfileStack extends Component {
               color: 'white',
               fontWeight: 'bold',
 
-              fontSize: 30,
-              marginHorizontal: 85,
+              fontSize: 28,
             },
           }}
         />
@@ -53,13 +54,13 @@ class userProfileStack extends Component {
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
-
+            headerTintColor: 'white',
+            headerTitleAlign: 'center',
             headerTitleStyle: {
               color: 'white',
               fontWeight: 'bold',
 
-              fontSize: 30,
-              marginHorizontal: 85,
+              fontSize: 28,
             },
           }}
         />
@@ -72,12 +73,14 @@ class userProfileStack extends Component {
               backgroundColor: appColors.themeColor,
             },
 
+            headerTintColor: 'white',
+            headerTitleAlign: 'center',
+
             headerTitleStyle: {
               color: 'white',
               fontWeight: 'bold',
 
-              fontSize: 30,
-              marginHorizontal: 85,
+              fontSize: 28,
             },
           }}
         />

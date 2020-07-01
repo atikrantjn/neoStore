@@ -253,7 +253,7 @@ export default class Sidebar extends Component {
 
               <List.Item
                 titleStyle={{fontSize: 22}}
-                title="MyAccount"
+                title="My Account"
                 left={() => (
                   <MaterialIcon
                     name="dashboard"
