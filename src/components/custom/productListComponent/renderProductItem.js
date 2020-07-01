@@ -41,7 +41,7 @@ export class RenderProductItem extends Component {
 
               <View style={styles.productCostContainer}>
                 <Text style={styles.productCost}>
-                  {'Rs' + ' ' + data.product_cost}
+                  {'Rs.' + ' ' + data.product_cost}
                 </Text>
                 <StarRating
                   disabled={false}

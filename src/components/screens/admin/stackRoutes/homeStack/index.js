@@ -68,6 +68,8 @@ class HomeStack extends Component {
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
+            headerTintColor: 'white',
+            headerTitleAlign: 'center',
             headerRight: () => (
               <Icon
                 onPress={() => {
@@ -83,9 +85,8 @@ class HomeStack extends Component {
             headerTitleStyle: {
               color: 'white',
               fontWeight: 'bold',
-              textAlign: 'center',
-              marginHorizontal: 100,
-              fontSize: 30,
+
+              fontSize: 28,
             },
           })}
         />
@@ -97,6 +98,8 @@ class HomeStack extends Component {
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
+            headerTintColor: 'white',
+            headerTitleAlign: 'center',
             headerRight: () => (
               <Icon
                 name="search"
@@ -112,9 +115,8 @@ class HomeStack extends Component {
             headerTitleStyle: {
               color: 'white',
               fontWeight: 'bold',
-              textAlign: 'center',
+
               fontSize: 30,
-              marginHorizontal: 85,
             },
           }}
         />
@@ -126,6 +128,9 @@ class HomeStack extends Component {
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
+            headerTintColor: 'white',
+            headerTitleAlign: 'center',
+
             headerRight: () => (
               <Icon
                 name="search"
@@ -141,9 +146,8 @@ class HomeStack extends Component {
             headerTitleStyle: {
               color: 'white',
               fontWeight: 'bold',
-              textAlign: 'center',
+
               fontSize: 30,
-              marginHorizontal: 85,
             },
           }}
         />
@@ -155,6 +159,8 @@ class HomeStack extends Component {
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
+            headerTintColor: 'white',
+            headerTitleAlign: 'center',
             headerRight: () => (
               <Icon
                 name="search"
@@ -170,9 +176,8 @@ class HomeStack extends Component {
             headerTitleStyle: {
               color: 'white',
               fontWeight: 'bold',
-              textAlign: 'center',
+
               fontSize: 30,
-              marginHorizontal: 85,
             },
           }}
         />
@@ -184,6 +189,8 @@ class HomeStack extends Component {
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
+            headerTintColor: 'white',
+            headerTitleAlign: 'center',
             headerRight: () => (
               <Icon
                 name="search"
@@ -199,9 +206,7 @@ class HomeStack extends Component {
             headerTitleStyle: {
               color: 'white',
               fontWeight: 'bold',
-              textAlign: 'center',
               fontSize: 30,
-              marginHorizontal: 85,
             },
           }}
         />
