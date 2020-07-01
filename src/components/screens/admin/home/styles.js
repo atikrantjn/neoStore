@@ -9,13 +9,13 @@ const styles = StyleSheet.create({
   },
 
   productCategoryCard: {
-    flex: 1,
-    width: 220,
-    height: 200,
+    // width: '50%',
+    // height: '50%',
+    // justifyContent: 'space-around',
     backgroundColor: appColor.themeColor,
     borderRadius: 10,
-    marginLeft: 15,
-    marginVertical: 5,
+    // marginLeft: 15,
+    // marginVertical: 5,
   },
 });
 export default styles;

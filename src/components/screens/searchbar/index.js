@@ -12,6 +12,7 @@ import Icons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import StarRating from 'react-native-star-rating';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
+import Loader from '../../custom/loaderComponent/loader';
 
 import {BASE_URL, request, API_URL} from '../../../config/api';
 
@@ -23,6 +24,7 @@ class SearchBarHeader extends Component {
       searchBarFocused: false,
       searchText: '',
       empty: false,
+      isLoading: false,
     };
   }
 
@@ -66,6 +68,8 @@ class SearchBarHeader extends Component {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
 
+    this.setState({isLoading: true});
+
     request(
       this.searchCallback,
       postData,
@@ -79,9 +83,13 @@ class SearchBarHeader extends Component {
     success: resp => {
       if (resp.success) {
         console.log('resp.....', resp);
-        this.setState({searchedData: resp.product_details, empty: false});
+        this.setState({
+          searchedData: resp.product_details,
+          empty: false,
+          isLoading: false,
+        });
       } else {
-        this.setState({empty: true});
+        this.setState({empty: true, isLoading: false});
       }
     },
     error: err => {
@@ -133,72 +141,80 @@ class SearchBarHeader extends Component {
         </View>
 
         <View>
-          {this.state.empty === true ? (
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <View>
-                <FaIcon size={98} name="frown-open" />
-              </View>
-              <Text style={{fontSize: 24, textAlign: 'center'}}>
-                Oooopsssss Data not found!!
-              </Text>
-            </View>
+          {this.state.isLoading ? (
+            <Loader />
           ) : (
-            <FlatList
-              data={this.state.searchedData}
-              ItemSeparatorComponent={this.FlatListItemSeparator}
-              renderItem={({item}) => {
-                let rating = parseFloat(item.product_rating);
-                //console.log(item.product_id);
-
-                return (
-                  <View style={styles.listContainer}>
-                    <TouchableOpacity
-                      styles={styles.list}
-                      onPress={() => {
-                        this.props.navigation.navigate('ProductDetails', {
-                          productId: item.product_id,
-                        });
-                      }}>
-                      <View style={styles.imageContainer}>
-                        <Image
-                          style={styles.image}
-                          source={{
-                            uri: BASE_URL + item.product_image,
-                          }}
-                        />
-
-                        <View style={{flexDirection: 'column'}}>
-                          <Text numberOfLines={1} style={styles.listText}>
-                            {item.product_name}
-                          </Text>
-                          <Text numberOfLines={1} style={styles.listSubText}>
-                            {item.product_material}
-                          </Text>
-
-                          <View style={styles.productCostContainer}>
-                            <Text style={styles.productCost}>
-                              {'Rs' + ' ' + item.product_cost}
-                            </Text>
-                            <StarRating
-                              disabled={false}
-                              maxStars={5}
-                              rating={rating}
-                              fullStarColor={'#CD9922'}
-                              starSize={20}
-                            />
-                          </View>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
+            <View>
+              {this.state.empty === true ? (
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <View>
+                    <FaIcon size={98} name="frown-open" />
                   </View>
-                );
-              }}
-              keyExtractor={(item, index) => index.toString()}
-            />
+                  <Text style={{fontSize: 24, textAlign: 'center'}}>
+                    Oooopsssss Data not found!!
+                  </Text>
+                </View>
+              ) : (
+                <FlatList
+                  data={this.state.searchedData}
+                  ItemSeparatorComponent={this.FlatListItemSeparator}
+                  renderItem={({item}) => {
+                    let rating = parseFloat(item.product_rating);
+                    //console.log(item.product_id);
+
+                    return (
+                      <View style={styles.listContainer}>
+                        <TouchableOpacity
+                          styles={styles.list}
+                          onPress={() => {
+                            this.props.navigation.navigate('ProductDetails', {
+                              productId: item.product_id,
+                            });
+                          }}>
+                          <View style={styles.imageContainer}>
+                            <Image
+                              style={styles.image}
+                              source={{
+                                uri: BASE_URL + item.product_image,
+                              }}
+                            />
+
+                            <View style={{flexDirection: 'column'}}>
+                              <Text numberOfLines={1} style={styles.listText}>
+                                {item.product_name}
+                              </Text>
+                              <Text
+                                numberOfLines={1}
+                                style={styles.listSubText}>
+                                {item.product_material}
+                              </Text>
+
+                              <View style={styles.productCostContainer}>
+                                <Text style={styles.productCost}>
+                                  {'Rs' + ' ' + item.product_cost}
+                                </Text>
+                                <StarRating
+                                  disabled={false}
+                                  maxStars={5}
+                                  rating={rating}
+                                  fullStarColor={'#CD9922'}
+                                  starSize={20}
+                                />
+                              </View>
+                            </View>
+                          </View>
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  }}
+                  keyExtractor={(item, index) => index.toString()}
+                />
+              )}
+            </View>
           )}
         </View>
       </View>

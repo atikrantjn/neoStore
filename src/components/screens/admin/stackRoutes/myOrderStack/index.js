@@ -23,6 +23,7 @@ class MyOrderStack extends Component {
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
+
             headerLeft: () => (
               <AntDesign
                 name="back"
@@ -47,10 +48,10 @@ class MyOrderStack extends Component {
         <Stack.Screen
           name="Order Id"
           component={OrderId}
-          options={{
-            headerStyle: {
-              backgroundColor: appColors.themeColor,
-            },
+          options={({route}) => ({
+            title: route.params.order_id,
+            headerStyle: {backgroundColor: appColors.themeColor},
+
             headerLeft: () => (
               <AntDesign
                 name="back"
@@ -62,7 +63,6 @@ class MyOrderStack extends Component {
                 }}
               />
             ),
-
             headerTitleStyle: {
               color: 'white',
               fontWeight: 'bold',
@@ -70,7 +70,7 @@ class MyOrderStack extends Component {
               fontSize: 30,
               marginHorizontal: 85,
             },
-          }}
+          })}
         />
       </Stack.Navigator>
     );

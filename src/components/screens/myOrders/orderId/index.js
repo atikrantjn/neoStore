@@ -21,6 +21,7 @@ export class OrderId extends Component {
 
   getDataFromParams = () => {
     const {orderData} = this.props.route.params;
+    console.log(this.props.route.params.order_id);
     this.setState({orderData});
   };
 
@@ -44,6 +45,7 @@ export class OrderId extends Component {
   };
 
   render() {
+    console.log(this.state.orderData);
     let {width, height} = Dimensions.get('window');
 
     let result = this.state.orderData.map(i => {

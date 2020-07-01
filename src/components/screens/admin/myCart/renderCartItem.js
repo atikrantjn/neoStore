@@ -21,6 +21,8 @@ export class RenderCartItem extends Component {
     };
   }
 
+  //remove from cart
+
   removeFromCart = id => {
     const title = 'Time to choose!';
     const message = 'are u sure u wanna remove this item';
@@ -36,21 +38,16 @@ export class RenderCartItem extends Component {
     Alert.alert(title, message, buttons);
   };
 
-  //remove from cart
   removeItem = async id => {
     let data = JSON.parse(await AsyncStorage.getItem('cartData'));
-
-    console.log(data, ' iiii');
 
     let cart = data.filter(item => {
       return item._id !== id;
     });
 
-    console.log(cart, 'car');
-
-    // AsyncStorage.setItem('cartData', JSON.stringify(cart)).then(() => {
-    //   Alert.alert('item has been successfully removed');
-    // });
+    AsyncStorage.setItem('cartData', JSON.stringify(cart)).then(() => {
+      Alert.alert('item has been successfully removed');
+    });
   };
 
   getProductData = async () => {

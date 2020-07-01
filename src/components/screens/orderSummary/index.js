@@ -91,7 +91,13 @@ export class OrderSummary extends Component {
 
     setInterval(this.getProductData, 1000);
     setInterval(this.getTotalCost, 1500);
+    //setInterval(this.getCustAddress, 1000);
   };
+
+  // componentWillUnmount = () => {
+  //   clearInterval(this.getProductData);
+  //   clearInterval(this.getTotalCost);
+  // };
 
   getData = async () => {
     try {
@@ -205,7 +211,7 @@ export class OrderSummary extends Component {
 
     this.getProductData();
 
-    alert('item has been successfully removed');
+    Alert.alert('item has been successfully removed');
   };
 
   getCustAddress = () => {

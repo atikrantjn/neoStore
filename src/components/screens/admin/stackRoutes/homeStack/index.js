@@ -15,18 +15,13 @@ class HomeStack extends Component {
     super(props);
   }
 
-  LogoTitle = () => {
-    return <Text>jdhj</Text>;
-  };
-
   render() {
-    // const {title} = this.props.route.params;
-
     return (
       <Stack.Navigator>
         <Stack.Screen
           name="NeoSTORE"
           component={Home}
+          title="NeoSTORE"
           options={{
             headerStyle: {
               backgroundColor: appColors.themeColor,
@@ -55,12 +50,12 @@ class HomeStack extends Component {
                 }}
               />
             ),
+            headerTitleAlign: 'center',
             headerTitleStyle: {
               color: 'white',
               fontWeight: 'bold',
-              textAlign: 'center',
-              fontSize: 30,
-              marginHorizontal: 85,
+
+              fontSize: 28,
             },
           }}
         />
@@ -68,7 +63,8 @@ class HomeStack extends Component {
         <Stack.Screen
           name="Bed"
           component={ProductList}
-          options={{
+          options={({route}) => ({
+            title: route.params.product_name,
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
@@ -88,10 +84,10 @@ class HomeStack extends Component {
               color: 'white',
               fontWeight: 'bold',
               textAlign: 'center',
-              flex: 1,
+              marginHorizontal: 100,
               fontSize: 30,
             },
-          }}
+          })}
         />
 
         <Stack.Screen

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Dimensions} from 'react-native';
+import {View, StyleSheet, Dimensions} from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import {List} from 'react-native-paper';
-import FaIcon from 'react-native-vector-icons/FontAwesome5';
+// import FaIcon from 'react-native-vector-icons/FontAwesome5';
 import {ScrollView} from 'react-native-gesture-handler';
 
 const screen = Dimensions.get('window');

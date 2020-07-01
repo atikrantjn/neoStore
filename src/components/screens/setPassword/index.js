@@ -13,7 +13,7 @@ import {API_URL, request} from '../../../config/api';
 import EnIcon from 'react-native-vector-icons/Entypo';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 
-const screenWidth = Math.round(Dimensions.get('window').width);
+// const screenWidth = Math.round(Dimensions.get('window').width);
 export class SetPassword extends Component {
   constructor(props) {
     super(props);
@@ -142,7 +142,8 @@ export class SetPassword extends Component {
                   this.setState({
                     otpCode: otpCode,
                   })
-                }></TextInput>
+                }
+              />
             </View>
 
             <View>
@@ -162,9 +163,8 @@ export class SetPassword extends Component {
                 placeholderTextColor="white"
                 secureTextEntry
                 underlineColorAndroid="transparent"
-                onChangeText={newpass =>
-                  this.validateNewPassword(newpass)
-                }></TextInput>
+                onChangeText={newpass => this.validateNewPassword(newpass)}
+              />
             </View>
 
             {this.state.newpassErr ? (
@@ -192,7 +192,8 @@ export class SetPassword extends Component {
                 underlineColorAndroid="transparent"
                 onChangeText={confirmPass => {
                   this.validateConfPass(confirmPass);
-                }}></TextInput>
+                }}
+              />
             </View>
 
             {this.state.confirmPasswordErr ? (

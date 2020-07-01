@@ -16,7 +16,7 @@ import styles from './styles';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {request, API_URL, BASE_URL} from '../../../config/api';
+import {request, API_URL} from '../../../config/api';
 
 class Register extends Component {
   constructor(props) {
@@ -131,22 +131,22 @@ class Register extends Component {
     };
 
     if (
-      data.first_name == '' ||
-      data.last_name == '' ||
-      data.email == '' ||
-      data.pass == '' ||
-      data.confirmPass == '' ||
-      data.phone_no == ''
+      data.first_name === '' ||
+      data.last_name === '' ||
+      data.email === '' ||
+      data.pass === '' ||
+      data.confirmPass === '' ||
+      data.phone_no === ''
     ) {
-      alert('fields cannot be kept empty');
+      Alert.alert('fields cannot be kept empty');
     } else if (
-      data.passwordErr == false &&
-      data.phoneErr == false &&
-      data.emailErr == false &&
-      data.firstNameErr == false &&
-      data.lastNameErr == false &&
-      data.confirmPasswordErr == false &&
-      data.isChecked == true
+      data.passwordErr === false &&
+      data.phoneErr === false &&
+      data.emailErr === false &&
+      data.firstNameErr === false &&
+      data.lastNameErr === false &&
+      data.confirmPasswordErr === false &&
+      data.isChecked === true
     ) {
       this.setState({isLoading: true});
 
@@ -348,7 +348,7 @@ class Register extends Component {
                 radioStyle={{paddingRight: 20}}
                 disable={true}
                 onPress={gender => {
-                  this.setState({gender: gender});
+                  this.setState({gender});
                 }}
               />
             </View>

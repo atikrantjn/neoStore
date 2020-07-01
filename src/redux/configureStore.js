@@ -1,8 +1,10 @@
-import {createStore, applyMiddleware, combineReducers, compose} from 'redux';
+import {createStore, applyMiddleware, combineReducers} from 'redux';
 import {createLogger} from 'redux-logger';
 import loginReducer from '../redux/reducers/loginReducer';
 const logger = createLogger({
-  predicate: (getState, action) => _DEV_,
+  predicate: (getState, action) => {
+    _DEV_;
+  },
 });
 
 export default (

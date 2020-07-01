@@ -1,13 +1,5 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  Image,
-  FlatList,
-  Dimensions,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import {View, FlatList} from 'react-native';
 import {API_URL, request} from '../../../config/api';
 import RenderProductItem from './renderProductItem';
 import Loader from '../../custom/loaderComponent/loader';

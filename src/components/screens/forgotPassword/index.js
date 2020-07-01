@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, TouchableOpacity, Dimensions} from 'react-native';
+import {Text, View, TouchableOpacity, Dimensions, Alert} from 'react-native';
 import styles from './styles';
 import {InputGroup, Input} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -52,7 +52,7 @@ export class ForgotPassword extends Component {
       email: this.state.email,
     };
     if (email === '') {
-      alert('fields cannot be kept empty');
+      Alert.alert('fields cannot be kept empty');
     } else if (this.state.emailErr === false) {
       request(
         this.forgotPasscallback,
@@ -62,7 +62,7 @@ export class ForgotPassword extends Component {
         header,
       );
     } else {
-      alert('oops somethimg went wrong');
+      Alert.alert('oops somethimg went wrong');
     }
   };
 
@@ -78,7 +78,7 @@ export class ForgotPassword extends Component {
       }, 3000);
     },
     error: error => {
-      alert('this email is not registered with us');
+      Alert.alert('this email is not registered with us');
     },
   };
 

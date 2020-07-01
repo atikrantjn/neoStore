@@ -1,22 +1,25 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   userDetailContainer: {
     flexDirection: 'column',
-    // justifyContent: 'space-evenly',
-    margin: 5,
+    justifyContent: 'center',
+
+    width: '90%',
+    padding: 10,
   },
 
   userName: {
-    fontSize: 30,
-    marginHorizontal: 15,
+    fontSize: 25,
+    fontWeight: 'bold',
   },
 
   userAddressContainer: {
-    marginTop: 15,
+    paddingTop: 15,
   },
 
-  userAddress: {fontSize: 25},
+  userAddress: {fontSize: 25, fontWeight: 'bold'},
 
   changeAddressBTNcontainer: {
     marginTop: 15,
@@ -122,7 +125,8 @@ const styles = StyleSheet.create({
 
   rendercontainer: {
     flex: 1,
-    margin: 20,
+    padding: 10,
+    width: width - 200,
   },
 
   renderlistContainer: {
@@ -132,13 +136,12 @@ const styles = StyleSheet.create({
 
   renderimageStyle: {
     width: 80,
-    height: 80,
   },
   renderproductNameContainer: {flexDirection: 'column', marginHorizontal: 15},
 
   renderproductName: {
     fontSize: 25,
-    width: 260,
+    width: '80%',
   },
 
   renderproductMaterial: {
@@ -150,8 +153,8 @@ const styles = StyleSheet.create({
   renderproductCostContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    // marginVertical: 15,
+    justifyContent: 'space-between',
+    padding: 5,
   },
 
   renderproductCost: {

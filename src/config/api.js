@@ -1,6 +1,7 @@
 export const BASE_URL = 'http://180.149.241.208:3022/';
 
 export const API_URL = {
+  GET_ALL_CATEGORIES: 'getAllCategories',
   UPDATE_RATING_API: 'updateProductRatingByCustomer',
   // ADD_TO_CART_API: 'addDataToCart',
   GET_CUST_CART_API: 'getCartData',
@@ -77,7 +78,9 @@ export const request = async (
 
     if (responseJSON.status_code === 200 || responseJSON.success === true) {
       onResponse.success(responseJSON);
-    } else onResponse.error(responseJSON);
+    } else {
+      onResponse.error(responseJSON);
+    }
   } catch (error) {
     error = 'Network Error: please check your internet connection';
     onResponse.error(error);

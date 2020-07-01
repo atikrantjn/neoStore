@@ -1,7 +1,7 @@
 import {StyleSheet, Dimensions} from 'react-native';
 const deviceWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
-  listContainer: {flex: 1, margin: 10},
+  listContainer: {flex: 1},
   listText: {
     fontSize: 28,
     marginHorizontal: 15,

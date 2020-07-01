@@ -71,13 +71,6 @@ export class AddressList extends Component {
     );
   };
 
-  componentDidMount = async () => {
-    await this.getData();
-
-    await this.recievedData();
-    //setInterval(this.recievedData, 2000);
-  };
-
   custAddressCallback = {
     success: response => {
       this.setState({addressData: response.customer_address, isLoading: false});
@@ -166,8 +159,15 @@ export class AddressList extends Component {
       Alert.alert('one customer address deleted successfully');
     },
     error: error => {
-      alert('error');
+      Alert.alert('error');
     },
+  };
+
+  componentDidMount = async () => {
+    await this.getData();
+
+    await this.recievedData();
+    //setInterval(this.recievedData, 2000);
   };
 
   render() {
@@ -247,7 +247,7 @@ export class AddressList extends Component {
                           });
                         }}
                         selected={
-                          this.state.address ==
+                          this.state.address ===
                           item.address +
                             ', ' +
                             item.city +

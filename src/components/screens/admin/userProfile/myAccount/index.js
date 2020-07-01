@@ -75,7 +75,15 @@ export class MyAccount extends Component {
     await this.getToken();
 
     this.customerProfile();
+
+    // console.log(this.props.route.params);
   };
+
+  // componentDidUpdate = () => {
+  //   if (this.props.route.params.d === 'abc') {
+  //     this.customerProfile();
+  //   }
+  // };
 
   render() {
     const {customerData} = this.state;

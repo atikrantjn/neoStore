@@ -2,17 +2,16 @@ import React, {Component} from 'react';
 import {
   Text,
   View,
-  ScrollView,
   Image,
   TouchableOpacity,
   FlatList,
   Dimensions,
-  BackHandler,
 } from 'react-native';
 import {SliderBox} from 'react-native-image-slider-box';
 
 import styles from './styles';
 import images from '../../../../utils/images';
+import {BASE_URL, API_URL, request} from '../../../../config/api';
 
 export default class Home extends Component {
   constructor(props) {
@@ -23,18 +22,32 @@ export default class Home extends Component {
     };
   }
 
-  componentDidMount() {
-    return fetch('http://180.149.241.208:3022/getAllCategories')
-      .then(res => res.json())
-      .then(response => {
-        this.setState({
-          dataSource: response.category_details,
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
+  getCategoryData = () => {
+    const header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+
+    request(
+      this.categoryDataCallback,
+      null,
+      'GET',
+      API_URL.GET_ALL_CATEGORIES,
+      header,
+    );
+  };
+
+  categoryDataCallback = {
+    success: response => {
+      this.setState({dataSource: response.category_details});
+    },
+    error: error => {
+      console.log(error, 'rrrr');
+    },
+  };
+
+  componentDidMount = async () => {
+    await this.getCategoryData();
+  };
 
   imageslider = index => {
     switch (index) {
@@ -69,12 +82,11 @@ export default class Home extends Component {
     const stateData = this.state.dataSource;
     let res = stateData.map(a => a.product_image);
 
-    let url = 'http://180.149.241.208:3022/';
     const ele = res.map(el => {
-      return url.concat(el);
+      return BASE_URL.concat(el);
     });
 
-    const screenWidth = Dimensions.get('window').width;
+    const {width, height} = Dimensions.get('window');
 
     return (
       <View style={styles.container}>
@@ -85,17 +97,17 @@ export default class Home extends Component {
             autoplay
             circleLoop
             onCurrentImagePressed={index => this.imageslider(index)}
-            resizeMode={'cover'}
+            resizeMode={'contain'}
           />
         </View>
 
-        <View style={{flex: 1, marginTop: 25, width: screenWidth}}>
+        <View style={{flex: 1, width: width}}>
           <FlatList
             data={this.state.dataSource}
             numColumns={2}
             renderItem={({item}) => {
               return (
-                <View>
+                <View style={{flex: 1, padding: 5}}>
                   <TouchableOpacity
                     style={styles.productCategoryCard}
                     onPress={() => {
@@ -129,7 +141,7 @@ export default class Home extends Component {
                 </View>
               );
             }}
-            keyExtractor={(item, index) => index}
+            keyExtractor={(item, index) => index.toString()}
           />
         </View>
       </View>

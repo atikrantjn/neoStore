@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList, TouchableOpacity} from 'react-native';
+import {Text, View, FlatList, TouchableOpacity, Dimensions} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {API_URL, request} from '../../../../config/api';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 import Loader from '../../../custom/loaderComponent/loader';
 import moment from 'moment';
+import styles from './styles';
 export class OrderList extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +19,6 @@ export class OrderList extends Component {
   componentDidMount = async () => {
     await this.getToken();
     await this.getOrderDetails();
-    // setInterval(this.getOrderDetails, 5000);
   };
 
   getToken = async () => {
@@ -78,6 +78,7 @@ export class OrderList extends Component {
   };
 
   render() {
+    const width = Dimensions.get('window').width;
     return (
       <View style={{flex: 1}}>
         {this.state.isLoading ? (
@@ -110,47 +111,27 @@ export class OrderList extends Component {
                   const orderDate = moment(date).format('MMMM D, YYYY');
 
                   return (
-                    <View style={{flex: 1}}>
+                    <View style={{width: width}}>
                       <TouchableOpacity
                         onPress={() => {
                           this.props.navigation.navigate('Order Id', {
                             orderData: item.product_details,
+                            order_id: item.product_details[0].order_id,
                           });
                         }}>
-                        <View style={{flexDirection: 'column', marginTop: 10}}>
-                          <View style={{flexDirection: 'row', flex: 1}}>
-                            <Text
-                              style={{
-                                fontSize: 25,
-                                marginHorizontal: 20,
-                                fontWeight: 'bold',
-                              }}>
-                              Id : {item._id}
-                            </Text>
+                        <View style={styles.container}>
+                          <View style={styles.orderText}>
+                            <Text style={styles.idText}>Id : {item._id}</Text>
                           </View>
 
-                          <View
-                            style={{
-                              flexDirection: 'row',
-                              flex: 1,
-                              justifyContent: 'flex-end',
-                            }}>
-                            <Text
-                              style={{
-                                fontSize: 20,
-                                marginHorizontal: 20,
-                              }}>
+                          <View style={styles.costContainer}>
+                            <Text style={styles.totalCost}>
                               {`Rs. ${totalCost}`}
                             </Text>
                           </View>
 
-                          <View style={{flexDirection: 'row', flex: 1}}>
-                            <Text
-                              style={{
-                                fontSize: 20,
-                                marginHorizontal: 20,
-                                marginBottom: 5,
-                              }}>
+                          <View style={styles.orderDateContainer}>
+                            <Text style={styles.orderDateText}>
                               {`Order Date :  ${orderDate}`}
                             </Text>
                           </View>

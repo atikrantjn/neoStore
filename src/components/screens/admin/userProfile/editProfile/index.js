@@ -13,10 +13,11 @@ import images from '../../../../../utils/images';
 import DatePicker from 'react-native-datepicker';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {BASE_URL, API_URL, request} from '../../../../../config/api';
+import {BASE_URL} from '../../../../../config/api';
 import AsyncStorage from '@react-native-community/async-storage';
 import ImagePicker from 'react-native-image-picker';
 import RNFetchBlob from 'rn-fetch-blob';
+import Loader from '../../../../custom/loaderComponent/loader';
 
 export class EditProfile extends Component {
   constructor(props) {
@@ -31,9 +32,7 @@ export class EditProfile extends Component {
       gender: '',
 
       token: '',
-
       showAlert: false,
-
       firstNameErr: false,
 
       lastNameErr: false,
@@ -43,6 +42,7 @@ export class EditProfile extends Component {
       profile_img: null,
       customerData: {},
       img: null,
+      isLoading: false,
     };
   }
 
@@ -84,6 +84,8 @@ export class EditProfile extends Component {
   updateProfile = () => {
     const {token, profile_img} = this.state;
 
+    this.setState({isLoading: true});
+
     RNFetchBlob.fetch(
       'PUT',
       'http://180.149.241.208:3022/profile',
@@ -122,16 +124,30 @@ export class EditProfile extends Component {
               iData.customer_details.profile_img =
                 data.customer_details.profile_img;
 
+              iData.customer_details.first_name =
+                data.customer_details.first_name;
+
+              iData.customer_details.last_name =
+                data.customer_details.last_name;
+
+              console.log(iData);
+
               AsyncStorage.setItem('userData', JSON.stringify(iData));
             })
             .done();
 
-          this.setState({img: data.customer_details.profile_img});
+          this.setState({
+            img: data.customer_details.profile_img,
+            isLoading: false,
+          });
+          this.props.navigation.navigate('My Account', {
+            d: 'abc',
+          });
         }
       })
       .catch(err => {
         // ...
-        alert('oopsssss something went wrong');
+        Alert.alert('oopsssss something went wrong');
       });
   };
 
@@ -160,7 +176,13 @@ export class EditProfile extends Component {
     ImagePicker.showImagePicker(options, response => {
       console.log('Response = ', response);
 
-      this.setState({profile_img: response});
+      if (response.didCancel) {
+        Alert.alert('no image selected');
+      } else {
+        this.setState({profile_img: response});
+
+        Alert.alert('image picked');
+      }
     });
   };
 
@@ -236,6 +258,7 @@ export class EditProfile extends Component {
               }}
             />
           </View>
+          {this.state.isLoading ? <Loader /> : null}
 
           <View style={styles.registerInput}>
             <MatIcon

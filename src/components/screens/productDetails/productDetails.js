@@ -46,7 +46,7 @@ export default class ProductDetails extends Component {
   }
 
   componentDidMount = async () => {
-    const {productId} = this.props.route.params;
+    const {productId, product_name} = this.props.route.params;
 
     this.setState({
       product_id: productId,
@@ -166,21 +166,21 @@ export default class ProductDetails extends Component {
 
       AsyncStorage.setItem('cartData', JSON.stringify(newProduct))
         .then(() => {
-          alert('product added to cart successfully');
+          Alert.alert('product added to cart successfully');
         })
         .catch(() => {
-          alert('There was an error saving the product');
+          Alert.alert('There was an error saving the product');
         });
     } else {
       let existed_item = newProduct.find(item => id === item._id);
       if (existed_item) {
-        alert('product already exist');
+        Alert.alert('product already exist');
       } else {
         newProduct.push(mainData);
         AsyncStorage.setItem('cartData', JSON.stringify(newProduct));
 
         this.setState({cartCount: 1});
-        alert('product added to cart successfully');
+        Alert.alert('product added to cart successfully');
 
         this.setState({cartCount: this.state.cartCount + 1});
       }
@@ -215,7 +215,13 @@ export default class ProductDetails extends Component {
     return (
       <View>
         <ScrollView>
-          <View style={styles.container}>
+          <View
+            style={[
+              styles.container,
+              this.state.modalVisible
+                ? {backgroundColor: 'rgba(0,0,0,0.5)'}
+                : '',
+            ]}>
             <View style={styles.productNameContainer}>
               <Text style={styles.productName}>{productData.product_name}</Text>
             </View>
@@ -227,6 +233,7 @@ export default class ProductDetails extends Component {
 
             <View style={styles.modalMainContainer}>
               <Modal
+                backdropOpacity={0.3}
                 animationType="slide"
                 transparent={true}
                 onRequestClose={() => {
@@ -241,6 +248,7 @@ export default class ProductDetails extends Component {
 
                     <View style={styles.modalImageContainer}>
                       <Image
+                        resizeMode="contain"
                         style={styles.modalImage}
                         source={{
                           uri: BASE_URL + productImg,
@@ -250,6 +258,7 @@ export default class ProductDetails extends Component {
 
                     <View style={styles.modalStarContainer}>
                       <StarRating
+                        starStyle={{padding: 5}}
                         halfStarEnabled={true}
                         disabled={false}
                         rating={parseFloat(this.state.starCount)}
@@ -265,7 +274,12 @@ export default class ProductDetails extends Component {
                         this.updateRating();
                       }}
                       style={styles.modalUpdateRatingBTN}>
-                      <Text style={{textAlign: 'center', fontSize: 25}}>
+                      <Text
+                        style={{
+                          textAlign: 'center',
+                          fontSize: 25,
+                          color: 'white',
+                        }}>
                         Rate Now
                       </Text>
                     </TouchableOpacity>
@@ -301,7 +315,11 @@ export default class ProductDetails extends Component {
               </View>
               <View>
                 <TouchableOpacity>
-                  <FaIcon name="share-alt" size={35} />
+                  <FaIcon
+                    name="share-alt"
+                    size={28}
+                    style={{color: '#989898'}}
+                  />
                 </TouchableOpacity>
               </View>
             </View>
@@ -366,9 +384,7 @@ export default class ProductDetails extends Component {
             <TouchableOpacity
               disabled={this.state.buyNowbtn}
               onPress={() => {
-                this.props.navigation.navigate('OrderSummary', {
-                  sendProdData: productData,
-                });
+                this.props.navigation.navigate('OrderSummary');
               }}
               style={styles.buyNowBTN}>
               <Text style={styles.buyNowBTNtext}>Buy Now</Text>

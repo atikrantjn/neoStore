@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 5,
   },
-  productName: {fontSize: 35},
+  productName: {fontSize: 28},
 
   categoryNameContainer: {
     flex: 1,
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
 
   modalMainContainer: {
     marginTop: 22,
+    backgroundColor: '#ffffff',
   },
   modalDetailsContainer: {
     flex: 1,
@@ -39,10 +40,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#fff',
-    backgroundColor: '#DBB4B4',
+    backgroundColor: '#ffffff',
   },
   modalProductName: {
-    fontSize: 35,
+    fontSize: 28,
     textAlign: 'center',
   },
 
@@ -53,12 +54,13 @@ const styles = StyleSheet.create({
   },
 
   modalImage: {
-    width: '50%',
-    height: '70%',
+    width: '60%',
+    height: '80%',
   },
 
   modalStarContainer: {
-    width: '50%',
+    flex: 1,
+    padding: 2,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -67,8 +69,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     backgroundColor: '#fe3f3f',
     width: '100%',
-    height: 40,
-    marginTop: 15,
+    height: 'auto',
   },
 
   productDetailsContainer: {
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
   productCostContainer: {
     flex: 1,
     backgroundColor: 'white',
-    height: 400,
+    // height: 400,
     margin: 15,
     borderBottomWidth: 2,
     borderBottomColor: '#D5D5D5',
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
   },
 
   productCost: {
-    fontSize: 35,
+    fontSize: 25,
     color: 'red',
   },
 
@@ -117,7 +118,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   descriptionText: {
-    fontSize: 35,
+    fontSize: 28,
+    fontWeight: 'bold',
   },
 
   addToCartIcon: {

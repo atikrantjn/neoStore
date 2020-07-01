@@ -4,6 +4,8 @@ import {View, Image, TouchableOpacity, Text, Alert} from 'react-native';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 import images from '../../../utils/images';
 import EnIcon from 'react-native-vector-icons/Entypo';
+import MaIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 
 import {List} from 'react-native-paper';
@@ -61,19 +63,20 @@ export default class Sidebar extends Component {
       )
 
       .then(response => response.json())
-      .then(data => {
-        console.log(data);
+      .then(respData => {
+        console.log(respData);
         let keys = ['userData', 'cartData'];
 
-        if (data.success) {
-          Alert.alert(data.message);
-          this.setState({cartData: []});
+        if (respData.success) {
+          Alert.alert(respData.message);
 
           AsyncStorage.multiRemove(keys, err => {
+            this.setState({cartData: []});
+
             this.props.navigation.navigate('Home');
           });
         } else {
-          Alert.alert(data.message);
+          Alert.alert(respData.message);
         }
       });
   };
@@ -122,8 +125,8 @@ export default class Sidebar extends Component {
 
   async componentDidMount() {
     await this.getData();
-
     await this.getProductData();
+
     setInterval(this.getData, 2000);
   }
 
@@ -279,29 +282,19 @@ export default class Sidebar extends Component {
             </View>
           ) : null}
 
-          {/* <List.Item
-            titleStyle={{fontSize: 22}}
-            title="Dashboard"
-            left={() => (
-              <MaterialIcon
-                name="dashboard"
-                size={22}
-                style={{marginRight: 25, top: 9}}
-              />
-            )}
-            onPress={() => {
-              this.props.navigation.navigate('Home');
-            }}
-          /> */}
           <List.Accordion
             titleStyle={{fontSize: 22, marginLeft: 25, color: 'black'}}
             title="Products"
             left={() => <FaIcon name="sitemap" size={22} />}>
             <List.Item
-              titleStyle={{fontSize: 22}}
+              titleStyle={{
+                fontSize: 18,
+                fontWeight: '500',
+                marginLeft: 25,
+              }}
               title="Bed"
               left={() => (
-                <FaIcon name="bed" size={22} style={{marginRight: 25}} />
+                <FaIcon name="bed" size={22} style={{marginLeft: 50, top: 5}} />
               )}
               onPress={() => {
                 this.props.navigation.navigate('Bed', {
@@ -310,7 +303,11 @@ export default class Sidebar extends Component {
               }}
             />
             <List.Item
-              titleStyle={{fontSize: 22}}
+              titleStyle={{
+                fontSize: 18,
+                fontWeight: '500',
+                marginLeft: 25,
+              }}
               onPress={() => {
                 this.props.navigation.navigate('Sofa', {
                   id: '5cfe3c5aea821930af69281e',
@@ -318,14 +315,26 @@ export default class Sidebar extends Component {
               }}
               title="Sofa"
               left={() => (
-                <FaIcon name="couch" size={22} style={{marginRight: 25}} />
+                <FaIcon
+                  name="couch"
+                  size={22}
+                  style={{marginLeft: 50, top: 5}}
+                />
               )}
             />
             <List.Item
-              titleStyle={{fontSize: 22}}
+              titleStyle={{
+                fontSize: 18,
+                fontWeight: '500',
+                marginLeft: 25,
+              }}
               title="Table"
               left={() => (
-                <FaIcon name="table" size={22} style={{marginRight: 25}} />
+                <FaIcon
+                  name="table"
+                  size={22}
+                  style={{marginLeft: 50, top: 5}}
+                />
               )}
               onPress={() => {
                 this.props.navigation.navigate('Table', {
@@ -334,10 +343,18 @@ export default class Sidebar extends Component {
               }}
             />
             <List.Item
-              titleStyle={{fontSize: 22}}
+              titleStyle={{
+                fontSize: 18,
+                fontWeight: '500',
+                marginLeft: 25,
+              }}
               title="Chair"
               left={() => (
-                <FaIcon name="chair" size={22} style={{marginRight: 25}} />
+                <FaIcon
+                  name="chair"
+                  size={22}
+                  style={{marginLeft: 50, top: 5}}
+                />
               )}
               onPress={() => {
                 this.props.navigation.navigate('Chair', {
@@ -346,10 +363,18 @@ export default class Sidebar extends Component {
               }}
             />
             <List.Item
-              titleStyle={{fontSize: 22}}
+              titleStyle={{
+                fontSize: 18,
+                fontWeight: '500',
+                marginLeft: 25,
+              }}
               title="Almirah"
               left={() => (
-                <FaIcon name="chair" size={22} style={{marginRight: 25}} />
+                <MaIcon
+                  name="file-cabinet"
+                  size={22}
+                  style={{marginLeft: 50, top: 5}}
+                />
               )}
               onPress={() => {
                 this.props.navigation.navigate('Almirah', {

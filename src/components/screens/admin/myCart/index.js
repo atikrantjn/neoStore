@@ -23,7 +23,7 @@ export class MyCart extends Component {
     await this.getData();
     await this.getProductData();
 
-    // setInterval(this.getProductData, 1000);
+    setInterval(this.getProductData, 1000);
   };
 
   // get user data from local storage
