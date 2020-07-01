@@ -6,8 +6,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
 
-    width: '90%',
-    padding: 10,
+    marginHorizontal: '5%',
   },
 
   userName: {
@@ -25,10 +24,15 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
 
-  changeAddressBTN: {backgroundColor: 'red', borderRadius: 7, padding: 7},
+  changeAddressBTN: {
+    backgroundColor: 'red',
+    borderRadius: 7,
+    paddingVertical: 8,
+    paddingHorizontal: 25,
+  },
 
   changeAddressBTNtext: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
     textAlign: 'center',
@@ -81,7 +85,7 @@ const styles = StyleSheet.create({
   },
 
   productCost: {
-    fontSize: 30,
+    fontSize: 22,
   },
 
   footerContainer: {
@@ -124,9 +128,10 @@ const styles = StyleSheet.create({
   /////ddjfhjdfhjdhfj
 
   rendercontainer: {
-    flex: 1,
-    padding: 10,
-    width: width - 200,
+    // padding: 10,
+
+    marginVertical: 10,
+    marginHorizontal: '5%',
   },
 
   renderlistContainer: {
@@ -135,30 +140,32 @@ const styles = StyleSheet.create({
   },
 
   renderimageStyle: {
-    width: 80,
+    flex: 1,
+    height: 80,
+    width: '50%',
   },
   renderproductNameContainer: {flexDirection: 'column', marginHorizontal: 15},
 
   renderproductName: {
     fontSize: 25,
-    width: '80%',
+    width: '60%',
+    fontWeight: 'bold',
   },
 
   renderproductMaterial: {
     fontSize: 20,
     width: 250,
     color: '#A09F9F',
+    fontWeight: 'bold',
   },
 
   renderproductCostContainer: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 5,
+    marginVertical: 15,
   },
 
   renderproductCost: {
-    fontSize: 18,
+    fontSize: 15,
   },
 
   renderfooterComponentContainer: {
@@ -194,12 +201,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'red',
     padding: 5,
+    marginHorizontal: 15,
   },
   plusBtn: {
     borderWidth: 1,
     borderColor: 'red',
     padding: 5,
-    marginLeft: 10,
+    marginHorizontal: 15,
   },
   removeBTN: {
     borderRadius: 7,

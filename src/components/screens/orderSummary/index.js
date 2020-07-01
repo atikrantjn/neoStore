@@ -256,6 +256,7 @@ export class OrderSummary extends Component {
 
     return (
       <View style={{flex: 1}}>
+        {this.state.isLoading ? <Loader /> : null}
         <View style={styles.userDetailContainer}>
           <View>
             <Text style={styles.userName}>{userFullName}</Text>
@@ -268,17 +269,16 @@ export class OrderSummary extends Component {
             <TouchableOpacity
               onPress={() => {
                 this.props.navigation.navigate('Add Address');
-              }}
-              style={styles.changeAddressBTN}>
-              <Text style={styles.changeAddressBTNtext}>
-                Change Or Add Address
-              </Text>
+              }}>
+              <View style={styles.changeAddressBTN}>
+                <Text style={styles.changeAddressBTNtext}>
+                  Change Or Add Address
+                </Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>
         <View style={styles.moduleSeperatorline} />
-
-        {this.state.isLoading ? <Loader /> : null}
 
         <View style={{flex: 1}}>
           <View style={{flex: 0.9}}>
@@ -299,8 +299,17 @@ export class OrderSummary extends Component {
 
                 return (
                   <View style={styles.rendercontainer}>
-                    <TouchableOpacity>
-                      <View style={styles.renderlistContainer}>
+                    <View style={{flex: 1}}>
+                      <View
+                        style={{
+                          flex: 1,
+                          flexDirection: 'row',
+                          justifyContent: 'space-evenly',
+                        }}>
+                        <Text style={styles.renderproductName}>
+                          {productItem.product_id.product_name}
+                        </Text>
+
                         <Image
                           style={styles.renderimageStyle}
                           source={{
@@ -308,69 +317,67 @@ export class OrderSummary extends Component {
                               BASE_URL + productItem.product_id.product_image,
                           }}
                         />
-
-                        <View style={styles.renderproductNameContainer}>
-                          <Text style={styles.renderproductName}>
-                            {productItem.product_id.product_name}
-                          </Text>
-                          <Text style={styles.renderproductMaterial}>
-                            {productItem.product_id.product_material}
-                          </Text>
-
-                          <View
-                            style={{
-                              flex: 1,
-                              flexDirection: 'row',
-                            }}>
-                            <TouchableOpacity style={styles.minusBtn}>
-                              <FaIcon
-                                name={'minus'}
-                                size={25}
-                                onPress={() => {
-                                  const p_id = item._id;
-                                  this.decreaseQuantity(p_id);
-                                }}
-                              />
-                            </TouchableOpacity>
-                            <Text
-                              style={{
-                                fontSize: 19,
-                                padding: 5,
-                                marginLeft: 10,
-                              }}>
-                              {item.quantity}
-                            </Text>
-
-                            <TouchableOpacity style={styles.plusBtn}>
-                              <FaIcon
-                                name={'plus'}
-                                size={25}
-                                onPress={() => {
-                                  const p_id = item._id;
-                                  this.increaseQuantity(p_id);
-                                }}
-                              />
-                            </TouchableOpacity>
-                            <View style={styles.renderproductCostContainer}>
-                              <Text style={styles.productCost}>
-                                {'Rs' +
-                                  ' ' +
-                                  item.quantity * productItem.product_cost}
-                              </Text>
-                            </View>
-                          </View>
-                        </View>
-                        <View>
-                          <TouchableOpacity
-                            style={styles.removeBTN}
-                            onPress={() => {
-                              this.removeFromList(item._id);
-                            }}>
-                            <Text style={styles.removeBTNText}>remove</Text>
-                          </TouchableOpacity>
-                        </View>
                       </View>
-                    </TouchableOpacity>
+                    </View>
+
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        marginTop: 10,
+                        justifyContent: 'space-around',
+                      }}>
+                      <View style={{paddingVertical: 12}}>
+                        <Text style={styles.renderproductMaterial}>
+                          {productItem.product_id.product_material}
+                        </Text>
+                      </View>
+
+                      <View style={styles.renderproductCostContainer}>
+                        <Text style={styles.productCost}>
+                          {'Rs' +
+                            ' ' +
+                            item.quantity * productItem.product_cost}
+                        </Text>
+                      </View>
+                    </View>
+
+                    <View style={{width: '20%'}}>
+                      <View
+                        style={{
+                          flex: 1,
+                          flexDirection: 'row',
+                          justifyContent: 'space-evenly',
+                        }}>
+                        <TouchableOpacity style={styles.minusBtn}>
+                          <FaIcon
+                            name={'minus'}
+                            size={20}
+                            onPress={() => {
+                              const p_id = item._id;
+                              this.decreaseQuantity(p_id);
+                            }}
+                          />
+                        </TouchableOpacity>
+                        <Text
+                          style={{
+                            fontSize: 19,
+                            padding: 5,
+                          }}>
+                          {item.quantity}
+                        </Text>
+
+                        <TouchableOpacity style={styles.plusBtn}>
+                          <FaIcon
+                            name={'plus'}
+                            size={20}
+                            onPress={() => {
+                              const p_id = item._id;
+                              this.increaseQuantity(p_id);
+                            }}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
                   </View>
                 );
               }}
