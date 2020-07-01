@@ -116,11 +116,11 @@ export default class ProductDetails extends Component {
   ratingCallback = {
     success: response => {
       //  console.log(response);
-      Alert.alert('thank you for rating our product');
+      Alert.alert('success', 'thank you for rating our product');
       this.setState({modalVisible: false});
     },
     error: error => {
-      Alert.alert('please login first');
+      Alert.alert('Error', 'please login first');
       console.log('err', error);
     },
   };
@@ -205,106 +205,103 @@ export default class ProductDetails extends Component {
     }
   };
 
-  render() {
-    const {productData} = this.state;
-
-    const {product_id} = this.state;
-
-    const {productImg} = this.state;
-
+  ratingModule = () => {
+    const {productData, productImg} = this.state;
     return (
-      <View>
-        <ScrollView>
-          <View
-            style={[
-              styles.container,
-              this.state.modalVisible
-                ? {backgroundColor: 'rgba(0,0,0,0.5)'}
-                : '',
-            ]}>
-            <View style={styles.productNameContainer}>
-              <Text style={styles.productName}>{productData.product_name}</Text>
-            </View>
-            <View style={styles.categoryNameContainer}>
-              <Text style={styles.categoryName}>
-                Category-{this.state.categoryName.category_name}
+      <View style={styles.modalMainContainer}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          onRequestClose={() => {
+            this.setModalVisible(false);
+          }}
+          visible={this.state.modalVisible}>
+          <View style={styles.modalDetailsContainer}>
+            <View style={styles.modalProductNameContainer}>
+              <Text style={styles.modalProductName}>
+                {productData.product_name}
               </Text>
-            </View>
 
-            <View style={styles.modalMainContainer}>
-              <Modal
-                backdropOpacity={0.3}
-                animationType="slide"
-                transparent={true}
-                onRequestClose={() => {
-                  this.setModalVisible(false);
-                }}
-                visible={this.state.modalVisible}>
-                <View style={styles.modalDetailsContainer}>
-                  <View style={styles.modalProductNameContainer}>
-                    <Text style={styles.modalProductName}>
-                      {productData.product_name}
-                    </Text>
-
-                    <View style={styles.modalImageContainer}>
-                      <Image
-                        resizeMode="contain"
-                        style={styles.modalImage}
-                        source={{
-                          uri: BASE_URL + productImg,
-                        }}
-                      />
-                    </View>
-
-                    <View style={styles.modalStarContainer}>
-                      <StarRating
-                        starStyle={{padding: 5}}
-                        halfStarEnabled={true}
-                        disabled={false}
-                        rating={parseFloat(this.state.starCount)}
-                        maxStars={5}
-                        fullStarColor={'#CD9922'}
-                        starSize={30}
-                        selectedStar={rating => this.onStarRatingPress(rating)}
-                      />
-                    </View>
-                    <TouchableOpacity
-                      disabled={this.state.buttonDisabled}
-                      onPress={() => {
-                        this.updateRating();
-                      }}
-                      style={styles.modalUpdateRatingBTN}>
-                      <Text
-                        style={{
-                          textAlign: 'center',
-                          fontSize: 25,
-                          color: 'white',
-                        }}>
-                        Rate Now
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </Modal>
-            </View>
-
-            <View style={styles.productDetailsContainer}>
-              <View>
-                <Text style={styles.productMaterial}>
-                  {productData.product_material}
-                </Text>
+              <View style={styles.modalImageContainer}>
+                <Image
+                  resizeMode="contain"
+                  style={styles.modalImage}
+                  source={{
+                    uri: BASE_URL + productImg,
+                  }}
+                />
               </View>
-              <View>
+
+              <View style={styles.modalStarContainer}>
                 <StarRating
-                  rating={parseFloat(productData.product_rating)}
+                  starStyle={styles.modalStarStyle}
+                  halfStarEnabled={true}
                   disabled={false}
+                  rating={parseFloat(this.state.starCount)}
                   maxStars={5}
                   fullStarColor={'#CD9922'}
-                  starSize={20}
+                  starSize={30}
+                  selectedStar={rating => this.onStarRatingPress(rating)}
                 />
+              </View>
+              <TouchableOpacity
+                onPress={() => {
+                  this.updateRating();
+                }}>
+                <View style={styles.modalUpdateRatingBTN}>
+                  <Text style={styles.modalRateNowText}>RATE NOW</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+      </View>
+    );
+  };
+
+  render() {
+    const {productData, product_id, productImg} = this.state;
+
+    return (
+      <View
+        style={[
+          styles.mainContainer,
+          this.state.modalVisible ? {opacity: 0.4} : '',
+        ]}>
+        <ScrollView>
+          <View style={styles.container}>
+            <View style={{margin: 15, flex: 1}}>
+              <View style={styles.productNameContainer}>
+                <Text style={styles.productName}>
+                  {productData.product_name}
+                </Text>
+              </View>
+              <View style={styles.categoryNameContainer}>
+                <Text style={styles.categoryName}>
+                  Category-{this.state.categoryName.category_name}
+                </Text>
+              </View>
+
+              <View style={styles.productDetailsContainer}>
+                <View>
+                  <Text style={styles.productMaterial}>
+                    {productData.product_material}
+                  </Text>
+                </View>
+                <View>
+                  <StarRating
+                    rating={parseFloat(productData.product_rating)}
+                    disabled={false}
+                    maxStars={5}
+                    fullStarColor={'#CD9922'}
+                    starSize={20}
+                  />
+                </View>
               </View>
             </View>
           </View>
+
+          {this.state.modalVisible ? this.ratingModule() : null}
 
           <View style={styles.productCostContainer}>
             <View style={styles.productCostRow}>
@@ -333,33 +330,34 @@ export default class ProductDetails extends Component {
             </View>
 
             {/* subimages */}
-
-            <FlatList
-              horizontal
-              data={this.state.subImages}
-              renderItem={({item}) => {
-                return (
-                  <TouchableOpacity
-                    onPress={() => {
-                      this.onpressSubImage(item);
-                    }}
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      padding: 10,
-                    }}>
-                    <View style={{borderWidth: 1, borderColor: 'black'}}>
-                      <Image
-                        style={{width: 110, height: 120}}
-                        source={{uri: BASE_URL + item}}
-                      />
-                    </View>
-                  </TouchableOpacity>
-                );
-              }}
-              keyExtractor={(item, index) => index.toString()}
-            />
+            <View style={{marginLeft: 5}}>
+              <FlatList
+                horizontal
+                data={this.state.subImages}
+                renderItem={({item}) => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => {
+                        this.onpressSubImage(item);
+                      }}
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        padding: 10,
+                      }}>
+                      <View style={{borderWidth: 1, borderColor: 'black'}}>
+                        <Image
+                          style={{width: 110, height: 120}}
+                          source={{uri: BASE_URL + item}}
+                        />
+                      </View>
+                    </TouchableOpacity>
+                  );
+                }}
+                keyExtractor={(item, index) => index.toString()}
+              />
+            </View>
           </View>
 
           <View style={styles.productDescriptionContainer}>
@@ -388,26 +386,28 @@ export default class ProductDetails extends Component {
               </Text>
             </View>
           </View>
-
-          <View style={styles.footerContainer}>
-            <TouchableOpacity
-              disabled={this.state.buyNowbtn}
-              onPress={() => {
-                this.props.navigation.navigate('OrderSummary');
-              }}
-              style={styles.buyNowBTN}>
-              <Text style={styles.buyNowBTNtext}>Buy Now</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.rateNowBTN}
-              onPress={() => {
-                this.setModalVisible(true);
-              }}>
-              <Text style={styles.rateNowBTNtext}>Rate </Text>
-            </TouchableOpacity>
-          </View>
         </ScrollView>
+
+        <View style={styles.footerContainer}>
+          <TouchableOpacity
+            disabled={this.state.buyNowbtn}
+            onPress={() => {
+              this.props.navigation.navigate('OrderSummary');
+            }}>
+            <View style={styles.buyNowBTN}>
+              <Text style={styles.buyNowBTNtext}>BUY NOW</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              this.setModalVisible(true);
+            }}>
+            <View style={styles.rateNowBTN}>
+              <Text style={styles.rateNowBTNtext}>RATE</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }

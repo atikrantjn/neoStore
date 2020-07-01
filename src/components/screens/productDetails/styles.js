@@ -1,6 +1,10 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+import colors from '../../../utils/colors';
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',
@@ -13,16 +17,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 5,
   },
-  productName: {fontSize: 28},
+  productName: {fontSize: 35, fontWeight: 'bold', color: '#666363'},
 
   categoryNameContainer: {
     flex: 1,
     flexDirection: 'row',
-    padding: 5,
+    marginLeft: 5,
   },
 
   categoryName: {
-    fontSize: 25,
+    fontSize: 20,
   },
 
   modalMainContainer: {
@@ -68,8 +72,18 @@ const styles = StyleSheet.create({
   modalUpdateRatingBTN: {
     borderRadius: 7,
     backgroundColor: '#fe3f3f',
-    width: '100%',
-    height: 'auto',
+    paddingVertical: 8,
+    paddingHorizontal: 35,
+  },
+
+  modalRateNowText: {
+    fontSize: 20,
+    color: 'white',
+    textAlign: 'center',
+  },
+
+  modalStarStyle: {
+    padding: 5,
   },
 
   productDetailsContainer: {
@@ -86,7 +100,7 @@ const styles = StyleSheet.create({
   productCostContainer: {
     flex: 1,
     backgroundColor: 'white',
-    // height: 400,
+
     margin: 15,
     borderBottomWidth: 2,
     borderBottomColor: '#D5D5D5',
@@ -114,8 +128,9 @@ const styles = StyleSheet.create({
 
   productDescriptionContainer: {
     flex: 1,
-    margin: 15,
+    marginLeft: 25,
     flexDirection: 'column',
+    width: '90%',
   },
   descriptionText: {
     fontSize: 28,
@@ -133,33 +148,31 @@ const styles = StyleSheet.create({
   },
 
   footerContainer: {
-    flex: 1,
     flexDirection: 'row',
-    margin: 15,
+    margin: 22,
     justifyContent: 'space-between',
   },
 
   buyNowBTN: {
     borderRadius: 7,
-    backgroundColor: 'red',
-    width: 150,
-    height: 50,
+    backgroundColor: colors.themeColor,
+    paddingVertical: 8,
+    paddingHorizontal: 35,
   },
   buyNowBTNtext: {
-    textAlign: 'center',
-    fontSize: 30,
+    fontSize: 20,
     color: 'white',
   },
 
   rateNowBTN: {
     borderRadius: 7,
     backgroundColor: '#B7B7B7',
-    width: 150,
-    height: 50,
+    paddingVertical: 8,
+    paddingHorizontal: 45,
   },
   rateNowBTNtext: {
-    textAlign: 'center',
-    fontSize: 30,
+    fontSize: 20,
+    color: 'white',
   },
 });
 

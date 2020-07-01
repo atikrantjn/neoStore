@@ -211,7 +211,7 @@ export class OrderSummary extends Component {
 
     this.getProductData();
 
-    Alert.alert('item has been successfully removed');
+    Alert.alert('success', 'item has been successfully removed');
   };
 
   getCustAddress = () => {
