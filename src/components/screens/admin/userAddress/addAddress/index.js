@@ -128,10 +128,7 @@ class AddAddress extends Component {
             <View style={styles.addressContainer}>
               <Text style={styles.addressText}>Address</Text>
               <TextInput
-                ref={input => {
-                  this.textInput = input;
-                }}
-                numberOfLines={4}
+                numberOfLines={5}
                 multiline
                 textAlignVertical={'top'}
                 style={styles.addressTextInput}
@@ -144,9 +141,6 @@ class AddAddress extends Component {
             <View style={styles.landmarkContainer}>
               <Text style={styles.landmarkText}>Landmark</Text>
               <TextInput
-                ref={input => {
-                  this.textInput = input;
-                }}
                 style={styles.landmarkTextInput}
                 onChangeText={landmark => {
                   this.setState({landmark: landmark});
@@ -186,7 +180,7 @@ class AddAddress extends Component {
 
             <View style={styles.zipCountryContainer}>
               <View style={styles.zipContainer}>
-                <Text style={styles.zipText}>Zip Code</Text>
+                <Text style={styles.zipText}>Zip code</Text>
                 <TextInput
                   keyboardType={'number-pad'}
                   style={styles.zipTextInput}
@@ -215,20 +209,24 @@ class AddAddress extends Component {
         </ScrollView>
         <View>
           <TouchableOpacity
-            style={styles.saveAddressBtnBg}
+            style={{marginHorizontal: 15}}
             onPress={() => {
               this.saveAddress();
             }}>
-            <Text style={styles.saveAddressBtnText}>SAVE ADDRESS</Text>
+            <View style={styles.saveAddressBtnBg}>
+              <Text style={styles.saveAddressBtnText}>SAVE ADDRESS</Text>
+            </View>
           </TouchableOpacity>
         </View>
         <View>
           <TouchableOpacity
-            style={styles.saveAddressBtnBg}
+            style={{marginHorizontal: 15, marginBottom: 15}}
             onPress={() => {
               this.props.navigation.navigate('Address List');
             }}>
-            <Text style={styles.saveAddressBtnText}> ADDRESS List </Text>
+            <View style={styles.saveAddressBtnBg}>
+              <Text style={styles.saveAddressBtnText}> ADDRESS LIST </Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>

@@ -1,92 +1,139 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../../../../utils/colors';
 
 const styles = StyleSheet.create({
   mainContainer: {
-    backgroundColor: '#d5d5d5',
+    backgroundColor: '#EBEDEF',
     flex: 1,
   },
 
   container: {
-    flex: 1,
     flexDirection: 'column',
   },
   addressContainer: {
-    flex: 1,
     flexDirection: 'column',
   },
 
   addressText: {
-    marginLeft: 15,
-    marginTop: 10,
-    fontSize: 30,
+    marginHorizontal: 15,
+    marginVertical: 10,
+    fontSize: 25,
   },
 
   addressTextInput: {
-    margin: 15,
+    marginHorizontal: 15,
     backgroundColor: 'white',
-    fontSize: 20,
+    fontSize: 18,
+
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+
+    shadowRadius: 4.65,
+
+    elevation: 8,
   },
 
-  landmarkContainer: {flex: 1, flexDirection: 'column'},
+  landmarkContainer: {flexDirection: 'column'},
 
-  landmarkText: {marginLeft: 15, marginTop: 10, fontSize: 30},
+  landmarkText: {marginLeft: 15, fontSize: 25, marginTop: 10},
 
   landmarkTextInput: {
     margin: 15,
     backgroundColor: 'white',
     fontSize: 20,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+
+    shadowRadius: 4.65,
+
+    elevation: 8,
   },
 
   cityStateContainer: {
-    flex: 1,
     flexDirection: 'row',
   },
 
-  cityTextContainer: {flex: 1, flexDirection: 'column'},
-  cityText: {marginLeft: 15, marginTop: 10, fontSize: 30},
+  cityTextContainer: {flex: 0.5, flexDirection: 'column'},
+  cityText: {marginLeft: 15, fontSize: 25},
   cityTextInput: {
     margin: 15,
     backgroundColor: 'white',
     fontSize: 18,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+
+    shadowRadius: 4.65,
+
+    elevation: 8,
   },
 
-  stateTextContainer: {flex: 1, flexDirection: 'column'},
-  stateText: {marginLeft: 15, marginTop: 10, fontSize: 30},
+  stateTextContainer: {flex: 0.5, flexDirection: 'column'},
+  stateText: {marginLeft: 15, fontSize: 25},
   stateTextInput: {
     margin: 15,
     backgroundColor: 'white',
     fontSize: 18,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+
+    shadowRadius: 4.65,
+
+    elevation: 8,
   },
 
   zipCountryContainer: {flex: 1, flexDirection: 'row', marginBottom: 25},
 
   zipContainer: {flex: 1, flexDirection: 'column'},
-  zipText: {marginLeft: 15, marginTop: 10, fontSize: 30},
+  zipText: {marginLeft: 15, fontSize: 25},
   zipTextInput: {
     margin: 15,
     backgroundColor: 'white',
     fontSize: 18,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+
+    shadowRadius: 4.65,
+
+    elevation: 8,
   },
 
   countryContainer: {flex: 1, flexDirection: 'column'},
-  countryText: {marginLeft: 15, marginTop: 10, fontSize: 30},
+  countryText: {marginLeft: 15, fontSize: 25},
   countryTextInput: {
     margin: 15,
     backgroundColor: 'white',
     fontSize: 18,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+
+    shadowRadius: 4.65,
+
+    elevation: 8,
   },
 
   saveAddressBtnBg: {
     marginTop: 15,
-    backgroundColor: 'red',
+    backgroundColor: colors.themeColor,
     borderRadius: 7,
-    height: 60,
-    padding: 5,
+    paddingVertical: 8,
+    paddingHorizontal: 45,
   },
 
   saveAddressBtnText: {
-    fontSize: 32,
-    fontWeight: 'bold',
+    fontSize: 25,
+
     color: 'white',
     textAlign: 'center',
   },
