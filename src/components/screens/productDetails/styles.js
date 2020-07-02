@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#fff',
     backgroundColor: '#ffffff',
+    zIndex: 1000,
   },
   modalProductName: {
     fontSize: 28,
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   productImage: {
-    width: 350,
+    width: '100%',
     height: 180,
   },
 

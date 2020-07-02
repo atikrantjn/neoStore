@@ -253,6 +253,20 @@ export default class ProductDetails extends Component {
                 </View>
               </TouchableOpacity>
             </View>
+            <TouchableOpacity
+              onPress={() => {
+                this.setModalVisible(false);
+              }}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                height: '100%',
+                width: '100%',
+                zIndex: 1,
+                backgroundColor: '#06060694',
+              }}
+            />
           </View>
         </Modal>
       </View>
@@ -263,11 +277,7 @@ export default class ProductDetails extends Component {
     const {productData, product_id, productImg} = this.state;
 
     return (
-      <View
-        style={[
-          styles.mainContainer,
-          this.state.modalVisible ? {opacity: 0.4} : '',
-        ]}>
+      <View style={[styles.mainContainer]}>
         <ScrollView>
           <View style={styles.container}>
             <View style={{margin: 15, flex: 1}}>
@@ -322,6 +332,7 @@ export default class ProductDetails extends Component {
             </View>
             <View style={styles.productImageContainer}>
               <Image
+                resizeMode="contain"
                 style={styles.productImage}
                 source={{
                   uri: BASE_URL + productImg,

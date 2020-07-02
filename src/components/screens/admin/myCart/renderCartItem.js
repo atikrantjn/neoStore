@@ -67,7 +67,7 @@ export class RenderCartItem extends Component {
     const data = this.props;
 
     return (
-      <ScrollView>
+      <View>
         <View style={styles.container}>
           <TouchableOpacity>
             <View style={styles.listContainer}>
@@ -102,7 +102,7 @@ export class RenderCartItem extends Component {
             </View>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
     );
   }
 }
