@@ -12,6 +12,7 @@ import {SliderBox} from 'react-native-image-slider-box';
 import styles from './styles';
 import images from '../../../../utils/images';
 import {BASE_URL, API_URL, request} from '../../../../config/api';
+import {isEmptyObject} from '../../../../config/helpers';
 
 export default class Home extends Component {
   constructor(props) {
@@ -87,7 +88,11 @@ export default class Home extends Component {
     });
 
     const {width, height} = Dimensions.get('window');
+    let arr = this.state.dataSource;
 
+    if (arr.length % 2 !== 0) {
+      arr.push({});
+    }
     return (
       <View style={styles.container}>
         <View>
@@ -106,6 +111,9 @@ export default class Home extends Component {
             data={this.state.dataSource}
             numColumns={2}
             renderItem={({item}) => {
+              if (isEmptyObject(item)) {
+                return <View style={{flex: 1, padding: 5}} />;
+              }
               return (
                 <View style={{flex: 1, padding: 5}}>
                   <TouchableOpacity
