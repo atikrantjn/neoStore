@@ -101,16 +101,29 @@ const styles = StyleSheet.create({
   productCostContainer: {
     flex: 1,
     backgroundColor: 'white',
-
     margin: 15,
-    borderBottomWidth: 2,
-    borderBottomColor: '#D5D5D5',
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+
+    elevation: 18,
     borderRadius: 10,
   },
   productCostRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 10,
+  },
+
+  moduleSeperatorline: {
+    borderBottomWidth: 3,
+    height: 10,
+    borderColor: '#D5D5D5',
   },
 
   productCost: {
@@ -131,17 +144,18 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 25,
     flexDirection: 'column',
-    width: '90%',
+    marginHorizontal: '5%',
+    marginVertical: '5%',
   },
   descriptionText: {
-    fontSize: 28,
+    fontSize: 25,
     fontWeight: 'bold',
   },
 
   addToCartIcon: {
     flex: 1,
     alignItems: 'flex-end',
-    marginRight: 35,
+    marginEnd: '10%',
   },
 
   productDescription: {

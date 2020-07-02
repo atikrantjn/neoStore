@@ -1,5 +1,5 @@
 const appColors = {
-  themeColor: '#e91b1a',
+  themeColor: '#f04141',
   themeColorLight: '',
   themeColorDarker: '',
   themeColorDarkest: '',

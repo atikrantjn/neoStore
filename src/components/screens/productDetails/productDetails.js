@@ -166,21 +166,21 @@ export default class ProductDetails extends Component {
 
       AsyncStorage.setItem('cartData', JSON.stringify(newProduct))
         .then(() => {
-          Alert.alert('product added to cart successfully');
+          Alert.alert('success', 'product added to cart successfully');
         })
         .catch(() => {
-          Alert.alert('There was an error saving the product');
+          Alert.alert('Error', 'There was an error saving the product');
         });
     } else {
       let existed_item = newProduct.find(item => id === item._id);
       if (existed_item) {
-        Alert.alert('product already exist');
+        Alert.alert('Error', 'product already exist');
       } else {
         newProduct.push(mainData);
         AsyncStorage.setItem('cartData', JSON.stringify(newProduct));
 
         this.setState({cartCount: 1});
-        Alert.alert('product added to cart successfully');
+        Alert.alert('Success', 'product added to cart successfully');
 
         this.setState({cartCount: this.state.cartCount + 1});
       }
@@ -341,7 +341,7 @@ export default class ProductDetails extends Component {
             </View>
 
             {/* subimages */}
-            <View style={{marginLeft: 5}}>
+            <View style={{marginHorizontal: 5}}>
               <FlatList
                 horizontal
                 data={this.state.subImages}
@@ -359,6 +359,7 @@ export default class ProductDetails extends Component {
                       }}>
                       <View style={{borderWidth: 1, borderColor: 'black'}}>
                         <Image
+                          resizeMode="contain"
                           style={{width: 110, height: 120}}
                           source={{uri: BASE_URL + item}}
                         />
@@ -371,6 +372,8 @@ export default class ProductDetails extends Component {
             </View>
           </View>
 
+          <View style={styles.moduleSeperatorline} />
+
           <View style={styles.productDescriptionContainer}>
             <View style={{flexDirection: 'row'}}>
               <Text style={styles.descriptionText}>Description</Text>
@@ -381,11 +384,11 @@ export default class ProductDetails extends Component {
                 style={styles.addToCartIcon}>
                 <FaIcon
                   name="cart-plus"
-                  size={32}
+                  size={25}
                   style={{
                     backgroundColor: '#3089AB',
                     color: 'white',
-                    borderRadius: 32,
+                    borderRadius: 25,
                     padding: 10,
                   }}
                 />
@@ -398,6 +401,8 @@ export default class ProductDetails extends Component {
             </View>
           </View>
         </ScrollView>
+
+        <View style={styles.moduleSeperatorline} />
 
         <View style={styles.footerContainer}>
           <TouchableOpacity
