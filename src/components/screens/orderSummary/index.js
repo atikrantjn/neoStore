@@ -71,12 +71,15 @@ export class OrderSummary extends Component {
         if (data.success) {
           this.setState({isLoading: false});
 
-          Alert.alert(`Thank you for ordering products. ${data.message}`);
+          Alert.alert(
+            'Success',
+            `Thank you for ordering products. ${data.message}`,
+          );
           AsyncStorage.removeItem('cartData');
           this.setState({cartData: []});
           this.props.navigation.navigate('My Orders');
         } else {
-          Alert.alert(data.message);
+          Alert.alert('Error', data.message);
         }
       });
   };
@@ -209,7 +212,7 @@ export class OrderSummary extends Component {
     });
     AsyncStorage.setItem('cartData', JSON.stringify(cart));
 
-    this.getProductData();
+    await this.getProductData();
 
     Alert.alert('success', 'item has been successfully removed');
   };
@@ -255,13 +258,7 @@ export class OrderSummary extends Component {
     const userFullName = customerData.first_name + ' ' + customerData.last_name;
 
     return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'column',
-          justifyContent: 'space-evenly',
-          height: '100%',
-        }}>
+      <View style={styles.mainContainer}>
         {this.state.isLoading ? <Loader /> : null}
         <View style={styles.userDetailContainer}>
           <View>
@@ -286,17 +283,10 @@ export class OrderSummary extends Component {
         </View>
         <View style={styles.moduleSeperatorline} />
 
-        <View style={{height: '50%'}}>
+        <View style={styles.flatListMainContainer}>
           {this.state.cartData.length === 0 ? (
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text style={{fontSize: 40, textAlign: 'center'}}>
-                No data found
-              </Text>
+            <View style={styles.flatListEmptyContainer}>
+              <Text style={styles.flatListEmptyText}>No data found</Text>
             </View>
           ) : (
             <FlatList
@@ -308,12 +298,7 @@ export class OrderSummary extends Component {
                 return (
                   <View style={styles.rendercontainer}>
                     <View>
-                      <View
-                        style={{
-                          flex: 1,
-                          flexDirection: 'row',
-                          justifyContent: 'space-around',
-                        }}>
+                      <View style={styles.renderFirstRowContainer}>
                         <Text style={styles.renderproductName}>
                           {productItem.product_id.product_name}
                         </Text>
@@ -328,13 +313,7 @@ export class OrderSummary extends Component {
                       </View>
                     </View>
 
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        marginTop: 10,
-                        justifyContent: 'space-between',
-                        alignItems: 'flex-start',
-                      }}>
+                    <View style={styles.rendetSecondRowContainer}>
                       <View style={{paddingVertical: 12}}>
                         <Text style={styles.renderproductMaterial}>
                           {productItem.product_id.product_material}
@@ -350,13 +329,8 @@ export class OrderSummary extends Component {
                       </View>
                     </View>
 
-                    <View style={{width: '20%'}}>
-                      <View
-                        style={{
-                          flex: 1,
-                          flexDirection: 'row',
-                          justifyContent: 'space-evenly',
-                        }}>
+                    <View style={{width: '30%'}}>
+                      <View style={styles.quantityContainer}>
                         <TouchableOpacity style={styles.minusBtn}>
                           <FaIcon
                             name={'minus'}
@@ -367,11 +341,7 @@ export class OrderSummary extends Component {
                             }}
                           />
                         </TouchableOpacity>
-                        <Text
-                          style={{
-                            fontSize: 19,
-                            padding: 5,
-                          }}>
+                        <Text style={styles.quantityItemText}>
                           {item.quantity}
                         </Text>
 

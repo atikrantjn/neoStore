@@ -2,6 +2,11 @@ import {StyleSheet, Dimensions} from 'react-native';
 const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+  },
   userDetailContainer: {
     flexDirection: 'column',
     justifyContent: 'center',
@@ -44,10 +49,35 @@ const styles = StyleSheet.create({
     borderColor: '#D5D5D5',
   },
 
+  flatListMainContainer: {
+    height: '50%',
+  },
+
+  flatListEmptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  flatListEmptyText: {fontSize: 40, textAlign: 'center'},
+
   productDetailsContainer: {
     flex: 1,
     flexDirection: 'column',
     // margin: 25,
+  },
+
+  renderFirstRowContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+
+  rendetSecondRowContainer: {
+    flexDirection: 'row',
+    marginTop: 10,
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
   },
 
   productNameContainer: {
@@ -85,6 +115,17 @@ const styles = StyleSheet.create({
 
   productCost: {
     fontSize: 22,
+  },
+
+  quantityContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+
+  quantityItemText: {
+    fontSize: 19,
+    padding: 5,
   },
 
   footerContainer: {
