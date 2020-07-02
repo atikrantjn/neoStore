@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   },
 
   saveAddressBtnText: {
-    fontSize: 25,
+    fontSize: 22,
 
     color: 'white',
     textAlign: 'center',
