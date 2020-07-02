@@ -280,8 +280,8 @@ export class OrderSummary extends Component {
         </View>
         <View style={styles.moduleSeperatorline} />
 
-        <View style={{flex: 1}}>
-          <View style={{flex: 0.9}}>
+        <View style={{flex: 3}}>
+          <View>
             <FlatList
               ListEmptyComponent={() => {
                 return (
@@ -383,46 +383,42 @@ export class OrderSummary extends Component {
               }}
               keyExtractor={(item, index) => index.toString()}
             />
-
-            <View style={styles.moduleSeperatorline} />
-
-            <View style={styles.footerContainer}>
-              <View style={styles.footerPriceDetailsContainer}>
-                <Text style={styles.footerPriceDetails}>Price Details</Text>
-              </View>
-
-              <View style={styles.productCostContainer}>
-                <View style={{width: '50%'}}>
-                  <Text style={styles.productPrice}>Price</Text>
-                </View>
-                <View>
-                  <Text style={styles.productPrice}>
-                    {'Rs.' + ' ' + this.state.totalOrder}
-                  </Text>
-                </View>
-              </View>
-            </View>
+          </View>
+        </View>
+        <View style={styles.moduleSeperatorline} />
+        <View style={styles.footerContainer}>
+          <View style={styles.footerPriceDetailsContainer}>
+            <Text style={styles.footerPriceDetails}>Price Details</Text>
           </View>
 
-          <View style={styles.moduleSeperatorline} />
+          <View style={styles.productCostContainer}>
+            <View style={{width: '50%'}}>
+              <Text style={styles.productPrice}>Price</Text>
+            </View>
+            <View>
+              <Text style={styles.productPrice}>
+                {'Rs.' + ' ' + this.state.totalOrder}
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.moduleSeperatorline} />
 
+        <View style={styles.orderSummaryFooterContainer}>
           <View>
-            <View style={styles.orderSummaryFooterContainer}>
-              <View>
-                <Text style={styles.productPrice}>
-                  {'Rs.' + ' ' + this.state.totalOrder}
-                </Text>
-              </View>
-
-              <TouchableOpacity
-                style={styles.orderNowBTN}
-                onPress={() => {
-                  this.orderNowHandler();
-                }}>
-                <Text style={styles.orderNowBTNtext}>ORDER NOW</Text>
-              </TouchableOpacity>
-            </View>
+            <Text style={styles.productPrice}>
+              {'Rs.' + ' ' + this.state.totalOrder}
+            </Text>
           </View>
+
+          <TouchableOpacity
+            onPress={() => {
+              this.orderNowHandler();
+            }}>
+            <View style={styles.orderNowBTN}>
+              <Text style={styles.orderNowBTNtext}>ORDER NOW</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
     );
