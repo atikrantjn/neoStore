@@ -56,7 +56,7 @@ export default class Sidebar extends Component {
 
     apiii
       .fetchapi(
-        'http://180.149.241.208:3022/addProductToCartCheckout',
+        'http://160.149.241.208:3022/addProductToCartCheckout',
         'post',
         JSON.stringify(data1),
         token,
@@ -151,10 +151,10 @@ export default class Sidebar extends Component {
               />
             )}
 
-            <Text style={{textAlign: 'center', fontSize: 23}}>
+            <Text style={{textAlign: 'center', fontSize: 20}}>
               {this.state.data.first_name + ' ' + this.state.data.last_name}
             </Text>
-            <Text style={{textAlign: 'center', fontSize: 23}}>
+            <Text style={{textAlign: 'center', fontSize: 20}}>
               {this.state.data.email}
             </Text>
           </View>
@@ -185,10 +185,10 @@ export default class Sidebar extends Component {
           />
         )}
 
-        <DrawerContentScrollView {...props}>
+        <DrawerContentScrollView {...props} style={{marginHorizontal: 15}}>
           {!this.state.isloggedIn === true ? (
             <List.Accordion
-              titleStyle={{fontSize: 22, marginLeft: 25, color: 'black'}}
+              titleStyle={{fontSize: 18, marginLeft: 25, color: 'black'}}
               title="Account"
               left={() => <EnIcon name="users" size={22} />}>
               <View style={{justifyContent: 'center'}}>
@@ -223,7 +223,7 @@ export default class Sidebar extends Component {
           {this.state.isloggedIn ? (
             <View>
               <List.Item
-                titleStyle={{fontSize: 22}}
+                titleStyle={{fontSize: 20}}
                 title="My Cart"
                 left={() => (
                   <EnIcon
@@ -237,7 +237,7 @@ export default class Sidebar extends Component {
                 }}
               />
               <List.Item
-                titleStyle={{fontSize: 22}}
+                titleStyle={{fontSize: 20}}
                 title="Add Address"
                 onPress={() => {
                   this.props.navigation.navigate('Add Address');
@@ -252,7 +252,7 @@ export default class Sidebar extends Component {
               />
 
               <List.Item
-                titleStyle={{fontSize: 22}}
+                titleStyle={{fontSize: 20}}
                 title="My Account"
                 left={() => (
                   <MaterialIcon
@@ -266,7 +266,7 @@ export default class Sidebar extends Component {
                 }}
               />
               <List.Item
-                titleStyle={{fontSize: 22}}
+                titleStyle={{fontSize: 20}}
                 title="My Orders"
                 left={() => (
                   <EnIcon
@@ -283,12 +283,12 @@ export default class Sidebar extends Component {
           ) : null}
 
           <List.Accordion
-            titleStyle={{fontSize: 22, marginLeft: 25, color: 'black'}}
+            titleStyle={{fontSize: 20, marginLeft: 25, color: 'black'}}
             title="Products"
             left={() => <FaIcon name="sitemap" size={22} />}>
             <List.Item
               titleStyle={{
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: '500',
                 marginLeft: 25,
               }}
@@ -304,7 +304,7 @@ export default class Sidebar extends Component {
             />
             <List.Item
               titleStyle={{
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: '500',
                 marginLeft: 25,
               }}
@@ -324,7 +324,7 @@ export default class Sidebar extends Component {
             />
             <List.Item
               titleStyle={{
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: '500',
                 marginLeft: 25,
               }}
@@ -344,7 +344,7 @@ export default class Sidebar extends Component {
             />
             <List.Item
               titleStyle={{
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: '500',
                 marginLeft: 25,
               }}
@@ -364,7 +364,7 @@ export default class Sidebar extends Component {
             />
             <List.Item
               titleStyle={{
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: '500',
                 marginLeft: 25,
               }}
@@ -399,15 +399,15 @@ export default class Sidebar extends Component {
             )}
           />
           {this.state.isloggedIn === true ? (
-            <View>
-              <TouchableOpacity
-                style={styles.customBtnBG}
-                onPress={() => {
-                  this.logoutHandler();
-                }}>
+            <TouchableOpacity
+              style={{marginVertical: 10}}
+              onPress={() => {
+                this.logoutHandler();
+              }}>
+              <View style={styles.customBtnBG}>
                 <Text style={styles.customBtnText}>LOGOUT</Text>
-              </TouchableOpacity>
-            </View>
+              </View>
+            </TouchableOpacity>
           ) : null}
         </DrawerContentScrollView>
       </View>

@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../../utils/colors';
 const styles = StyleSheet.create({
   sideMenuContainer: {
     width: '100%',
@@ -6,15 +7,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   sideMenuProfileIcon: {
-    height: 150,
-    width: 150,
-    borderRadius: 100,
-    marginHorizontal: 60,
+    height: 130,
+    width: 130,
+    borderRadius: 130 / 2,
+    marginHorizontal: '28%',
+    marginVertical: '5%',
   },
   customBtnBG: {
-    backgroundColor: 'red',
+    backgroundColor: colors.themeColor,
     borderRadius: 7,
-    height: 45,
+    paddingVertical: 8,
+    paddingHorizontal: 45,
   },
 
   sideMenuProfileIconLog: {
@@ -23,11 +26,9 @@ const styles = StyleSheet.create({
   },
 
   customBtnText: {
-    fontSize: 25,
-    fontWeight: 'bold',
+    fontSize: 20,
     color: 'white',
     textAlign: 'center',
-    padding: 5,
   },
 });
 
