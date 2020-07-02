@@ -13,6 +13,7 @@ import Loader from '../../../../custom/loaderComponent/loader';
 
 import {Radio} from 'native-base';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
+import colors from '../../../../../utils/colors';
 export class AddressList extends Component {
   constructor(props) {
     super(props);
@@ -21,10 +22,10 @@ export class AddressList extends Component {
       data: {},
       token: '',
       addressData: {},
-      checked: false,
       address: '',
       custmorAddress: {},
       isLoading: false,
+      checked: false,
     };
   }
 
@@ -89,15 +90,19 @@ export class AddressList extends Component {
       Authorization: 'Bearer ' + this.state.token,
     };
 
-    this.setState({isLoading: true});
+    if (this.state.checked) {
+      this.setState({isLoading: true});
 
-    request(
-      this.updateAddressCallback,
-      data,
-      'PUT',
-      API_URL.UPDATE_ADDRESS_API,
-      header,
-    );
+      request(
+        this.updateAddressCallback,
+        data,
+        'PUT',
+        API_URL.UPDATE_ADDRESS_API,
+        header,
+      );
+    } else {
+      Alert.alert('Error', 'please select one address first');
+    }
   };
 
   updateAddressCallback = {
@@ -156,10 +161,10 @@ export class AddressList extends Component {
   deleteAddressCallback = {
     success: response => {
       this.recievedData();
-      Alert.alert('one customer address deleted successfully');
+      Alert.alert('Success', 'one customer address deleted successfully');
     },
     error: error => {
-      Alert.alert('error');
+      Alert.alert('Error', 'oops something went wrong');
     },
   };
 
@@ -179,7 +184,7 @@ export class AddressList extends Component {
     return (
       <View style={{flex: 1}}>
         <View style={{flex: 1, flexDirection: 'column'}}>
-          <Text style={{fontSize: 30, margin: 20, color: '#8B8888'}}>
+          <Text style={{fontSize: 22, margin: 15, color: '#8B8888'}}>
             Shipping Address
           </Text>
           <View
@@ -187,7 +192,6 @@ export class AddressList extends Component {
               height: 2,
               width: '100%',
               backgroundColor: '#b4b4b4',
-              marginBottom: 15,
             }}
           />
           {this.state.isLoading ? <Loader /> : null}
@@ -217,11 +221,12 @@ export class AddressList extends Component {
                     style={{
                       flex: 1,
                       flexDirection: 'row',
+                      width: deviceWidth,
+                      marginVertical: 10,
                     }}>
-                    <View style={{marginTop: 40, marginLeft: 10}}>
+                    <View style={{marginTop: 30, marginHorizontal: 10}}>
                       <Radio
                         onPress={() => {
-                          // console.log(item);
                           this.setState({
                             address:
                               item.address +
@@ -233,6 +238,8 @@ export class AddressList extends Component {
                               item.pincode +
                               ', ' +
                               item.country,
+
+                            checked: true,
                           });
                           this.setState({
                             custmorAddress: {
@@ -262,29 +269,31 @@ export class AddressList extends Component {
                       />
                     </View>
                     <View style={{flex: 1}}>
-                      <View style={{flex: 1, flexDirection: 'column'}}>
-                        <Text style={{marginHorizontal: 10, fontSize: 30}}>
+                      <View style={{flexDirection: 'column'}}>
+                        <Text style={{marginHorizontal: 10, fontSize: 20}}>
                           {fullName}
                         </Text>
-                        <View style={{flexDirection: 'row', flex: 1}}>
+                        <View style={{flexDirection: 'row'}}>
                           <Text
                             style={{
                               marginHorizontal: 10,
-                              fontSize: 25,
-                              width: deviceWidth - 130,
+                              fontSize: 18,
+                              width: '70%',
                             }}>
                             {item.address}
                           </Text>
-                          <View>
-                            <TouchableOpacity
+
+                          <TouchableOpacity
+                            onPress={() => {
+                              this.removeAddress(item.address_id);
+                            }}>
+                            <View
                               style={{
                                 borderRadius: 7,
                                 padding: 7,
-                                backgroundColor: 'red',
-                                height: 30,
-                              }}
-                              onPress={() => {
-                                this.removeAddress(item.address_id);
+                                backgroundColor: colors.themeColor,
+                                paddingVertical: 8,
+                                paddingHorizontal: 10,
                               }}>
                               <Text
                                 style={{
@@ -292,20 +301,20 @@ export class AddressList extends Component {
                                   color: 'white',
                                   textAlign: 'center',
                                 }}>
-                                remove
+                                Remove
                               </Text>
-                            </TouchableOpacity>
-                          </View>
+                            </View>
+                          </TouchableOpacity>
                         </View>
-
-                        <Text
-                          style={{
-                            marginHorizontal: 10,
-                            fontSize: 20,
-                            marginBottom: 10,
-                          }}>
-                          {item.pincode} , {item.country}
-                        </Text>
+                        <View>
+                          <Text
+                            style={{
+                              marginHorizontal: 10,
+                              fontSize: 18,
+                            }}>
+                            {item.pincode},{item.country}
+                          </Text>
+                        </View>
                       </View>
                     </View>
                   </View>
@@ -315,27 +324,31 @@ export class AddressList extends Component {
             />
           )}
         </View>
-        <TouchableOpacity
-          style={{
-            backgroundColor: 'red',
-            borderRadius: 7,
-            marginBottom: 8,
-            height: 55,
-          }}
-          onPress={() => {
-            this.updateAddress();
-          }}>
-          <Text
-            style={{
-              fontSize: 32,
-              fontWeight: 'bold',
-              color: 'white',
-              padding: 5,
-              textAlign: 'center',
+        <View>
+          <TouchableOpacity
+            style={{marginHorizontal: 15}}
+            onPress={() => {
+              this.updateAddress();
             }}>
-            SAVE ADDRESS
-          </Text>
-        </TouchableOpacity>
+            <View
+              style={{
+                backgroundColor: colors.themeColor,
+                borderRadius: 7,
+                paddingVertical: 6,
+                paddingHorizontal: 14,
+                marginVertical: 10,
+              }}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  color: 'white',
+                  textAlign: 'center',
+                }}>
+                SAVE ADDRESS
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }

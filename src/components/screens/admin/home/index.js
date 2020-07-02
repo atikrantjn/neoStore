@@ -102,7 +102,7 @@ export default class Home extends Component {
             autoplay
             circleLoop
             onCurrentImagePressed={index => this.imageslider(index)}
-            resizeMode={'contain'}
+            resizeMode="cover"
           />
         </View>
 

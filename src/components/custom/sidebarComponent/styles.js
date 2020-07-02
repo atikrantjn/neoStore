@@ -7,9 +7,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   sideMenuProfileIcon: {
-    height: 130,
-    width: 130,
-    borderRadius: 130 / 2,
+    height: 125,
+    width: 125,
+    borderRadius: 125 / 2,
     marginHorizontal: '28%',
     marginVertical: '5%',
   },

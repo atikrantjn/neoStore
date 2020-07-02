@@ -154,7 +154,7 @@ export default class Sidebar extends Component {
             <Text style={{textAlign: 'center', fontSize: 20}}>
               {this.state.data.first_name + ' ' + this.state.data.last_name}
             </Text>
-            <Text style={{textAlign: 'center', fontSize: 20}}>
+            <Text style={{textAlign: 'center', fontSize: 18}}>
               {this.state.data.email}
             </Text>
           </View>

@@ -123,111 +123,118 @@ class AddAddress extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <ScrollView>
-          <View style={styles.container}>
-            <View style={styles.addressContainer}>
-              <Text style={styles.addressText}>Address</Text>
+        <ScrollView style={styles.container}>
+          <View style={styles.addressContainer}>
+            <Text style={styles.addressText}>Address</Text>
+            <TextInput
+              numberOfLines={3}
+              multiline
+              textAlignVertical={'top'}
+              style={styles.addressTextInput}
+              onChangeText={address => {
+                this.setState({address: address});
+              }}
+            />
+          </View>
+
+          <View style={styles.landmarkContainer}>
+            <Text style={styles.landmarkText}>Landmark</Text>
+            <TextInput
+              style={styles.landmarkTextInput}
+              onChangeText={landmark => {
+                this.setState({landmark: landmark});
+              }}
+            />
+          </View>
+
+          {this.state.isLoading ? <Loader /> : null}
+
+          <View style={styles.cityStateContainer}>
+            <View style={styles.cityTextContainer}>
+              <Text style={styles.cityText}>City</Text>
               <TextInput
-                numberOfLines={5}
-                multiline
-                textAlignVertical={'top'}
-                style={styles.addressTextInput}
-                onChangeText={address => {
-                  this.setState({address: address});
+                ref={input => {
+                  this.textInput = input;
+                }}
+                style={styles.cityTextInput}
+                onChangeText={city => {
+                  this.setState({city: city});
                 }}
               />
             </View>
 
-            <View style={styles.landmarkContainer}>
-              <Text style={styles.landmarkText}>Landmark</Text>
+            <View style={styles.stateTextContainer}>
+              <Text style={styles.stateText}>State</Text>
               <TextInput
-                style={styles.landmarkTextInput}
-                onChangeText={landmark => {
-                  this.setState({landmark: landmark});
+                ref={input => {
+                  this.textInput = input;
+                }}
+                style={styles.stateTextInput}
+                onChangeText={state => {
+                  this.setState({state: state});
                 }}
               />
             </View>
+          </View>
 
-            {this.state.isLoading ? <Loader /> : null}
-
-            <View style={styles.cityStateContainer}>
-              <View style={styles.cityTextContainer}>
-                <Text style={styles.cityText}>City</Text>
-                <TextInput
-                  ref={input => {
-                    this.textInput = input;
-                  }}
-                  style={styles.cityTextInput}
-                  onChangeText={city => {
-                    this.setState({city: city});
-                  }}
-                />
-              </View>
-
-              <View style={styles.stateTextContainer}>
-                <Text style={styles.stateText}>State</Text>
-                <TextInput
-                  ref={input => {
-                    this.textInput = input;
-                  }}
-                  style={styles.stateTextInput}
-                  onChangeText={state => {
-                    this.setState({state: state});
-                  }}
-                />
-              </View>
+          <View style={styles.zipCountryContainer}>
+            <View style={styles.zipContainer}>
+              <Text style={styles.zipText}>Zip code</Text>
+              <TextInput
+                keyboardType={'number-pad'}
+                style={styles.zipTextInput}
+                onChangeText={pincode => {
+                  this.validatepincode(pincode);
+                }}
+              />
+              {this.state.pincodeErr ? (
+                <Text style={{fontSize: 15, color: 'red', marginLeft: 15}}>
+                  * should be 6 digits only
+                </Text>
+              ) : null}
             </View>
 
-            <View style={styles.zipCountryContainer}>
-              <View style={styles.zipContainer}>
-                <Text style={styles.zipText}>Zip code</Text>
-                <TextInput
-                  keyboardType={'number-pad'}
-                  style={styles.zipTextInput}
-                  onChangeText={pincode => {
-                    this.validatepincode(pincode);
-                  }}
-                />
-                {this.state.pincodeErr ? (
-                  <Text style={{fontSize: 15, color: 'red', marginLeft: 15}}>
-                    * should be 6 digits only
-                  </Text>
-                ) : null}
-              </View>
-
-              <View style={styles.countryContainer}>
-                <Text style={styles.countryText}>Country</Text>
-                <TextInput
-                  style={styles.countryTextInput}
-                  onChangeText={country => {
-                    this.setState({country: country});
-                  }}
-                />
-              </View>
+            <View style={styles.countryContainer}>
+              <Text style={styles.countryText}>Country</Text>
+              <TextInput
+                style={styles.countryTextInput}
+                onChangeText={country => {
+                  this.setState({country: country});
+                }}
+              />
             </View>
           </View>
         </ScrollView>
-        <View>
-          <TouchableOpacity
-            style={{marginHorizontal: 15}}
-            onPress={() => {
-              this.saveAddress();
-            }}>
-            <View style={styles.saveAddressBtnBg}>
-              <Text style={styles.saveAddressBtnText}>SAVE ADDRESS</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity
-            style={{marginHorizontal: 15, marginBottom: 15}}
-            onPress={() => {
-              this.props.navigation.navigate('Address List');
-            }}>
-            <View style={styles.saveAddressBtnBg}>
-              <Text style={styles.saveAddressBtnText}> ADDRESS LIST </Text>
-            </View>
-          </TouchableOpacity>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            alignItems: 'flex-end',
+            marginVertical: '2%',
+          }}>
+          <View style={{flex: 0.5}}>
+            <TouchableOpacity
+              style={{marginHorizontal: 15}}
+              onPress={() => {
+                this.saveAddress();
+              }}>
+              <View style={styles.saveAddressBtnBg}>
+                <Text style={styles.saveAddressBtnText}>SAVE ADDRESS</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={{flex: 0.5}}>
+            <TouchableOpacity
+              style={{marginHorizontal: 15}}
+              onPress={() => {
+                this.props.navigation.navigate('Address List');
+              }}>
+              <View style={styles.saveAddressBtnBg}>
+                <Text style={styles.saveAddressBtnText}> ADDRESS LIST </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
