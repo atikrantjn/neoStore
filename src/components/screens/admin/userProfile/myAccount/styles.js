@@ -15,20 +15,21 @@ const styles = StyleSheet.create({
     zIndex: -1,
   },
   registerInput: {
-    marginLeft: 50,
-    marginRight: 50,
-    marginTop: 25,
+    marginHorizontal: 50,
+    marginVertical: 10,
     height: 50,
-    marginBottom: 10,
   },
   customBtnBG: {
     backgroundColor: 'white',
     borderRadius: 7,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    marginVertical: 10,
+    marginHorizontal: 30,
   },
 
   customBtnText: {
-    fontSize: 32,
-    fontWeight: '400',
+    fontSize: 20,
     color: 'red',
     textAlign: 'center',
   },

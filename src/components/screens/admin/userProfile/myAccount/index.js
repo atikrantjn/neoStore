@@ -186,24 +186,31 @@ export class MyAccount extends Component {
               editable={false}
             />
           </View>
-          <View style={styles.registerInput}>
+          <View
+            style={{
+              flexDirection: 'column',
+              flex: 1,
+              marginVertical: 15,
+              marginHorizontal: 15,
+            }}>
             <TouchableOpacity
-              style={styles.customBtnBG}
               onPress={() => {
                 this.props.navigation.navigate('Edit Profile', {
                   customerData: this.state.customerData,
                 });
               }}>
-              <Text style={styles.customBtnText}>EDIT PROFILE</Text>
+              <View style={styles.customBtnBG}>
+                <Text style={styles.customBtnText}>EDIT PROFILE</Text>
+              </View>
             </TouchableOpacity>
-          </View>
-          <View style={styles.registerInput}>
+
             <TouchableOpacity
-              style={styles.customBtnBG}
               onPress={() => {
                 this.props.navigation.navigate('Reset Password');
               }}>
-              <Text style={styles.customBtnText}>RESET PASSWORD</Text>
+              <View style={styles.customBtnBG}>
+                <Text style={styles.customBtnText}>RESET PASSWORD</Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>
