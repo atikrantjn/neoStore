@@ -255,7 +255,13 @@ export class OrderSummary extends Component {
     const userFullName = customerData.first_name + ' ' + customerData.last_name;
 
     return (
-      <View style={{flex: 1}}>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'space-evenly',
+          height: '100%',
+        }}>
         {this.state.isLoading ? <Loader /> : null}
         <View style={styles.userDetailContainer}>
           <View>
@@ -280,18 +286,20 @@ export class OrderSummary extends Component {
         </View>
         <View style={styles.moduleSeperatorline} />
 
-        <View style={{flex: 3}}>
-          <View>
+        <View style={{height: '50%'}}>
+          {this.state.cartData.length === 0 ? (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={{fontSize: 40, textAlign: 'center'}}>
+                No data found
+              </Text>
+            </View>
+          ) : (
             <FlatList
-              ListEmptyComponent={() => {
-                return (
-                  <View>
-                    <Text style={{fontSize: 40, textAlign: 'center'}}>
-                      no data found
-                    </Text>
-                  </View>
-                );
-              }}
               data={this.state.cartData}
               ItemSeparatorComponent={this.FlatListItemSeparator}
               renderItem={({item}) => {
@@ -299,12 +307,12 @@ export class OrderSummary extends Component {
 
                 return (
                   <View style={styles.rendercontainer}>
-                    <View style={{flex: 1}}>
+                    <View>
                       <View
                         style={{
                           flex: 1,
                           flexDirection: 'row',
-                          justifyContent: 'space-evenly',
+                          justifyContent: 'space-around',
                         }}>
                         <Text style={styles.renderproductName}>
                           {productItem.product_id.product_name}
@@ -324,7 +332,8 @@ export class OrderSummary extends Component {
                       style={{
                         flexDirection: 'row',
                         marginTop: 10,
-                        justifyContent: 'space-around',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-start',
                       }}>
                       <View style={{paddingVertical: 12}}>
                         <Text style={styles.renderproductMaterial}>
@@ -383,7 +392,7 @@ export class OrderSummary extends Component {
               }}
               keyExtractor={(item, index) => index.toString()}
             />
-          </View>
+          )}
         </View>
         <View style={styles.moduleSeperatorline} />
         <View style={styles.footerContainer}>

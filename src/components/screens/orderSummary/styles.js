@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   userDetailContainer: {
     flexDirection: 'column',
     justifyContent: 'center',
-    flex: 1,
+    height: '30%',
     marginHorizontal: '5%',
   },
 
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
   },
 
-  userAddress: {fontSize: 25, fontWeight: 'bold'},
+  userAddress: {fontSize: 22, fontWeight: 'bold'},
 
   changeAddressBTNcontainer: {
     marginTop: 15,
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   productDetailsContainer: {
     flex: 1,
     flexDirection: 'column',
-    margin: 25,
+    // margin: 25,
   },
 
   productNameContainer: {
@@ -65,8 +65,7 @@ const styles = StyleSheet.create({
   },
 
   productImage: {
-    width: 125,
-    height: 122,
+    flex: 1,
   },
 
   productPriceDetailsContainer: {
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
   },
 
   productMaterial: {
-    fontSize: 30,
+    fontSize: 28,
   },
 
   productCost: {
@@ -90,7 +89,7 @@ const styles = StyleSheet.create({
 
   footerContainer: {
     flexDirection: 'column',
-    flex: 0.5,
+    height: '15%',
   },
 
   footerPriceDetails: {
@@ -98,6 +97,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     textDecorationLine: 'underline',
     marginHorizontal: '5%',
+    marginVertical: '2%',
   },
   productCostContainer: {
     flexDirection: 'row',
@@ -110,21 +110,22 @@ const styles = StyleSheet.create({
   orderSummaryFooterContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    margin: 10,
+    alignItems: 'center',
+    marginVertical: 10,
+
     marginHorizontal: '5%',
-    flex: 0.5,
+    height: '10%',
   },
 
   orderNowBTN: {
     backgroundColor: 'red',
     borderRadius: 7,
     paddingHorizontal: 8,
-    paddingVertical: 14,
+    paddingVertical: 10,
   },
 
   orderNowBTNtext: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
     textAlign: 'center',
@@ -134,8 +135,7 @@ const styles = StyleSheet.create({
 
   rendercontainer: {
     // padding: 10,
-
-    marginVertical: 10,
+    marginVertical: '5%',
     marginHorizontal: '5%',
   },
 
@@ -159,13 +159,12 @@ const styles = StyleSheet.create({
 
   renderproductMaterial: {
     fontSize: 20,
-    width: 250,
+
     color: '#A09F9F',
     fontWeight: 'bold',
   },
 
   renderproductCostContainer: {
-    flex: 1,
     marginVertical: 15,
   },
 
