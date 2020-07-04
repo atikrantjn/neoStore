@@ -104,14 +104,8 @@ const styles = StyleSheet.create({
     margin: 15,
 
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
 
-    elevation: 18,
+    elevation: 5,
     borderRadius: 10,
   },
   productCostRow: {
@@ -128,7 +122,7 @@ const styles = StyleSheet.create({
 
   productCost: {
     fontSize: 25,
-    color: 'red',
+    color: colors.themeColor,
   },
 
   productImageContainer: {

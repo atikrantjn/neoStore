@@ -25,7 +25,7 @@ export class RenderCartItem extends Component {
 
   removeFromCart = id => {
     const title = 'Time to choose!';
-    const message = 'are u sure u wanna remove this item';
+    const message = 'Are you sure you want to remove this item';
     const buttons = [
       {text: 'Cancel', type: 'cancel'},
       {
@@ -46,7 +46,7 @@ export class RenderCartItem extends Component {
     });
 
     AsyncStorage.setItem('cartData', JSON.stringify(cart)).then(() => {
-      Alert.alert('item has been successfully removed');
+      Alert.alert('Success', 'Item has been successfully removed');
     });
   };
 

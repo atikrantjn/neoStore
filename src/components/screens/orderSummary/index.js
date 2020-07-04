@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {BASE_URL, API_URL, request, apiii} from '../../../config/api';
 
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
+import {ScrollView} from 'react-native-gesture-handler';
 export class OrderSummary extends Component {
   constructor(props) {
     super(props);
@@ -297,28 +298,23 @@ export class OrderSummary extends Component {
 
                 return (
                   <View style={styles.rendercontainer}>
-                    <View>
-                      <View style={styles.renderFirstRowContainer}>
-                        <Text style={styles.renderproductName}>
-                          {productItem.product_id.product_name}
-                        </Text>
+                    <View style={styles.renderFirstRowContainer}>
+                      <Text style={styles.renderproductName}>
+                        {productItem.product_id.product_name}
+                      </Text>
 
-                        <Image
-                          style={styles.renderimageStyle}
-                          source={{
-                            uri:
-                              BASE_URL + productItem.product_id.product_image,
-                          }}
-                        />
-                      </View>
+                      <Image
+                        style={styles.renderimageStyle}
+                        source={{
+                          uri: BASE_URL + productItem.product_id.product_image,
+                        }}
+                      />
                     </View>
 
                     <View style={styles.rendetSecondRowContainer}>
-                      <View style={{paddingVertical: 12}}>
-                        <Text style={styles.renderproductMaterial}>
-                          {productItem.product_id.product_material}
-                        </Text>
-                      </View>
+                      <Text style={styles.renderproductMaterial}>
+                        {productItem.product_id.product_material}
+                      </Text>
 
                       <View style={styles.renderproductCostContainer}>
                         <Text style={styles.productCost}>
@@ -329,7 +325,10 @@ export class OrderSummary extends Component {
                       </View>
                     </View>
 
-                    <View style={{width: '30%'}}>
+                    <View
+                      style={{
+                        marginVertical: 5,
+                      }}>
                       <View style={styles.quantityContainer}>
                         <TouchableOpacity style={styles.minusBtn}>
                           <FaIcon
@@ -364,14 +363,16 @@ export class OrderSummary extends Component {
             />
           )}
         </View>
+
         <View style={styles.moduleSeperatorline} />
+
         <View style={styles.footerContainer}>
-          <View style={styles.footerPriceDetailsContainer}>
+          <View>
             <Text style={styles.footerPriceDetails}>Price Details</Text>
           </View>
 
           <View style={styles.productCostContainer}>
-            <View style={{width: '50%'}}>
+            <View>
               <Text style={styles.productPrice}>Price</Text>
             </View>
             <View>

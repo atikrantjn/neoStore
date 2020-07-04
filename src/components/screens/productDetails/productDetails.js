@@ -14,6 +14,7 @@ import styles from './styles';
 import StarRating from 'react-native-star-rating';
 
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-community/async-storage';
 import {request, API_URL, BASE_URL} from '../../../config/api';
 
@@ -382,14 +383,15 @@ export default class ProductDetails extends Component {
                   this.addToCart(product_id, productData);
                 }}
                 style={styles.addToCartIcon}>
-                <FaIcon
-                  name="cart-plus"
-                  size={25}
+                <IonIcon
+                  name="md-cart"
+                  size={20}
                   style={{
                     backgroundColor: '#3089AB',
                     color: 'white',
                     borderRadius: 25,
-                    padding: 10,
+                    paddingHorizontal: 20,
+                    paddingVertical: 15,
                   }}
                 />
               </TouchableOpacity>
