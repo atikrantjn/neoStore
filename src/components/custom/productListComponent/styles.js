@@ -1,4 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
+import appColors from '../../../utils/colors';
 const deviceWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   listContainer: {flex: 1},
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
   productCost: {
     marginHorizontal: 15,
     fontSize: 20,
-    color: 'red',
+    color: appColors.themeColor,
   },
 
   image: {

@@ -1,29 +1,33 @@
 import {StyleSheet} from 'react-native';
+import appcolors from '../../../../utils/colors';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 10,
+    flexDirection: 'row',
   },
 
   listContainer: {
     flexDirection: 'row',
-    // margin: 10,
+    flex: 0.8,
   },
 
   imageStyle: {
-    width: 80,
-    height: 80,
+    flex: 0.3,
   },
-  productNameContainer: {flexDirection: 'column', marginHorizontal: 15},
+  productNameContainer: {
+    flexDirection: 'column',
+    paddingLeft: 15,
+    flex: 0.6,
+  },
 
   productName: {
-    fontSize: 25,
-    width: 260,
+    fontSize: 20,
   },
 
   productMaterial: {
-    fontSize: 20,
+    fontSize: 18,
     width: 250,
     color: '#A09F9F',
   },
@@ -41,23 +45,23 @@ const styles = StyleSheet.create({
 
   footerComponentContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-
-    margin: 20,
+    justifyContent: 'space-between',
+    marginVertical: 10,
+    marginHorizontal: 20,
   },
 
-  footerPrice: {fontSize: 25},
+  footerPrice: {fontSize: 20},
 
   footerOrderBTN: {
-    backgroundColor: 'red',
+    backgroundColor: appcolors.themeColor,
     borderRadius: 7,
-    padding: 7,
-    height: 50,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
   },
 
   footerBTNtext: {
-    fontSize: 25,
-    fontWeight: 'bold',
+    fontSize: 20,
+
     color: 'white',
     textAlign: 'center',
   },
@@ -69,9 +73,9 @@ const styles = StyleSheet.create({
   },
   removeBTN: {
     borderRadius: 7,
-    padding: 7,
-    backgroundColor: 'red',
-    height: 30,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    backgroundColor: appcolors.themeColor,
   },
   removeBTNText: {
     fontSize: 15,

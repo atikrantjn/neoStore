@@ -67,38 +67,35 @@ export class RenderCartItem extends Component {
     const data = this.props;
 
     return (
-      <View>
-        <View style={styles.container}>
-          <TouchableOpacity>
-            <View style={styles.listContainer}>
-              <Image
-                style={styles.imageStyle}
-                source={{
-                  uri: BASE_URL + data.product_image,
-                }}
-              />
+      <View style={styles.container}>
+        <View style={styles.listContainer}>
+          <Image
+            style={styles.imageStyle}
+            source={{
+              uri: BASE_URL + data.product_image,
+            }}
+          />
 
-              <View style={styles.productNameContainer}>
-                <Text style={styles.productName}>{data.product_name}</Text>
-                <Text style={styles.productMaterial}>
-                  {data.product_material}
-                </Text>
+          <View style={styles.productNameContainer}>
+            <Text style={styles.productName}>{data.product_name}</Text>
+            <Text style={styles.productMaterial}>
+              ({data.product_material})
+            </Text>
 
-                <View style={styles.productCostContainer}>
-                  <Text style={styles.productCost}>
-                    {'Rs' + ' ' + data.product_cost}
-                  </Text>
-                </View>
-              </View>
-              <View>
-                <TouchableOpacity
-                  style={styles.removeBTN}
-                  onPress={() => {
-                    this.removeFromCart(data.product_id);
-                  }}>
-                  <Text style={styles.removeBTNText}>remove</Text>
-                </TouchableOpacity>
-              </View>
+            <View style={styles.productCostContainer}>
+              <Text style={styles.productCost}>
+                {'Rs.' + ' ' + data.product_cost}
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View style={{flex: 0.2}}>
+          <TouchableOpacity
+            onPress={() => {
+              this.removeFromCart(data.product_id);
+            }}>
+            <View style={styles.removeBTN}>
+              <Text style={styles.removeBTNText}>Remove</Text>
             </View>
           </TouchableOpacity>
         </View>

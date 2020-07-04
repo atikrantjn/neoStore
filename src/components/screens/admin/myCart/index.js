@@ -80,7 +80,7 @@ export class MyCart extends Component {
               flex: 1,
             }}>
             <View>
-              <FaIcon size={98} name="frown-open" />
+              <FaIcon size={88} name="frown-open" />
             </View>
             <Text style={{fontSize: 24, textAlign: 'center'}}>
               Oooopsssss Your cart is empty!!
@@ -116,16 +116,17 @@ export class MyCart extends Component {
           <View style={{flex: 1, flexDirection: 'column'}}>
             <Text style={styles.footerPrice}>Total Price:</Text>
             <Text style={styles.footerPrice}>
-              {'Rs' + ' ' + this.state.total_cost}
+              {'Rs.' + ' ' + this.state.total_cost}
             </Text>
           </View>
 
           <TouchableOpacity
-            style={styles.footerOrderBTN}
             onPress={() => {
               this.props.navigation.navigate('OrderSummary');
             }}>
-            <Text style={styles.footerBTNtext}>ORDER NOW</Text>
+            <View style={styles.footerOrderBTN}>
+              <Text style={styles.footerBTNtext}>ORDER NOW</Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>

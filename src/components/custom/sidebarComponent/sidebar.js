@@ -13,7 +13,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 
-import {BASE_URL, apiii} from '../../../config/api';
+import {BASE_URL, apiii, API_URL} from '../../../config/api';
 
 import AsyncStorage from '@react-native-community/async-storage';
 export default class Sidebar extends Component {
@@ -44,46 +44,46 @@ export default class Sidebar extends Component {
 
   removeValue = async () => {
     const {token} = this.state;
-    let keys = ['userData', 'cartData'];
+    // let keys = ['userData', 'cartData'];
 
-    AsyncStorage.multiRemove(keys, err => {
-      this.props.navigation.navigate('Home');
-    });
+    // AsyncStorage.multiRemove(keys, err => {
+    //   this.props.navigation.navigate('Home');
+    // });
 
-    // let data = this.state.cartData;
+    let data = this.state.cartData;
 
-    // let flag = [{flag: 'logout'}];
-    // let data1 = [...data, ...flag];
+    let flag = [{flag: 'logout'}];
+    let data1 = [...data, ...flag];
 
-    // console.log(data1);
+    console.log(data1);
 
-    // this.setState({isLoading: true});
+    this.setState({isLoading: true});
 
-    // apiii
-    //   .fetchapi(
-    //     'http://160.149.241.208:3022/addProductToCartCheckout',
-    //     'post',
-    //     JSON.stringify(data1),
-    //     token,
-    //   )
+    apiii
+      .fetchapi(
+        BASE_URL + API_URL.ADD_PRODUCT_CHECKOUT_API,
+        'post',
+        JSON.stringify(data1),
+        token,
+      )
 
-    //   .then(response => response.json())
-    //   .then(respData => {
-    //     console.log(respData);
-    //     let keys = ['userData', 'cartData'];
+      .then(response => response.json())
+      .then(respData => {
+        console.log(respData);
+        let keys = ['userData', 'cartData'];
 
-    //     if (respData.success) {
-    //       Alert.alert(respData.message);
+        if (respData.success) {
+          Alert.alert('Success', respData.message);
 
-    //       AsyncStorage.multiRemove(keys, err => {
-    //         this.setState({cartData: []});
+          AsyncStorage.multiRemove(keys, err => {
+            this.setState({cartData: []});
 
-    //         this.props.navigation.navigate('Home');
-    //       });
-    //     } else {
-    //       Alert.alert(respData.message);
-    //     }
-    //   });
+            this.props.navigation.navigate('Home');
+          });
+        } else {
+          Alert.alert('Error', respData.message);
+        }
+      });
   };
 
   logoutHandler = () => {
@@ -199,24 +199,26 @@ export default class Sidebar extends Component {
               <View style={{justifyContent: 'center'}}>
                 <List.Item
                   titleStyle={{
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: '500',
                     marginLeft: 25,
                   }}
                   title="Login"
-                  left={() => <FaIcon name="user" size={20} />}
+                  left={() => <FaIcon name="user" size={18} style={{top: 8}} />}
                   onPress={() => {
                     this.props.navigation.navigate('Login');
                   }}
                 />
                 <List.Item
                   titleStyle={{
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: '500',
                     marginLeft: 25,
                   }}
                   title="Register"
-                  left={() => <AntDesign name="adduser" size={20} />}
+                  left={() => (
+                    <AntDesign name="adduser" size={18} style={{top: 8}} />
+                  )}
                   onPress={() => {
                     this.props.navigation.navigate('Register');
                   }}

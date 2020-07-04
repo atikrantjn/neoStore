@@ -13,7 +13,6 @@ export class RenderProductItem extends Component {
     return (
       <View style={styles.listContainer}>
         <TouchableOpacity
-          styles={styles.list}
           onPress={() => {
             this.props.navigation.navigate('ProductDetails', {
               productId: data.productId,
