@@ -81,7 +81,7 @@ export class ForgotPassword extends Component {
       setTimeout(() => {
         this.props.navigation.navigate('Set Password');
         this.hideAlert();
-      }, 3000);
+      }, 5000);
     },
     error: error => {
       Alert.alert('Error', error.message);

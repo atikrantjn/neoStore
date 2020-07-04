@@ -13,32 +13,30 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 25,
   },
-  forgotText: {
-    color: '#FFFFFF',
-    fontSize: 28,
-    fontWeight: 'bold',
-  },
 
   input: {
     paddingLeft: 50,
     color: 'white',
     borderColor: 'white',
     borderWidth: 1.5,
-    fontSize: 22,
-    width: screenWidth - 100,
-    marginBottom: 35,
+    fontSize: 19,
+  },
+  inputView: {
+    marginVertical: 10,
   },
 
   customBtnBG: {
+    marginVertical: 15,
     backgroundColor: 'white',
     borderRadius: 7,
-    width: screenWidth - 100,
+    paddingVertical: 8,
+    paddingHorizontal: 20,
   },
 
   customBtnText: {
-    fontSize: 32,
-    fontWeight: '400',
-    color: 'red',
+    fontSize: 20,
+
+    color: appColors.themeColor,
     textAlign: 'center',
   },
 });

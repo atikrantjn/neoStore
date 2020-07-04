@@ -1,12 +1,5 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  Dimensions,
-  TextInput,
-  Alert,
-} from 'react-native';
+import {Text, View, TouchableOpacity, TextInput, Alert} from 'react-native';
 import styles from './styles';
 import AsyncStorage from '@react-native-community/async-storage';
 import {API_URL, request} from '../../../config/api';
@@ -21,10 +14,11 @@ export class SetPassword extends Component {
     this.state = {
       newPass: '',
       confirmPass: '',
-      otpCode: null,
+      otpCode: '',
 
-      confirmPasswordErr: false,
-      newpassErr: false,
+      confirmPasswordErr: '',
+      newpassErr: '',
+      otpError: '',
       data: {},
     };
   }
@@ -42,28 +36,44 @@ export class SetPassword extends Component {
     }
   };
 
-  validateNewPassword = newPass => {
+  validatePassword = () => {
     let passPattern = /^([a-zA-Z0-9@*#]{8,15})$/;
-
-    if (passPattern.test(newPass) === false) {
-      this.setState({newpassErr: true});
+    if (this.state.newPass === '') {
+      this.setState({newpassErr: 'cannot be kept blank'});
+      return false;
+    } else if (!passPattern.test(this.state.newPass)) {
+      this.setState({
+        newpassErr: 'Password must be 8-15 alphanumeric characters',
+      });
       return false;
     } else {
-      this.setState({newPass: newPass, newpassErr: false});
+      this.setState({newpassErr: ''});
+      return true;
     }
   };
 
-  validateConfPass = confirmPass => {
-    let passv = this.state.newPass;
-
-    if (!confirmPass.match(passv)) {
-      this.setState({confirmPasswordErr: true});
+  validateConfPass = () => {
+    if (this.state.confirmPass === '') {
+      this.setState({confirmPasswordErr: 'cannot be kept blank'});
+      return false;
+    } else if (!this.state.confirmPass.match(this.state.newPass)) {
+      this.setState({confirmPasswordErr: 'Password didnt matched!!'});
       return false;
     } else {
       this.setState({
-        confirmPass: confirmPass,
-        confirmPasswordErr: false,
+        confirmPasswordErr: '',
       });
+      return true;
+    }
+  };
+
+  validateOtp = () => {
+    if (this.state.otpCode === '') {
+      this.setState({otpError: 'cannot be kept blank'});
+      return false;
+    } else {
+      this.setState({otpError: ''});
+      return true;
     }
   };
 
@@ -72,10 +82,11 @@ export class SetPassword extends Component {
   };
 
   setPasswordHandler = () => {
-    const {newPass, confirmPass, otpCode} = this.state;
-    if (otpCode === '' || newPass === '' || confirmPass === '') {
-      Alert.alert('fields cannot be kept empty');
-    } else {
+    let otp = this.validateOtp();
+    let userpass = this.validatePassword();
+    let userconfpass = this.validateConfPass();
+
+    if (otp && userpass && userconfpass) {
       this.sendData();
     }
   };
@@ -104,11 +115,16 @@ export class SetPassword extends Component {
 
   setPassCallback = {
     success: response => {
-      Alert.alert(response.message);
+      Alert.alert('Success', response.message);
       this.props.navigation.navigate('Login');
     },
     error: error => {
-      Alert.alert('something went wrong');
+      Alert.alert('Error', error.message);
+      this.setState({
+        newPass: '',
+        confirmPass: '',
+        otpCode: '',
+      });
     },
   };
 
@@ -119,94 +135,103 @@ export class SetPassword extends Component {
           <Text style={styles.neostoreHeader}>NeoSTORE</Text>
         </View>
 
-        <View style={{marginLeft: 50}}>
-          <View>
-            <View>
-              <EnIcon
-                name="dial-pad"
-                size={28}
-                style={{
-                  position: 'absolute',
-                  top: 12,
-                  left: 10,
-                  color: 'white',
-                }}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="otp"
-                placeholderTextColor="white"
-                keyboardType="number-pad"
-                underlineColorAndroid="transparent"
-                onChangeText={otpCode =>
-                  this.setState({
-                    otpCode: otpCode,
-                  })
-                }
-              />
-            </View>
-
-            <View>
-              <FaIcon
-                name="lock"
-                size={25}
-                style={{
-                  position: 'absolute',
-                  top: 12,
-                  left: 10,
-                  color: 'white',
-                }}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="new password"
-                placeholderTextColor="white"
-                secureTextEntry
-                underlineColorAndroid="transparent"
-                onChangeText={newpass => this.validateNewPassword(newpass)}
-              />
-            </View>
-
-            {this.state.newpassErr ? (
-              <Text style={{color: 'white'}}>
-                *Password must be 8-15 alphanumeric characters
-              </Text>
-            ) : null}
-            <View>
-              <FaIcon
-                name="lock"
-                size={25}
-                style={{
-                  position: 'absolute',
-                  top: 12,
-                  left: 10,
-                  color: 'white',
-                }}
-              />
-
-              <TextInput
-                style={styles.input}
-                placeholder="Re-enter password"
-                placeholderTextColor="white"
-                secureTextEntry
-                underlineColorAndroid="transparent"
-                onChangeText={confirmPass => {
-                  this.validateConfPass(confirmPass);
-                }}
-              />
-            </View>
-
-            {this.state.confirmPasswordErr ? (
-              <Text style={{color: 'white'}}>Password did'nt matched!!</Text>
-            ) : null}
+        <View style={{marginHorizontal: 50}}>
+          <View style={styles.inputView}>
+            <EnIcon
+              name="dial-pad"
+              size={28}
+              style={{
+                position: 'absolute',
+                top: 12,
+                left: 10,
+                color: 'white',
+              }}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Otp"
+              placeholderTextColor="white"
+              keyboardType="number-pad"
+              underlineColorAndroid="transparent"
+              onChangeText={otpCode => {
+                this.setState({otpCode}, () => {
+                  this.validateOtp();
+                });
+              }}
+            />
           </View>
+          {this.state.otpError ? (
+            <Text style={{color: 'white'}}>{this.state.otpError}</Text>
+          ) : null}
+
+          <View style={styles.inputView}>
+            <FaIcon
+              name="lock"
+              size={25}
+              style={{
+                position: 'absolute',
+                top: 12,
+                left: 10,
+                color: 'white',
+              }}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="New password"
+              placeholderTextColor="white"
+              secureTextEntry
+              underlineColorAndroid="transparent"
+              onChangeText={newPass => {
+                this.setState({newPass}, () => {
+                  this.validatePassword();
+                });
+              }}
+            />
+          </View>
+
+          {this.state.newpassErr ? (
+            <Text style={{color: 'white'}}>{this.state.newpassErr}</Text>
+          ) : null}
+          <View style={styles.inputView}>
+            <FaIcon
+              name="lock"
+              size={25}
+              style={{
+                position: 'absolute',
+                top: 12,
+                left: 10,
+                color: 'white',
+              }}
+            />
+
+            <TextInput
+              style={styles.input}
+              placeholder="Re-enter password"
+              placeholderTextColor="white"
+              secureTextEntry
+              underlineColorAndroid="transparent"
+              onChangeText={confirmPass => {
+                this.setState({confirmPass}, () => {
+                  this.validateConfPass();
+                });
+              }}
+            />
+          </View>
+
+          {this.state.confirmPasswordErr ? (
+            <Text style={{color: 'white'}}>
+              {this.state.confirmPasswordErr}
+            </Text>
+          ) : null}
+
           <View>
             <TouchableOpacity
-              style={styles.customBtnBG}
               onPress={() => {
                 this.setPasswordHandler();
               }}>
-              <Text style={styles.customBtnText}>Submit</Text>
+              <View style={styles.customBtnBG}>
+                <Text style={styles.customBtnText}>Submit</Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>
