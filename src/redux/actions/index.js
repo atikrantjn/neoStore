@@ -1,3 +1,3 @@
-import {setLoginData} from './loginAction';
+import setAddressListData from './addressListAction';
 
-export {setLoginData};
+export {setAddressListData};

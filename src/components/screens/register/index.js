@@ -34,13 +34,13 @@ class Register extends Component {
       showAlert: false,
       isLoading: false,
 
-      firstNameErr: false,
+      firstNameErr: '',
       isChecked: false,
-      lastNameErr: false,
-      emailErr: false,
-      passwordErr: false,
-      confirmPasswordErr: false,
-      phoneErr: false,
+      lastNameErr: '',
+      emailErr: '',
+      passwordErr: '',
+      confirmPasswordErr: '',
+      phoneErr: '',
     };
   }
 
@@ -56,65 +56,111 @@ class Register extends Component {
     });
   };
 
+  validateName = () => {
+    if (this.state.first_name === '') {
+      this.setState({firstNameErr: 'cannot be kept blank'});
+      return false;
+    } else {
+      this.setState({firstNameErr: ''});
+      return true;
+    }
+  };
+
+  validateLastName = () => {
+    if (this.state.last_name === '') {
+      this.setState({lastNameErr: 'cannot be kept blank'});
+      return false;
+    } else {
+      this.setState({lastNameErr: ''});
+      return true;
+    }
+  };
+
   //email validate function
 
   validateEmail = email => {
     let pattern = /^([a-zA-Z])+([0-9a-zA-Z_\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,5}$)$/;
-
-    if (pattern.test(email) === false) {
-      this.setState({emailErr: true});
+    if (this.state.email === '') {
+      this.setState({emailErr: 'cannot be kept blank'});
+      return false;
+    } else if (!pattern.test(this.state.email)) {
+      this.setState({emailErr: 'invalid email address'});
       return false;
     } else {
-      this.setState({email: email, emailErr: false});
+      this.setState({emailErr: ''});
+      return true;
     }
   };
 
   //password validate function
 
-  validatePassword = pass => {
+  validatePassword = () => {
     let passPattern = /^([a-zA-Z0-9@*#]{8,15})$/;
-
-    if (passPattern.test(pass) === false) {
-      this.setState({passwordErr: true});
+    if (this.state.pass === '') {
+      this.setState({passwordErr: 'cannot be kept blank'});
+      return false;
+    } else if (!passPattern.test(this.state.pass)) {
+      this.setState({
+        passwordErr: 'Password must be 8-15 alphanumeric characters',
+      });
       return false;
     } else {
-      this.setState({pass: pass, passwordErr: false});
+      this.setState({passwordErr: ''});
+      return true;
     }
   };
 
   //confirm password validate function
 
-  validateConfPass = confirmPass => {
-    let passv = this.state.pass;
-
-    if (!confirmPass.match(passv)) {
-      this.setState({confirmPasswordErr: true});
+  validateConfPass = () => {
+    if (this.state.confirmPass === '') {
+      this.setState({confirmPasswordErr: 'cannot be kept blank'});
+      return false;
+    } else if (!this.state.confirmPass.match(this.state.pass)) {
+      this.setState({confirmPasswordErr: 'Password didnt matched!!'});
       return false;
     } else {
       this.setState({
-        confirmPass: confirmPass,
-        confirmPasswordErr: false,
+        confirmPasswordErr: '',
       });
+      return true;
     }
   };
 
   //phone number input validation function
 
-  validatePhone = phone_no => {
+  validatePhone = () => {
     let phoneValid = /^[0-9]*(?:\d{1,2})?$/;
-
-    if (phoneValid.test(phone_no) === false) {
-      this.setState({phoneErr: true});
+    if (this.state.phone_no === '') {
+      this.setState({phoneErr: 'cannot be kept blank'});
+      return false;
+    } else if (!phoneValid.test(this.state.phone_no)) {
+      this.setState({
+        phoneErr:
+          'should not contain alphabets and characters and special characters',
+      });
+      return false;
+    } else if (this.state.phone_no.length < 10) {
+      this.setState({
+        phoneErr: 'please enter 10 digit phone no.',
+      });
       return false;
     } else {
-      this.setState({phone_no: phone_no, phoneErr: false});
+      this.setState({phoneErr: ''});
+      return true;
     }
   };
 
   //validate form on button click function
 
   validateRegisterForm = () => {
-    const data = {...this.state};
+    let name = this.validateName();
+    let lname = this.validateLastName();
+    let useremail = this.validateEmail();
+    let userpassword = this.validatePassword();
+    let userconfirmpass = this.validateConfPass();
+    let userphone = this.validatePhone();
+    let {isChecked} = this.state;
 
     const postData = {
       first_name: this.state.first_name,
@@ -131,22 +177,13 @@ class Register extends Component {
     };
 
     if (
-      data.first_name === '' ||
-      data.last_name === '' ||
-      data.email === '' ||
-      data.pass === '' ||
-      data.confirmPass === '' ||
-      data.phone_no === ''
-    ) {
-      Alert.alert('fields cannot be kept empty');
-    } else if (
-      data.passwordErr === false &&
-      data.phoneErr === false &&
-      data.emailErr === false &&
-      data.firstNameErr === false &&
-      data.lastNameErr === false &&
-      data.confirmPasswordErr === false &&
-      data.isChecked === true
+      name &&
+      lname &&
+      useremail &&
+      userpassword &&
+      userconfirmpass &&
+      userphone &&
+      isChecked
     ) {
       this.setState({isLoading: true});
 
@@ -157,8 +194,6 @@ class Register extends Component {
         API_URL.REGISTER_API,
         header,
       );
-    } else {
-      Alert.alert('please enter correct details');
     }
   };
 
@@ -171,7 +206,7 @@ class Register extends Component {
       }, 5000);
     },
     error: err => {
-      Alert.alert('oops something went wrong');
+      Alert.alert('Error', 'oops something went wrong');
       this.setState({isLoading: false});
     },
   };
@@ -181,6 +216,8 @@ class Register extends Component {
       {label: 'Male', value: 'male'},
       {label: 'Female', value: 'female'},
     ];
+
+    console.log(this.state.isChecked);
 
     const {showAlert} = this.state;
     return (
@@ -214,18 +251,12 @@ class Register extends Component {
                 underlineColorAndroid="transparent"
                 onChangeText={first_name => {
                   this.setState({first_name}, () => {
-                    if (this.state.first_name.length < 4) {
-                      this.setState({firstNameErr: true});
-                    } else {
-                      this.setState({firstNameErr: false});
-                    }
+                    this.validateName();
                   });
                 }}
               />
               {this.state.firstNameErr ? (
-                <Text style={{color: 'white'}}>
-                  this field must contain 3 characters
-                </Text>
+                <Text style={{color: 'white'}}>{this.state.firstNameErr}</Text>
               ) : null}
             </View>
 
@@ -247,18 +278,12 @@ class Register extends Component {
                 underlineColorAndroid="transparent"
                 onChangeText={last_name => {
                   this.setState({last_name}, () => {
-                    if (this.state.last_name.length < 4) {
-                      this.setState({lastNameErr: true});
-                    } else {
-                      this.setState({lastNameErr: false});
-                    }
+                    this.validateLastName();
                   });
                 }}
               />
               {this.state.lastNameErr ? (
-                <Text style={{color: 'white'}}>
-                  this field must contain 3 characters
-                </Text>
+                <Text style={{color: 'white'}}>{this.state.lastNameErr}</Text>
               ) : null}
             </View>
 
@@ -278,10 +303,14 @@ class Register extends Component {
                 placeholder="Email"
                 placeholderTextColor="white"
                 underlineColorAndroid="transparent"
-                onChangeText={email => this.validateEmail(email)}
+                onChangeText={email => {
+                  this.setState({email}, () => {
+                    this.validateEmail();
+                  });
+                }}
               />
               {this.state.emailErr ? (
-                <Text style={{color: 'white'}}>invalid email address</Text>
+                <Text style={{color: 'white'}}>{this.state.emailErr}</Text>
               ) : null}
             </View>
 
@@ -302,12 +331,14 @@ class Register extends Component {
                 placeholderTextColor="white"
                 underlineColorAndroid="transparent"
                 secureTextEntry
-                onChangeText={pass => this.validatePassword(pass)}
+                onChangeText={pass => {
+                  this.setState({pass}, () => {
+                    this.validatePassword;
+                  });
+                }}
               />
               {this.state.passwordErr ? (
-                <Text style={{color: 'white'}}>
-                  *Password must be 8-15 alphanumeric characters
-                </Text>
+                <Text style={{color: 'white'}}>{this.state.passwordErr}</Text>
               ) : null}
             </View>
             <View style={styles.registerInput}>
@@ -328,11 +359,15 @@ class Register extends Component {
                 underlineColorAndroid="transparent"
                 secureTextEntry
                 onChangeText={confirmPass => {
-                  this.validateConfPass(confirmPass);
+                  this.setState({confirmPass}, () => {
+                    this.validateConfPass();
+                  });
                 }}
               />
               {this.state.confirmPasswordErr ? (
-                <Text style={{color: 'white'}}>Password did'nt matched!!</Text>
+                <Text style={{color: 'white'}}>
+                  {this.state.confirmPasswordErr}
+                </Text>
               ) : null}
             </View>
             <View style={styles.radioButtonContainer}>
@@ -371,19 +406,20 @@ class Register extends Component {
                 underlineColorAndroid="transparent"
                 maxLength={10}
                 keyboardType={'number-pad'}
-                onChangeText={phone_no => this.validatePhone(phone_no)}
+                onChangeText={phone_no => {
+                  this.setState({phone_no}, () => {
+                    this.validatePhone();
+                  });
+                }}
               />
               {this.state.phoneErr ? (
-                <Text style={{color: 'white'}}>
-                  should not contain alphabets and characters and special
-                  characters
-                </Text>
+                <Text style={{color: 'white'}}>{this.state.phoneErr}</Text>
               ) : null}
             </View>
 
             <View style={styles.checkbox}>
               <CheckBox
-                style={{flex: 1, padding: 10}}
+                style={{padding: 10}}
                 onClick={() => {
                   this.setState({
                     isChecked: !this.state.isChecked,
@@ -398,14 +434,24 @@ class Register extends Component {
                 }}
                 checkBoxColor="white"
               />
+              {!this.state.isChecked ? (
+                <Text
+                  style={{
+                    color: 'white',
+                    paddingHorizontal: 10,
+                  }}>
+                  please check terms and conditions
+                </Text>
+              ) : null}
             </View>
-            <View style={styles.registerInput}>
+            <View style={{marginHorizontal: 50}}>
               <TouchableOpacity
-                style={styles.customBtnBG}
                 onPress={() => {
                   this.validateRegisterForm();
                 }}>
-                <Text style={styles.customBtnText}>REGISTER</Text>
+                <View style={styles.registerFormBtn}>
+                  <Text style={styles.registerFormBtnText}> Register </Text>
+                </View>
               </TouchableOpacity>
             </View>
             <AwesomeAlert

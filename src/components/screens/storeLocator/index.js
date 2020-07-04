@@ -63,7 +63,7 @@ export class StoreLocator extends Component {
             />
           </MapView>
         </View>
-        <View style={{flex: 1, marginTop: 500}}>
+        <View style={{flex: 1, marginTop: 450}}>
           <List.Accordion
             title="Store List"
             titleStyle={{fontSize: 20}}

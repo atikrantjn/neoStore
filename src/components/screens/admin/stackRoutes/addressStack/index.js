@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import appColors from '../../../../../utils/colors';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import AddAddress from '../../userAddress/addAddress';
@@ -25,13 +25,13 @@ class AddressStack extends Component {
               backgroundColor: appColors.themeColor,
             },
             headerLeft: () => (
-              <Ionicons
-                name="md-arrow-back"
+              <FontAwesomeIcon
+                name="bars"
                 size={28}
                 color="white"
                 style={{marginLeft: 10}}
                 onPress={() => {
-                  this.props.navigation.navigate('Home');
+                  this.props.navigation.openDrawer();
                 }}
               />
             ),
@@ -54,17 +54,17 @@ class AddressStack extends Component {
             },
             headerTintColor: 'white',
             headerTitleAlign: 'center',
-            headerLeft: () => (
-              <Ionicons
-                name="md-arrow-back"
-                size={28}
-                color="white"
-                style={{marginLeft: 10}}
-                onPress={() => {
-                  this.props.navigation.push('Add Address');
-                }}
-              />
-            ),
+            // headerLeft: () => (
+            //   <Ionicons
+            //     name="md-arrow-back"
+            //     size={28}
+            //     color="white"
+            //     style={{marginLeft: 10}}
+            //     onPress={() => {
+            //       this.props.navigation.push('Add Address');
+            //     }}
+            //   />
+            // ),
 
             headerRight: () => (
               <AntDesign

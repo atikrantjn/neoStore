@@ -4,8 +4,9 @@ import colors from '../../../../../utils/colors';
 const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: '#e6e6e6',
+    // backgroundColor: 'red',
+
     flex: 1,
-    height: '100%',
   },
 
   container: {
@@ -24,17 +25,15 @@ const styles = StyleSheet.create({
   addressTextInput: {
     marginHorizontal: 15,
     backgroundColor: 'white',
-    fontSize: 18,
+    fontSize: 15,
     paddingHorizontal: 15,
 
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 0.5,
     },
 
-    shadowRadius: 4.65,
-
-    elevation: 8,
+    elevation: 5,
   },
 
   landmarkContainer: {flexDirection: 'column'},
@@ -42,18 +41,18 @@ const styles = StyleSheet.create({
   landmarkText: {marginLeft: 15, fontSize: 20, marginTop: 10},
 
   landmarkTextInput: {
-    margin: 15,
+    marginTop: 5,
+    marginBottom: 10,
+    marginHorizontal: 15,
     backgroundColor: 'white',
-    fontSize: 20,
-    height: 32,
+    fontSize: 15,
+    height: 40,
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 0.5,
     },
 
-    shadowRadius: 4.65,
-
-    elevation: 8,
+    elevation: 5,
     paddingHorizontal: 15,
   },
 
@@ -64,74 +63,74 @@ const styles = StyleSheet.create({
   cityTextContainer: {flex: 0.5, flexDirection: 'column'},
   cityText: {marginLeft: 15, fontSize: 20},
   cityTextInput: {
-    margin: 15,
+    marginTop: 5,
+    marginBottom: 10,
+    marginHorizontal: 15,
     backgroundColor: 'white',
-    fontSize: 18,
+    fontSize: 15,
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 0.5,
     },
 
-    shadowRadius: 4.65,
-
-    elevation: 8,
-    height: 32,
+    elevation: 5,
+    height: 40,
     paddingHorizontal: 15,
   },
 
   stateTextContainer: {flex: 0.5, flexDirection: 'column'},
   stateText: {marginLeft: 15, fontSize: 20},
   stateTextInput: {
-    margin: 15,
+    marginTop: 5,
+    marginBottom: 10,
+    marginHorizontal: 15,
     backgroundColor: 'white',
-    fontSize: 18,
+    fontSize: 15,
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 0.5,
     },
 
-    shadowRadius: 4.65,
-
-    elevation: 8,
-    height: 32,
+    elevation: 5,
+    height: 40,
     paddingHorizontal: 15,
   },
 
-  zipCountryContainer: {flex: 1, flexDirection: 'row', marginBottom: 25},
+  zipCountryContainer: {flex: 1, flexDirection: 'row', marginBottom: 15},
 
   zipContainer: {flex: 1, flexDirection: 'column'},
   zipText: {marginLeft: 15, fontSize: 20},
   zipTextInput: {
-    margin: 15,
+    marginTop: 5,
+    marginBottom: 10,
+    marginHorizontal: 15,
     backgroundColor: 'white',
-    fontSize: 18,
+    fontSize: 15,
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 0.5,
     },
 
-    shadowRadius: 4.65,
-
-    elevation: 8,
-    height: 32,
+    elevation: 5,
+    height: 40,
     paddingHorizontal: 15,
   },
 
   countryContainer: {flex: 1, flexDirection: 'column'},
   countryText: {marginLeft: 15, fontSize: 20},
   countryTextInput: {
-    margin: 15,
+    marginTop: 5,
+    marginBottom: 10,
+    marginHorizontal: 15,
     backgroundColor: 'white',
-    fontSize: 18,
+    fontSize: 15,
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 0.5,
     },
 
-    shadowRadius: 4.65,
-
-    elevation: 8,
-    height: 32,
+    elevation: 5,
+    height: 40,
     paddingHorizontal: 15,
   },
 
@@ -139,12 +138,12 @@ const styles = StyleSheet.create({
     marginTop: 15,
     backgroundColor: colors.themeColor,
     borderRadius: 7,
-    paddingVertical: 6,
-    paddingHorizontal: 14,
+    paddingVertical: 8,
+    paddingHorizontal: 20,
   },
 
   saveAddressBtnText: {
-    fontSize: 20,
+    fontSize: 18,
 
     color: 'white',
     textAlign: 'center',

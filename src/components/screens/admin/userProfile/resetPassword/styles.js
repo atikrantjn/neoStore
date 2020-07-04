@@ -9,9 +9,9 @@ const styles = StyleSheet.create({
   neostoreHeader: {
     textAlign: 'center',
     color: '#FFFFFF',
-    fontSize: 45,
+    fontSize: 40,
     fontWeight: 'bold',
-    marginVertical: 25,
+    marginTop: 25,
   },
   forgotText: {
     color: '#FFFFFF',
@@ -19,25 +19,32 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
+  registerInput: {
+    marginHorizontal: 50,
+    marginTop: 25,
+    height: 50,
+    marginBottom: 10,
+  },
+
   input: {
-    paddingLeft: 50,
+    paddingLeft: '16%',
     color: 'white',
     borderColor: 'white',
     borderWidth: 1.5,
-    fontSize: 22,
-    width: screenWidth - 100,
-    marginBottom: 35,
+    fontSize: 20,
   },
 
   customBtnBG: {
+    marginTop: 15,
     backgroundColor: 'white',
     borderRadius: 7,
-    width: screenWidth - 100,
+    paddingVertical: 8,
+    paddingHorizontal: 20,
   },
 
   customBtnText: {
-    fontSize: 32,
-    fontWeight: '400',
+    fontSize: 18,
+
     color: 'red',
     textAlign: 'center',
   },

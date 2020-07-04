@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import appColors from '../../../../../utils/colors';
+import {colors} from 'react-native-elements';
 
 const styles = StyleSheet.create({
   mainContainer: {backgroundColor: appColors.themeColor},
@@ -14,20 +15,22 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   registerInput: {
-    marginLeft: 50,
-    marginRight: 50,
+    marginHorizontal: 50,
     marginTop: 25,
     height: 50,
     marginBottom: 10,
   },
-  customBtnBG: {
+  saveProfileBtn: {
+    marginTop: 15,
     backgroundColor: 'white',
     borderRadius: 7,
+    paddingVertical: 8,
+    paddingHorizontal: 20,
   },
 
-  customBtnText: {
-    fontSize: 32,
-    fontWeight: '400',
+  saveProfileBtnText: {
+    fontSize: 18,
+
     color: 'red',
     textAlign: 'center',
   },

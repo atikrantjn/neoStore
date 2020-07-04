@@ -1,10 +1,19 @@
 import React, {Component} from 'react';
-import {Text, View, TouchableOpacity, TextInput, Alert} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  Alert,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import styles from './styles';
 import AsyncStorage from '@react-native-community/async-storage';
 import {API_URL, request} from '../../../../../config/api';
 
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
+
 export class ResetPassword extends Component {
   constructor(props) {
     super(props);
@@ -16,18 +25,24 @@ export class ResetPassword extends Component {
 
       token: '',
 
-      passwordErr: false,
-      confirmPasswordErr: false,
-      newpassErr: false,
+      passwordErr: '',
+      confirmPasswordErr: '',
+      newpassErr: '',
+
+      hidePassword: true,
     };
   }
 
+  setPasswordVisibility = () => {
+    this.setState({hidePassword: !this.state.hidePassword});
+  };
+
   changePasswordHandler = () => {
-    const {pass, newpass, confirmPass} = this.state;
-    if (pass === '' || newpass === '' || confirmPass === '') {
-      Alert.alert('fields cannot be kept empty');
-      return false;
-    } else {
+    let password = this.validatePassword();
+    let newpassword = this.validateNewPassword();
+    let confirmpassword = this.validateConfPass();
+
+    if (password && newpassword && confirmpassword) {
       this.sendPassword();
     }
   };
@@ -58,47 +73,98 @@ export class ResetPassword extends Component {
 
   changePassCallback = {
     success: response => {
-      Alert.alert(response.message);
-      this.props.navigation.navigate('My Account');
+      this.setState({
+        newpass: '',
+        pass: '',
+        confirmPass: '',
+      });
+
+      Alert.alert(
+        'Success',
+        response.message,
+        [
+          {
+            text: 'Cancel',
+            onPress: () => {},
+            style: 'cancel',
+          },
+          {
+            text: 'OK',
+            onPress: () => {
+              this.props.navigation.navigate('My Account');
+            },
+          },
+        ],
+        {cancelable: false},
+      );
     },
     error: error => {
-      console.log('in change password err ', error);
+      Alert.alert(
+        'Error',
+        error.message,
+        [
+          {
+            text: 'OK',
+            onPress: () => {},
+          },
+        ],
+        {cancelable: false},
+      );
     },
   };
 
-  validatePassword = pass => {
-    let passPattern = /^([a-zA-Z0-9@*#]{8,15})$/;
-
-    if (passPattern.test(pass) === false) {
-      this.setState({passwordErr: true});
+  validatePassword = () => {
+    if (this.state.pass === '') {
+      this.setState({
+        passwordErr: '*fields cannot be kept blank',
+      });
+      return false;
+    } else if (this.state.pass.length < 8 || this.state.pass.length > 15) {
+      this.setState({
+        passwordErr: '*Password must be 8-15 alphanumeric characters',
+      });
       return false;
     } else {
-      this.setState({pass: pass, passwordErr: false});
+      this.setState({passwordErr: ''});
+      return true;
     }
   };
 
-  validateNewPassword = newpass => {
-    let passPattern = /^([a-zA-Z0-9@*#]{8,15})$/;
-
-    if (passPattern.test(newpass) === false) {
-      this.setState({newpassErr: true});
+  validateNewPassword = () => {
+    if (this.state.newpass === '') {
+      this.setState({
+        newpassErr: '*fields cannot be kept blank',
+      });
+      return false;
+    } else if (
+      this.state.newpass.length < 8 ||
+      this.state.newpass.length > 15
+    ) {
+      this.setState({
+        passwordErr: '*Password must be 8-15 alphanumeric characters',
+      });
       return false;
     } else {
-      this.setState({newpass: newpass, newpassErr: false});
+      this.setState({newpassErr: ''});
+      return true;
     }
   };
 
-  validateConfPass = confirmPass => {
+  validateConfPass = () => {
     let passv = this.state.newpass;
-
-    if (!confirmPass.match(passv)) {
-      this.setState({confirmPasswordErr: true});
+    if (this.state.confirmPass === '') {
+      this.setState({
+        confirmPasswordErr: '*fields cannot be kept blank',
+      });
+      return false;
+    } else if (!this.state.confirmPass.match(passv)) {
+      this.setState({confirmPasswordErr: 'password not matched'});
       return false;
     } else {
       this.setState({
-        confirmPass: confirmPass,
-        confirmPasswordErr: false,
+        confirmPasswordErr: '',
       });
+      return true;
     }
   };
 
@@ -128,15 +194,15 @@ export class ResetPassword extends Component {
           <Text style={styles.neostoreHeader}>NeoSTORE</Text>
         </View>
 
-        <View style={{marginLeft: 50}}>
-          <View>
+        <View style={{flex: 1}}>
+          <View style={styles.registerInput}>
             <FaIcon
               name="lock"
-              size={25}
+              size={22}
               style={{
                 position: 'absolute',
                 top: 12,
-                left: 10,
+                left: 20,
                 color: 'white',
               }}
             />
@@ -145,24 +211,44 @@ export class ResetPassword extends Component {
               placeholder="Current Password"
               placeholderTextColor="white"
               underlineColorAndroid="transparent"
-              secureTextEntry
-              onChangeText={pass => this.validatePassword(pass)}
+              secureTextEntry={this.state.hidePassword}
+              onChangeText={pass =>
+                this.setState(
+                  {
+                    pass: pass,
+                  },
+                  () => {
+                    this.validatePassword();
+                  },
+                )
+              }
             />
-
-            {this.state.passwordErr ? (
-              <Text style={{color: 'white'}}>
-                *Password must be 8-15 alphanumeric characters
-              </Text>
-            ) : null}
-          </View>
-          <View>
             <FaIcon
-              name="lock"
-              size={25}
+              name={this.state.hidePassword ? 'eye' : 'eye-slash'}
+              size={24}
               style={{
                 position: 'absolute',
                 top: 12,
-                left: 10,
+                right: 20,
+                color: 'white',
+              }}
+              onPress={() => {
+                this.setPasswordVisibility();
+              }}
+            />
+
+            {this.state.passwordErr ? (
+              <Text style={{color: 'white'}}>{this.state.passwordErr}</Text>
+            ) : null}
+          </View>
+          <View style={styles.registerInput}>
+            <FaIcon
+              name="lock"
+              size={22}
+              style={{
+                position: 'absolute',
+                top: 12,
+                left: 20,
                 color: 'white',
               }}
             />
@@ -171,24 +257,43 @@ export class ResetPassword extends Component {
               placeholder="New Password"
               placeholderTextColor="white"
               underlineColorAndroid="transparent"
-              secureTextEntry
-              onChangeText={newpass => this.validateNewPassword(newpass)}
+              secureTextEntry={this.state.hidePassword}
+              onChangeText={newpass =>
+                this.setState(
+                  {
+                    newpass: newpass,
+                  },
+                  () => {
+                    this.validateNewPassword();
+                  },
+                )
+              }
             />
-
-            {this.state.newpassErr ? (
-              <Text style={{color: 'white'}}>
-                *Password must be 8-15 alphanumeric characters
-              </Text>
-            ) : null}
-          </View>
-          <View>
             <FaIcon
-              name="lock"
-              size={25}
+              name={this.state.hidePassword ? 'eye' : 'eye-slash'}
+              size={24}
               style={{
                 position: 'absolute',
                 top: 12,
-                left: 10,
+                right: 20,
+                color: 'white',
+              }}
+              onPress={() => {
+                this.setPasswordVisibility();
+              }}
+            />
+            {this.state.newpassErr ? (
+              <Text style={{color: 'white'}}>{this.state.newpassErr}</Text>
+            ) : null}
+          </View>
+          <View style={styles.registerInput}>
+            <FaIcon
+              name="lock"
+              size={22}
+              style={{
+                position: 'absolute',
+                top: 12,
+                left: 20,
                 color: 'white',
               }}
             />
@@ -196,23 +301,45 @@ export class ResetPassword extends Component {
               style={styles.input}
               placeholder="Confirm Password"
               placeholderTextColor="white"
-              secureTextEntry
-              onChangeText={confirmPass => {
-                this.validateConfPass(confirmPass);
+              secureTextEntry={this.state.hidePassword}
+              onChangeText={confirm =>
+                this.setState(
+                  {
+                    confirmPass: confirm,
+                  },
+                  () => {
+                    this.validateConfPass();
+                  },
+                )
+              }
+            />
+            <FaIcon
+              name={this.state.hidePassword ? 'eye' : 'eye-slash'}
+              size={24}
+              style={{
+                position: 'absolute',
+                top: 12,
+                right: 20,
+                color: 'white',
               }}
-              underlineColorAndroid="transparent"
+              onPress={() => {
+                this.setPasswordVisibility();
+              }}
             />
             {this.state.confirmPasswordErr ? (
-              <Text style={{color: 'white'}}>Password did'nt matched!!</Text>
+              <Text style={{color: 'white'}}>
+                {this.state.confirmPasswordErr}
+              </Text>
             ) : null}
           </View>
-          <View>
+          <View style={{marginHorizontal: 50, marginBottom: 10}}>
             <TouchableOpacity
-              style={styles.customBtnBG}
               onPress={() => {
                 this.changePasswordHandler();
               }}>
-              <Text style={styles.customBtnText}>RESET PASSWORD</Text>
+              <View style={styles.customBtnBG}>
+                <Text style={styles.customBtnText}>RESET PASSWORD</Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>

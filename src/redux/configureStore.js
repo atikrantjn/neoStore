@@ -1,19 +1,16 @@
 import {createStore, applyMiddleware, combineReducers} from 'redux';
 import {createLogger} from 'redux-logger';
-import loginReducer from '../redux/reducers/loginReducer';
+
+import AddressListReducer from '../redux/reducers/addressListReducer';
 const logger = createLogger({
-  predicate: (getState, action) => {
-    _DEV_;
-  },
+  predicate: (getState, action) => true,
 });
 
-export default (
-  initialState = {
-    loginReducer,
-  },
-) =>
+export default (initialState = {}) =>
   createStore(
-    combineReducers({loginReducer}),
+    combineReducers({
+      addressList: AddressListReducer,
+    }),
     initialState,
     applyMiddleware(logger),
   );

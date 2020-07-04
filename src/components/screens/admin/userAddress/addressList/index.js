@@ -11,6 +11,10 @@ import {request, API_URL} from '../../../../../config/api';
 import AsyncStorage from '@react-native-community/async-storage';
 import Loader from '../../../../custom/loaderComponent/loader';
 
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {setAddressListData} from '../../../../../redux/actions';
+
 import {Radio} from 'native-base';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 import colors from '../../../../../utils/colors';
@@ -21,7 +25,7 @@ export class AddressList extends Component {
     this.state = {
       data: {},
       token: '',
-      addressData: {},
+
       address: '',
       custmorAddress: {},
       isLoading: false,
@@ -74,7 +78,10 @@ export class AddressList extends Component {
 
   custAddressCallback = {
     success: response => {
-      this.setState({addressData: response.customer_address, isLoading: false});
+      const {setAddressListData} = this.props;
+
+      setAddressListData(response.customer_address);
+      this.setState({isLoading: false});
     },
     error: error => {
       console.log(error, 'rrrr');
@@ -85,12 +92,14 @@ export class AddressList extends Component {
   updateAddress = () => {
     const data = this.state.custmorAddress;
 
+    const {addressList} = this.props;
+
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
       Authorization: 'Bearer ' + this.state.token,
     };
 
-    if (this.state.checked) {
+    if (this.state.checked || addressList.data.length !== 0) {
       this.setState({isLoading: true});
 
       request(
@@ -176,6 +185,8 @@ export class AddressList extends Component {
   };
 
   render() {
+    const {addressList} = this.props;
+
     const fullName =
       this.state.data.first_name + ' ' + this.state.data.last_name;
 
@@ -195,8 +206,7 @@ export class AddressList extends Component {
             }}
           />
           {this.state.isLoading ? <Loader /> : null}
-          {Object.keys(this.state.addressData).length === 0 &&
-          this.state.addressData.constructor === Object ? (
+          {addressList.data.length === 0 ? (
             <View
               style={{
                 justifyContent: 'center',
@@ -204,15 +214,15 @@ export class AddressList extends Component {
                 flex: 1,
               }}>
               <View>
-                <FaIcon size={98} name="frown-open" />
+                <FaIcon size={88} name="frown-open" />
               </View>
-              <Text style={{fontSize: 24, textAlign: 'center'}}>
+              <Text style={{fontSize: 20, textAlign: 'center'}}>
                 Oooopsssss address not found!!
               </Text>
             </View>
           ) : (
             <FlatList
-              data={this.state.addressData}
+              data={addressList.data}
               ItemSeparatorComponent={this.FlatListItemSeparator}
               ListFooterComponent={this.FlatListItemSeparator}
               renderItem={({item}) => {
@@ -354,4 +364,18 @@ export class AddressList extends Component {
   }
 }
 
-export default AddressList;
+const mapStateToProps = state => ({
+  addressList: state.addressList,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setAddressListData,
+    },
+    dispatch,
+  );
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AddressList);

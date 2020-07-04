@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   neostoreHeader: {
     textAlign: 'center',
     color: '#FFFFFF',
-    fontSize: 45,
+    fontSize: 40,
     fontWeight: 'bold',
   },
   input: {
@@ -23,40 +23,40 @@ const styles = StyleSheet.create({
     zIndex: -1,
   },
   registerInput: {
-    marginLeft: 50,
-    marginRight: 50,
-    marginTop: 25,
-    height: 50,
-    marginBottom: 10,
+    marginHorizontal: 50,
+    height: 45,
+    marginVertical: 15,
   },
   radioButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 15,
   },
   genderText: {
     color: 'white',
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: 'bold',
   },
   checkbox: {
-    marginLeft: 50,
-    marginRight: 50,
+    marginHorizontal: 50,
     textAlign: 'center',
     height: 50,
     color: 'white',
-    marginTop: 25,
+    marginTop: 10,
   },
-  customBtnBG: {
+  registerFormBtn: {
+    marginVertical: 15,
     backgroundColor: 'white',
     borderRadius: 7,
+    paddingVertical: 8,
+    paddingHorizontal: 20,
   },
 
-  customBtnText: {
-    fontSize: 32,
-    fontWeight: '400',
-    color: 'red',
+  registerFormBtnText: {
+    fontSize: 18,
+
+    color: appColors.themeColor,
     textAlign: 'center',
   },
 

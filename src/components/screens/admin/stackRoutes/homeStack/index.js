@@ -8,6 +8,9 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5';
 import ProductList from '../../../ProductList/ProductList';
 import ProductDetails from '../../../productDetails/productDetails';
 import OrderSummary from '../../../orderSummary/index';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import AddAddress from '../../../admin/userAddress/addAddress';
+import AddressList from '../../../admin/userAddress/addressList';
 
 const Stack = createStackNavigator();
 class HomeStack extends Component {
@@ -243,6 +246,54 @@ class HomeStack extends Component {
               fontWeight: 'bold',
               textAlign: 'center',
               fontSize: 28,
+            },
+          }}
+        />
+        <Stack.Screen
+          name="Add Address"
+          component={AddAddress}
+          options={{
+            headerStyle: {
+              backgroundColor: appColors.themeColor,
+            },
+
+            headerTintColor: 'white',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              color: 'white',
+              fontWeight: 'bold',
+
+              fontSize: 25,
+            },
+          }}
+        />
+        <Stack.Screen
+          name="Address List"
+          component={AddressList}
+          options={{
+            headerStyle: {
+              backgroundColor: appColors.themeColor,
+            },
+            headerTintColor: 'white',
+            headerTitleAlign: 'center',
+
+            headerRight: () => (
+              <AntDesign
+                name="plus"
+                size={30}
+                color="white"
+                style={{marginRight: 10}}
+                onPress={() => {
+                  this.props.navigation.push('Add Address');
+                }}
+              />
+            ),
+
+            headerTitleStyle: {
+              color: 'white',
+              fontWeight: 'bold',
+
+              fontSize: 25,
             },
           }}
         />

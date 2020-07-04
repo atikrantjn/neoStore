@@ -9,13 +9,9 @@ const styles = StyleSheet.create({
   },
 
   productCategoryCard: {
-    // width: '50%',
-    // height: '50%',
-    // justifyContent: 'space-around',
     backgroundColor: appColor.themeColor,
     borderRadius: 10,
-    // marginLeft: 15,
-    // marginVertical: 5,
+    padding: 10,
   },
 });
 export default styles;

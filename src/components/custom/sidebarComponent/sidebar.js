@@ -44,41 +44,46 @@ export default class Sidebar extends Component {
 
   removeValue = async () => {
     const {token} = this.state;
+    let keys = ['userData', 'cartData'];
 
-    let data = this.state.cartData;
+    AsyncStorage.multiRemove(keys, err => {
+      this.props.navigation.navigate('Home');
+    });
 
-    let flag = [{flag: 'logout'}];
-    let data1 = [...data, ...flag];
+    // let data = this.state.cartData;
 
-    console.log(data1);
+    // let flag = [{flag: 'logout'}];
+    // let data1 = [...data, ...flag];
 
-    this.setState({isLoading: true});
+    // console.log(data1);
 
-    apiii
-      .fetchapi(
-        'http://160.149.241.208:3022/addProductToCartCheckout',
-        'post',
-        JSON.stringify(data1),
-        token,
-      )
+    // this.setState({isLoading: true});
 
-      .then(response => response.json())
-      .then(respData => {
-        console.log(respData);
-        let keys = ['userData', 'cartData'];
+    // apiii
+    //   .fetchapi(
+    //     'http://160.149.241.208:3022/addProductToCartCheckout',
+    //     'post',
+    //     JSON.stringify(data1),
+    //     token,
+    //   )
 
-        if (respData.success) {
-          Alert.alert(respData.message);
+    //   .then(response => response.json())
+    //   .then(respData => {
+    //     console.log(respData);
+    //     let keys = ['userData', 'cartData'];
 
-          AsyncStorage.multiRemove(keys, err => {
-            this.setState({cartData: []});
+    //     if (respData.success) {
+    //       Alert.alert(respData.message);
 
-            this.props.navigation.navigate('Home');
-          });
-        } else {
-          Alert.alert(respData.message);
-        }
-      });
+    //       AsyncStorage.multiRemove(keys, err => {
+    //         this.setState({cartData: []});
+
+    //         this.props.navigation.navigate('Home');
+    //       });
+    //     } else {
+    //       Alert.alert(respData.message);
+    //     }
+    //   });
   };
 
   logoutHandler = () => {

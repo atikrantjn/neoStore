@@ -43,6 +43,9 @@ export class EditProfile extends Component {
       customerData: {},
       img: null,
       isLoading: false,
+      dobErr: false,
+      noImgSelected: false,
+      imgErr: false,
     };
   }
 
@@ -67,24 +70,26 @@ export class EditProfile extends Component {
       return false;
     } else {
       this.setState({phone_no: phone_no, phoneErr: false});
+      return true;
     }
   };
 
-  // validateEmail = email => {
-  //   let pattern = /^([a-zA-Z])+([0-9a-zA-Z_\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]$)$/;
+  validateEmail = email => {
+    let pattern = /^([a-zA-Z])+([0-9a-zA-Z_\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]$)$/;
 
-  //   if (pattern.test(email) === false) {
-  //     this.setState({emailErr: true});
-  //     return false;
-  //   } else {
-  //     this.setState({email: email, emailErr: false});
-  //   }
-  // };
+    if (pattern.test(email) === false) {
+      this.setState({emailErr: true});
+      return false;
+    } else {
+      this.setState({email: email, emailErr: false});
+      return true;
+    }
+  };
 
   updateProfile = () => {
     const {token, profile_img} = this.state;
 
-    this.setState({isLoading: true});
+    //this.setState({isLoading: true});
 
     RNFetchBlob.fetch(
       'PUT',
@@ -115,7 +120,7 @@ export class EditProfile extends Component {
         const data = JSON.parse(resp.data);
 
         if (data.success === true) {
-          Alert.alert(data.message);
+          Alert.alert('success', data.message);
 
           AsyncStorage.getItem('userData')
             .then(d => {
@@ -147,7 +152,7 @@ export class EditProfile extends Component {
       })
       .catch(err => {
         // ...
-        Alert.alert('oopsssss something went wrong');
+        Alert.alert('Error', 'oopsssss something went wrong');
       });
   };
 
@@ -177,11 +182,12 @@ export class EditProfile extends Component {
       console.log('Response = ', response);
 
       if (response.didCancel) {
-        Alert.alert('no image selected');
+        this.setState({noImgSelected: true});
+        Alert.alert('Error', 'no image selected');
       } else {
         this.setState({profile_img: response});
 
-        Alert.alert('image picked');
+        Alert.alert('Success', 'image picked');
       }
     });
   };
@@ -236,6 +242,10 @@ export class EditProfile extends Component {
               }}
               underlineColorAndroid="transparent"
             />
+
+            {this.state.firstNameErr ? (
+              <Text style={{color: 'white'}}>cannot be empty</Text>
+            ) : null}
           </View>
 
           <View style={styles.registerInput}>
@@ -257,6 +267,9 @@ export class EditProfile extends Component {
                 this.setState({last_name: last_name});
               }}
             />
+            {this.state.firstNameErr ? (
+              <Text style={{color: 'white'}}>cannot be empty</Text>
+            ) : null}
           </View>
           {this.state.isLoading ? <Loader /> : null}
 
@@ -343,13 +356,14 @@ export class EditProfile extends Component {
               }}
             />
           </View>
-          <View style={styles.registerInput}>
+          <View style={{marginHorizontal: 50, marginBottom: 10}}>
             <TouchableOpacity
-              style={styles.customBtnBG}
               onPress={() => {
                 this.updateProfile();
               }}>
-              <Text style={styles.customBtnText}>SUBMIT</Text>
+              <View style={styles.saveProfileBtn}>
+                <Text style={styles.saveProfileBtnText}>SAVE PROFILE</Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>

@@ -95,10 +95,10 @@ export default class Home extends Component {
     }
     return (
       <View style={styles.container}>
-        <View>
+        <View style={{width: width}}>
           <SliderBox
             images={ele}
-            sliderBoxHeight={300}
+            sliderBoxHeight={250}
             autoplay
             circleLoop
             onCurrentImagePressed={index => this.imageslider(index)}
@@ -106,16 +106,26 @@ export default class Home extends Component {
           />
         </View>
 
-        <View style={{flex: 1, width: width}}>
+        <View style={{flex: 1, width: width, marginVertical: 10}}>
           <FlatList
             data={this.state.dataSource}
             numColumns={2}
             renderItem={({item}) => {
               if (isEmptyObject(item)) {
-                return <View style={{flex: 1, padding: 5}} />;
+                return (
+                  <View
+                    style={{flex: 1, marginHorizontal: 10, marginVertical: 10}}
+                  />
+                );
               }
               return (
-                <View style={{flex: 1, padding: 5}}>
+                <View
+                  style={{
+                    flex: 1,
+                    marginHorizontal: 10,
+                    marginVertical: 10,
+                    width: width,
+                  }}>
                   <TouchableOpacity
                     style={styles.productCategoryCard}
                     onPress={() => {
@@ -126,13 +136,19 @@ export default class Home extends Component {
                     <Text
                       style={{
                         color: 'white',
-                        fontSize: 35,
+                        fontSize: 28,
                         textAlign: 'center',
                       }}>
                       {item.category_name}
                     </Text>
                     <Image
-                      style={{width: 90, height: 90, marginLeft: 25}}
+                      style={{
+                        width: 80,
+                        height: 75,
+                        marginHorizontal: 15,
+                        marginVertical: 5,
+                        padding: 5,
+                      }}
                       source={
                         item.category_name === 'Sofa'
                           ? images.sofaImage

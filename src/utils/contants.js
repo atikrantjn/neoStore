@@ -1,6 +1,6 @@
 const APP_CONSTANTS = {
   reduxConst: {
-    SET_LOGIN_DATA: 'SET_LOGIN_DATA',
+    SET_ADDRESSLIST_DATA: 'SET_ADDRESSLIST_DATA',
   },
 };
 export default APP_CONSTANTS;
