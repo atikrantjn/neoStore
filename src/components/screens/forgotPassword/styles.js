@@ -15,26 +15,35 @@ const styles = StyleSheet.create({
   },
   forgotText: {
     color: '#FFFFFF',
-    fontSize: 28,
+    fontSize: 22,
     fontWeight: 'bold',
   },
 
-  input: {
-    color: 'white',
+  registerInput: {
+    height: 45,
+    marginVertical: 20,
+  },
 
-    fontSize: 22,
+  input: {
+    paddingLeft: 50,
+    color: 'white',
+    borderColor: 'white',
+    borderWidth: 1.5,
+    fontSize: 19,
   },
 
   customBtnBG: {
+    marginVertical: 10,
     backgroundColor: 'white',
     borderRadius: 7,
-    width: screenWidth - 100,
+    paddingVertical: 8,
+    paddingHorizontal: 15,
   },
 
   customBtnText: {
-    fontSize: 32,
-    fontWeight: '400',
-    color: 'red',
+    fontSize: 20,
+
+    color: appColors.themeColor,
     textAlign: 'center',
   },
 });

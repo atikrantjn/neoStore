@@ -16,10 +16,8 @@ const styles = StyleSheet.create({
   },
 
   loginInput: {
-    marginLeft: 50,
-    marginRight: 50,
+    marginHorizontal: 50,
     marginTop: 25,
-    height: 50,
   },
 
   input: {
@@ -33,12 +31,14 @@ const styles = StyleSheet.create({
   customBtnBG: {
     backgroundColor: 'white',
     borderRadius: 7,
+    paddingVertical: 8,
+    paddingHorizontal: 20,
   },
 
   customBtnText: {
-    fontSize: 32,
-    fontWeight: '400',
-    color: 'red',
+    fontSize: 20,
+
+    color: appColors.themeColor,
     textAlign: 'center',
   },
 

@@ -26,8 +26,8 @@ class Login extends Component {
       email: '',
       password: '',
 
-      emailErrr: false,
-      passErr: false,
+      emailErrr: '',
+      passErr: '',
 
       isLoading: false,
       showAlert: false,
@@ -50,6 +50,9 @@ class Login extends Component {
   };
 
   validateUser = () => {
+    let useremail = this.validateEmail();
+    let userpass = this.validatePassword();
+
     const userInput = {
       email: this.state.email,
       pass: this.state.password,
@@ -59,9 +62,7 @@ class Login extends Component {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
 
-    if (userInput.email === '' || userInput.pass === '') {
-      this.setState({emailErrr: true, passErr: true});
-    } else {
+    if (useremail && userpass) {
       this.setState({isLoading: true});
 
       request(this.loginCallback, userInput, 'POST', API_URL.LOGIN_API, header);
@@ -70,14 +71,12 @@ class Login extends Component {
 
   loginCallback = {
     success: async response => {
-      console.log('from login', response);
-
       this.storeData(response);
       this.getCartData();
 
-      this.setState({isLoading: false});
-
       this.showAlert();
+
+      this.setState({isLoading: false});
 
       setTimeout(() => {
         this.props.navigation.navigate('Home');
@@ -85,9 +84,8 @@ class Login extends Component {
       }, 3000);
     },
     error: error => {
-      this.setState({isLoading: false, emailErrr: false, passErr: false});
-
-      Alert.alert('wrong credentials');
+      Alert.alert('Error', error.message);
+      this.setState({isLoading: false});
     },
   };
 
@@ -125,6 +123,36 @@ class Login extends Component {
     },
   };
 
+  validateEmail = () => {
+    let pattern = /^([a-zA-Z])+([0-9a-zA-Z_\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,5}$)$/;
+    if (this.state.email === '') {
+      this.setState({emailErrr: 'cannot be kept blank'});
+      return false;
+    } else if (!pattern.test(this.state.email)) {
+      this.setState({emailErrr: 'invalid email address'});
+      return false;
+    } else {
+      this.setState({emailErrr: ''});
+      return true;
+    }
+  };
+
+  validatePassword = () => {
+    let passPattern = /^([a-zA-Z0-9@*#]{8,15})$/;
+    if (this.state.password === '') {
+      this.setState({passErr: 'cannot be kept blank'});
+      return false;
+    } else if (!passPattern.test(this.state.password)) {
+      this.setState({
+        passErr: 'Password must be 8-15 alphanumeric characters',
+      });
+      return false;
+    } else {
+      this.setState({passErr: ''});
+      return true;
+    }
+  };
+
   render() {
     const {showAlert} = this.state;
 
@@ -151,13 +179,15 @@ class Login extends Component {
               placeholder="Username"
               placeholderTextColor="white"
               onChangeText={email => {
-                this.setState({email: email, emailErrr: false});
+                this.setState({email}, () => {
+                  this.validateEmail();
+                });
               }}
               underlineColorAndroid="transparent"
             />
             {this.state.emailErrr ? (
               <Text style={{color: 'white', fontWeight: 'bold'}}>
-                * this field cannot be kept empty
+                {this.state.emailErrr}
               </Text>
             ) : null}
           </View>
@@ -179,23 +209,24 @@ class Login extends Component {
               placeholderTextColor="white"
               secureTextEntry
               onChangeText={password => {
-                this.setState({password: password, passErr: false});
+                this.setState({password}, () => {
+                  this.validatePassword();
+                });
               }}
               underlineColorAndroid="transparent"
             />
             {this.state.passErr ? (
-              <Text style={{color: 'white'}}>
-                * this field cannot be kept empty
-              </Text>
+              <Text style={{color: 'white'}}>{this.state.passErr}</Text>
             ) : null}
           </View>
           <View style={styles.loginInput}>
             <TouchableOpacity
-              style={styles.customBtnBG}
               onPress={() => {
                 this.validateUser();
               }}>
-              <Text style={styles.customBtnText}>LOGIN</Text>
+              <View style={styles.customBtnBG}>
+                <Text style={styles.customBtnText}>LOGIN</Text>
+              </View>
             </TouchableOpacity>
           </View>
 

@@ -1,8 +1,16 @@
 import React, {Component} from 'react';
-import {Text, View, TouchableOpacity, Dimensions, Alert} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+  Alert,
+  TextInput,
+} from 'react-native';
 import styles from './styles';
-import {InputGroup, Input} from 'native-base';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+
+import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import AwesomeAlert from 'react-native-awesome-alerts';
 import AsyncStorage from '@react-native-community/async-storage';
 import {API_URL, request} from '../../../config/api';
@@ -13,7 +21,7 @@ export class ForgotPassword extends Component {
     super(props);
     this.state = {
       email: '',
-      emailErr: false,
+      emailErr: '',
       showAlert: false,
       token: '',
     };
@@ -31,29 +39,30 @@ export class ForgotPassword extends Component {
     });
   };
 
-  emailValidation = email => {
+  validateEmail = () => {
     let pattern = /^([a-zA-Z])+([0-9a-zA-Z_\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,5}$)$/;
-
-    if (pattern.test(email) === false) {
-      this.setState({emailErr: true});
+    if (this.state.email === '') {
+      this.setState({emailErr: 'cannot be kept blank'});
+      return false;
+    } else if (!pattern.test(this.state.email)) {
+      this.setState({emailErr: 'invalid email address'});
+      return false;
     } else {
-      this.setState({email: email, emailErr: false});
+      this.setState({emailErr: ''});
+      return true;
     }
   };
 
   forgotPassHandler = () => {
-    console.log('hello');
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
 
-    const {email} = this.state;
+    let useremail = this.validateEmail();
     const data = {
       email: this.state.email,
     };
-    if (email === '') {
-      Alert.alert('fields cannot be kept empty');
-    } else if (this.state.emailErr === false) {
+    if (useremail) {
       request(
         this.forgotPasscallback,
         data,
@@ -61,16 +70,13 @@ export class ForgotPassword extends Component {
         API_URL.FORGOT_PASS_API,
         header,
       );
-    } else {
-      Alert.alert('oops somethimg went wrong');
     }
   };
 
   forgotPasscallback = {
     success: response => {
-      console.log('resp', response);
-      this.showAlert();
       this.storeData(response);
+      this.showAlert();
 
       setTimeout(() => {
         this.props.navigation.navigate('Set Password');
@@ -78,7 +84,7 @@ export class ForgotPassword extends Component {
       }, 3000);
     },
     error: error => {
-      Alert.alert('this email is not registered with us');
+      Alert.alert('Error', error.message);
     },
   };
 
@@ -87,7 +93,6 @@ export class ForgotPassword extends Component {
       await AsyncStorage.setItem('forgotPassData', JSON.stringify(response));
     } catch (e) {
       // saving error
-      console.log('error in storing data', e);
     }
   };
   render() {
@@ -99,44 +104,45 @@ export class ForgotPassword extends Component {
         <View style={styles.textContainer}>
           <Text style={styles.neostoreHeader}>NeoSTORE</Text>
         </View>
-        <View style={{marginLeft: 50}}>
+        <View style={{marginHorizontal: 50}}>
           <View>
-            <Text style={styles.forgotText}>Forgot Password?</Text>
+            <Text style={styles.forgotText}>Forgot Password ?</Text>
           </View>
-          <View style={styles.forgotInput}>
-            <InputGroup
+
+          <View style={styles.registerInput}>
+            <MatIcon
+              name="email"
+              size={25}
               style={{
-                marginVertical: 45,
-                borderBottomWidth: 1,
-                borderColor: 'white',
-                width: screenWidth - 100,
-              }}>
-              <Icon
-                name={'user'}
-                size={27}
-                color={'white'}
-                style={{marginRight: 40}}
-              />
-              <Input
-                placeholder="enter email"
-                placeholderTextColor="white"
-                style={styles.input}
-                onChangeText={email => {
-                  this.emailValidation(email);
-                }}
-              />
-            </InputGroup>
+                position: 'absolute',
+                top: 10,
+                left: 10,
+                color: 'white',
+              }}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              placeholderTextColor="white"
+              underlineColorAndroid="transparent"
+              onChangeText={email => {
+                this.setState({email}, () => {
+                  this.validateEmail();
+                });
+              }}
+            />
             {this.state.emailErr ? (
-              <Text style={{color: 'white'}}>invalid email address</Text>
+              <Text style={{color: 'white'}}>{this.state.emailErr}</Text>
             ) : null}
           </View>
-          <View style={styles.loginInput}>
+          <View>
             <TouchableOpacity
-              style={styles.customBtnBG}
               onPress={() => {
                 this.forgotPassHandler();
               }}>
-              <Text style={styles.customBtnText}>Submit</Text>
+              <View style={styles.customBtnBG}>
+                <Text style={styles.customBtnText}>Submit</Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>
