@@ -115,8 +115,24 @@ export class SetPassword extends Component {
 
   setPassCallback = {
     success: response => {
-      Alert.alert('Success', response.message);
-      this.props.navigation.navigate('Login');
+      Alert.alert(
+        'Success',
+        response.message,
+        [
+          {
+            text: 'Cancel',
+            onPress: () => {},
+            style: 'cancel',
+          },
+          {
+            text: 'OK',
+            onPress: () => {
+              this.props.navigation.navigate('Login');
+            },
+          },
+        ],
+        {cancelable: false},
+      );
     },
     error: error => {
       Alert.alert('Error', error.message);

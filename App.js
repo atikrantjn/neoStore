@@ -48,11 +48,12 @@ class App extends Component {
                   backgroundColor: appColors.themeColor,
                 },
                 headerTintColor: '#fff',
+                headerTitleAlign: 'center',
                 headerTitleStyle: {
+                  color: 'white',
                   fontWeight: 'bold',
-                  textAlign: 'center',
-                  fontSize: 30,
-                  // marginHorizontal: 85,
+
+                  fontSize: 26,
                 },
               }}
             />
@@ -64,8 +65,12 @@ class App extends Component {
                   backgroundColor: appColors.themeColor,
                 },
                 headerTintColor: '#fff',
+                headerTitleAlign: 'center',
                 headerTitleStyle: {
+                  color: 'white',
                   fontWeight: 'bold',
+
+                  fontSize: 26,
                 },
               }}
             />
@@ -77,8 +82,12 @@ class App extends Component {
                   backgroundColor: appColors.themeColor,
                 },
                 headerTintColor: '#fff',
+                headerTitleAlign: 'center',
                 headerTitleStyle: {
+                  color: 'white',
                   fontWeight: 'bold',
+
+                  fontSize: 26,
                 },
               }}
             />

@@ -12,14 +12,10 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-    height: 500,
-    width: screen.width,
-    flex: 1,
-  },
   map: {
-    ...StyleSheet.absoluteFillObject,
+    // ...StyleSheet.absoluteFillObject,
+    height: '55%',
+    width: '100%',
   },
 });
 
@@ -43,74 +39,79 @@ export class StoreLocator extends Component {
     });
   render() {
     return (
-      <ScrollView>
-        <View style={styles.container}>
-          <MapView
-            provider={PROVIDER_GOOGLE}
-            region={{
+      <View style={{height: '100%', width: '100%'}}>
+        <MapView
+          provider={PROVIDER_GOOGLE}
+          region={{
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+          }} // remove if not using Google Maps
+          style={styles.map}>
+          <Marker
+            coordinate={{
               latitude: this.state.latitude,
               longitude: this.state.longitude,
-              latitudeDelta: LATITUDE_DELTA,
-              longitudeDelta: LONGITUDE_DELTA,
-            }} // remove if not using Google Maps
-            style={styles.map}>
-            <Marker
-              coordinate={{
-                latitude: this.state.latitude,
-                longitude: this.state.longitude,
-              }}
-              description="here i work"
-            />
-          </MapView>
+            }}
+            description="here i work"
+          />
+        </MapView>
+
+        <View style={{height: '45%'}}>
+          <ScrollView>
+            <List.Accordion
+              title="Store List"
+              titleStyle={{fontSize: 18}}
+              left={props => <List.Icon {...props} icon="folder" />}>
+              <List.Item
+                onPress={() => {
+                  this.setState({
+                    latitude: 18.57899549913118,
+                    longitude: 73.7385973893106,
+                  });
+                }}
+                left={() => <List.Icon icon="map-marker" />}
+                title="Neosoft Technologies pune"
+                style={{marginHorizontal: '15%'}}
+              />
+              <List.Item
+                onPress={() => {
+                  this.setState({
+                    latitude: 19.018045,
+                    longitude: 72.828343,
+                  });
+                }}
+                style={{marginHorizontal: '15%'}}
+                left={() => <List.Icon icon="map-marker" />}
+                title="Neosoft Technologies mumbai"
+              />
+              <List.Item
+                onPress={() => {
+                  this.setState({
+                    latitude: 19.141132,
+                    longitude: 73.008734,
+                  });
+                }}
+                style={{marginHorizontal: '15%'}}
+                left={() => <List.Icon icon="map-marker" />}
+                title="Neosoft Technologies Rabale"
+              />
+              <List.Item
+                onPress={() => {
+                  this.setState({
+                    latitude: 19.024405,
+                    longitude: 72.843736,
+                  });
+                }}
+                style={{marginHorizontal: '15%'}}
+                left={() => <List.Icon icon="map-marker" />}
+                title="Neosoft Technologies Head Office"
+              />
+            </List.Accordion>
+          </ScrollView>
         </View>
-        <View style={{flex: 1, marginTop: 450}}>
-          <List.Accordion
-            title="Store List"
-            titleStyle={{fontSize: 20}}
-            left={props => <List.Icon {...props} icon="folder" />}>
-            <List.Item
-              onPress={() => {
-                this.setState({
-                  latitude: 18.57899549913118,
-                  longitude: 73.7385973893106,
-                });
-              }}
-              left={() => <List.Icon icon="map-marker" />}
-              title="Neosoft Technologies pune"
-            />
-            <List.Item
-              onPress={() => {
-                this.setState({
-                  latitude: 19.018045,
-                  longitude: 72.828343,
-                });
-              }}
-              left={() => <List.Icon icon="map-marker" />}
-              title="Neosoft Technologies mumbai"
-            />
-            <List.Item
-              onPress={() => {
-                this.setState({
-                  latitude: 19.141132,
-                  longitude: 73.008734,
-                });
-              }}
-              left={() => <List.Icon icon="map-marker" />}
-              title="Neosoft Technologies Rabale"
-            />
-            <List.Item
-              onPress={() => {
-                this.setState({
-                  latitude: 19.024405,
-                  longitude: 72.843736,
-                });
-              }}
-              left={() => <List.Icon icon="map-marker" />}
-              title="Neosoft Technologies Head Office"
-            />
-          </List.Accordion>
-        </View>
-      </ScrollView>
+      </View>
     );
   }
 }
