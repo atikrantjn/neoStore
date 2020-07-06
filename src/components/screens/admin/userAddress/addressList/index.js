@@ -85,7 +85,6 @@ export class AddressList extends Component {
     },
     error: error => {
       console.log(error, 'rrrr');
-      this.setState({addressData: {}});
     },
   };
 
@@ -171,8 +170,14 @@ export class AddressList extends Component {
 
   deleteAddressCallback = {
     success: response => {
-      this.recievedData();
-      Alert.alert('Success', 'one customer address deleted successfully');
+      Alert.alert('Success', 'one customer address deleted successfully', [
+        {
+          text: 'OK',
+          onPress: () => {
+            this.recievedData();
+          },
+        },
+      ]);
     },
     error: error => {
       Alert.alert('Error', 'oops something went wrong');

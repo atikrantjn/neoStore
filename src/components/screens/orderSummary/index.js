@@ -29,20 +29,25 @@ export class OrderSummary extends Component {
       totalOrder: 0,
       custAddress: [],
       isLoading: false,
+      noAddressFound: false,
     };
   }
 
   //order now
 
   orderNowHandler = async () => {
-    const title = 'Time to choose!';
+    const title = 'Confirm!!';
     const message = 'please confirm to place order';
     const buttons = [
       {text: 'Cancel', type: 'cancel'},
       {
         text: 'confirm',
         onPress: () => {
-          this.placeOrder();
+          if (this.state.noAddressFound === false) {
+            this.placeOrder();
+          } else {
+            Alert.alert('Error', 'No shipping address found');
+          }
         },
       },
     ];
@@ -78,7 +83,7 @@ export class OrderSummary extends Component {
           );
           AsyncStorage.removeItem('cartData');
           this.setState({cartData: []});
-          this.props.navigation.navigate('My Orders');
+          this.props.navigation.navigate('Home');
         } else {
           Alert.alert('Error', data.message);
         }
@@ -230,9 +235,12 @@ export class OrderSummary extends Component {
       this.setState({custAddress: address});
     },
     error: error => {
-      let empty = 'no address found please add address first';
-
-      this.setState({custAddress: empty, isLoading: false});
+      let empty = error.message;
+      this.setState({
+        custAddress: empty,
+        noAddressFound: true,
+        isLoading: false,
+      });
     },
   };
 

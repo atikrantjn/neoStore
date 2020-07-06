@@ -278,7 +278,7 @@ export default class ProductDetails extends Component {
     const {productData, product_id, productImg} = this.state;
 
     return (
-      <View style={[styles.mainContainer]}>
+      <View style={styles.mainContainer}>
         <ScrollView>
           <View style={styles.container}>
             <View style={{margin: 15, flex: 1}}>
