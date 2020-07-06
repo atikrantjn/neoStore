@@ -236,6 +236,7 @@ class HomeStack extends Component {
           name="OrderSummary"
           component={OrderSummary}
           options={{
+            title: 'Order Summary',
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
@@ -245,7 +246,7 @@ class HomeStack extends Component {
               color: 'white',
               fontWeight: 'bold',
               textAlign: 'center',
-              fontSize: 28,
+              fontSize: 25,
             },
           }}
         />

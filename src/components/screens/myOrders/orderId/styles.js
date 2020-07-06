@@ -4,43 +4,39 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 10,
-  },
-
-  listContainer: {
     flexDirection: 'row',
   },
 
   imageStyle: {
-    flex: 1,
+    flex: 0.3,
   },
-  productNameContainer: {flexDirection: 'column', marginHorizontal: 15},
+  productNameContainer: {
+    flexDirection: 'column',
+    marginHorizontal: 15,
+    flex: 0.7,
+  },
 
   productName: {
-    fontSize: 25,
-    flex: 1,
+    fontSize: 22,
   },
 
   productMaterial: {
-    fontSize: 20,
+    fontSize: 18,
     width: 250,
     color: '#A09F9F',
   },
 
   productCostContainer: {
-    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
   },
 
   productQty: {
-    fontSize: 20,
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+    fontSize: 18,
   },
 
   productCost: {
-    fontSize: 20,
+    fontSize: 18,
   },
   itemSeperator: {
     height: 2,
@@ -50,7 +46,7 @@ const styles = StyleSheet.create({
   moduleSeperatorline: {
     borderBottomWidth: 3,
     height: 10,
-    borderColor: '#D5D5D5',
+    borderColor: '#B4B4B4',
   },
 });
 export default styles;

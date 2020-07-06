@@ -9,6 +9,7 @@ import MyCartStack from '../admin/stackRoutes/myCartStack/index';
 import AddressStack from '../admin/stackRoutes/addressStack/index';
 import userProfileStack from '../admin/stackRoutes/userProfileStack/index';
 import StoreLocatorStack from '../admin/stackRoutes/storeLocatorStack/index';
+import productListStack from '../admin/stackRoutes/productListStack/index';
 
 import MyOrderStack from '../admin/stackRoutes/myOrderStack/index';
 class Admin extends Component {

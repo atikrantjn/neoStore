@@ -13,7 +13,7 @@ import images from '../../../../../utils/images';
 import DatePicker from 'react-native-datepicker';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {BASE_URL} from '../../../../../config/api';
+import {BASE_URL, API_URL} from '../../../../../config/api';
 import AsyncStorage from '@react-native-community/async-storage';
 import ImagePicker from 'react-native-image-picker';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -33,19 +33,22 @@ export class EditProfile extends Component {
 
       token: '',
       showAlert: false,
-      firstNameErr: false,
+      firstNameErr: '',
 
-      lastNameErr: false,
-      emailErr: false,
+      lastNameErr: '',
+      emailErr: '',
 
-      phoneErr: false,
+      phoneErr: '',
+      dobErr: '',
+
       profile_img: null,
-      customerData: {},
+
       img: null,
       isLoading: false,
-      dobErr: false,
+
       noImgSelected: false,
-      imgErr: false,
+      emptyImage: true,
+      customerData: {},
     };
   }
 
@@ -62,98 +65,142 @@ export class EditProfile extends Component {
     }
   };
 
-  validatePhone = phone_no => {
+  validatePhone = () => {
     let phoneValid = /^[0-9]*(?:\d{1,2})?$/;
 
-    if (phoneValid.test(phone_no) === false) {
-      this.setState({phoneErr: true});
+    if (this.state.phone_no === '') {
+      this.setState({phoneErr: 'field cannot be kept empty'});
+      return false;
+    } else if (!phoneValid.test(this.state.phone_no)) {
+      this.setState({phoneErr: 'should be digits only'});
       return false;
     } else {
-      this.setState({phone_no: phone_no, phoneErr: false});
+      this.setState({phoneErr: ''});
       return true;
     }
   };
 
-  validateEmail = email => {
-    let pattern = /^([a-zA-Z])+([0-9a-zA-Z_\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]$)$/;
-
-    if (pattern.test(email) === false) {
-      this.setState({emailErr: true});
+  validateEmail = () => {
+    let pattern = /^([a-zA-Z])+([0-9a-zA-Z_\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,5}$)$/;
+    if (this.state.email === '') {
+      this.setState({emailErr: 'cannot be kept blank'});
+      return false;
+    } else if (!pattern.test(this.state.email)) {
+      this.setState({emailErr: 'invalid email address'});
       return false;
     } else {
-      this.setState({email: email, emailErr: false});
+      this.setState({emailErr: ''});
+      return true;
+    }
+  };
+
+  validateName = () => {
+    if (this.state.first_name === '') {
+      this.setState({firstNameErr: 'cannot be kept blank'});
+      return false;
+    } else {
+      this.setState({firstNameErr: ''});
+      return true;
+    }
+  };
+
+  validateLastName = () => {
+    if (this.state.last_name === '') {
+      this.setState({lastNameErr: 'cannot be kept blank'});
+      return false;
+    } else {
+      this.setState({lastNameErr: ''});
       return true;
     }
   };
 
   updateProfile = () => {
-    const {token, profile_img} = this.state;
+    const {token, profile_img, noImgSelected, emptyImage} = this.state;
 
-    //this.setState({isLoading: true});
+    let fname = this.validateName();
+    let lname = this.validateLastName();
+    let email = this.validateEmail();
+    let phone = this.validatePhone();
 
-    RNFetchBlob.fetch(
-      'PUT',
-      'http://180.149.241.208:3022/profile',
-      {
-        Authorization: 'Bearer ' + token,
-
-        'Content-Type': 'multipart/form-data',
-      },
-
-      [
+    if (fname && lname && email && phone) {
+      RNFetchBlob.fetch(
+        'PUT',
+        BASE_URL + API_URL.EDIT_USER_PROFILE_API,
         {
-          name: 'profile_img',
-          filename: profile_img.fileName,
-          type: profile_img.type,
-          data: RNFetchBlob.wrap(profile_img.path),
+          Authorization: 'Bearer ' + token,
+
+          'Content-Type': 'multipart/form-data',
         },
-        {name: 'first_name', data: this.state.first_name},
-        {name: 'last_name', data: this.state.last_name},
-        {name: 'email', data: this.state.email},
-        {name: 'dob', data: this.state.dob},
-        {name: 'phone_no', data: this.state.phone_no},
-        {name: 'gender', data: this.state.gender},
-      ],
-    )
-      .then(resp => {
-        // ...
-        const data = JSON.parse(resp.data);
 
-        if (data.success === true) {
-          Alert.alert('success', data.message);
+        [
+          noImgSelected
+            ? {
+                name: 'profile_img',
+                data: null,
+                fileName: null,
+              }
+            : {
+                name: 'profile_img',
+                filename: profile_img.fileName,
+                type: profile_img.type,
+                data: RNFetchBlob.wrap(profile_img.path),
+              },
+          {name: 'first_name', data: this.state.first_name},
+          {name: 'last_name', data: this.state.last_name},
+          {name: 'email', data: this.state.email},
+          {name: 'dob', data: this.state.dob},
+          {name: 'phone_no', data: this.state.phone_no},
+          {name: 'gender', data: this.state.gender},
+        ],
+      )
+        .then(resp => {
+          // ...
+          const data = JSON.parse(resp.data);
 
-          AsyncStorage.getItem('userData')
-            .then(d => {
-              let iData = JSON.parse(d);
+          if (data.success === true) {
+            AsyncStorage.getItem('userData')
+              .then(d => {
+                let iData = JSON.parse(d);
 
-              iData.customer_details.profile_img =
-                data.customer_details.profile_img;
+                iData.customer_details.profile_img =
+                  data.customer_details.profile_img;
 
-              iData.customer_details.first_name =
-                data.customer_details.first_name;
+                iData.customer_details.first_name =
+                  data.customer_details.first_name;
 
-              iData.customer_details.last_name =
-                data.customer_details.last_name;
+                iData.customer_details.last_name =
+                  data.customer_details.last_name;
 
-              console.log(iData);
+                AsyncStorage.setItem('userData', JSON.stringify(iData));
+              })
+              .done();
 
-              AsyncStorage.setItem('userData', JSON.stringify(iData));
-            })
-            .done();
+            Alert.alert(
+              'Success',
+              data.message,
+              [
+                {
+                  text: 'OK',
+                  onPress: () => {
+                    this.props.navigation.navigate('My Account', {
+                      d: 'abc',
+                    });
+                  },
+                },
+              ],
+              {cancelable: false},
+            );
 
-          this.setState({
-            img: data.customer_details.profile_img,
-            isLoading: false,
-          });
-          this.props.navigation.navigate('My Account', {
-            d: 'abc',
-          });
-        }
-      })
-      .catch(err => {
-        // ...
-        Alert.alert('Error', 'oopsssss something went wrong');
-      });
+            this.setState({
+              img: data.customer_details.profile_img,
+            });
+          }
+        })
+        .catch(err => {
+          // ...
+          Alert.alert('Error', 'oopsssss something went wrong');
+        });
+    }
   };
 
   componentDidMount = async () => {
@@ -182,11 +229,10 @@ export class EditProfile extends Component {
       console.log('Response = ', response);
 
       if (response.didCancel) {
-        this.setState({noImgSelected: true});
+        this.setState({noImgSelected: true, emptyImage: false});
         Alert.alert('Error', 'no image selected');
       } else {
         this.setState({profile_img: response});
-
         Alert.alert('Success', 'image picked');
       }
     });
@@ -201,7 +247,7 @@ export class EditProfile extends Component {
               flex: 1,
               flexDirection: 'row',
               justifyContent: 'center',
-              marginTop: 20,
+              marginVertical: 15,
             }}>
             <TouchableOpacity
               onPress={() => {
@@ -238,13 +284,15 @@ export class EditProfile extends Component {
               style={styles.input}
               value={this.state.first_name}
               onChangeText={first_name => {
-                this.setState({first_name: first_name});
+                this.setState({first_name}, () => {
+                  this.validateName();
+                });
               }}
               underlineColorAndroid="transparent"
             />
 
             {this.state.firstNameErr ? (
-              <Text style={{color: 'white'}}>cannot be empty</Text>
+              <Text style={{color: 'white'}}>{this.state.firstNameErr}</Text>
             ) : null}
           </View>
 
@@ -264,11 +312,13 @@ export class EditProfile extends Component {
               value={this.state.last_name}
               underlineColorAndroid="transparent"
               onChangeText={last_name => {
-                this.setState({last_name: last_name});
+                this.setState({last_name}, () => {
+                  this.validateLastName();
+                });
               }}
             />
-            {this.state.firstNameErr ? (
-              <Text style={{color: 'white'}}>cannot be empty</Text>
+            {this.state.lastNameErr ? (
+              <Text style={{color: 'white'}}>{this.state.lastNameErr}</Text>
             ) : null}
           </View>
           {this.state.isLoading ? <Loader /> : null}
@@ -290,10 +340,14 @@ export class EditProfile extends Component {
               placeholder="email"
               placeholderTextColor="white"
               underlineColorAndroid="transparent"
-              onChangeText={email => this.setState({email})}
+              onChangeText={email => {
+                this.setState({email}, () => {
+                  this.validateEmail();
+                });
+              }}
             />
             {this.state.emailErr ? (
-              <Text style={{color: 'white'}}>invalid email address</Text>
+              <Text style={{color: 'white'}}>{this.state.emailErr}</Text>
             ) : null}
           </View>
 
@@ -315,13 +369,14 @@ export class EditProfile extends Component {
               placeholderTextColor="white"
               underlineColorAndroid="transparent"
               maxLength={10}
-              onChangeText={phone_no => this.validatePhone(phone_no)}
+              onChangeText={phone_no => {
+                this.setState({phone_no}, () => {
+                  this.validatePhone();
+                });
+              }}
             />
             {this.state.phoneErr ? (
-              <Text style={{color: 'white'}}>
-                should not contain alphabets and characters and special
-                characters
-              </Text>
+              <Text style={{color: 'white'}}>{this.state.phoneErr}</Text>
             ) : null}
           </View>
 

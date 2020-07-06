@@ -123,7 +123,9 @@ export class AddressList extends Component {
           text: 'ok',
           onPress: () => {
             this.setState({isLoading: false});
-            this.props.navigation.navigate('OrderSummary');
+            this.props.navigation.navigate('OrderSummary', {
+              updatedAddress: true,
+            });
           },
         },
       ];
@@ -181,7 +183,6 @@ export class AddressList extends Component {
     await this.getData();
 
     await this.recievedData();
-    //setInterval(this.recievedData, 2000);
   };
 
   render() {

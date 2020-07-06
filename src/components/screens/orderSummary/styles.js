@@ -13,17 +13,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 0.2,
     marginHorizontal: 22,
+    marginVertical: 10,
   },
 
   userName: {
-    fontSize: 25,
+    fontSize: 22,
   },
 
   userAddressContainer: {
     paddingVertical: 10,
   },
 
-  userAddress: {fontSize: 22, fontStyle: 'italic'},
+  userAddress: {fontSize: 20, fontStyle: 'italic'},
 
   changeAddressBTNcontainer: {
     marginVertical: 10,
@@ -70,18 +71,17 @@ const styles = StyleSheet.create({
   renderFirstRowContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-around',
   },
 
   rendetSecondRowContainer: {
     flexDirection: 'row',
-    marginTop: 10,
+
     justifyContent: 'space-around',
     flex: 1,
   },
 
   productCost: {
-    fontSize: 22,
+    fontSize: 20,
   },
 
   quantityContainer: {
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: 25,
+    marginHorizontal: 22,
     flex: 0.1,
   },
 
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   /////ddjfhjdfhjdhfj
 
   rendercontainer: {
-    marginHorizontal: '5%',
+    marginHorizontal: 22,
     flex: 1,
   },
 
@@ -151,7 +151,6 @@ const styles = StyleSheet.create({
     flex: 0.3,
     height: 65,
   },
-  renderproductNameContainer: {flexDirection: 'column', marginHorizontal: 15},
 
   renderproductName: {
     fontSize: 25,
@@ -163,7 +162,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#A09F9F',
     fontWeight: 'bold',
-    flex: 0.8,
+    flex: 1,
   },
 
   renderproductCostContainer: {
@@ -189,6 +188,7 @@ const styles = StyleSheet.create({
     height: 1,
     width: '100%',
     backgroundColor: '#B4B4B4',
+    marginVertical: 5,
   },
   minusBtn: {
     borderWidth: 1,

@@ -62,34 +62,30 @@ export class OrderId extends Component {
             renderItem={({item}) => {
               return (
                 <View style={styles.container}>
-                  <TouchableOpacity>
-                    <View style={styles.listContainer}>
-                      <Image
-                        style={styles.imageStyle}
-                        source={{
-                          uri: BASE_URL + item.product_details[0].product_image,
-                        }}
-                      />
+                  <Image
+                    style={styles.imageStyle}
+                    source={{
+                      uri: BASE_URL + item.product_details[0].product_image,
+                    }}
+                  />
 
-                      <View style={styles.productNameContainer}>
-                        <Text style={styles.productName}>
-                          {item.product_details[0].product_name}
-                        </Text>
-                        <Text style={styles.productMaterial}>
-                          {item.product_details[0].product_material}
-                        </Text>
+                  <View style={styles.productNameContainer}>
+                    <Text style={styles.productName}>
+                      {item.product_details[0].product_name}
+                    </Text>
+                    <Text style={styles.productMaterial}>
+                      ({item.product_details[0].product_material})
+                    </Text>
 
-                        <View style={styles.productCostContainer}>
-                          <Text style={styles.productQty}>
-                            {'Quantity :' + ' ' + item.quantity}
-                          </Text>
-                          <Text style={styles.productCost}>
-                            {'Rs.' + ' ' + item.product_details[0].product_cost}
-                          </Text>
-                        </View>
-                      </View>
+                    <View style={styles.productCostContainer}>
+                      <Text style={styles.productQty}>
+                        {'Quantity :' + ' ' + item.quantity}
+                      </Text>
+                      <Text style={styles.productCost}>
+                        {'Rs.' + ' ' + item.product_details[0].product_cost}
+                      </Text>
                     </View>
-                  </TouchableOpacity>
+                  </View>
                 </View>
               );
             }}
@@ -105,10 +101,10 @@ export class OrderId extends Component {
               alignItems: 'center',
             }}>
             <View style={{marginLeft: 20}}>
-              <Text style={{fontSize: 32}}>Total</Text>
+              <Text style={{fontSize: 28}}>Total</Text>
             </View>
             <View style={{marginRight: 20}}>
-              <Text style={{fontSize: 30}}>{'Rs.' + '' + result[0]}</Text>
+              <Text style={{fontSize: 25}}>{'Rs.' + '' + result[0]}</Text>
             </View>
           </View>
         </View>

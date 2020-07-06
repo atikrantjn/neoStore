@@ -1,24 +1,20 @@
 import {StyleSheet} from 'react-native';
 import appColors from '../../../../../utils/colors';
-import {colors} from 'react-native-elements';
 
 const styles = StyleSheet.create({
-  mainContainer: {backgroundColor: appColors.themeColor},
-  container: {
-    flex: 1,
-  },
+  mainContainer: {backgroundColor: appColors.themeColor, flex: 1},
+
   input: {
     paddingLeft: 50,
     color: 'white',
     borderColor: 'white',
     borderWidth: 1.5,
-    fontSize: 20,
+    fontSize: 18,
   },
   registerInput: {
     marginHorizontal: 50,
-    marginTop: 25,
+    marginVertical: 10,
     height: 50,
-    marginBottom: 10,
   },
   saveProfileBtn: {
     marginTop: 15,

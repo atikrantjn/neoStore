@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import appColors from '../../../../../utils/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FaIcon from 'react-native-vector-icons/FontAwesome5';
 
 import MyAccount from '../../userProfile/myAccount/index';
 import EditProfile from '../../userProfile/editProfile/index';
@@ -28,13 +29,13 @@ class userProfileStack extends Component {
             headerTintColor: 'white',
             headerTitleAlign: 'center',
             headerLeft: () => (
-              <Ionicons
-                name="md-arrow-back"
+              <FaIcon
+                name="bars"
                 size={28}
                 color="white"
                 style={{marginLeft: 10}}
                 onPress={() => {
-                  this.props.navigation.navigate('Home');
+                  this.props.navigation.openDrawer();
                 }}
               />
             ),

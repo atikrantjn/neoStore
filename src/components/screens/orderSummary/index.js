@@ -15,7 +15,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {BASE_URL, API_URL, request, apiii} from '../../../config/api';
 
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
-import {ScrollView} from 'react-native-gesture-handler';
+
 export class OrderSummary extends Component {
   constructor(props) {
     super(props);
@@ -92,16 +92,7 @@ export class OrderSummary extends Component {
 
     await this.getTotalCost();
     await this.getCustAddress();
-
-    setInterval(this.getProductData, 1000);
-    setInterval(this.getTotalCost, 1500);
-    //setInterval(this.getCustAddress, 1000);
   };
-
-  // componentWillUnmount = () => {
-  //   clearInterval(this.getProductData);
-  //   clearInterval(this.getTotalCost);
-  // };
 
   getData = async () => {
     try {
@@ -138,8 +129,8 @@ export class OrderSummary extends Component {
   };
 
   decreaseQuantity = async id => {
-    const title = 'Time to choose!';
-    const message = 'are u sure u wanna remove this item';
+    const title = 'Remove!!';
+    const message = 'Are you sure you want to remove this item';
     const buttons = [
       {text: 'Cancel', type: 'cancel'},
       {
@@ -160,7 +151,11 @@ export class OrderSummary extends Component {
       dataFromCart[index].quantity = dataFromCart[index].quantity - 1;
 
       await AsyncStorage.setItem('cartData', JSON.stringify(dataFromCart));
-      // this.setState({cartData: JSON.parse(AsyncStorage.getItem('cart'))});
+      await this.getTotalCost();
+
+      this.setState({
+        cartData: JSON.parse(await AsyncStorage.getItem('cartData')),
+      });
     }
   };
 
@@ -175,7 +170,10 @@ export class OrderSummary extends Component {
       dataFromCart[index].quantity = dataFromCart[index].quantity + 1;
 
       await AsyncStorage.setItem('cartData', JSON.stringify(dataFromCart));
-      //this.setState({cartData: AsyncStorage.getItem('cart')});
+      await this.getTotalCost();
+      this.setState({
+        cartData: JSON.parse(await AsyncStorage.getItem('cartData')),
+      });
     }
   };
 
@@ -188,21 +186,6 @@ export class OrderSummary extends Component {
     let totalCost = arr.reduce((a, b) => a + b, 0);
 
     this.setState({totalOrder: totalCost});
-  };
-
-  removeFromList = id => {
-    const title = 'Time to choose!';
-    const message = 'are u sure u wanna remove this item';
-    const buttons = [
-      {text: 'Cancel', type: 'cancel'},
-      {
-        text: 'yes',
-        onPress: () => {
-          this.remove_item(id);
-        },
-      },
-    ];
-    Alert.alert(title, message, buttons);
   };
 
   remove_item = async id => {
@@ -224,7 +207,7 @@ export class OrderSummary extends Component {
       Authorization: 'Bearer ' + this.state.token,
     };
 
-    this.setState({isLoading: true});
+    // this.setState({isLoading: true});
 
     request(
       this.custAddressCallback,
@@ -244,13 +227,19 @@ export class OrderSummary extends Component {
       let address = a.map(s => {
         return s.address + ',' + s.pincode + ',' + s.country;
       });
-      this.setState({custAddress: address, isLoading: false});
+      this.setState({custAddress: address});
     },
     error: error => {
       let empty = 'no address found please add address first';
 
       this.setState({custAddress: empty, isLoading: false});
     },
+  };
+
+  componentDidUpdate = async prev => {
+    if (this.props.route.params !== prev.route.params) {
+      this.getCustAddress();
+    }
   };
 
   render() {
@@ -260,7 +249,6 @@ export class OrderSummary extends Component {
 
     return (
       <View style={styles.mainContainer}>
-        {this.state.isLoading ? <Loader /> : null}
         <View style={styles.userDetailContainer}>
           <View>
             <Text style={styles.userName}>{userFullName}</Text>
@@ -327,7 +315,7 @@ export class OrderSummary extends Component {
 
                     <View
                       style={{
-                        marginVertical: 5,
+                        marginTop: 5,
                       }}>
                       <View style={styles.quantityContainer}>
                         <TouchableOpacity style={styles.minusBtn}>

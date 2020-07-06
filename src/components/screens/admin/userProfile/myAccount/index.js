@@ -74,16 +74,14 @@ export class MyAccount extends Component {
   componentDidMount = async () => {
     await this.getToken();
 
-    this.customerProfile();
-
-    // console.log(this.props.route.params);
+    await this.customerProfile();
   };
 
-  // componentDidUpdate = () => {
-  //   if (this.props.route.params.d === 'abc') {
-  //     this.customerProfile();
-  //   }
-  // };
+  componentDidUpdate = () => {
+    if (this.props.route.params) {
+      this.customerProfile();
+    }
+  };
 
   render() {
     const {customerData} = this.state;
@@ -94,7 +92,8 @@ export class MyAccount extends Component {
             style={{
               flexDirection: 'row',
               justifyContent: 'center',
-              marginTop: 20,
+
+              marginVertical: 15,
             }}>
             {customerData.profile_img === null ? (
               <Image
@@ -106,7 +105,7 @@ export class MyAccount extends Component {
                 source={{
                   uri: BASE_URL + customerData.profile_img,
                 }}
-                style={{height: 150, width: 150, borderRadius: 100}}
+                style={{height: 130, width: 130, borderRadius: 100}}
               />
             )}
           </View>
