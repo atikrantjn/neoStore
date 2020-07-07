@@ -44,18 +44,11 @@ export default class Sidebar extends Component {
 
   removeValue = async () => {
     const {token} = this.state;
-    // let keys = ['userData', 'cartData'];
-
-    // AsyncStorage.multiRemove(keys, err => {
-    //   this.props.navigation.navigate('Home');
-    // });
 
     let data = this.state.cartData;
 
     let flag = [{flag: 'logout'}];
     let data1 = [...data, ...flag];
-
-    console.log(data1);
 
     this.setState({isLoading: true});
 
@@ -73,13 +66,17 @@ export default class Sidebar extends Component {
         let keys = ['userData', 'cartData'];
 
         if (respData.success) {
-          Alert.alert('Success', respData.message);
-
           AsyncStorage.multiRemove(keys, err => {
             this.setState({cartData: []});
-
-            this.props.navigation.navigate('Home');
           });
+          Alert.alert('Success', respData.message, [
+            {
+              text: 'OK',
+              onPress: () => {
+                this.props.navigation.navigate('Admin');
+              },
+            },
+          ]);
         } else {
           Alert.alert('Error', respData.message);
         }

@@ -93,11 +93,11 @@ export default class ProductDetails extends Component {
 
   updateRating() {
     const {token} = this.state;
+    console.log(this.state.starCount);
 
     const data = {
       product_id: this.state.product_id,
       product_rating: this.state.starCount,
-      // product_rating: this.state.rating,
     };
 
     const header = {
@@ -105,20 +105,29 @@ export default class ProductDetails extends Component {
       Authorization: 'Bearer ' + token,
     };
 
-    request(
-      this.ratingCallback,
-      data,
-      'PUT',
-      API_URL.UPDATE_RATING_API,
-      header,
-    );
+    if (this.state.starCount === null) {
+      Alert.alert('Error', 'Please select rating first');
+    } else {
+      request(
+        this.ratingCallback,
+        data,
+        'PUT',
+        API_URL.UPDATE_RATING_API,
+        header,
+      );
+    }
   }
 
   ratingCallback = {
     success: response => {
-      //  console.log(response);
-      Alert.alert('success', 'thank you for rating our product');
-      this.setState({modalVisible: false});
+      Alert.alert('success', response.message, [
+        {
+          text: 'OK',
+          onPress: () => {
+            this.setState({modalVisible: false});
+          },
+        },
+      ]);
     },
     error: error => {
       Alert.alert('Error', 'please login first');

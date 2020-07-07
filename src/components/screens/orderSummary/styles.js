@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 0.2,
     marginHorizontal: 22,
-    marginVertical: 10,
+    marginVertical: 15,
   },
 
   userName: {
@@ -21,10 +21,10 @@ const styles = StyleSheet.create({
   },
 
   userAddressContainer: {
-    paddingVertical: 10,
+    marginVertical: 10,
   },
 
-  userAddress: {fontSize: 20, fontStyle: 'italic'},
+  userAddress: {fontSize: 18, fontStyle: 'italic'},
 
   changeAddressBTNcontainer: {
     marginVertical: 10,

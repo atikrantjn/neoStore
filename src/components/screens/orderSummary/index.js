@@ -75,15 +75,23 @@ export class OrderSummary extends Component {
       .then(response => response.json())
       .then(async data => {
         if (data.success) {
-          this.setState({isLoading: false});
+          AsyncStorage.removeItem('cartData');
+
+          this.setState({cartData: [], isLoading: false});
+          await this.getTotalCost();
 
           Alert.alert(
             'Success',
             `Thank you for ordering products. ${data.message}`,
+            [
+              {
+                text: 'OK',
+                onPress: () => {
+                  this.props.navigation.push('Admin');
+                },
+              },
+            ],
           );
-          AsyncStorage.removeItem('cartData');
-          this.setState({cartData: []});
-          this.props.navigation.navigate('Home');
         } else {
           Alert.alert('Error', data.message);
         }

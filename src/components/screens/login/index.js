@@ -71,8 +71,8 @@ class Login extends Component {
 
   loginCallback = {
     success: async response => {
-      this.storeData(response);
-      this.getCartData();
+      await this.storeData(response);
+      await this.getCartData();
 
       this.showAlert();
 
@@ -110,7 +110,7 @@ class Login extends Component {
   };
 
   cartCallback = {
-    success: response => {
+    success: async response => {
       console.log('from cart callback', response);
 
       AsyncStorage.setItem(

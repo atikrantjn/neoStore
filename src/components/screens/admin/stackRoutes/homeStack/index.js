@@ -216,8 +216,9 @@ class HomeStack extends Component {
         <Stack.Screen
           name="ProductDetails"
           component={ProductDetails}
-          options={{
-            title: 'product details',
+          options={({route}) => ({
+            title: route.params.product_name,
+
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
@@ -228,9 +229,10 @@ class HomeStack extends Component {
               color: 'white',
               fontWeight: 'bold',
               textAlign: 'center',
-              fontSize: 28,
+              fontSize: 24,
+              marginHorizontal: 45,
             },
-          }}
+          })}
         />
         <Stack.Screen
           name="OrderSummary"
