@@ -114,7 +114,7 @@ class AddAddress extends Component {
     },
     error: error => {
       this.setState({isLoading: false});
-      Alert.alert('Error', 'oopss something went wrong');
+      Alert.alert('Error', error.message);
     },
   };
 

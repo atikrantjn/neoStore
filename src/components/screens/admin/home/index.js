@@ -87,7 +87,7 @@ export default class Home extends Component {
       return BASE_URL.concat(el);
     });
 
-    const {width, height} = Dimensions.get('window');
+    const {width} = Dimensions.get('window');
     let arr = this.state.dataSource;
 
     if (arr.length % 2 !== 0) {

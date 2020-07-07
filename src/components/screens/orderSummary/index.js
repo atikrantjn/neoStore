@@ -37,7 +37,7 @@ export class OrderSummary extends Component {
 
   orderNowHandler = async () => {
     const title = 'Confirm!!';
-    const message = 'please confirm to place order';
+    const message = 'Please confirm to place order';
     const buttons = [
       {text: 'Cancel', type: 'cancel'},
       {
@@ -221,7 +221,7 @@ export class OrderSummary extends Component {
     await this.getProductData();
     await this.getTotalCost();
 
-    Alert.alert('success', 'item has been successfully removed');
+    Alert.alert('success', 'Item has been successfully removed');
   };
 
   getCustAddress = () => {

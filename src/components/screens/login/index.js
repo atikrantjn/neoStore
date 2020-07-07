@@ -252,7 +252,7 @@ class Login extends Component {
         <AwesomeAlert
           show={showAlert}
           title="Yeahh"
-          message="login successful,redirecting...."
+          message="Login successful,redirecting...."
           closeOnTouchOutside={true}
           closeOnHardwareBackPress={false}
           messageStyle={{color: 'green', fontSize: 18}}
@@ -263,16 +263,4 @@ class Login extends Component {
   }
 }
 
-// const mapStateToProps = state => ({
-//   loginReducer: state.loginReducer,
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   setLoginData: data => setLoginData(dispatch, data),
-// });
-
-export default //  connect(
-//   mapStateToProps,
-//   mapDispatchToProps,
-// )
-Login;
+export default Login;

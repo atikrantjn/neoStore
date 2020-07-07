@@ -206,7 +206,7 @@ class Register extends Component {
       }, 5000);
     },
     error: err => {
-      Alert.alert('Error', 'oops something went wrong');
+      Alert.alert('Error', 'Oops something went wrong');
       this.setState({isLoading: false});
     },
   };
@@ -456,7 +456,7 @@ class Register extends Component {
             </View>
             <AwesomeAlert
               show={showAlert}
-              title="Register form"
+              title="Registered User"
               message="Registered successfully,redirecting to login screen...."
               closeOnTouchOutside={true}
               closeOnHardwareBackPress={false}

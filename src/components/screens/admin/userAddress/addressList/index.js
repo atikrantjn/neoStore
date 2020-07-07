@@ -109,7 +109,7 @@ export class AddressList extends Component {
         header,
       );
     } else {
-      Alert.alert('Error', 'please select one address first');
+      Alert.alert('Error', 'Please select one address first');
     }
   };
 
@@ -137,7 +137,7 @@ export class AddressList extends Component {
 
   removeAddress = id => {
     const title = 'Time to choose!';
-    const message = 'are u sure u wanna remove this address';
+    const message = 'Are u sure u wanna remove this address';
     const buttons = [
       {text: 'Cancel', type: 'cancel'},
       {
@@ -170,7 +170,7 @@ export class AddressList extends Component {
 
   deleteAddressCallback = {
     success: response => {
-      Alert.alert('Success', 'one customer address deleted successfully', [
+      Alert.alert('Success', response.message, [
         {
           text: 'OK',
           onPress: () => {
@@ -180,7 +180,7 @@ export class AddressList extends Component {
       ]);
     },
     error: error => {
-      Alert.alert('Error', 'oops something went wrong');
+      Alert.alert('Error', error.message);
     },
   };
 

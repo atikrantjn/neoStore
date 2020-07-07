@@ -209,7 +209,7 @@ export class EditProfile extends Component {
         })
         .catch(err => {
           // ...
-          Alert.alert('Error', 'oopsssss something went wrong');
+          Alert.alert('Error', 'Oopsssss something went wrong');
         });
     }
   };
@@ -241,10 +241,8 @@ export class EditProfile extends Component {
 
       if (response.didCancel) {
         this.setState({noImgSelected: true, emptyImage: false});
-        // Alert.alert('Error', 'no image selected');
       } else {
         this.setState({profile_img: response});
-        // Alert.alert('Success', 'image picked');
       }
     });
   };

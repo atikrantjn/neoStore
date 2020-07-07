@@ -84,8 +84,8 @@ export default class Sidebar extends Component {
   };
 
   logoutHandler = () => {
-    const title = 'Time to choose!';
-    const message = 'are u sure u wanna logout';
+    const title = 'Logout!!';
+    const message = 'Are you sure you want to logout';
     const buttons = [
       {text: 'Cancel', type: 'cancel'},
       {

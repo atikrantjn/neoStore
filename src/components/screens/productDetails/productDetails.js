@@ -120,7 +120,7 @@ export default class ProductDetails extends Component {
 
   ratingCallback = {
     success: response => {
-      Alert.alert('success', response.message, [
+      Alert.alert('Success', response.message, [
         {
           text: 'OK',
           onPress: () => {
@@ -130,7 +130,7 @@ export default class ProductDetails extends Component {
       ]);
     },
     error: error => {
-      Alert.alert('Error', 'please login first');
+      Alert.alert('Error', 'Please login first');
       console.log('err', error);
     },
   };
@@ -176,7 +176,7 @@ export default class ProductDetails extends Component {
 
       AsyncStorage.setItem('cartData', JSON.stringify(newProduct))
         .then(() => {
-          Alert.alert('success', 'product added to cart successfully');
+          Alert.alert('Success', 'Product added to cart successfully');
         })
         .catch(() => {
           Alert.alert('Error', 'There was an error saving the product');
@@ -184,13 +184,13 @@ export default class ProductDetails extends Component {
     } else {
       let existed_item = newProduct.find(item => id === item._id);
       if (existed_item) {
-        Alert.alert('Error', 'product already exist');
+        Alert.alert('Error', 'Product already exist');
       } else {
         newProduct.push(mainData);
         AsyncStorage.setItem('cartData', JSON.stringify(newProduct));
 
         this.setState({cartCount: 1});
-        Alert.alert('Success', 'product added to cart successfully');
+        Alert.alert('Success', 'Product added to cart successfully');
 
         this.setState({cartCount: this.state.cartCount + 1});
       }
