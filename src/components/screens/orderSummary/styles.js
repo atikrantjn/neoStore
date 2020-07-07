@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
-  productPrice: {fontSize: 25, color: 'black'},
+  productPrice: {fontSize: 22, color: 'black'},
 
   orderSummaryFooterContainer: {
     flexDirection: 'row',

@@ -196,9 +196,18 @@ export class OrderSummary extends Component {
       return item.product_cost * item.quantity;
     });
 
-    let totalCost = arr.reduce((a, b) => a + b, 0);
+    console.log(arr);
 
-    this.setState({totalOrder: totalCost});
+    let totalCost = arr.reduce((a, b) => a + b, 0);
+    console.log(parseInt(totalCost));
+
+    let gst = parseInt(totalCost) * 0.05;
+
+    console.log(gst);
+
+    let totalOrder = parseInt(totalCost) + parseInt(gst);
+
+    this.setState({totalOrder});
   };
 
   remove_item = async id => {
@@ -377,7 +386,9 @@ export class OrderSummary extends Component {
 
           <View style={styles.productCostContainer}>
             <View>
-              <Text style={styles.productPrice}>Price</Text>
+              <Text style={styles.productPrice}>
+                Price <Text style={{fontSize: 16}}>(included 5% gst)</Text>
+              </Text>
             </View>
             <View>
               <Text style={styles.productPrice}>
