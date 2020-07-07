@@ -147,9 +147,11 @@ const styles = StyleSheet.create({
   },
 
   addToCartIcon: {
-    flex: 1,
-    alignItems: 'flex-end',
-    marginEnd: '10%',
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    zIndex: 1000,
+    elevation: 24,
   },
 
   productDescription: {

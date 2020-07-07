@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {View, FlatList} from 'react-native';
+import {View, FlatList, ActivityIndicator, Dimensions} from 'react-native';
 import {API_URL, request} from '../../../config/api';
 import RenderProductItem from './renderProductItem';
-import Loader from '../../custom/loaderComponent/loader';
 
 export default class ProductListModule extends Component {
   constructor(props) {
@@ -56,7 +55,15 @@ export default class ProductListModule extends Component {
     return (
       <View>
         {this.state.isLoading ? (
-          <Loader />
+          <ActivityIndicator
+            size={30}
+            color="blue"
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginVertical: '65%',
+            }}
+          />
         ) : (
           <FlatList
             data={this.state.data}

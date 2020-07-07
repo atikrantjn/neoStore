@@ -43,7 +43,7 @@ class MyOrderStack extends Component {
               color: 'white',
               fontWeight: 'bold',
 
-              fontSize: 28,
+              fontSize: 26,
             },
           }}
         />
@@ -57,22 +57,11 @@ class MyOrderStack extends Component {
             headerTintColor: 'white',
             headerTitleAlign: 'center',
 
-            headerLeft: () => (
-              <Ionicons
-                name="md-arrow-back"
-                size={28}
-                color="white"
-                style={{marginLeft: 10}}
-                onPress={() => {
-                  this.props.navigation.push('My Orders');
-                }}
-              />
-            ),
             headerTitleStyle: {
               color: 'white',
               fontWeight: 'bold',
 
-              fontSize: 28,
+              fontSize: 25,
             },
           })}
         />

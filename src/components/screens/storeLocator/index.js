@@ -47,7 +47,7 @@ export class StoreLocator extends Component {
             longitude: this.state.longitude,
             latitudeDelta: LATITUDE_DELTA,
             longitudeDelta: LONGITUDE_DELTA,
-          }} // remove if not using Google Maps
+          }}
           style={styles.map}>
           <Marker
             coordinate={{
@@ -73,7 +73,8 @@ export class StoreLocator extends Component {
                 }}
                 left={() => <List.Icon icon="map-marker" />}
                 title="Neosoft Technologies pune"
-                style={{marginHorizontal: '15%'}}
+                style={{marginLeft: 30}}
+                titleStyle={{fontSize: 18}}
               />
               <List.Item
                 onPress={() => {
@@ -82,9 +83,10 @@ export class StoreLocator extends Component {
                     longitude: 72.828343,
                   });
                 }}
-                style={{marginHorizontal: '15%'}}
+                style={{marginLeft: 30}}
                 left={() => <List.Icon icon="map-marker" />}
                 title="Neosoft Technologies mumbai"
+                titleStyle={{fontSize: 18}}
               />
               <List.Item
                 onPress={() => {
@@ -93,9 +95,10 @@ export class StoreLocator extends Component {
                     longitude: 73.008734,
                   });
                 }}
-                style={{marginHorizontal: '15%'}}
+                style={{marginLeft: 30}}
                 left={() => <List.Icon icon="map-marker" />}
                 title="Neosoft Technologies Rabale"
+                titleStyle={{fontSize: 18}}
               />
               <List.Item
                 onPress={() => {
@@ -104,9 +107,10 @@ export class StoreLocator extends Component {
                     longitude: 72.843736,
                   });
                 }}
-                style={{marginHorizontal: '15%'}}
+                style={{marginLeft: 30}}
                 left={() => <List.Icon icon="map-marker" />}
                 title="Neosoft Technologies Head Office"
+                titleStyle={{fontSize: 18}}
               />
             </List.Accordion>
           </ScrollView>

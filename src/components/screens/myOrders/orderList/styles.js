@@ -1,12 +1,12 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {flexDirection: 'column', marginTop: 10},
+  container: {flexDirection: 'column', marginVertical: 5},
 
   orderText: {flexDirection: 'row', flex: 1},
 
   idText: {
-    fontSize: 25,
+    fontSize: 22,
     marginHorizontal: 20,
     fontWeight: 'bold',
   },
@@ -18,16 +18,15 @@ const styles = StyleSheet.create({
   },
 
   totalCost: {
-    fontSize: 20,
+    fontSize: 18,
     marginHorizontal: 20,
   },
 
   orderDateContainer: {flexDirection: 'row', flex: 1},
 
   orderDateText: {
-    fontSize: 20,
+    fontSize: 18,
     marginHorizontal: 20,
-    marginBottom: 5,
   },
 });
 

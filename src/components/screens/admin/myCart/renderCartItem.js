@@ -81,7 +81,6 @@ export class RenderCartItem extends Component {
             <Text style={styles.productMaterial}>
               ({data.product_material})
             </Text>
-
             <View style={styles.productCostContainer}>
               <Text style={styles.productCost}>
                 {'Rs.' + ' ' + data.product_cost}
@@ -89,7 +88,7 @@ export class RenderCartItem extends Component {
             </View>
           </View>
         </View>
-        <View style={{flex: 0.2}}>
+        <View style={{flex: 0.2, alignSelf: 'center'}}>
           <TouchableOpacity
             onPress={() => {
               this.removeFromCart(data.product_id);

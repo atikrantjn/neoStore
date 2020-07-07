@@ -35,8 +35,6 @@ const styles = StyleSheet.create({
   productCostContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    // marginVertical: 15,
   },
 
   productCost: {

@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  flatListEmptyText: {fontSize: 40, textAlign: 'center'},
+  flatListEmptyText: {fontSize: 28, textAlign: 'center'},
 
   productDetailsContainer: {
     flex: 1,
@@ -93,8 +93,6 @@ const styles = StyleSheet.create({
 
   quantityItemText: {
     fontSize: 18,
-
-    paddingVertical: 5,
   },
 
   footerContainer: {
@@ -104,7 +102,7 @@ const styles = StyleSheet.create({
   },
 
   footerPriceDetails: {
-    fontSize: 18,
+    fontSize: 19,
     textTransform: 'uppercase',
     textDecorationLine: 'underline',
   },
@@ -153,7 +151,7 @@ const styles = StyleSheet.create({
   },
 
   renderproductName: {
-    fontSize: 25,
+    fontSize: 24,
     flex: 0.7,
   },
 
@@ -193,12 +191,18 @@ const styles = StyleSheet.create({
   minusBtn: {
     borderWidth: 1,
     borderColor: 'red',
-    padding: 5,
+    paddingHorizontal: 7,
+    paddingVertical: 5,
+    borderRadius: 2,
+    textAlign: 'center',
   },
   plusBtn: {
     borderWidth: 1,
     borderColor: 'red',
-    padding: 5,
+    paddingHorizontal: 7,
+    paddingVertical: 5,
+    borderRadius: 2,
+    textAlign: 'center',
   },
   removeBTN: {
     borderRadius: 7,

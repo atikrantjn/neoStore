@@ -219,6 +219,7 @@ export class OrderSummary extends Component {
     AsyncStorage.setItem('cartData', JSON.stringify(cart));
 
     await this.getProductData();
+    await this.getTotalCost();
 
     Alert.alert('success', 'item has been successfully removed');
   };
@@ -343,10 +344,11 @@ export class OrderSummary extends Component {
                         marginTop: 5,
                       }}>
                       <View style={styles.quantityContainer}>
-                        <TouchableOpacity style={styles.minusBtn}>
+                        <TouchableOpacity>
                           <FaIcon
                             name={'minus'}
-                            size={20}
+                            style={styles.minusBtn}
+                            size={16}
                             onPress={() => {
                               const p_id = item._id;
                               this.decreaseQuantity(p_id);
@@ -357,10 +359,11 @@ export class OrderSummary extends Component {
                           {item.quantity}
                         </Text>
 
-                        <TouchableOpacity style={styles.plusBtn}>
+                        <TouchableOpacity>
                           <FaIcon
+                            style={styles.plusBtn}
                             name={'plus'}
-                            size={20}
+                            size={16}
                             onPress={() => {
                               const p_id = item._id;
                               this.increaseQuantity(p_id);
@@ -387,7 +390,7 @@ export class OrderSummary extends Component {
           <View style={styles.productCostContainer}>
             <View>
               <Text style={styles.productPrice}>
-                Price <Text style={{fontSize: 16}}>(included 5% gst)</Text>
+                Price <Text style={{fontSize: 17}}>(included 5% gst)</Text>
               </Text>
             </View>
             <View>

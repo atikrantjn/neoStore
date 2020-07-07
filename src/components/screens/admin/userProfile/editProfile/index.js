@@ -113,6 +113,15 @@ export class EditProfile extends Component {
       return true;
     }
   };
+  validateDob = () => {
+    if (this.state.dob === '') {
+      this.setState({dobErr: 'Please select date of birth'});
+      return false;
+    } else {
+      this.setState({dobErr: ''});
+      return true;
+    }
+  };
 
   updateProfile = () => {
     const {token, profile_img, noImgSelected, emptyImage} = this.state;
@@ -121,8 +130,9 @@ export class EditProfile extends Component {
     let lname = this.validateLastName();
     let email = this.validateEmail();
     let phone = this.validatePhone();
+    let dob = this.validateDob();
 
-    if (fname && lname && email && phone) {
+    if (fname && lname && email && phone && dob) {
       RNFetchBlob.fetch(
         'PUT',
         BASE_URL + API_URL.EDIT_USER_PROFILE_API,
@@ -133,11 +143,12 @@ export class EditProfile extends Component {
         },
 
         [
-          noImgSelected
+          noImgSelected || emptyImage
             ? {
                 name: 'profile_img',
-                data: null,
+                data: RNFetchBlob.wrap(null),
                 fileName: null,
+                type: null,
               }
             : {
                 name: 'profile_img',
@@ -230,15 +241,16 @@ export class EditProfile extends Component {
 
       if (response.didCancel) {
         this.setState({noImgSelected: true, emptyImage: false});
-        Alert.alert('Error', 'no image selected');
+        // Alert.alert('Error', 'no image selected');
       } else {
         this.setState({profile_img: response});
-        Alert.alert('Success', 'image picked');
+        // Alert.alert('Success', 'image picked');
       }
     });
   };
 
   render() {
+    console.log(this.state.dob);
     return (
       <ScrollView style={styles.mainContainer}>
         <View style={styles.container}>
@@ -406,10 +418,15 @@ export class EditProfile extends Component {
                   fontSize: 20,
                 },
               }}
-              onDateChange={date => {
-                this.setState({dob: date});
+              onDateChange={dob => {
+                this.setState({dob}, () => {
+                  this.validateDob();
+                });
               }}
             />
+            {this.state.dobErr ? (
+              <Text style={{color: 'white'}}>{this.state.dobErr}</Text>
+            ) : null}
           </View>
           <View style={{marginHorizontal: 50, marginBottom: 10}}>
             <TouchableOpacity

@@ -6,6 +6,7 @@ const deviceWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
   },
   mainContainer: {
     height: 80,
