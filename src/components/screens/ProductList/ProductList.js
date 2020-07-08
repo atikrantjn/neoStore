@@ -2,13 +2,12 @@ import React, {Component} from 'react';
 import {View} from 'react-native';
 
 import ProductListModule from '../../custom/productListComponent/index';
-export default class ProductList extends Component {
+class ProductList extends Component {
   constructor(props) {
     super(props);
   }
   render() {
     let {id} = this.props.route.params;
-    console.log('hel', this.props);
 
     return (
       <View>
@@ -17,3 +16,5 @@ export default class ProductList extends Component {
     );
   }
 }
+
+export default ProductList;

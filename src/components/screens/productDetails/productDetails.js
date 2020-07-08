@@ -54,21 +54,7 @@ export default class ProductDetails extends Component {
     await this.getProductDetails();
   };
 
-  productDetailsCallBack = {
-    success: response => {
-      const pr = JSON.parse(JSON.stringify(response.product_details));
-
-      this.setState({
-        productData: pr[0],
-        productImg: pr[0].product_image,
-        categoryName: pr[0].category_id,
-        subImages: pr[0].subImages_id.product_subImages,
-      });
-    },
-    error: error => {
-      console.log('errrbsdjgjhghjcgvjh', error);
-    },
-  };
+  // function to get data of product from api
 
   getProductDetails = () => {
     const {productId} = this.props.route.params;
@@ -86,7 +72,25 @@ export default class ProductDetails extends Component {
     );
   };
 
-  // rating update function
+  // callback of api of product data
+
+  productDetailsCallBack = {
+    success: response => {
+      const pr = JSON.parse(JSON.stringify(response.product_details));
+
+      this.setState({
+        productData: pr[0],
+        productImg: pr[0].product_image,
+        categoryName: pr[0].category_id,
+        subImages: pr[0].subImages_id.product_subImages,
+      });
+    },
+    error: error => {
+      console.log('errrbsdjgjhghjcgvjh', error);
+    },
+  };
+
+  //  function to update rating of product
 
   updateRating() {
     const {token} = this.state;
@@ -115,6 +119,8 @@ export default class ProductDetails extends Component {
     }
   }
 
+  // callback from update rating api
+
   ratingCallback = {
     success: response => {
       Alert.alert('Success', response.message, [
@@ -139,6 +145,8 @@ export default class ProductDetails extends Component {
     });
   }
 
+  // function to get toke from asyncstorage
+
   getToken = async () => {
     try {
       const value = JSON.parse(await AsyncStorage.getItem('userData'));
@@ -152,7 +160,7 @@ export default class ProductDetails extends Component {
     }
   };
 
-  //add product to cart
+  //function to  add product to cart
 
   addToCart = async (id, productData) => {
     // try {
@@ -194,7 +202,7 @@ export default class ProductDetails extends Component {
     }
   };
 
-  //subimage click
+  //function to handle subimage click
 
   onpressSubImage = async id => {
     this.setState({productImg: id});
@@ -212,6 +220,8 @@ export default class ProductDetails extends Component {
     }
   };
 
+  // function for buynow button handler
+
   buyNowBtnHandler = () => {
     if (this.state.token) {
       this.props.navigation.navigate('OrderSummary');
@@ -219,6 +229,8 @@ export default class ProductDetails extends Component {
       Alert.alert('Error', 'Please login first');
     }
   };
+
+  // modal component for update rating modal
 
   ratingModule = () => {
     const {productData, productImg} = this.state;

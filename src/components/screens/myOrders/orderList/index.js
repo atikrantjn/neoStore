@@ -16,10 +16,13 @@ export class OrderList extends Component {
       placedOrderDetails: [],
     };
   }
+
   componentDidMount = async () => {
     await this.getToken();
     await this.getOrderDetails();
   };
+
+  // function to get token from asyncstorage
 
   getToken = async () => {
     try {
@@ -33,6 +36,8 @@ export class OrderList extends Component {
       console.log(e);
     }
   };
+
+  // function to call api of placed order details
 
   getOrderDetails = async () => {
     const {token} = this.state;
@@ -52,6 +57,8 @@ export class OrderList extends Component {
       header,
     );
   };
+
+  //  callback from api
 
   getOrderDetailsCallback = {
     success: response => {

@@ -36,6 +36,8 @@ export class SetPassword extends Component {
     }
   };
 
+  // function to validate user password
+
   validatePassword = () => {
     let passPattern = /^([a-zA-Z0-9@*#]{8,15})$/;
     if (this.state.newPass === '') {
@@ -52,6 +54,8 @@ export class SetPassword extends Component {
     }
   };
 
+  // function to validate confirm password
+
   validateConfPass = () => {
     if (this.state.confirmPass === '') {
       this.setState({confirmPasswordErr: 'cannot be kept blank'});
@@ -67,6 +71,8 @@ export class SetPassword extends Component {
     }
   };
 
+  // function to validate otp
+
   validateOtp = () => {
     if (this.state.otpCode === '') {
       this.setState({otpError: 'cannot be kept blank'});
@@ -81,6 +87,8 @@ export class SetPassword extends Component {
     await this.getData();
   };
 
+  // function to validate user input fields
+
   setPasswordHandler = () => {
     let otp = this.validateOtp();
     let userpass = this.validatePassword();
@@ -90,6 +98,8 @@ export class SetPassword extends Component {
       this.sendData();
     }
   };
+
+  // function to send data to api
 
   sendData = () => {
     const postData = {
@@ -112,6 +122,8 @@ export class SetPassword extends Component {
       header,
     );
   };
+
+  // callback from api
 
   setPassCallback = {
     success: response => {

@@ -33,7 +33,7 @@ export class OrderSummary extends Component {
     };
   }
 
-  //order now
+  // function for ordernow button handler
 
   orderNowHandler = async () => {
     const title = 'Confirm!!';
@@ -54,6 +54,8 @@ export class OrderSummary extends Component {
 
     Alert.alert(title, message, buttons);
   };
+
+  // function to call place order api
 
   placeOrder = () => {
     const {token} = this.state;
@@ -107,6 +109,8 @@ export class OrderSummary extends Component {
     await this.getCustAddress();
   };
 
+  // function to get user details from asyncstorage
+
   getData = async () => {
     try {
       const value = JSON.parse(await AsyncStorage.getItem('userData'));
@@ -122,6 +126,8 @@ export class OrderSummary extends Component {
       console.log(e);
     }
   };
+
+  // function to get cart data from asyncstorage
 
   getProductData = async () => {
     try {
@@ -140,6 +146,8 @@ export class OrderSummary extends Component {
   FlatListItemSeparator = () => {
     return <View style={styles.renderitemSeperator} />;
   };
+
+  // function to decrease quantity of product
 
   decreaseQuantity = async id => {
     const title = 'Remove!!';
@@ -172,6 +180,8 @@ export class OrderSummary extends Component {
     }
   };
 
+  // function to increase quantity of product
+
   increaseQuantity = async id => {
     let dataFromCart = this.state.cartData;
 
@@ -190,25 +200,24 @@ export class OrderSummary extends Component {
     }
   };
 
+  // function to calculate total cost of product
+
   getTotalCost = async () => {
     const {cartData} = this.state;
     let arr = cartData.map(item => {
       return item.product_cost * item.quantity;
     });
 
-    console.log(arr);
-
     let totalCost = arr.reduce((a, b) => a + b, 0);
-    console.log(parseInt(totalCost));
 
     let gst = parseInt(totalCost) * 0.05;
-
-    console.log(gst);
 
     let totalOrder = parseInt(totalCost) + parseInt(gst);
 
     this.setState({totalOrder});
   };
+
+  // function to remove item from list and from asyncstorage
 
   remove_item = async id => {
     let data = this.state.cartData;
@@ -223,6 +232,8 @@ export class OrderSummary extends Component {
 
     Alert.alert('success', 'Item has been successfully removed');
   };
+
+  // function to get customer address from api
 
   getCustAddress = () => {
     const header = {
@@ -240,6 +251,8 @@ export class OrderSummary extends Component {
       header,
     );
   };
+
+  // callback from api of customer address
 
   custAddressCallback = {
     success: async response => {

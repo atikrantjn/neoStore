@@ -1,12 +1,5 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-} from 'react-native';
+import {Text, View, FlatList, Image, Dimensions} from 'react-native';
 import styles from './styles';
 import {BASE_URL} from '../../../../config/api';
 
@@ -19,6 +12,8 @@ export class OrderId extends Component {
     };
   }
 
+  // function to get data from params from navigation
+
   getDataFromParams = () => {
     const {orderData} = this.props.route.params;
     console.log(this.props.route.params.order_id);
@@ -27,8 +22,6 @@ export class OrderId extends Component {
 
   componentDidMount = async () => {
     await this.getDataFromParams();
-
-    // setInterval(this.getDataFromParams, 1000);
   };
 
   FlatListItemSeparator = () => {
@@ -45,7 +38,6 @@ export class OrderId extends Component {
   };
 
   render() {
-    console.log(this.state.orderData);
     let {width, height} = Dimensions.get('window');
 
     let result = this.state.orderData.map(i => {

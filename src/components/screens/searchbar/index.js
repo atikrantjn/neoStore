@@ -12,7 +12,6 @@ import Icons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import StarRating from 'react-native-star-rating';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
-import Loader from '../../custom/loaderComponent/loader';
 
 import {BASE_URL, request, API_URL} from '../../../config/api';
 
@@ -61,6 +60,8 @@ class SearchBarHeader extends Component {
     });
   };
 
+  // function to handle search data
+
   searchData = () => {
     const text = this.state.searchText;
     const postData = null;
@@ -78,6 +79,8 @@ class SearchBarHeader extends Component {
       header,
     );
   };
+
+  // callback from search data api
 
   searchCallback = {
     success: resp => {

@@ -39,6 +39,8 @@ class Login extends Component {
     };
   }
 
+  // function to store user data in asyncstorage
+
   storeData = async response => {
     this.setState({token: response.token});
     try {
@@ -48,6 +50,8 @@ class Login extends Component {
       console.log('error in storing data', e);
     }
   };
+
+  // function for login api
 
   validateUser = () => {
     let useremail = this.validateEmail();
@@ -68,6 +72,8 @@ class Login extends Component {
       request(this.loginCallback, userInput, 'POST', API_URL.LOGIN_API, header);
     }
   };
+
+  // api callback
 
   loginCallback = {
     success: async response => {
@@ -101,6 +107,8 @@ class Login extends Component {
     });
   };
 
+  // function to get cart data of user from api
+
   getCartData = () => {
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -109,11 +117,11 @@ class Login extends Component {
     request(this.cartCallback, null, 'GET', API_URL.GET_CUST_CART_API, header);
   };
 
+  // callback from api of getCartData
+
   cartCallback = {
     success: async response => {
       if (response.status_code === 200) {
-        console.log('from cart callback', response);
-
         AsyncStorage.setItem(
           'cartData',
           JSON.stringify(response.product_details),
@@ -124,6 +132,8 @@ class Login extends Component {
       console.log('errr--------------------------', error);
     },
   };
+
+  // function to check valid email address
 
   validateEmail = () => {
     let pattern = /^([a-zA-Z])+([0-9a-zA-Z_\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,5}$)$/;
@@ -138,6 +148,8 @@ class Login extends Component {
       return true;
     }
   };
+
+  // function to check valid password
 
   validatePassword = () => {
     let passPattern = /^([a-zA-Z0-9@*#]{8,15})$/;

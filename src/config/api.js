@@ -52,11 +52,11 @@ export const request = async (
   featureURL,
   secureRequest = buildHeader(),
 ) => {
-  console.log({onResponse});
-  console.log({data});
-  console.log({type});
-  console.log({featureURL});
-  console.log({secureRequest});
+  // console.log({onResponse});
+  // console.log({data});
+  // console.log({type});
+  // console.log({featureURL});
+  // console.log({secureRequest});
 
   let response = '';
   try {
@@ -74,7 +74,7 @@ export const request = async (
       });
       var responseJSON = await response.json();
     }
-    console.log({responseJSON});
+    //console.log({responseJSON});
 
     if (responseJSON.status_code === 200 || responseJSON.success === true) {
       onResponse.success(responseJSON);

@@ -9,6 +9,7 @@ import {
   Alert,
 } from 'react-native';
 import styles from './styles';
+
 import images from '../../../../../utils/images';
 import DatePicker from 'react-native-datepicker';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
@@ -113,6 +114,7 @@ export class EditProfile extends Component {
       return true;
     }
   };
+
   validateDob = () => {
     if (this.state.dob === '') {
       this.setState({dobErr: 'Please select date of birth'});
@@ -146,7 +148,7 @@ export class EditProfile extends Component {
           noImgSelected
             ? {
                 name: 'profile_img',
-                data: RNFetchBlob.wrap(null),
+                data: null,
                 fileName: null,
                 type: null,
               }
@@ -217,6 +219,7 @@ export class EditProfile extends Component {
   componentDidMount = async () => {
     await this.getToken();
     const {customerData} = this.props.route.params;
+
     this.setState({
       first_name: customerData.first_name,
       last_name: customerData.last_name,
@@ -237,8 +240,6 @@ export class EditProfile extends Component {
       },
     };
     ImagePicker.showImagePicker(options, response => {
-      console.log('Response = ', response);
-
       if (response.didCancel) {
         this.setState({noImgSelected: true, emptyImage: false});
       } else {
@@ -248,7 +249,6 @@ export class EditProfile extends Component {
   };
 
   render() {
-    console.log(this.state.dob);
     return (
       <ScrollView style={styles.mainContainer}>
         <View style={styles.container}>

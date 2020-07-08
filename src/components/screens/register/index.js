@@ -56,6 +56,8 @@ class Register extends Component {
     });
   };
 
+  // function to validate user first name
+
   validateName = () => {
     if (this.state.first_name === '') {
       this.setState({firstNameErr: 'cannot be kept blank'});
@@ -65,6 +67,8 @@ class Register extends Component {
       return true;
     }
   };
+
+  // function to validate user last name
 
   validateLastName = () => {
     if (this.state.last_name === '') {
@@ -76,7 +80,7 @@ class Register extends Component {
     }
   };
 
-  //email validate function
+  // function to validate user email
 
   validateEmail = email => {
     let pattern = /^([a-zA-Z])+([0-9a-zA-Z_\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,5}$)$/;
@@ -92,7 +96,7 @@ class Register extends Component {
     }
   };
 
-  //password validate function
+  // function to validate user password
 
   validatePassword = () => {
     let passPattern = /^([a-zA-Z0-9@*#]{8,15})$/;
@@ -110,7 +114,7 @@ class Register extends Component {
     }
   };
 
-  //confirm password validate function
+  // function to validate confirm password
 
   validateConfPass = () => {
     if (this.state.confirmPass === '') {
@@ -127,7 +131,7 @@ class Register extends Component {
     }
   };
 
-  //phone number input validation function
+  // function to validate user phone no.
 
   validatePhone = () => {
     let phoneValid = /^[0-9]*(?:\d{1,2})?$/;
@@ -151,7 +155,7 @@ class Register extends Component {
     }
   };
 
-  //validate form on button click function
+  // function to validate form on button click
 
   validateRegisterForm = () => {
     let name = this.validateName();
@@ -197,6 +201,8 @@ class Register extends Component {
     }
   };
 
+  // callback from register api
+
   registerCallBack = {
     success: resp => {
       this.setState({isLoading: false});
@@ -216,8 +222,6 @@ class Register extends Component {
       {label: 'Male', value: 'male'},
       {label: 'Female', value: 'female'},
     ];
-
-    console.log(this.state.isChecked);
 
     const {showAlert} = this.state;
     return (

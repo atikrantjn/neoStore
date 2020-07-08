@@ -39,6 +39,8 @@ export class ForgotPassword extends Component {
     });
   };
 
+  // function to validate email address
+
   validateEmail = () => {
     let pattern = /^([a-zA-Z])+([0-9a-zA-Z_\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,5}$)$/;
     if (this.state.email === '') {
@@ -52,6 +54,8 @@ export class ForgotPassword extends Component {
       return true;
     }
   };
+
+  // forgot password api call function
 
   forgotPassHandler = () => {
     const header = {
@@ -73,6 +77,8 @@ export class ForgotPassword extends Component {
     }
   };
 
+  // api callback of forgot password
+
   forgotPasscallback = {
     success: response => {
       this.storeData(response);
@@ -88,6 +94,8 @@ export class ForgotPassword extends Component {
     },
   };
 
+  // function to store data from api callback in asyncstorage
+
   storeData = async response => {
     try {
       await AsyncStorage.setItem('forgotPassData', JSON.stringify(response));
@@ -95,8 +103,8 @@ export class ForgotPassword extends Component {
       // saving error
     }
   };
+
   render() {
-    console.log(this.state.token);
     const {showAlert} = this.state;
 
     return (
