@@ -15,6 +15,7 @@ export default class ProductListModule extends Component {
 
   componentDidMount() {
     const id = this.props.id;
+    console.log(id, 'he');
 
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',

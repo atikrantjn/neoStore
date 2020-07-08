@@ -36,9 +36,6 @@ export default class ProductDetails extends Component {
 
       quantity: 1,
       cartCount: 1,
-
-      buttonDisabled: true,
-      buyNowbtn: true,
     };
   }
 
@@ -212,6 +209,14 @@ export default class ProductDetails extends Component {
     if (prevProd !== product_id) {
       await this.getProductDetails();
       // this.setState({product_id: prevProd});
+    }
+  };
+
+  buyNowBtnHandler = () => {
+    if (this.state.token) {
+      this.props.navigation.navigate('OrderSummary');
+    } else {
+      Alert.alert('Error', 'Please login first');
     }
   };
 
@@ -417,9 +422,8 @@ export default class ProductDetails extends Component {
 
         <View style={styles.footerContainer}>
           <TouchableOpacity
-            disabled={this.state.buyNowbtn}
             onPress={() => {
-              this.props.navigation.navigate('OrderSummary');
+              this.buyNowBtnHandler();
             }}>
             <View style={styles.buyNowBTN}>
               <Text style={styles.buyNowBTNtext}>BUY NOW</Text>

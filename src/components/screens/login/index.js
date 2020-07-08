@@ -111,12 +111,14 @@ class Login extends Component {
 
   cartCallback = {
     success: async response => {
-      console.log('from cart callback', response);
+      if (response.status_code === 200) {
+        console.log('from cart callback', response);
 
-      AsyncStorage.setItem(
-        'cartData',
-        JSON.stringify(response.product_details),
-      );
+        AsyncStorage.setItem(
+          'cartData',
+          JSON.stringify(response.product_details),
+        );
+      }
     },
     error: error => {
       console.log('errr--------------------------', error);

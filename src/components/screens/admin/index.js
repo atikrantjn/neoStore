@@ -12,6 +12,7 @@ import StoreLocatorStack from '../admin/stackRoutes/storeLocatorStack/index';
 import productListStack from '../admin/stackRoutes/productListStack/index';
 
 import MyOrderStack from '../admin/stackRoutes/myOrderStack/index';
+
 class Admin extends Component {
   constructor(props) {
     super(props);
@@ -32,11 +33,11 @@ class Admin extends Component {
           return <Sidebar {...props} />;
         }}>
         <Drawer.Screen name="Home" component={HomeStack} />
-        <Drawer.Screen name="Bed" component={ProductList} />
-        <Drawer.Screen name="Sofa" component={ProductList} />
-        <Drawer.Screen name="Chair" component={ProductList} />
-        <Drawer.Screen name="Table" component={ProductList} />
-        <Drawer.Screen name="Almirah" component={ProductList} />
+        <Drawer.Screen name="Bed" component={productListStack} />
+        <Drawer.Screen name="Sofa" component={productListStack} />
+        <Drawer.Screen name="Chair" component={productListStack} />
+        <Drawer.Screen name="Table" component={productListStack} />
+        <Drawer.Screen name="Almirah" component={productListStack} />
         <Drawer.Screen name="ProductDetails" component={ProductDetails} />
         <Drawer.Screen name="MyCart" component={MyCartStack} />
         <Drawer.Screen name="Store Locator" component={StoreLocatorStack} />

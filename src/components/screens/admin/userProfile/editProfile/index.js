@@ -143,7 +143,7 @@ export class EditProfile extends Component {
         },
 
         [
-          noImgSelected || emptyImage
+          noImgSelected
             ? {
                 name: 'profile_img',
                 data: RNFetchBlob.wrap(null),

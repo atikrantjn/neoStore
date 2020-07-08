@@ -87,7 +87,7 @@ export const request = async (
   }
 };
 
-export const apiii = {
+export const api = {
   fetchapi: function(url, type, data, token) {
     if (type === 'post' || type === 'put') {
       return fetch(url, {

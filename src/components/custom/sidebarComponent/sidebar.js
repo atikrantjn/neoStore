@@ -13,7 +13,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 
-import {BASE_URL, apiii, API_URL} from '../../../config/api';
+import {BASE_URL, api, API_URL} from '../../../config/api';
 
 import AsyncStorage from '@react-native-community/async-storage';
 export default class Sidebar extends Component {
@@ -52,7 +52,7 @@ export default class Sidebar extends Component {
 
     this.setState({isLoading: true});
 
-    apiii
+    api
       .fetchapi(
         BASE_URL + API_URL.ADD_PRODUCT_CHECKOUT_API,
         'post',
@@ -62,7 +62,6 @@ export default class Sidebar extends Component {
 
       .then(response => response.json())
       .then(respData => {
-        console.log(respData);
         let keys = ['userData', 'cartData'];
 
         if (respData.success) {
@@ -303,6 +302,7 @@ export default class Sidebar extends Component {
               onPress={() => {
                 this.props.navigation.navigate('Bed', {
                   id: '5cfe3c65ea821930af69281f',
+                  categoryName: 'Bed',
                 });
               }}
             />
@@ -315,6 +315,7 @@ export default class Sidebar extends Component {
               onPress={() => {
                 this.props.navigation.navigate('Sofa', {
                   id: '5cfe3c5aea821930af69281e',
+                  categoryName: 'Sofa',
                 });
               }}
               title="Sofa"
@@ -343,6 +344,7 @@ export default class Sidebar extends Component {
               onPress={() => {
                 this.props.navigation.navigate('Table', {
                   id: '5cfe3c79ea821930af692821',
+                  categoryName: 'Table',
                 });
               }}
             />
@@ -363,6 +365,7 @@ export default class Sidebar extends Component {
               onPress={() => {
                 this.props.navigation.navigate('Chair', {
                   id: '5cfe3c6fea821930af692820',
+                  categoryName: 'Chair',
                 });
               }}
             />
@@ -383,6 +386,7 @@ export default class Sidebar extends Component {
               onPress={() => {
                 this.props.navigation.navigate('Almirah', {
                   id: '5d14c15101ae103e6e94fbe0',
+                  categoryName: 'Almirah',
                 });
               }}
             />

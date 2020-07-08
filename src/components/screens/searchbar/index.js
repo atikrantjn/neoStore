@@ -125,6 +125,7 @@ class SearchBarHeader extends Component {
               style={{fontSize: 27}}
             />
             <TextInput
+              returnKeyType="search"
               autoCapitalize="characters"
               onChangeText={searchText => {
                 this.setState({
@@ -160,12 +161,10 @@ class SearchBarHeader extends Component {
               ItemSeparatorComponent={this.FlatListItemSeparator}
               renderItem={({item}) => {
                 let rating = parseFloat(item.product_rating);
-                //console.log(item.product_id);
 
                 return (
                   <View style={styles.listContainer}>
                     <TouchableOpacity
-                      styles={styles.list}
                       onPress={() => {
                         this.props.navigation.navigate('ProductDetails', {
                           productId: item.product_id,
@@ -180,7 +179,10 @@ class SearchBarHeader extends Component {
                         />
 
                         <View style={{flexDirection: 'column'}}>
-                          <Text numberOfLines={1} style={styles.listText}>
+                          <Text
+                            numberOfLines={1}
+                            adjustsFontSizeToFit
+                            style={styles.listText}>
                             {item.product_name}
                           </Text>
                           <Text numberOfLines={1} style={styles.listSubText}>

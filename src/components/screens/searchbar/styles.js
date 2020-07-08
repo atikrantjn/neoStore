@@ -21,20 +21,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 5,
   },
-  listContainer: {flex: 1, margin: 10},
+  listContainer: {flex: 1},
   listText: {
-    fontSize: 28,
-    marginHorizontal: 15,
-    width: 250,
+    fontSize: 24,
+    paddingHorizontal: 15,
+    width: deviceWidth - 120,
+    fontWeight: 'bold',
+    color: '#666363',
   },
   listSubText: {
-    fontSize: 15,
-    marginHorizontal: 15,
+    fontSize: 18,
+    paddingHorizontal: 15,
     width: 250,
-    color: '#A09F9F',
+    color: '#808080',
   },
 
-  imageContainer: {flexDirection: 'row', margin: 10, width: deviceWidth},
+  imageContainer: {flexDirection: 'row', padding: 10},
 
   productCost: {
     marginHorizontal: 15,
@@ -43,8 +45,7 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    width: 120,
-    height: 120,
+    flex: 1,
   },
 
   productCostContainer: {

@@ -7,7 +7,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import ProductList from '../../../ProductList/ProductList';
 import ProductDetails from '../../../productDetails/productDetails';
-import Home from '../../home/index';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5';
 
 const Stack = createStackNavigator();
@@ -22,14 +21,25 @@ class ProductListStack extends Component {
         <Stack.Screen
           name="Bed"
           component={ProductList}
+          initialParams={{id: this.props.route.params.id}}
           options={({route}) => ({
-            // title: route.params.product_name,
-
+            title: this.props.route.params.categoryName,
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
             headerTintColor: 'white',
             headerTitleAlign: 'center',
+            headerLeft: () => (
+              <FontAwesomeIcon
+                name="bars"
+                size={28}
+                color="white"
+                style={{marginLeft: 10}}
+                onPress={() => {
+                  this.props.navigation.openDrawer();
+                }}
+              />
+            ),
             headerRight: () => (
               <Icon
                 onPress={() => {
@@ -54,12 +64,25 @@ class ProductListStack extends Component {
         <Stack.Screen
           name="Sofa"
           component={ProductList}
-          options={{
+          options={({route}) => ({
+            title: this.props.route.params.categoryName,
+
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
             headerTintColor: 'white',
             headerTitleAlign: 'center',
+            headerLeft: () => (
+              <FontAwesomeIcon
+                name="bars"
+                size={28}
+                color="white"
+                style={{marginLeft: 10}}
+                onPress={() => {
+                  this.props.navigation.openDrawer();
+                }}
+              />
+            ),
             headerRight: () => (
               <Icon
                 name="search"
@@ -78,18 +101,32 @@ class ProductListStack extends Component {
 
               fontSize: 30,
             },
-          }}
+          })}
         />
 
         <Stack.Screen
           name="Table"
+          title="Table"
           component={ProductList}
-          options={{
+          options={({route}) => ({
+            title: this.props.route.params.categoryName,
+
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
             headerTintColor: 'white',
             headerTitleAlign: 'center',
+            headerLeft: () => (
+              <FontAwesomeIcon
+                name="bars"
+                size={28}
+                color="white"
+                style={{marginLeft: 10}}
+                onPress={() => {
+                  this.props.navigation.openDrawer();
+                }}
+              />
+            ),
 
             headerRight: () => (
               <Icon
@@ -109,18 +146,32 @@ class ProductListStack extends Component {
 
               fontSize: 30,
             },
-          }}
+          })}
         />
 
         <Stack.Screen
           name="Chair"
+          title="Chair"
           component={ProductList}
-          options={{
+          options={({route}) => ({
+            title: this.props.route.params.categoryName,
+
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
             headerTintColor: 'white',
             headerTitleAlign: 'center',
+            headerLeft: () => (
+              <FontAwesomeIcon
+                name="bars"
+                size={28}
+                color="white"
+                style={{marginLeft: 10}}
+                onPress={() => {
+                  this.props.navigation.openDrawer();
+                }}
+              />
+            ),
             headerRight: () => (
               <Icon
                 name="search"
@@ -139,18 +190,32 @@ class ProductListStack extends Component {
 
               fontSize: 30,
             },
-          }}
+          })}
         />
 
         <Stack.Screen
           name="Almirah"
+          title="Almirah"
           component={ProductList}
-          options={{
+          options={({route}) => ({
+            title: this.props.route.params.categoryName,
+
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
             headerTintColor: 'white',
             headerTitleAlign: 'center',
+            headerLeft: () => (
+              <FontAwesomeIcon
+                name="bars"
+                size={28}
+                color="white"
+                style={{marginLeft: 10}}
+                onPress={() => {
+                  this.props.navigation.openDrawer();
+                }}
+              />
+            ),
             headerRight: () => (
               <Icon
                 name="search"
@@ -168,14 +233,15 @@ class ProductListStack extends Component {
               fontWeight: 'bold',
               fontSize: 30,
             },
-          }}
+          })}
         />
 
         <Stack.Screen
           name="ProductDetails"
           component={ProductDetails}
-          options={{
-            title: 'product details',
+          options={({route}) => ({
+            title: route.params.product_name,
+
             headerStyle: {
               backgroundColor: appColors.themeColor,
             },
@@ -186,9 +252,10 @@ class ProductListStack extends Component {
               color: 'white',
               fontWeight: 'bold',
               textAlign: 'center',
-              fontSize: 28,
+              fontSize: 24,
+              marginHorizontal: 45,
             },
-          }}
+          })}
         />
       </Stack.Navigator>
     );

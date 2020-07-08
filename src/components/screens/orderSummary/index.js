@@ -12,7 +12,7 @@ import styles from './styles';
 import Loader from '../../custom/loaderComponent/loader';
 
 import AsyncStorage from '@react-native-community/async-storage';
-import {BASE_URL, API_URL, request, apiii} from '../../../config/api';
+import {BASE_URL, API_URL, request, api} from '../../../config/api';
 
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 
@@ -64,7 +64,7 @@ export class OrderSummary extends Component {
 
     this.setState({isLoading: true});
 
-    apiii
+    api
       .fetchapi(
         'http://180.149.241.208:3022/addProductToCartCheckout',
         'post',

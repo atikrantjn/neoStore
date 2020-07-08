@@ -7,7 +7,8 @@ export default class ProductList extends Component {
     super(props);
   }
   render() {
-    const {id} = this.props.route.params;
+    let {id} = this.props.route.params;
+    console.log('hel', this.props);
 
     return (
       <View>
