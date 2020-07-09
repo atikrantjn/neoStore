@@ -10,7 +10,7 @@ import Welcome from './src/components/screens/welcome/index';
 import Register from './src/components/screens/register/index';
 import Admin from './src/components/screens/admin';
 import SearchBarHeader from './src/components/screens/searchbar/index';
-
+import ProductDetails from './src/components/screens/productDetails/productDetails';
 import ForgotPassword from './src/components/screens/forgotPassword/index';
 import SetPassword from './src/components/screens/setPassword/index';
 
@@ -38,7 +38,19 @@ class App extends Component {
             <Stack.Screen
               name="Login"
               component={Login}
-              options={{headerShown: false}}
+              options={{
+                headerStyle: {
+                  backgroundColor: appColors.themeColor,
+                },
+                headerTintColor: '#fff',
+                headerTitleAlign: 'center',
+                headerTitleStyle: {
+                  color: 'white',
+                  fontWeight: 'bold',
+
+                  fontSize: 24,
+                },
+              }}
             />
             <Stack.Screen
               name="Register"
@@ -53,7 +65,7 @@ class App extends Component {
                   color: 'white',
                   fontWeight: 'bold',
 
-                  fontSize: 26,
+                  fontSize: 24,
                 },
               }}
             />
@@ -70,7 +82,7 @@ class App extends Component {
                   color: 'white',
                   fontWeight: 'bold',
 
-                  fontSize: 26,
+                  fontSize: 24,
                 },
               }}
             />
@@ -87,7 +99,7 @@ class App extends Component {
                   color: 'white',
                   fontWeight: 'bold',
 
-                  fontSize: 26,
+                  fontSize: 24,
                 },
               }}
             />
@@ -100,6 +112,27 @@ class App extends Component {
               name="SearchBar"
               component={SearchBarHeader}
               options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="ProductDetails"
+              component={ProductDetails}
+              options={({route}) => ({
+                title: route.params.product_name,
+
+                headerStyle: {
+                  backgroundColor: appColors.themeColor,
+                },
+                headerTintColor: 'white',
+                headerTitleAlign: 'center',
+
+                headerTitleStyle: {
+                  color: 'white',
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                  fontSize: 24,
+                  marginHorizontal: 45,
+                },
+              })}
             />
           </Stack.Navigator>
         </NavigationContainer>

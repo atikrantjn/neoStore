@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {View, ActivityIndicator} from 'react-native';
 
 export class Loader extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <View

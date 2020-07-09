@@ -70,14 +70,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#B4B4B4',
   },
   removeBTN: {
-    borderRadius: 7,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 10,
     backgroundColor: appcolors.themeColor,
   },
   removeBTNText: {
-    fontSize: 15,
-
+    fontSize: 14,
     color: 'white',
     textAlign: 'center',
   },

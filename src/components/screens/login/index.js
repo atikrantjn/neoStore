@@ -121,8 +121,9 @@ class Login extends Component {
 
   cartCallback = {
     success: async response => {
+      console.log(response, 'from cart callback');
       if (response.status_code === 200) {
-        AsyncStorage.setItem(
+        await AsyncStorage.setItem(
           'cartData',
           JSON.stringify(response.product_details),
         );

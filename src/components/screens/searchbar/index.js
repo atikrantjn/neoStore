@@ -64,7 +64,7 @@ class SearchBarHeader extends Component {
 
   searchData = () => {
     const text = this.state.searchText;
-    const postData = null;
+
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
@@ -73,7 +73,7 @@ class SearchBarHeader extends Component {
 
     request(
       this.searchCallback,
-      postData,
+      null,
       'GET',
       API_URL.GET_PRODUCT_BY_SEARCH_API + text,
       header,
@@ -85,7 +85,6 @@ class SearchBarHeader extends Component {
   searchCallback = {
     success: resp => {
       if (resp.success) {
-        console.log('resp.....', resp);
         this.setState({
           searchedData: resp.product_details,
           empty: false,
@@ -96,7 +95,9 @@ class SearchBarHeader extends Component {
       }
     },
     error: err => {
-      console.log('err.....', err);
+      if (err.success === false) {
+        this.setState({empty: true, isLoading: false});
+      }
     },
   };
 
@@ -129,7 +130,6 @@ class SearchBarHeader extends Component {
             />
             <TextInput
               returnKeyType="search"
-              autoCapitalize="characters"
               onChangeText={searchText => {
                 this.setState({
                   searchText: searchText,
@@ -144,7 +144,12 @@ class SearchBarHeader extends Component {
           </View>
         </View>
 
-        <View>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
           {this.state.empty ? (
             <View
               style={{
@@ -168,9 +173,11 @@ class SearchBarHeader extends Component {
                 return (
                   <View style={styles.listContainer}>
                     <TouchableOpacity
+                      style={{flex: 1}}
                       onPress={() => {
                         this.props.navigation.navigate('ProductDetails', {
                           productId: item.product_id,
+                          product_name: item.product_name,
                         });
                       }}>
                       <View style={styles.imageContainer}>
@@ -181,7 +188,7 @@ class SearchBarHeader extends Component {
                           }}
                         />
 
-                        <View style={{flexDirection: 'column'}}>
+                        <View style={{flexDirection: 'column', flex: 0.75}}>
                           <Text
                             numberOfLines={1}
                             adjustsFontSizeToFit

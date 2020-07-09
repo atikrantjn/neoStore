@@ -29,28 +29,27 @@ const styles = StyleSheet.create({
   },
   radioButtonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    marginTop: 15,
+    marginVertical: 10,
   },
   genderText: {
     color: 'white',
-    fontSize: 28,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   checkbox: {
     marginHorizontal: 50,
     textAlign: 'center',
-    height: 50,
     color: 'white',
-    marginTop: 10,
+    marginVertical: 5,
   },
   registerFormBtn: {
     marginVertical: 15,
     backgroundColor: 'white',
     borderRadius: 7,
     paddingVertical: 8,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
   },
 
   registerFormBtnText: {

@@ -9,49 +9,53 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   mainContainer: {
-    height: 80,
+    height: 75,
     backgroundColor: appColors.themeColor,
     justifyContent: 'center',
     paddingHorizontal: 5,
   },
   searchContainer: {
-    height: 60,
+    height: 55,
     backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',
     padding: 5,
   },
+
   listContainer: {flex: 1},
+
   listText: {
-    fontSize: 24,
-    paddingHorizontal: 15,
-    width: deviceWidth - 120,
-    fontWeight: 'bold',
-    color: '#666363',
+    fontSize: 22,
+    marginHorizontal: 15,
   },
   listSubText: {
-    fontSize: 18,
-    paddingHorizontal: 15,
-    width: 250,
-    color: '#808080',
+    fontSize: 16,
+    marginHorizontal: 15,
+
+    color: '#A09F9F',
   },
 
-  imageContainer: {flexDirection: 'row', padding: 10},
+  imageContainer: {
+    flexDirection: 'row',
+    width: deviceWidth,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+  },
 
   productCost: {
+    fontSize: 18,
+    color: appColors.themeColor,
     marginHorizontal: 15,
-    fontSize: 20,
-    color: 'red',
   },
 
   image: {
-    flex: 1,
+    flex: 0.25,
   },
 
   productCostContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 15,
+    marginVertical: 10,
   },
 });
 

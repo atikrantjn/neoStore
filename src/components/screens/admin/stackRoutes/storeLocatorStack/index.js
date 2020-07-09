@@ -9,8 +9,6 @@ const Stack = createStackNavigator();
 class StoreLocatorStack extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {};
   }
   render() {
     return (
@@ -39,7 +37,7 @@ class StoreLocatorStack extends Component {
             headerTitleStyle: {
               color: 'white',
               fontWeight: 'bold',
-              fontSize: 28,
+              fontSize: 24,
             },
           }}
         />

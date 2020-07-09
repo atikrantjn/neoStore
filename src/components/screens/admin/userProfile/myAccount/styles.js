@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
   registerInput: {
     marginHorizontal: 50,
-    marginVertical: 8,
+    marginVertical: 15,
     height: 45,
   },
   customBtnBG: {

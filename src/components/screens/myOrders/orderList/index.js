@@ -91,13 +91,13 @@ export class OrderList extends Component {
         {this.state.isLoading ? (
           <Loader />
         ) : (
-          <View>
+          <View
+            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
             {this.state.placedOrderDetails.length === 0 ? (
               <View
                 style={{
                   justifyContent: 'center',
                   alignItems: 'center',
-                  flex: 1,
                 }}>
                 <View>
                   <FaIcon size={98} name="frown-open" />
@@ -110,6 +110,7 @@ export class OrderList extends Component {
               <FlatList
                 data={this.state.placedOrderDetails}
                 ItemSeparatorComponent={this.FlatListItemSeparator}
+                ListFooterComponent={this.FlatListItemSeparator}
                 renderItem={({item}) => {
                   let totalCost = item.product_details[0].total_cartCost;
 

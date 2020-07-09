@@ -14,6 +14,7 @@ import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import AsyncStorage from '@react-native-community/async-storage';
 import {API_URL, request} from '../../../config/api';
+import Loader from '../../custom/loaderComponent/loader';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 export class ForgotPassword extends Component {
@@ -24,6 +25,7 @@ export class ForgotPassword extends Component {
       emailErr: '',
       showAlert: false,
       token: '',
+      isLoading: false,
     };
   }
 
@@ -67,6 +69,7 @@ export class ForgotPassword extends Component {
       email: this.state.email,
     };
     if (useremail) {
+      this.setState({isLoading: true});
       request(
         this.forgotPasscallback,
         data,
@@ -80,8 +83,9 @@ export class ForgotPassword extends Component {
   // api callback of forgot password
 
   forgotPasscallback = {
-    success: response => {
-      this.storeData(response);
+    success: async response => {
+      await this.storeData(response);
+      this.setState({isLoading: false});
       this.showAlert();
 
       setTimeout(() => {
@@ -90,6 +94,7 @@ export class ForgotPassword extends Component {
       }, 5000);
     },
     error: error => {
+      this.setState({isLoading: false});
       Alert.alert('Error', error.message);
     },
   };
@@ -120,7 +125,7 @@ export class ForgotPassword extends Component {
           <View style={styles.registerInput}>
             <MatIcon
               name="email"
-              size={25}
+              size={20}
               style={{
                 position: 'absolute',
                 top: 10,
@@ -143,6 +148,8 @@ export class ForgotPassword extends Component {
               <Text style={{color: 'white'}}>{this.state.emailErr}</Text>
             ) : null}
           </View>
+
+          {this.state.isLoading ? <Loader /> : null}
           <View>
             <TouchableOpacity
               onPress={() => {

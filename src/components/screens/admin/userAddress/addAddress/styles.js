@@ -139,12 +139,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.themeColor,
     borderRadius: 7,
     paddingVertical: 8,
-    paddingHorizontal: 20,
   },
 
   saveAddressBtnText: {
-    fontSize: 18,
-
+    fontSize: 16,
     color: 'white',
     textAlign: 'center',
   },

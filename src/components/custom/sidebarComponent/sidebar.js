@@ -61,13 +61,15 @@ export default class Sidebar extends Component {
       )
 
       .then(response => response.json())
-      .then(respData => {
+      .then(async respData => {
         let keys = ['userData', 'cartData'];
 
         if (respData.success) {
-          AsyncStorage.multiRemove(keys, err => {
+          await AsyncStorage.multiRemove(keys, err => {
+            console.log('err', err);
             this.setState({cartData: []});
           });
+          console.log(this.state.cartData);
           Alert.alert('Success', respData.message, [
             {
               text: 'OK',

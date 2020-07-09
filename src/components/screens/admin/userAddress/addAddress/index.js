@@ -403,33 +403,30 @@ class AddAddress extends Component {
             style={{
               flex: 1,
               flexDirection: 'row',
-              justifyContent: 'space-evenly',
+              justifyContent: 'space-around',
               alignItems: 'center',
 
               marginBottom: 15,
             }}>
-            <View style={{flex: 0.5}}>
-              <TouchableOpacity
-                style={{marginHorizontal: 15}}
-                onPress={() => {
-                  this.saveAddress();
-                }}>
-                <View style={styles.saveAddressBtnBg}>
-                  <Text style={styles.saveAddressBtnText}>SAVE ADDRESS</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-            <View style={{flex: 0.5}}>
-              <TouchableOpacity
-                style={{marginHorizontal: 15}}
-                onPress={() => {
-                  this.props.navigation.navigate('Address List');
-                }}>
-                <View style={styles.saveAddressBtnBg}>
-                  <Text style={styles.saveAddressBtnText}> ADDRESS LIST </Text>
-                </View>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              style={{flex: 0.5, marginHorizontal: 15}}
+              onPress={() => {
+                this.saveAddress();
+              }}>
+              <View style={styles.saveAddressBtnBg}>
+                <Text style={styles.saveAddressBtnText}>SAVE ADDRESS</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={{flex: 0.5, marginHorizontal: 15}}
+              onPress={() => {
+                this.props.navigation.navigate('Address List');
+              }}>
+              <View style={styles.saveAddressBtnBg}>
+                <Text style={styles.saveAddressBtnText}> ADDRESS LIST </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
       </View>

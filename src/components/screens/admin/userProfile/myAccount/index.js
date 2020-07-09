@@ -92,20 +92,19 @@ export class MyAccount extends Component {
             style={{
               flexDirection: 'row',
               justifyContent: 'center',
-
               marginVertical: 15,
             }}>
             {customerData.profile_img === null ? (
               <Image
                 source={images.userIcon}
-                style={{height: 150, width: 150, borderRadius: 100}}
+                style={{height: 130, width: 130, borderRadius: 65}}
               />
             ) : (
               <Image
                 source={{
                   uri: BASE_URL + customerData.profile_img,
                 }}
-                style={{height: 130, width: 130, borderRadius: 100}}
+                style={{height: 130, width: 130, borderRadius: 65}}
               />
             )}
           </View>
@@ -113,10 +112,10 @@ export class MyAccount extends Component {
           <View style={styles.registerInput}>
             <FaIcon
               name="user"
-              size={25}
+              size={20}
               style={{
                 position: 'absolute',
-                top: 10,
+                top: 12,
                 left: 10,
                 color: 'white',
               }}
@@ -132,10 +131,10 @@ export class MyAccount extends Component {
           <View style={styles.registerInput}>
             <FaIcon
               name="user"
-              size={25}
+              size={20}
               style={{
                 position: 'absolute',
-                top: 10,
+                top: 12,
                 left: 10,
                 color: 'white',
               }}
@@ -151,10 +150,10 @@ export class MyAccount extends Component {
           <View style={styles.registerInput}>
             <MatIcon
               name="email"
-              size={25}
+              size={20}
               style={{
                 position: 'absolute',
-                top: 10,
+                top: 12,
                 left: 10,
                 color: 'white',
               }}
@@ -170,10 +169,10 @@ export class MyAccount extends Component {
           <View style={styles.registerInput}>
             <FaIcon
               name="phone"
-              size={25}
+              size={20}
               style={{
                 position: 'absolute',
-                top: 10,
+                top: 12,
                 left: 10,
                 color: 'white',
               }}

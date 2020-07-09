@@ -324,67 +324,74 @@ export class OrderSummary extends Component {
                 const productItem = JSON.parse(JSON.stringify(item));
 
                 return (
-                  <View style={styles.rendercontainer}>
-                    <View style={styles.renderFirstRowContainer}>
-                      <Text style={styles.renderproductName}>
-                        {productItem.product_id.product_name}
-                      </Text>
+                  <View>
+                    {this.state.isLoading ? (
+                      <Loader />
+                    ) : (
+                      <View style={styles.rendercontainer}>
+                        <View style={styles.renderFirstRowContainer}>
+                          <Text style={styles.renderproductName}>
+                            {productItem.product_id.product_name}
+                          </Text>
 
-                      <Image
-                        style={styles.renderimageStyle}
-                        source={{
-                          uri: BASE_URL + productItem.product_id.product_image,
-                        }}
-                      />
-                    </View>
-
-                    <View style={styles.rendetSecondRowContainer}>
-                      <Text style={styles.renderproductMaterial}>
-                        {productItem.product_id.product_material}
-                      </Text>
-
-                      <View style={styles.renderproductCostContainer}>
-                        <Text style={styles.productCost}>
-                          {'Rs' +
-                            ' ' +
-                            item.quantity * productItem.product_cost}
-                        </Text>
-                      </View>
-                    </View>
-
-                    <View
-                      style={{
-                        marginTop: 5,
-                      }}>
-                      <View style={styles.quantityContainer}>
-                        <TouchableOpacity>
-                          <FaIcon
-                            name={'minus'}
-                            style={styles.minusBtn}
-                            size={16}
-                            onPress={() => {
-                              const p_id = item._id;
-                              this.decreaseQuantity(p_id);
+                          <Image
+                            style={styles.renderimageStyle}
+                            source={{
+                              uri:
+                                BASE_URL + productItem.product_id.product_image,
                             }}
                           />
-                        </TouchableOpacity>
-                        <Text style={styles.quantityItemText}>
-                          {item.quantity}
-                        </Text>
+                        </View>
 
-                        <TouchableOpacity>
-                          <FaIcon
-                            style={styles.plusBtn}
-                            name={'plus'}
-                            size={16}
-                            onPress={() => {
-                              const p_id = item._id;
-                              this.increaseQuantity(p_id);
-                            }}
-                          />
-                        </TouchableOpacity>
+                        <View style={styles.rendetSecondRowContainer}>
+                          <Text style={styles.renderproductMaterial}>
+                            {productItem.product_id.product_material}
+                          </Text>
+
+                          <View style={styles.renderproductCostContainer}>
+                            <Text style={styles.productCost}>
+                              {'Rs' +
+                                ' ' +
+                                item.quantity * productItem.product_cost}
+                            </Text>
+                          </View>
+                        </View>
+
+                        <View
+                          style={{
+                            marginTop: 5,
+                          }}>
+                          <View style={styles.quantityContainer}>
+                            <TouchableOpacity>
+                              <FaIcon
+                                name={'minus'}
+                                style={styles.minusBtn}
+                                size={16}
+                                onPress={() => {
+                                  const p_id = item._id;
+                                  this.decreaseQuantity(p_id);
+                                }}
+                              />
+                            </TouchableOpacity>
+                            <Text style={styles.quantityItemText}>
+                              {item.quantity}
+                            </Text>
+
+                            <TouchableOpacity>
+                              <FaIcon
+                                style={styles.plusBtn}
+                                name={'plus'}
+                                size={16}
+                                onPress={() => {
+                                  const p_id = item._id;
+                                  this.increaseQuantity(p_id);
+                                }}
+                              />
+                            </TouchableOpacity>
+                          </View>
+                        </View>
                       </View>
-                    </View>
+                    )}
                   </View>
                 );
               }}

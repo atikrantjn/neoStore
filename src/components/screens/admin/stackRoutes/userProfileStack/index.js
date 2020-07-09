@@ -44,7 +44,7 @@ class userProfileStack extends Component {
               color: 'white',
               fontWeight: 'bold',
 
-              fontSize: 28,
+              fontSize: 24,
             },
           }}
         />
@@ -61,7 +61,7 @@ class userProfileStack extends Component {
               color: 'white',
               fontWeight: 'bold',
 
-              fontSize: 28,
+              fontSize: 24,
             },
           }}
         />
@@ -81,7 +81,7 @@ class userProfileStack extends Component {
               color: 'white',
               fontWeight: 'bold',
 
-              fontSize: 28,
+              fontSize: 24,
             },
           }}
         />

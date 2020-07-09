@@ -200,6 +200,7 @@ export class AddressList extends Component {
 
     return (
       <View style={{flex: 1}}>
+        {this.state.isLoading ? <Loader /> : null}
         <View style={{flex: 1, flexDirection: 'column'}}>
           <Text style={{fontSize: 22, margin: 15, color: '#8B8888'}}>
             Shipping Address
@@ -211,7 +212,7 @@ export class AddressList extends Component {
               backgroundColor: '#b4b4b4',
             }}
           />
-          {this.state.isLoading ? <Loader /> : null}
+
           {addressList.data.length === 0 ? (
             <View
               style={{

@@ -11,9 +11,9 @@ const styles = StyleSheet.create({
   userDetailContainer: {
     flexDirection: 'column',
     justifyContent: 'center',
-    flex: 0.2,
+    flex: 0.18,
     marginHorizontal: 22,
-    marginVertical: 15,
+    marginVertical: 5,
   },
 
   userName: {
@@ -21,13 +21,13 @@ const styles = StyleSheet.create({
   },
 
   userAddressContainer: {
-    marginVertical: 10,
+    marginVertical: 12,
   },
 
   userAddress: {fontSize: 18, fontStyle: 'italic'},
 
   changeAddressBTNcontainer: {
-    marginVertical: 10,
+    marginVertical: 5,
   },
 
   changeAddressBTN: {

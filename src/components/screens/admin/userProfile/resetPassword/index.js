@@ -1,18 +1,11 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  TextInput,
-  Alert,
-  ScrollView,
-  Dimensions,
-} from 'react-native';
+import {Text, View, TouchableOpacity, TextInput, Alert} from 'react-native';
 import styles from './styles';
 import AsyncStorage from '@react-native-community/async-storage';
 import {API_URL, request} from '../../../../../config/api';
 
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
+import Loader from '../../../../custom/loaderComponent/loader';
 
 export class ResetPassword extends Component {
   constructor(props) {
@@ -30,6 +23,7 @@ export class ResetPassword extends Component {
       newpassErr: '',
 
       hidePassword: true,
+      isLoading: false,
     };
   }
 
@@ -60,6 +54,8 @@ export class ResetPassword extends Component {
       Authorization: 'Bearer ' + token,
     };
 
+    this.setState({isLoading: true});
+
     request(
       this.changePassCallback,
       postData,
@@ -77,6 +73,7 @@ export class ResetPassword extends Component {
         newpass: '',
         pass: '',
         confirmPass: '',
+        isLoading: false,
       });
 
       Alert.alert(
@@ -99,6 +96,7 @@ export class ResetPassword extends Component {
       );
     },
     error: error => {
+      this.setState({isLoading: false});
       Alert.alert(
         'Error',
         error.message,
@@ -193,6 +191,8 @@ export class ResetPassword extends Component {
         <View style={styles.textContainer}>
           <Text style={styles.neostoreHeader}>NeoSTORE</Text>
         </View>
+
+        {this.state.isLoading ? <Loader /> : null}
 
         <View style={{flex: 1}}>
           <View style={styles.registerInput}>

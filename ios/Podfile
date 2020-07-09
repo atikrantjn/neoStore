@@ -50,6 +50,8 @@ target 'secondDemo' do
   pod 'RNDateTimePicker', :path => '../node_modules/@react-native-community/datetimepicker'
 
 
+  pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
+
   target 'secondDemoTests' do
     inherit! :search_paths
     # Pods for testing

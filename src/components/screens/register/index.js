@@ -378,11 +378,11 @@ class Register extends Component {
               <Text style={styles.genderText}>Gender</Text>
               <RadioForm
                 radio_props={gender}
-                buttonSize={20}
-                buttonOuterSize={30}
+                buttonSize={15}
+                buttonOuterSize={25}
                 selectedButtonColor="white"
                 selectedLabelColor="white"
-                labelStyle={{fontSize: 20, marginTop: 5, color: 'white'}}
+                labelStyle={{fontSize: 18, color: 'white'}}
                 formHorizontal={true}
                 radioStyle={{paddingRight: 20}}
                 disable={true}
@@ -423,7 +423,7 @@ class Register extends Component {
 
             <View style={styles.checkbox}>
               <CheckBox
-                style={{padding: 10}}
+                style={{padding: 5}}
                 onClick={() => {
                   this.setState({
                     isChecked: !this.state.isChecked,
@@ -454,18 +454,18 @@ class Register extends Component {
                   this.validateRegisterForm();
                 }}>
                 <View style={styles.registerFormBtn}>
-                  <Text style={styles.registerFormBtnText}> Register </Text>
+                  <Text style={styles.registerFormBtnText}>Register</Text>
                 </View>
               </TouchableOpacity>
             </View>
             <AwesomeAlert
               show={showAlert}
               title="Registered User"
-              message="Registered successfully,redirecting to login screen...."
+              message="Registered successfully,redirecting to login screen..."
               closeOnTouchOutside={true}
               closeOnHardwareBackPress={false}
-              messageStyle={{color: 'green', fontSize: 18}}
-              contentContainerStyle={{width: 350, height: 120}}
+              messageStyle={{color: 'green', fontSize: 16}}
+              contentContainerStyle={{width: 350, height: 160}}
             />
           </View>
         </View>
