@@ -9,7 +9,8 @@ import {
 } from 'react-native';
 import {request, API_URL} from '../../../../../config/api';
 import AsyncStorage from '@react-native-community/async-storage';
-import Loader from '../../../../custom/loaderComponent/loader';
+import ModalLoader from '../../../../custom/modalLoader/index';
+import styles from './styles';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -17,7 +18,6 @@ import {setAddressListData} from '../../../../../redux/actions';
 
 import {Radio} from 'native-base';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
-import colors from '../../../../../utils/colors';
 export class AddressList extends Component {
   constructor(props) {
     super(props);
@@ -79,12 +79,12 @@ export class AddressList extends Component {
   custAddressCallback = {
     success: response => {
       const {setAddressListData} = this.props;
+      this.setState({isLoading: false});
 
       setAddressListData(response.customer_address);
-      this.setState({isLoading: false});
     },
     error: error => {
-      console.log(error, 'rrrr');
+      Alert.alert('Error', error.message);
     },
   };
 
@@ -98,16 +98,18 @@ export class AddressList extends Component {
       Authorization: 'Bearer ' + this.state.token,
     };
 
-    if (this.state.checked || addressList.data.length !== 0) {
+    if (this.state.checked === true && addressList.data.length !== 0) {
       this.setState({isLoading: true});
 
-      request(
-        this.updateAddressCallback,
-        data,
-        'PUT',
-        API_URL.UPDATE_ADDRESS_API,
-        header,
-      );
+      setTimeout(() => {
+        request(
+          this.updateAddressCallback,
+          data,
+          'PUT',
+          API_URL.UPDATE_ADDRESS_API,
+          header,
+        );
+      }, 2000);
     } else {
       Alert.alert('Error', 'Please select one address first');
     }
@@ -115,13 +117,13 @@ export class AddressList extends Component {
 
   updateAddressCallback = {
     success: response => {
+      this.setState({isLoading: false});
       const title = 'success';
       const message = response.message;
       const buttons = [
         {
           text: 'ok',
           onPress: () => {
-            this.setState({isLoading: false});
             this.props.navigation.navigate('OrderSummary', {
               updatedAddress: true,
             });
@@ -159,27 +161,31 @@ export class AddressList extends Component {
       Authorization: 'Bearer ' + this.state.token,
     };
 
-    request(
-      this.deleteAddressCallback,
-      data,
-      'DELETE',
-      API_URL.REMOVE_ADDRESS_API + id,
-      header,
-    );
+    this.setState({isLoading: true});
+    setTimeout(() => {
+      request(
+        this.deleteAddressCallback,
+        data,
+        'DELETE',
+        API_URL.REMOVE_ADDRESS_API + id,
+        header,
+      );
+    }, 2000);
   };
 
   deleteAddressCallback = {
     success: response => {
+      this.setState({isLoading: false});
       Alert.alert('Success', response.message, [
         {
           text: 'OK',
-          onPress: () => {
-            this.recievedData();
-          },
+          onPress: () => {},
         },
       ]);
     },
     error: error => {
+      this.setState({isLoading: false});
+
       Alert.alert('Error', error.message);
     },
   };
@@ -196,34 +202,21 @@ export class AddressList extends Component {
     const fullName =
       this.state.data.first_name + ' ' + this.state.data.last_name;
 
-    const deviceWidth = Dimensions.get('window').width;
-
     return (
-      <View style={{flex: 1}}>
-        {this.state.isLoading ? <Loader /> : null}
-        <View style={{flex: 1, flexDirection: 'column'}}>
-          <Text style={{fontSize: 22, margin: 15, color: '#8B8888'}}>
-            Shipping Address
-          </Text>
-          <View
-            style={{
-              height: 2,
-              width: '100%',
-              backgroundColor: '#b4b4b4',
-            }}
-          />
+      <View style={styles.mainContainer}>
+        {this.state.isLoading ? (
+          <ModalLoader isLoading={this.state.isLoading} />
+        ) : null}
+        <View style={styles.shippingAddressContainer}>
+          <Text style={styles.shippingAddressText}>Shipping Address</Text>
+          <View style={styles.seperator} />
 
           {addressList.data.length === 0 ? (
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                flex: 1,
-              }}>
+            <View style={styles.emptyContainer}>
               <View>
                 <FaIcon size={88} name="frown-open" />
               </View>
-              <Text style={{fontSize: 20, textAlign: 'center'}}>
+              <Text style={styles.emptyText}>
                 Oooopsssss address not found!!
               </Text>
             </View>
@@ -234,14 +227,8 @@ export class AddressList extends Component {
               ListFooterComponent={this.FlatListItemSeparator}
               renderItem={({item}) => {
                 return (
-                  <View
-                    style={{
-                      flex: 1,
-                      flexDirection: 'row',
-                      width: deviceWidth,
-                      marginVertical: 10,
-                    }}>
-                    <View style={{marginTop: 30, marginHorizontal: 10}}>
+                  <View style={styles.renderMainContainer}>
+                    <View style={styles.renderRadioContainer}>
                       <Radio
                         onPress={() => {
                           this.setState({
@@ -256,9 +243,6 @@ export class AddressList extends Component {
                               ', ' +
                               item.country,
 
-                            checked: true,
-                          });
-                          this.setState({
                             custmorAddress: {
                               address_id: item.address_id,
                               address: item.address,
@@ -268,6 +252,7 @@ export class AddressList extends Component {
                               country: item.country,
                               isDeliveryAddress: true,
                             },
+                            checked: true,
                           });
                         }}
                         selected={
@@ -285,18 +270,11 @@ export class AddressList extends Component {
                         selectedColor="blue"
                       />
                     </View>
-                    <View style={{flex: 1}}>
-                      <View style={{flexDirection: 'column'}}>
-                        <Text style={{marginHorizontal: 10, fontSize: 20}}>
-                          {fullName}
-                        </Text>
-                        <View style={{flexDirection: 'row'}}>
-                          <Text
-                            style={{
-                              marginHorizontal: 10,
-                              fontSize: 18,
-                              width: '70%',
-                            }}>
+                    <View style={styles.renderAddressContainer}>
+                      <View style={styles.renderAddressRow}>
+                        <Text style={styles.renderNameText}>{fullName}</Text>
+                        <View style={styles.renderAddressRowContainer}>
+                          <Text style={styles.renderAddressText}>
                             {item.address}
                           </Text>
 
@@ -304,31 +282,13 @@ export class AddressList extends Component {
                             onPress={() => {
                               this.removeAddress(item.address_id);
                             }}>
-                            <View
-                              style={{
-                                borderRadius: 7,
-                                padding: 7,
-                                backgroundColor: colors.themeColor,
-                                paddingVertical: 8,
-                                paddingHorizontal: 10,
-                              }}>
-                              <Text
-                                style={{
-                                  fontSize: 15,
-                                  color: 'white',
-                                  textAlign: 'center',
-                                }}>
-                                Remove
-                              </Text>
+                            <View style={styles.renderRemoveBtnContainer}>
+                              <Text style={styles.removeBtnText}>Remove</Text>
                             </View>
                           </TouchableOpacity>
                         </View>
                         <View>
-                          <Text
-                            style={{
-                              marginHorizontal: 10,
-                              fontSize: 18,
-                            }}>
+                          <Text style={styles.renderPinCountryText}>
                             {item.pincode},{item.country}
                           </Text>
                         </View>
@@ -343,26 +303,12 @@ export class AddressList extends Component {
         </View>
         <View>
           <TouchableOpacity
-            style={{marginHorizontal: 15}}
+            style={styles.footerContainer}
             onPress={() => {
               this.updateAddress();
             }}>
-            <View
-              style={{
-                backgroundColor: colors.themeColor,
-                borderRadius: 7,
-                paddingVertical: 6,
-                paddingHorizontal: 14,
-                marginVertical: 10,
-              }}>
-              <Text
-                style={{
-                  fontSize: 20,
-                  color: 'white',
-                  textAlign: 'center',
-                }}>
-                SAVE ADDRESS
-              </Text>
+            <View style={styles.footerBtnContainer}>
+              <Text style={styles.footerBtnText}>SAVE ADDRESS</Text>
             </View>
           </TouchableOpacity>
         </View>

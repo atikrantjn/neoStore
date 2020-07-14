@@ -18,7 +18,7 @@ import {BASE_URL, API_URL} from '../../../../../config/api';
 import AsyncStorage from '@react-native-community/async-storage';
 import ImagePicker from 'react-native-image-picker';
 import RNFetchBlob from 'rn-fetch-blob';
-import Loader from '../../../../custom/loaderComponent/loader';
+import Loader from '../../../../custom/modalLoader/index';
 
 export class EditProfile extends Component {
   constructor(props) {
@@ -48,7 +48,7 @@ export class EditProfile extends Component {
       isLoading: false,
 
       noImgSelected: false,
-      emptyImage: true,
+
       customerData: {},
     };
   }
@@ -126,7 +126,7 @@ export class EditProfile extends Component {
   };
 
   updateProfile = () => {
-    const {token, profile_img, noImgSelected, emptyImage} = this.state;
+    const {token, profile_img, noImgSelected} = this.state;
 
     let fname = this.validateName();
     let lname = this.validateLastName();
@@ -135,6 +135,7 @@ export class EditProfile extends Component {
     let dob = this.validateDob();
 
     if (fname && lname && email && phone && dob) {
+      this.setState({isLoading: true});
       RNFetchBlob.fetch(
         'PUT',
         BASE_URL + API_URL.EDIT_USER_PROFILE_API,
@@ -188,6 +189,11 @@ export class EditProfile extends Component {
               })
               .done();
 
+            this.setState({
+              img: data.customer_details.profile_img,
+              isLoading: false,
+            });
+
             Alert.alert(
               'Success',
               data.message,
@@ -203,13 +209,10 @@ export class EditProfile extends Component {
               ],
               {cancelable: false},
             );
-
-            this.setState({
-              img: data.customer_details.profile_img,
-            });
           }
         })
         .catch(err => {
+          this.setState({isLoading: false});
           // ...
           Alert.alert('Error', 'Oopsssss something went wrong');
         });
@@ -241,7 +244,7 @@ export class EditProfile extends Component {
     };
     ImagePicker.showImagePicker(options, response => {
       if (response.didCancel) {
-        this.setState({noImgSelected: true, emptyImage: false});
+        this.setState({noImgSelected: true});
       } else {
         this.setState({profile_img: response});
       }
@@ -252,44 +255,26 @@ export class EditProfile extends Component {
     return (
       <ScrollView style={styles.mainContainer}>
         <View style={styles.container}>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              marginVertical: 15,
-            }}>
+          <View style={styles.imageContainer}>
             <TouchableOpacity
               onPress={() => {
                 this.chooseFile();
               }}>
               {this.state.img === null ? (
-                <Image
-                  source={images.userIcon}
-                  style={{height: 150, width: 150, borderRadius: 100}}
-                />
+                <Image source={images.userIcon} style={styles.imageStyle} />
               ) : (
                 <Image
                   source={{
                     uri: BASE_URL + this.state.img,
                   }}
-                  style={{height: 150, width: 150, borderRadius: 100}}
+                  style={styles.imageStyle}
                 />
               )}
             </TouchableOpacity>
           </View>
 
           <View style={styles.registerInput}>
-            <FaIcon
-              name="user"
-              size={25}
-              style={{
-                position: 'absolute',
-                top: 10,
-                left: 10,
-                color: 'white',
-              }}
-            />
+            <FaIcon name="user" size={25} style={styles.iconStyle} />
             <TextInput
               style={styles.input}
               value={this.state.first_name}
@@ -302,21 +287,12 @@ export class EditProfile extends Component {
             />
 
             {this.state.firstNameErr ? (
-              <Text style={{color: 'white'}}>{this.state.firstNameErr}</Text>
+              <Text style={styles.errorText}>{this.state.firstNameErr}</Text>
             ) : null}
           </View>
 
           <View style={styles.registerInput}>
-            <FaIcon
-              name="user"
-              size={25}
-              style={{
-                position: 'absolute',
-                top: 10,
-                left: 10,
-                color: 'white',
-              }}
-            />
+            <FaIcon name="user" size={25} style={styles.iconStyle} />
             <TextInput
               style={styles.input}
               value={this.state.last_name}
@@ -328,22 +304,15 @@ export class EditProfile extends Component {
               }}
             />
             {this.state.lastNameErr ? (
-              <Text style={{color: 'white'}}>{this.state.lastNameErr}</Text>
+              <Text style={styles.errorText}>{this.state.lastNameErr}</Text>
             ) : null}
           </View>
-          {this.state.isLoading ? <Loader /> : null}
+          {this.state.isLoading ? (
+            <Loader isLoading={this.state.isLoading} />
+          ) : null}
 
           <View style={styles.registerInput}>
-            <MatIcon
-              name="email"
-              size={25}
-              style={{
-                position: 'absolute',
-                top: 10,
-                left: 10,
-                color: 'white',
-              }}
-            />
+            <MatIcon name="email" size={25} style={styles.iconStyle} />
             <TextInput
               style={styles.input}
               value={this.state.email}
@@ -357,21 +326,12 @@ export class EditProfile extends Component {
               }}
             />
             {this.state.emailErr ? (
-              <Text style={{color: 'white'}}>{this.state.emailErr}</Text>
+              <Text style={styles.errorText}>{this.state.emailErr}</Text>
             ) : null}
           </View>
 
           <View style={styles.registerInput}>
-            <FaIcon
-              name="phone"
-              size={25}
-              style={{
-                position: 'absolute',
-                top: 10,
-                left: 10,
-                color: 'white',
-              }}
-            />
+            <FaIcon name="phone" size={25} style={styles.iconStyle} />
             <TextInput
               style={styles.input}
               value={this.state.phone_no}
@@ -386,19 +346,14 @@ export class EditProfile extends Component {
               }}
             />
             {this.state.phoneErr ? (
-              <Text style={{color: 'white'}}>{this.state.phoneErr}</Text>
+              <Text style={styles.errorText}>{this.state.phoneErr}</Text>
             ) : null}
           </View>
 
           <View style={styles.registerInput}>
             <DatePicker
               date={this.state.dob}
-              style={{
-                width: '100%',
-                color: 'white',
-                borderColor: 'white',
-                borderWidth: 1.5,
-              }}
+              style={styles.datePickerStyle}
               mode="date"
               maxDate={new Date()}
               placeholder="select date"
@@ -423,10 +378,11 @@ export class EditProfile extends Component {
               }}
             />
             {this.state.dobErr ? (
-              <Text style={{color: 'white'}}>{this.state.dobErr}</Text>
+              <Text style={styles.errorText}>{this.state.dobErr}</Text>
             ) : null}
           </View>
-          <View style={{marginHorizontal: 50, marginBottom: 10}}>
+
+          <View style={styles.footerBtnContainer}>
             <TouchableOpacity
               onPress={() => {
                 this.updateProfile();

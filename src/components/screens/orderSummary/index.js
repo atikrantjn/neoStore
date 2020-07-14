@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import styles from './styles';
-import Loader from '../../custom/loaderComponent/loader';
+import ModalLoader from '../../custom/modalLoader/index';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import {BASE_URL, API_URL, request, api} from '../../../config/api';
@@ -210,9 +210,9 @@ export class OrderSummary extends Component {
 
     let totalCost = arr.reduce((a, b) => a + b, 0);
 
-    let gst = parseInt(totalCost) * 0.05;
+    let gst = parseInt(totalCost * 0.05);
 
-    let totalOrder = parseInt(totalCost) + parseInt(gst);
+    let totalOrder = parseInt(totalCost + parseInt(gst));
 
     this.setState({totalOrder});
   };
@@ -241,7 +241,7 @@ export class OrderSummary extends Component {
       Authorization: 'Bearer ' + this.state.token,
     };
 
-    // this.setState({isLoading: true});
+    this.setState({isLoading: true});
 
     request(
       this.custAddressCallback,
@@ -263,7 +263,7 @@ export class OrderSummary extends Component {
       let address = a.map(s => {
         return s.address + ',' + s.pincode + ',' + s.country;
       });
-      this.setState({custAddress: address});
+      this.setState({custAddress: address, isLoading: false});
     },
     error: error => {
       let empty = error.message;
@@ -288,6 +288,9 @@ export class OrderSummary extends Component {
 
     return (
       <View style={styles.mainContainer}>
+        {this.state.isLoading ? (
+          <ModalLoader isLoading={this.state.isLoading} />
+        ) : null}
         <View style={styles.userDetailContainer}>
           <View>
             <Text style={styles.userName}>{userFullName}</Text>
@@ -325,73 +328,66 @@ export class OrderSummary extends Component {
 
                 return (
                   <View>
-                    {this.state.isLoading ? (
-                      <Loader />
-                    ) : (
-                      <View style={styles.rendercontainer}>
-                        <View style={styles.renderFirstRowContainer}>
-                          <Text style={styles.renderproductName}>
-                            {productItem.product_id.product_name}
+                    <View style={styles.rendercontainer}>
+                      <View style={styles.renderFirstRowContainer}>
+                        <Text style={styles.renderproductName}>
+                          {productItem.product_id.product_name}
+                        </Text>
+
+                        <Image
+                          style={styles.renderimageStyle}
+                          source={{
+                            uri:
+                              BASE_URL + productItem.product_id.product_image,
+                          }}
+                        />
+                      </View>
+
+                      <View style={styles.rendetSecondRowContainer}>
+                        <Text style={styles.renderproductMaterial}>
+                          {productItem.product_id.product_material}
+                        </Text>
+
+                        <View style={styles.renderproductCostContainer}>
+                          <Text style={styles.productCost}>
+                            {'Rs' +
+                              ' ' +
+                              item.quantity * productItem.product_cost}
                           </Text>
-
-                          <Image
-                            style={styles.renderimageStyle}
-                            source={{
-                              uri:
-                                BASE_URL + productItem.product_id.product_image,
-                            }}
-                          />
-                        </View>
-
-                        <View style={styles.rendetSecondRowContainer}>
-                          <Text style={styles.renderproductMaterial}>
-                            {productItem.product_id.product_material}
-                          </Text>
-
-                          <View style={styles.renderproductCostContainer}>
-                            <Text style={styles.productCost}>
-                              {'Rs' +
-                                ' ' +
-                                item.quantity * productItem.product_cost}
-                            </Text>
-                          </View>
-                        </View>
-
-                        <View
-                          style={{
-                            marginTop: 5,
-                          }}>
-                          <View style={styles.quantityContainer}>
-                            <TouchableOpacity>
-                              <FaIcon
-                                name={'minus'}
-                                style={styles.minusBtn}
-                                size={16}
-                                onPress={() => {
-                                  const p_id = item._id;
-                                  this.decreaseQuantity(p_id);
-                                }}
-                              />
-                            </TouchableOpacity>
-                            <Text style={styles.quantityItemText}>
-                              {item.quantity}
-                            </Text>
-
-                            <TouchableOpacity>
-                              <FaIcon
-                                style={styles.plusBtn}
-                                name={'plus'}
-                                size={16}
-                                onPress={() => {
-                                  const p_id = item._id;
-                                  this.increaseQuantity(p_id);
-                                }}
-                              />
-                            </TouchableOpacity>
-                          </View>
                         </View>
                       </View>
-                    )}
+
+                      <View style={styles.renderQuantity}>
+                        <View style={styles.quantityContainer}>
+                          <TouchableOpacity>
+                            <FaIcon
+                              name={'minus'}
+                              style={styles.minusBtn}
+                              size={16}
+                              onPress={() => {
+                                const p_id = item._id;
+                                this.decreaseQuantity(p_id);
+                              }}
+                            />
+                          </TouchableOpacity>
+                          <Text style={styles.quantityItemText}>
+                            {item.quantity}
+                          </Text>
+
+                          <TouchableOpacity>
+                            <FaIcon
+                              style={styles.plusBtn}
+                              name={'plus'}
+                              size={16}
+                              onPress={() => {
+                                const p_id = item._id;
+                                this.increaseQuantity(p_id);
+                              }}
+                            />
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                    </View>
                   </View>
                 );
               }}
@@ -410,7 +406,7 @@ export class OrderSummary extends Component {
           <View style={styles.productCostContainer}>
             <View>
               <Text style={styles.productPrice}>
-                Price <Text style={{fontSize: 17}}>(included 5% gst)</Text>
+                Price <Text style={styles.priceText}>(included 5% gst)</Text>
               </Text>
             </View>
             <View>

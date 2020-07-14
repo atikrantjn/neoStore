@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
-  ActivityIndicator,
 } from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import CheckBox from 'react-native-check-box';
@@ -17,6 +16,7 @@ import FaIcon from 'react-native-vector-icons/FontAwesome5';
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {request, API_URL} from '../../../config/api';
+import ModalLoader from '../../custom/modalLoader/index';
 
 class Register extends Component {
   constructor(props) {
@@ -212,7 +212,7 @@ class Register extends Component {
       }, 5000);
     },
     error: err => {
-      Alert.alert('Error', 'Oops something went wrong');
+      Alert.alert('Error', err.message);
       this.setState({isLoading: false});
     },
   };
@@ -231,23 +231,12 @@ class Register extends Component {
             <Text style={styles.neostoreHeader}>NeoSTORE</Text>
           </View>
           {this.state.isLoading ? (
-            <View style={styles.loader}>
-              <ActivityIndicator size="large" color="#0000ff" />
-            </View>
+            <ModalLoader isLoading={this.state.isLoading} />
           ) : null}
 
           <View>
             <View style={styles.registerInput}>
-              <FaIcon
-                name="user"
-                size={25}
-                style={{
-                  position: 'absolute',
-                  top: 10,
-                  left: 10,
-                  color: 'white',
-                }}
-              />
+              <FaIcon name="user" size={25} style={styles.iconStyle} />
               <TextInput
                 style={styles.input}
                 placeholder="First Name"
@@ -260,21 +249,14 @@ class Register extends Component {
                 }}
               />
               {this.state.firstNameErr ? (
-                <Text style={{color: 'white'}}>{this.state.firstNameErr}</Text>
+                <Text style={styles.errorTextStyle}>
+                  {this.state.firstNameErr}
+                </Text>
               ) : null}
             </View>
 
             <View style={styles.registerInput}>
-              <FaIcon
-                name="user"
-                size={25}
-                style={{
-                  position: 'absolute',
-                  top: 10,
-                  left: 10,
-                  color: 'white',
-                }}
-              />
+              <FaIcon name="user" size={25} style={styles.iconStyle} />
               <TextInput
                 style={styles.input}
                 placeholder="Last Name"
@@ -287,21 +269,14 @@ class Register extends Component {
                 }}
               />
               {this.state.lastNameErr ? (
-                <Text style={{color: 'white'}}>{this.state.lastNameErr}</Text>
+                <Text style={styles.errorTextStyle}>
+                  {this.state.lastNameErr}
+                </Text>
               ) : null}
             </View>
 
             <View style={styles.registerInput}>
-              <MatIcon
-                name="email"
-                size={25}
-                style={{
-                  position: 'absolute',
-                  top: 10,
-                  left: 10,
-                  color: 'white',
-                }}
-              />
+              <MatIcon name="email" size={25} style={styles.iconStyle} />
               <TextInput
                 style={styles.input}
                 placeholder="Email"
@@ -314,21 +289,12 @@ class Register extends Component {
                 }}
               />
               {this.state.emailErr ? (
-                <Text style={{color: 'white'}}>{this.state.emailErr}</Text>
+                <Text style={styles.errorTextStyle}>{this.state.emailErr}</Text>
               ) : null}
             </View>
 
             <View style={styles.registerInput}>
-              <FaIcon
-                name="lock"
-                size={25}
-                style={{
-                  position: 'absolute',
-                  top: 10,
-                  left: 10,
-                  color: 'white',
-                }}
-              />
+              <FaIcon name="lock" size={25} style={styles.iconStyle} />
               <TextInput
                 style={styles.input}
                 placeholder="Password"
@@ -342,20 +308,13 @@ class Register extends Component {
                 }}
               />
               {this.state.passwordErr ? (
-                <Text style={{color: 'white'}}>{this.state.passwordErr}</Text>
+                <Text style={styles.errorTextStyle}>
+                  {this.state.passwordErr}
+                </Text>
               ) : null}
             </View>
             <View style={styles.registerInput}>
-              <FaIcon
-                name="lock"
-                size={25}
-                style={{
-                  position: 'absolute',
-                  top: 10,
-                  left: 10,
-                  color: 'white',
-                }}
-              />
+              <FaIcon name="lock" size={25} style={styles.iconStyle} />
               <TextInput
                 style={styles.input}
                 placeholder="Confirm Password"
@@ -369,7 +328,7 @@ class Register extends Component {
                 }}
               />
               {this.state.confirmPasswordErr ? (
-                <Text style={{color: 'white'}}>
+                <Text style={styles.errorTextStyle}>
                   {this.state.confirmPasswordErr}
                 </Text>
               ) : null}
@@ -382,9 +341,9 @@ class Register extends Component {
                 buttonOuterSize={25}
                 selectedButtonColor="white"
                 selectedLabelColor="white"
-                labelStyle={{fontSize: 18, color: 'white'}}
+                labelStyle={styles.radioLabelStyle}
                 formHorizontal={true}
-                radioStyle={{paddingRight: 20}}
+                radioStyle={styles.radioBtnStyle}
                 disable={true}
                 onPress={gender => {
                   this.setState({gender});
@@ -393,16 +352,7 @@ class Register extends Component {
             </View>
 
             <View style={styles.registerInput}>
-              <FaIcon
-                name="phone"
-                size={25}
-                style={{
-                  position: 'absolute',
-                  top: 10,
-                  left: 10,
-                  color: 'white',
-                }}
-              />
+              <FaIcon name="phone" size={25} style={styles.iconStyle} />
               <TextInput
                 style={styles.input}
                 placeholder="Phone Number"
@@ -417,13 +367,13 @@ class Register extends Component {
                 }}
               />
               {this.state.phoneErr ? (
-                <Text style={{color: 'white'}}>{this.state.phoneErr}</Text>
+                <Text style={styles.errorTextStyle}>{this.state.phoneErr}</Text>
               ) : null}
             </View>
 
             <View style={styles.checkbox}>
               <CheckBox
-                style={{padding: 5}}
+                style={styles.checkBoxStyle}
                 onClick={() => {
                   this.setState({
                     isChecked: !this.state.isChecked,
@@ -431,24 +381,16 @@ class Register extends Component {
                 }}
                 isChecked={this.state.isChecked}
                 rightText={'I agree Terms & Conditions'}
-                rightTextStyle={{
-                  color: 'white',
-                  fontSize: 18,
-                  fontWeight: 'bold',
-                }}
+                rightTextStyle={styles.termsConditionText}
                 checkBoxColor="white"
               />
               {!this.state.isChecked ? (
-                <Text
-                  style={{
-                    color: 'white',
-                    paddingHorizontal: 10,
-                  }}>
+                <Text style={styles.termsErrorText}>
                   please check terms and conditions
                 </Text>
               ) : null}
             </View>
-            <View style={{marginHorizontal: 50}}>
+            <View style={styles.footerBtnContainer}>
               <TouchableOpacity
                 onPress={() => {
                   this.validateRegisterForm();
@@ -460,12 +402,12 @@ class Register extends Component {
             </View>
             <AwesomeAlert
               show={showAlert}
-              title="Registered User"
+              title="Success"
               message="Registered successfully,redirecting to login screen..."
               closeOnTouchOutside={true}
               closeOnHardwareBackPress={false}
-              messageStyle={{color: 'green', fontSize: 16}}
-              contentContainerStyle={{width: 350, height: 160}}
+              messageStyle={styles.alertMessageStyle}
+              contentContainerStyle={styles.alertContainerStyle}
             />
           </View>
         </View>

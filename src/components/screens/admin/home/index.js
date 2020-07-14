@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   FlatList,
   Dimensions,
+  Alert,
 } from 'react-native';
 import {SliderBox} from 'react-native-image-slider-box';
 
@@ -14,12 +15,15 @@ import images from '../../../../utils/images';
 import {BASE_URL, API_URL, request} from '../../../../config/api';
 import {isEmptyObject} from '../../../../config/helpers';
 
+import ModalLoader from '../../../custom/modalLoader/index';
+
 export default class Home extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       dataSource: [],
+      isLoading: false,
     };
   }
 
@@ -28,21 +32,25 @@ export default class Home extends Component {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
 
-    request(
-      this.categoryDataCallback,
-      null,
-      'GET',
-      API_URL.GET_ALL_CATEGORIES,
-      header,
-    );
+    this.setState({isLoading: true});
+
+    setTimeout(() => {
+      request(
+        this.categoryDataCallback,
+        null,
+        'GET',
+        API_URL.GET_ALL_CATEGORIES,
+        header,
+      );
+    }, 3000);
   };
 
   categoryDataCallback = {
     success: response => {
-      this.setState({dataSource: response.category_details});
+      this.setState({dataSource: response.category_details, isLoading: false});
     },
     error: error => {
-      console.log(error, 'rrrr');
+      Alert.alert('Error', error.message);
     },
   };
 
@@ -88,6 +96,7 @@ export default class Home extends Component {
     });
 
     const {width} = Dimensions.get('window');
+
     let arr = this.state.dataSource;
 
     if (arr.length % 2 !== 0) {
@@ -95,6 +104,9 @@ export default class Home extends Component {
     }
     return (
       <View style={styles.container}>
+        {this.state.isLoading ? (
+          <ModalLoader isLoading={this.state.isLoading} />
+        ) : null}
         <View style={{width: width}}>
           <SliderBox
             images={ele}
@@ -106,26 +118,16 @@ export default class Home extends Component {
           />
         </View>
 
-        <View style={{flex: 1, width: width, marginVertical: 10}}>
+        <View style={styles.listContainer}>
           <FlatList
             data={this.state.dataSource}
             numColumns={2}
             renderItem={({item}) => {
               if (isEmptyObject(item)) {
-                return (
-                  <View
-                    style={{flex: 1, marginHorizontal: 10, marginVertical: 10}}
-                  />
-                );
+                return <View style={styles.emptyCard} />;
               }
               return (
-                <View
-                  style={{
-                    flex: 1,
-                    marginHorizontal: 10,
-                    marginVertical: 10,
-                    width: width,
-                  }}>
+                <View style={styles.renderContainer}>
                   <TouchableOpacity
                     style={styles.productCategoryCard}
                     onPress={() => {
@@ -133,22 +135,11 @@ export default class Home extends Component {
                         id: item.category_id,
                       });
                     }}>
-                    <Text
-                      style={{
-                        color: 'white',
-                        fontSize: 28,
-                        textAlign: 'center',
-                      }}>
+                    <Text style={styles.renderCategoryName}>
                       {item.category_name}
                     </Text>
                     <Image
-                      style={{
-                        width: 80,
-                        height: 75,
-                        marginHorizontal: 15,
-                        marginVertical: 5,
-                        padding: 5,
-                      }}
+                      style={styles.renderCategoryIcon}
                       source={
                         item.category_name === 'Sofa'
                           ? images.sofaImage

@@ -5,8 +5,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {API_URL, request} from '../../../config/api';
 import EnIcon from 'react-native-vector-icons/Entypo';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
+import ModalLoader from '../../custom/modalLoader/index';
 
-// const screenWidth = Math.round(Dimensions.get('window').width);
 export class SetPassword extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +20,8 @@ export class SetPassword extends Component {
       newpassErr: '',
       otpError: '',
       data: {},
+
+      isLoading: false,
     };
   }
 
@@ -95,6 +97,7 @@ export class SetPassword extends Component {
     let userconfpass = this.validateConfPass();
 
     if (otp && userpass && userconfpass) {
+      this.setState({isLoading: true});
       this.sendData();
     }
   };
@@ -127,6 +130,7 @@ export class SetPassword extends Component {
 
   setPassCallback = {
     success: response => {
+      this.setState({isLoading: false});
       Alert.alert(
         'Success',
         response.message,
@@ -147,12 +151,13 @@ export class SetPassword extends Component {
       );
     },
     error: error => {
-      Alert.alert('Error', error.message);
       this.setState({
         newPass: '',
         confirmPass: '',
         otpCode: '',
+        isLoading: false,
       });
+      Alert.alert('Error', error.message);
     },
   };
 
@@ -163,18 +168,13 @@ export class SetPassword extends Component {
           <Text style={styles.neostoreHeader}>NeoSTORE</Text>
         </View>
 
-        <View style={{marginHorizontal: 50}}>
+        {this.state.isLoading ? (
+          <ModalLoader isLoading={this.state.isLoading} />
+        ) : null}
+
+        <View style={styles.inputContainerStyle}>
           <View style={styles.inputView}>
-            <EnIcon
-              name="dial-pad"
-              size={28}
-              style={{
-                position: 'absolute',
-                top: 12,
-                left: 10,
-                color: 'white',
-              }}
-            />
+            <EnIcon name="dial-pad" size={28} style={styles.iconStyle} />
             <TextInput
               style={styles.input}
               placeholder="Otp"
@@ -189,20 +189,11 @@ export class SetPassword extends Component {
             />
           </View>
           {this.state.otpError ? (
-            <Text style={{color: 'white'}}>{this.state.otpError}</Text>
+            <Text style={styles.errorTextStyle}>{this.state.otpError}</Text>
           ) : null}
 
           <View style={styles.inputView}>
-            <FaIcon
-              name="lock"
-              size={25}
-              style={{
-                position: 'absolute',
-                top: 12,
-                left: 10,
-                color: 'white',
-              }}
-            />
+            <FaIcon name="lock" size={25} style={styles.iconStyle} />
             <TextInput
               style={styles.input}
               placeholder="New password"
@@ -218,19 +209,10 @@ export class SetPassword extends Component {
           </View>
 
           {this.state.newpassErr ? (
-            <Text style={{color: 'white'}}>{this.state.newpassErr}</Text>
+            <Text style={styles.errorTextStyle}>{this.state.newpassErr}</Text>
           ) : null}
           <View style={styles.inputView}>
-            <FaIcon
-              name="lock"
-              size={25}
-              style={{
-                position: 'absolute',
-                top: 12,
-                left: 10,
-                color: 'white',
-              }}
-            />
+            <FaIcon name="lock" size={25} style={styles.iconStyle} />
 
             <TextInput
               style={styles.input}
@@ -247,7 +229,7 @@ export class SetPassword extends Component {
           </View>
 
           {this.state.confirmPasswordErr ? (
-            <Text style={{color: 'white'}}>
+            <Text style={styles.errorTextStyle}>
               {this.state.confirmPasswordErr}
             </Text>
           ) : null}

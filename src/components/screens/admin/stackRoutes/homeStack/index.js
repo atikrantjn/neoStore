@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, StyleSheet} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../../home';
 import appColors from '../../../../../utils/colors';
@@ -11,6 +11,11 @@ import OrderSummary from '../../../orderSummary/index';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import AddAddress from '../../../admin/userAddress/addAddress';
 import AddressList from '../../../admin/userAddress/addressList';
+
+const styles = StyleSheet.create({
+  iconStyle: {marginRight: 10},
+  iconStyle_2: {marginLeft: 10},
+});
 
 const Stack = createStackNavigator();
 class HomeStack extends Component {
@@ -35,7 +40,7 @@ class HomeStack extends Component {
                   name="search"
                   size={28}
                   color="white"
-                  style={{marginRight: 10}}
+                  style={styles.iconStyle}
                   onPress={() => {
                     this.props.navigation.navigate('SearchBar');
                   }}
@@ -47,7 +52,7 @@ class HomeStack extends Component {
                 name="bars"
                 size={28}
                 color="white"
-                style={{marginLeft: 10}}
+                style={styles.iconStyle_2}
                 onPress={() => {
                   this.props.navigation.openDrawer();
                 }}
@@ -81,7 +86,7 @@ class HomeStack extends Component {
                 name="search"
                 size={28}
                 color="white"
-                style={{marginRight: 10}}
+                style={styles.iconStyle}
               />
             ),
 
@@ -108,7 +113,7 @@ class HomeStack extends Component {
                 name="search"
                 size={28}
                 color="white"
-                style={{marginRight: 10}}
+                style={styles.iconStyle}
                 onPress={() => {
                   this.props.navigation.navigate('SearchBar');
                 }}
@@ -139,7 +144,7 @@ class HomeStack extends Component {
                 name="search"
                 size={28}
                 color="white"
-                style={{marginRight: 10}}
+                style={styles.iconStyle}
                 onPress={() => {
                   this.props.navigation.navigate('SearchBar');
                 }}
@@ -169,7 +174,7 @@ class HomeStack extends Component {
                 name="search"
                 size={28}
                 color="white"
-                style={{marginRight: 10}}
+                style={styles.iconStyle}
                 onPress={() => {
                   this.props.navigation.navigate('SearchBar');
                 }}
@@ -199,7 +204,7 @@ class HomeStack extends Component {
                 name="search"
                 size={28}
                 color="white"
-                style={{marginRight: 10}}
+                style={styles.iconStyle}
                 onPress={() => {
                   this.props.navigation.navigate('SearchBar');
                 }}
@@ -285,7 +290,7 @@ class HomeStack extends Component {
                 name="plus"
                 size={30}
                 color="white"
-                style={{marginRight: 10}}
+                style={styles.iconStyle}
                 onPress={() => {
                   this.props.navigation.push('Add Address');
                 }}
@@ -295,7 +300,6 @@ class HomeStack extends Component {
             headerTitleStyle: {
               color: 'white',
               fontWeight: 'bold',
-
               fontSize: 25,
             },
           }}

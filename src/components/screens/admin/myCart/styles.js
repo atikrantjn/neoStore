@@ -2,6 +2,18 @@ import {StyleSheet} from 'react-native';
 import appcolors from '../../../../utils/colors';
 
 const styles = StyleSheet.create({
+  mainContainer: {flex: 1},
+
+  emptyContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+
+  emptyText: {fontSize: 24, textAlign: 'center'},
+
+  listMainContainer: {flex: 1, flexDirection: 'column'},
+
   container: {
     flex: 1,
     margin: 10,
@@ -80,6 +92,8 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
   },
+
+  removeBtnContainer: {flex: 0.2, alignSelf: 'center', marginEnd: 5},
 });
 
 export default styles;

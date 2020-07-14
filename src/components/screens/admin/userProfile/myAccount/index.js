@@ -10,6 +10,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import styles from './styles';
 import images from '../../../../../utils/images';
+import ModalLoader from '../../../../custom/modalLoader/index';
 
 import {request, API_URL, BASE_URL} from '../../../../../config/api';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
@@ -21,6 +22,7 @@ export class MyAccount extends Component {
 
     this.state = {
       token: '',
+      isLoading: false,
 
       customerData: {},
     };
@@ -44,27 +46,30 @@ export class MyAccount extends Component {
   //get customer profile data
 
   customerProfile = () => {
-    const data = null;
     const {token} = this.state;
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
       Authorization: 'Bearer ' + token,
     };
 
-    request(
-      this.getCustDataCallback,
-      data,
-      'GET',
-      API_URL.GET_CUST_PROFILE_API,
-      header,
-    );
+    this.setState({isLoading: true});
+
+    setTimeout(() => {
+      request(
+        this.getCustDataCallback,
+        null,
+        'GET',
+        API_URL.GET_CUST_PROFILE_API,
+        header,
+      );
+    }, 2000);
   };
 
   getCustDataCallback = {
     success: async response => {
-      const customerData = await response.customer_proile;
+      const customerData = response.customer_proile;
 
-      this.setState({customerData: customerData});
+      this.setState({customerData: customerData, isLoading: false});
     },
     error: error => {
       console.log('errr customer data', error);
@@ -77,8 +82,8 @@ export class MyAccount extends Component {
     await this.customerProfile();
   };
 
-  componentDidUpdate = () => {
-    if (this.props.route.params) {
+  componentDidUpdate = prev => {
+    if (prev !== this.props) {
       this.customerProfile();
     }
   };
@@ -88,38 +93,24 @@ export class MyAccount extends Component {
     return (
       <ScrollView style={styles.mainContainer}>
         <View style={styles.container}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              marginVertical: 15,
-            }}>
+          {this.state.isLoading ? (
+            <ModalLoader isLoading={this.state.isLoading} />
+          ) : null}
+          <View style={styles.imageContainer}>
             {customerData.profile_img === null ? (
-              <Image
-                source={images.userIcon}
-                style={{height: 130, width: 130, borderRadius: 65}}
-              />
+              <Image source={images.userIcon} style={styles.image} />
             ) : (
               <Image
                 source={{
                   uri: BASE_URL + customerData.profile_img,
                 }}
-                style={{height: 130, width: 130, borderRadius: 65}}
+                style={styles.image}
               />
             )}
           </View>
 
           <View style={styles.registerInput}>
-            <FaIcon
-              name="user"
-              size={20}
-              style={{
-                position: 'absolute',
-                top: 12,
-                left: 10,
-                color: 'white',
-              }}
-            />
+            <FaIcon name="user" size={20} style={styles.iconStyle} />
             <TextInput
               style={styles.input}
               value={customerData.first_name}
@@ -129,16 +120,7 @@ export class MyAccount extends Component {
           </View>
 
           <View style={styles.registerInput}>
-            <FaIcon
-              name="user"
-              size={20}
-              style={{
-                position: 'absolute',
-                top: 12,
-                left: 10,
-                color: 'white',
-              }}
-            />
+            <FaIcon name="user" size={20} style={styles.iconStyle} />
             <TextInput
               style={styles.input}
               value={customerData.last_name}
@@ -148,16 +130,7 @@ export class MyAccount extends Component {
           </View>
 
           <View style={styles.registerInput}>
-            <MatIcon
-              name="email"
-              size={20}
-              style={{
-                position: 'absolute',
-                top: 12,
-                left: 10,
-                color: 'white',
-              }}
-            />
+            <MatIcon name="email" size={20} style={styles.iconStyle} />
             <TextInput
               style={styles.input}
               value={customerData.email}
@@ -167,16 +140,7 @@ export class MyAccount extends Component {
           </View>
 
           <View style={styles.registerInput}>
-            <FaIcon
-              name="phone"
-              size={20}
-              style={{
-                position: 'absolute',
-                top: 12,
-                left: 10,
-                color: 'white',
-              }}
-            />
+            <FaIcon name="phone" size={20} style={styles.iconStyle} />
             <TextInput
               style={styles.input}
               value={customerData.phone_no}
@@ -184,13 +148,7 @@ export class MyAccount extends Component {
               editable={false}
             />
           </View>
-          <View
-            style={{
-              flexDirection: 'column',
-              flex: 1,
-              marginVertical: 15,
-              marginHorizontal: 15,
-            }}>
+          <View style={styles.footerContainer}>
             <TouchableOpacity
               onPress={() => {
                 this.props.navigation.navigate('Edit Profile', {

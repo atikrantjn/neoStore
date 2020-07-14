@@ -2,12 +2,16 @@ import React, {Component} from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import appColors from '../../../../../utils/colors';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {StyleSheet} from 'react-native';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 
 import MyAccount from '../../userProfile/myAccount/index';
 import EditProfile from '../../userProfile/editProfile/index';
 import ResetPassword from '../../userProfile/resetPassword/index';
+
+const styles = StyleSheet.create({
+  iconStyle: {marginLeft: 10},
+});
 
 const Stack = createStackNavigator();
 class userProfileStack extends Component {
@@ -33,7 +37,7 @@ class userProfileStack extends Component {
                 name="bars"
                 size={28}
                 color="white"
-                style={{marginLeft: 10}}
+                style={styles.iconStyle}
                 onPress={() => {
                   this.props.navigation.openDrawer();
                 }}

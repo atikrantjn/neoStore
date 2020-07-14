@@ -1,30 +1,47 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {flexDirection: 'column', marginVertical: 5},
+  mainContainer: {flex: 1},
 
-  orderText: {flexDirection: 'row', flex: 1},
+  headerContainer: {flex: 1, alignItems: 'center', justifyContent: 'center'},
 
-  idText: {
+  emptyListContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  itemSeperator: {
+    height: 1,
+    width: '100%',
+    backgroundColor: '#B4B4B4',
+  },
+
+  emptyListText: {fontSize: 24, textAlign: 'center'},
+
+  renderContainer: {flexDirection: 'column', marginVertical: 5},
+
+  renderOrderText: {flexDirection: 'row', flex: 1},
+
+  renderIdText: {
     fontSize: 22,
     marginHorizontal: 20,
     fontWeight: 'bold',
   },
 
-  costContainer: {
+  renderCostContainer: {
     flexDirection: 'row',
     flex: 1,
     justifyContent: 'flex-end',
   },
 
-  totalCost: {
+  renderTotalCost: {
     fontSize: 18,
     marginHorizontal: 20,
   },
 
-  orderDateContainer: {flexDirection: 'row', flex: 1},
+  renderOrderDateContainer: {flexDirection: 'row', flex: 1},
 
-  orderDateText: {
+  renderOrderDateText: {
     fontSize: 18,
     marginHorizontal: 20,
   },

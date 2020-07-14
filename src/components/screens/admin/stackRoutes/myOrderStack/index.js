@@ -6,6 +6,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import OrderList from '../../../myOrders/orderList/index';
 import OrderId from '../../../myOrders/orderId/index';
+import {StyleSheet} from 'react-native';
+
+const styles = StyleSheet.create({
+  iconStyle: {marginLeft: 10},
+});
 const Stack = createStackNavigator();
 class MyOrderStack extends Component {
   constructor(props) {
@@ -29,7 +34,7 @@ class MyOrderStack extends Component {
                 name="md-arrow-back"
                 size={28}
                 color="white"
-                style={{marginLeft: 10}}
+                style={styles.iconStyle}
                 onPress={() => {
                   this.props.navigation.navigate('Home');
                 }}

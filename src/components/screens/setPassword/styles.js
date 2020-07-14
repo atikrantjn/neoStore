@@ -1,6 +1,6 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 import appColors from '../../../utils/colors';
-const screenWidth = Math.round(Dimensions.get('window').width);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -14,6 +14,8 @@ const styles = StyleSheet.create({
     marginVertical: 25,
   },
 
+  inputContainerStyle: {marginHorizontal: 50},
+
   input: {
     paddingLeft: 50,
     color: 'white',
@@ -23,6 +25,13 @@ const styles = StyleSheet.create({
   },
   inputView: {
     marginVertical: 10,
+  },
+
+  iconStyle: {
+    position: 'absolute',
+    top: 12,
+    left: 10,
+    color: 'white',
   },
 
   customBtnBG: {
@@ -38,6 +47,10 @@ const styles = StyleSheet.create({
 
     color: appColors.themeColor,
     textAlign: 'center',
+  },
+
+  errorTextStyle: {
+    color: 'white',
   },
 });
 

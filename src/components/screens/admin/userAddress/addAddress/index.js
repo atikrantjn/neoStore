@@ -10,7 +10,7 @@ import {
 import styles from './styles';
 import AsyncStorage from '@react-native-community/async-storage';
 import {request, API_URL} from '../../../../../config/api';
-import Loader from '../../../../custom/loaderComponent/loader';
+import Loader from '../../../../custom/modalLoader/index';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -54,8 +54,6 @@ class AddAddress extends Component {
   };
 
   saveAddress = () => {
-    const {address, landmark, city, state, pincode, country} = this.state;
-
     let addr = this.handleAddress();
     let land = this.handleLandmark();
     let cit = this.handlecity();
@@ -84,14 +82,15 @@ class AddAddress extends Component {
     };
 
     this.setState({isLoading: true});
-
-    request(
-      this.addAddressCallback,
-      postAddressData,
-      'POST',
-      API_URL.SAVE_ADDRESS_API,
-      header,
-    );
+    setTimeout(() => {
+      request(
+        this.addAddressCallback,
+        postAddressData,
+        'POST',
+        API_URL.SAVE_ADDRESS_API,
+        header,
+      );
+    }, 3000);
   };
 
   addAddressCallback = {
@@ -171,7 +170,6 @@ class AddAddress extends Component {
         pincode: '',
         country: '',
         isLoading: false,
-        // pincodeErr: false,
       });
     },
     error: error => {
@@ -246,7 +244,7 @@ class AddAddress extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <View style={{flex: 0.9}}>
+        <View style={styles.container}>
           <ScrollView>
             <View style={styles.addressContainer}>
               <Text style={styles.addressText}>Address</Text>
@@ -267,9 +265,7 @@ class AddAddress extends Component {
                 }
               />
               {this.state.addressErr ? (
-                <Text style={{fontSize: 15, color: 'red', marginLeft: 15}}>
-                  {this.state.addressErr}
-                </Text>
+                <Text style={styles.errorText}>{this.state.addressErr}</Text>
               ) : null}
             </View>
 
@@ -289,21 +285,18 @@ class AddAddress extends Component {
                 }
               />
               {this.state.landmarkErr ? (
-                <Text style={{fontSize: 15, color: 'red', marginLeft: 15}}>
-                  {this.state.landmarkErr}
-                </Text>
+                <Text style={styles.errorText}>{this.state.landmarkErr}</Text>
               ) : null}
             </View>
 
-            {this.state.isLoading ? <Loader /> : null}
+            {this.state.isLoading ? (
+              <Loader isLoading={this.state.isLoading} />
+            ) : null}
 
             <View style={styles.cityStateContainer}>
               <View style={styles.cityTextContainer}>
                 <Text style={styles.cityText}>City</Text>
                 <TextInput
-                  ref={input => {
-                    this.textInput = input;
-                  }}
                   style={styles.cityTextInput}
                   onChangeText={city =>
                     this.setState(
@@ -317,18 +310,13 @@ class AddAddress extends Component {
                   }
                 />
                 {this.state.cityErr ? (
-                  <Text style={{fontSize: 15, color: 'red', marginLeft: 15}}>
-                    {this.state.cityErr}
-                  </Text>
+                  <Text style={styles.errorText}>{this.state.cityErr}</Text>
                 ) : null}
               </View>
 
               <View style={styles.stateTextContainer}>
                 <Text style={styles.stateText}>State</Text>
                 <TextInput
-                  ref={input => {
-                    this.textInput = input;
-                  }}
                   style={styles.stateTextInput}
                   onChangeText={state =>
                     this.setState(
@@ -342,9 +330,7 @@ class AddAddress extends Component {
                   }
                 />
                 {this.state.stateErr ? (
-                  <Text style={{fontSize: 15, color: 'red', marginLeft: 15}}>
-                    {this.state.stateErr}
-                  </Text>
+                  <Text style={styles.errorText}>{this.state.stateErr}</Text>
                 ) : null}
               </View>
             </View>
@@ -367,9 +353,7 @@ class AddAddress extends Component {
                   }
                 />
                 {this.state.pincodeErr ? (
-                  <Text style={{fontSize: 15, color: 'red', marginLeft: 15}}>
-                    {this.state.pincodeErr}
-                  </Text>
+                  <Text style={styles.errorText}>{this.state.pincodeErr}</Text>
                 ) : null}
               </View>
 
@@ -389,27 +373,17 @@ class AddAddress extends Component {
                   }
                 />
                 {this.state.countryErr ? (
-                  <Text style={{fontSize: 15, color: 'red', marginLeft: 15}}>
-                    {this.state.countryErr}
-                  </Text>
+                  <Text style={styles.errorText}>{this.state.countryErr}</Text>
                 ) : null}
               </View>
             </View>
           </ScrollView>
         </View>
 
-        <View style={{flex: 0.1}}>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              alignItems: 'center',
-
-              marginBottom: 15,
-            }}>
+        <View style={styles.footerContainer}>
+          <View style={styles.footerBtnRowContainer}>
             <TouchableOpacity
-              style={{flex: 0.5, marginHorizontal: 15}}
+              style={styles.footerBtnContainer}
               onPress={() => {
                 this.saveAddress();
               }}>
@@ -419,7 +393,7 @@ class AddAddress extends Component {
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={{flex: 0.5, marginHorizontal: 15}}
+              style={styles.footerBtnContainer}
               onPress={() => {
                 this.props.navigation.navigate('Address List');
               }}>

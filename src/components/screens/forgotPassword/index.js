@@ -1,12 +1,5 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  Dimensions,
-  Alert,
-  TextInput,
-} from 'react-native';
+import {Text, View, TouchableOpacity, Alert, TextInput} from 'react-native';
 import styles from './styles';
 
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -14,10 +7,9 @@ import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import AsyncStorage from '@react-native-community/async-storage';
 import {API_URL, request} from '../../../config/api';
-import Loader from '../../custom/loaderComponent/loader';
+import ModalLoader from '../../custom/modalLoader/index';
 
-const screenWidth = Math.round(Dimensions.get('window').width);
-export class ForgotPassword extends Component {
+class ForgotPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -117,22 +109,13 @@ export class ForgotPassword extends Component {
         <View style={styles.textContainer}>
           <Text style={styles.neostoreHeader}>NeoSTORE</Text>
         </View>
-        <View style={{marginHorizontal: 50}}>
+        <View style={styles.newContainer}>
           <View>
             <Text style={styles.forgotText}>Forgot Password ?</Text>
           </View>
 
           <View style={styles.registerInput}>
-            <MatIcon
-              name="email"
-              size={20}
-              style={{
-                position: 'absolute',
-                top: 10,
-                left: 10,
-                color: 'white',
-              }}
-            />
+            <MatIcon name="email" size={20} style={styles.iconStyle} />
             <TextInput
               style={styles.input}
               placeholder="Email"
@@ -145,11 +128,13 @@ export class ForgotPassword extends Component {
               }}
             />
             {this.state.emailErr ? (
-              <Text style={{color: 'white'}}>{this.state.emailErr}</Text>
+              <Text style={styles.errorText}>{this.state.emailErr}</Text>
             ) : null}
           </View>
 
-          {this.state.isLoading ? <Loader /> : null}
+          {this.state.isLoading ? (
+            <ModalLoader isLoading={this.state.isLoading} />
+          ) : null}
           <View>
             <TouchableOpacity
               onPress={() => {
@@ -167,8 +152,8 @@ export class ForgotPassword extends Component {
           message="check email for further instructions"
           closeOnTouchOutside={true}
           closeOnHardwareBackPress={false}
-          messageStyle={{color: 'green', fontSize: 18}}
-          contentContainerStyle={{width: 350, height: 120}}
+          messageStyle={styles.alertMessage}
+          contentContainerStyle={styles.alertContainer}
         />
       </View>
     );

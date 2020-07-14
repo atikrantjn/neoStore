@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList, Image, Dimensions} from 'react-native';
+import {Text, View, FlatList} from 'react-native';
 import styles from './styles';
-import {BASE_URL} from '../../../../config/api';
+
+import RenderOrderId from './renderOrderId';
 
 export class OrderId extends Component {
   constructor(props) {
@@ -38,65 +39,40 @@ export class OrderId extends Component {
   };
 
   render() {
-    let {width, height} = Dimensions.get('window');
-
     let result = this.state.orderData.map(i => {
       return i.total_cartCost;
     });
 
     return (
-      <View style={{flex: 1}}>
-        <View style={{width: width, height: height - 80}}>
+      <View style={styles.mainContainer}>
+        <View style={styles.headerContainer}>
           <FlatList
             data={this.state.orderData}
             ItemSeparatorComponent={this.FlatListItemSeparator}
             ListFooterComponent={this.FlatListItemSeparator}
             renderItem={({item}) => {
               return (
-                <View style={styles.container}>
-                  <Image
-                    style={styles.imageStyle}
-                    source={{
-                      uri: BASE_URL + item.product_details[0].product_image,
-                    }}
-                  />
-
-                  <View style={styles.productNameContainer}>
-                    <Text style={styles.productName}>
-                      {item.product_details[0].product_name}
-                    </Text>
-                    <Text style={styles.productMaterial}>
-                      ({item.product_details[0].product_material})
-                    </Text>
-
-                    <View style={styles.productCostContainer}>
-                      <Text style={styles.productQty}>
-                        {'Quantity :' + ' ' + item.quantity}
-                      </Text>
-                      <Text style={styles.productCost}>
-                        {'Rs.' + ' ' + item.product_details[0].product_cost}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
+                <RenderOrderId
+                  {...this.props}
+                  product_image={item.product_details[0].product_image}
+                  product_name={item.product_details[0].product_name}
+                  product_material={item.product_details[0].product_material}
+                  quantity={item.quantity}
+                  product_cost={item.product_details[0].product_cost}
+                />
               );
             }}
             keyExtractor={(item, index) => index.toString()}
           />
           <View style={styles.moduleSeperatorline} />
-          <View
-            style={{
-              width: width,
-              height: 80,
-              justifyContent: 'space-between',
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            <View style={{marginLeft: 20}}>
-              <Text style={{fontSize: 28}}>Total</Text>
+          <View style={styles.footerContainer}>
+            <View style={styles.footerTotalContainer}>
+              <Text style={styles.footerTotalText}>Total</Text>
             </View>
-            <View style={{marginRight: 20}}>
-              <Text style={{fontSize: 25}}>{'Rs.' + '' + result[0]}</Text>
+            <View style={styles.footerPriceContainer}>
+              <Text style={styles.footerPriceText}>
+                {'Rs.' + '' + result[0]}
+              </Text>
             </View>
           </View>
         </View>

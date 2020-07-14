@@ -1,19 +1,14 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  TextInput,
-  Keyboard,
-  FlatList,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import {Text, View, Keyboard, FlatList, ActivityIndicator} from 'react-native';
 import Icons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
-import StarRating from 'react-native-star-rating';
-import FaIcon from 'react-native-vector-icons/FontAwesome5';
 
-import {BASE_URL, request, API_URL} from '../../../config/api';
+import FaIcon from 'react-native-vector-icons/FontAwesome5';
+import {InputAutoSuggest} from 'react-native-autocomplete-search';
+
+import RenderSearchItem from './renderSearchItem';
+
+import {request, API_URL} from '../../../config/api';
 
 class SearchBarHeader extends Component {
   constructor(props) {
@@ -62,14 +57,18 @@ class SearchBarHeader extends Component {
 
   // function to handle search data
 
-  searchData = () => {
-    const text = this.state.searchText;
+  searchData = text => {
+    // const text = this.state.searchText;
 
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
 
     this.setState({isLoading: true});
+
+    if (text === '') {
+      this.setState({empty: true, isLoading: false});
+    }
 
     request(
       this.searchCallback,
@@ -102,64 +101,51 @@ class SearchBarHeader extends Component {
   };
 
   FlatListItemSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: '100%',
-          backgroundColor: '#B4B4B4',
-        }}
-      />
-    );
+    return <View style={styles.itemSeperator} />;
   };
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.mainContainer}>
           <View style={styles.searchContainer}>
-            <Icons
-              onPress={() => {
-                this.state.searchBarFocused
-                  ? this.props.navigation.goBack(null)
-                  : null;
-              }}
-              name={
-                this.state.searchBarFocused ? 'md-arrow-back' : 'ios-search'
-              }
-              style={{fontSize: 27}}
-            />
-            <TextInput
-              returnKeyType="search"
-              onChangeText={searchText => {
-                this.setState({
-                  searchText: searchText,
-                });
-              }}
-              placeholder="search"
-              style={{fontSize: 20, marginLeft: 13, flex: 1}}
-              onSubmitEditing={() => {
-                this.searchData();
-              }}
-            />
+            <View style={styles.iconContainer}>
+              <Icons
+                onPress={() => {
+                  this.state.searchBarFocused
+                    ? this.props.navigation.goBack(null)
+                    : null;
+                }}
+                name={
+                  this.state.searchBarFocused ? 'md-arrow-back' : 'ios-search'
+                }
+                style={styles.iconStyle}
+              />
+            </View>
+
+            <View style={styles.inputContainerStyle}>
+              <InputAutoSuggest
+                inputStyle={styles.inputStyle}
+                apiEndpointSuggestData={text => this.searchData(text)}
+              />
+            </View>
           </View>
         </View>
 
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+        {this.state.isLoading ? (
+          <ActivityIndicator
+            style={styles.spinnerStyle}
+            size={28}
+            color="blue"
+          />
+        ) : null}
+
+        <View style={styles.mainContainerStyle}>
           {this.state.empty ? (
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
+            <View style={styles.emptyListStyle}>
               <View>
                 <FaIcon size={98} name="frown-open" />
               </View>
-              <Text style={{fontSize: 24, textAlign: 'center'}}>
+              <Text style={styles.emptyListText}>
                 Oooopsssss Data not found!!
               </Text>
             </View>
@@ -171,50 +157,15 @@ class SearchBarHeader extends Component {
                 let rating = parseFloat(item.product_rating);
 
                 return (
-                  <View style={styles.listContainer}>
-                    <TouchableOpacity
-                      style={{flex: 1}}
-                      onPress={() => {
-                        this.props.navigation.navigate('ProductDetails', {
-                          productId: item.product_id,
-                          product_name: item.product_name,
-                        });
-                      }}>
-                      <View style={styles.imageContainer}>
-                        <Image
-                          style={styles.image}
-                          source={{
-                            uri: BASE_URL + item.product_image,
-                          }}
-                        />
-
-                        <View style={{flexDirection: 'column', flex: 0.75}}>
-                          <Text
-                            numberOfLines={1}
-                            adjustsFontSizeToFit
-                            style={styles.listText}>
-                            {item.product_name}
-                          </Text>
-                          <Text numberOfLines={1} style={styles.listSubText}>
-                            {item.product_material}
-                          </Text>
-
-                          <View style={styles.productCostContainer}>
-                            <Text style={styles.productCost}>
-                              {'Rs' + ' ' + item.product_cost}
-                            </Text>
-                            <StarRating
-                              disabled={false}
-                              maxStars={5}
-                              rating={rating}
-                              fullStarColor={'#CD9922'}
-                              starSize={20}
-                            />
-                          </View>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
+                  <RenderSearchItem
+                    {...this.props}
+                    product_id={item.product_id}
+                    product_name={item.product_name}
+                    product_image={item.product_image}
+                    product_material={item.product_material}
+                    product_cost={item.product_cost}
+                    rating={rating}
+                  />
                 );
               }}
               keyExtractor={(item, index) => index.toString()}

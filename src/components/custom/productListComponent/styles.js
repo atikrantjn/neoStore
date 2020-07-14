@@ -37,5 +37,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginVertical: 15,
   },
+  itemSeperator: {
+    height: 1,
+    width: '100%',
+    backgroundColor: '#B4B4B4',
+  },
 });
 export default styles;

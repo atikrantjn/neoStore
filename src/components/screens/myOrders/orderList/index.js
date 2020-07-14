@@ -1,11 +1,17 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList, TouchableOpacity, Dimensions} from 'react-native';
+import {Text, View, FlatList} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {API_URL, request} from '../../../../config/api';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
-import Loader from '../../../custom/loaderComponent/loader';
+
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {setOrderListData} from '../../../../redux/actions';
+
 import moment from 'moment';
 import styles from './styles';
+import ModalLoader from '../../../custom/modalLoader/index';
+import RenderOrderList from './renderOrderList';
 export class OrderList extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +25,7 @@ export class OrderList extends Component {
 
   componentDidMount = async () => {
     await this.getToken();
+
     await this.getOrderDetails();
   };
 
@@ -62,100 +69,82 @@ export class OrderList extends Component {
 
   getOrderDetailsCallback = {
     success: response => {
-      this.setState({
-        placedOrderDetails: response.product_details,
-        isLoading: false,
-      });
+      // console.log(response);
+      const {setOrderListData} = this.props;
+      setOrderListData(response.product_details);
+      this.setState({isLoading: false});
     },
     error: error => {
       console.log(error);
+      this.setState({isLoading: false});
     },
   };
 
   FlatListItemSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: '100%',
-          backgroundColor: '#B4B4B4',
-        }}
-      />
-    );
+    return <View style={styles.itemSeperator} />;
   };
 
   render() {
-    const width = Dimensions.get('window').width;
+    const {orderList} = this.props;
+
     return (
-      <View style={{flex: 1}}>
+      <View style={styles.mainContainer}>
         {this.state.isLoading ? (
-          <Loader />
-        ) : (
-          <View
-            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            {this.state.placedOrderDetails.length === 0 ? (
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <View>
-                  <FaIcon size={98} name="frown-open" />
-                </View>
-                <Text style={{fontSize: 24, textAlign: 'center'}}>
-                  Oooopsssss orders not found!!
-                </Text>
+          <ModalLoader isLoading={this.state.isLoading} />
+        ) : null}
+        <View style={styles.headerContainer}>
+          {orderList.data.length === 0 ? (
+            <View style={styles.emptyListContainer}>
+              <View>
+                <FaIcon size={98} name="frown-open" />
               </View>
-            ) : (
-              <FlatList
-                data={this.state.placedOrderDetails}
-                ItemSeparatorComponent={this.FlatListItemSeparator}
-                ListFooterComponent={this.FlatListItemSeparator}
-                renderItem={({item}) => {
-                  let totalCost = item.product_details[0].total_cartCost;
+              <Text style={styles.emptyListText}>
+                Oooopsssss orders not found!!
+              </Text>
+            </View>
+          ) : (
+            <FlatList
+              data={orderList.data}
+              ItemSeparatorComponent={this.FlatListItemSeparator}
+              ListFooterComponent={this.FlatListItemSeparator}
+              renderItem={({item}) => {
+                let totalCost = item.product_details[0].total_cartCost;
 
-                  let date = item.product_details[0].createdAt;
+                let date = item.product_details[0].createdAt;
 
-                  const orderDate = moment(date).format('MMMM D, YYYY');
+                const orderDate = moment(date).format('MMMM D, YYYY');
 
-                  return (
-                    <View style={{width: width}}>
-                      <TouchableOpacity
-                        onPress={() => {
-                          this.props.navigation.navigate('Order Id', {
-                            orderData: item.product_details,
-                            order_id: item.product_details[0].order_id,
-                          });
-                        }}>
-                        <View style={styles.container}>
-                          <View style={styles.orderText}>
-                            <Text style={styles.idText}>Id : {item._id}</Text>
-                          </View>
-
-                          <View style={styles.costContainer}>
-                            <Text style={styles.totalCost}>
-                              {`Rs. ${totalCost}`}
-                            </Text>
-                          </View>
-
-                          <View style={styles.orderDateContainer}>
-                            <Text style={styles.orderDateText}>
-                              {`Order Date :  ${orderDate}`}
-                            </Text>
-                          </View>
-                        </View>
-                      </TouchableOpacity>
-                    </View>
-                  );
-                }}
-                keyExtractor={(item, index) => index.toString()}
-              />
-            )}
-          </View>
-        )}
+                return (
+                  <RenderOrderList
+                    product_details={item.product_details}
+                    order_id={item.product_details[0].order_id}
+                    _id={item._id}
+                    totalCost={totalCost}
+                    orderDate={orderDate}
+                  />
+                );
+              }}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          )}
+        </View>
       </View>
     );
   }
 }
 
-export default OrderList;
+const mapStateToProps = state => ({
+  orderList: state.orderList,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setOrderListData,
+    },
+    dispatch,
+  );
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(OrderList);

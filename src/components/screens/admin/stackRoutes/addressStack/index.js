@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {StyleSheet} from 'react-native';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import appColors from '../../../../../utils/colors';
@@ -7,6 +8,12 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import AddAddress from '../../userAddress/addAddress';
 import AddressList from '../../userAddress/addressList';
+
+const styles = StyleSheet.create({
+  barIconStyle: {marginLeft: 10},
+
+  plusIconStyle: {marginRight: 10},
+});
 const Stack = createStackNavigator();
 class AddressStack extends Component {
   constructor(props) {
@@ -29,7 +36,7 @@ class AddressStack extends Component {
                 name="bars"
                 size={28}
                 color="white"
-                style={{marginLeft: 10}}
+                style={styles.barIconStyle}
                 onPress={() => {
                   this.props.navigation.openDrawer();
                 }}
@@ -40,7 +47,6 @@ class AddressStack extends Component {
             headerTitleStyle: {
               color: 'white',
               fontWeight: 'bold',
-
               fontSize: 25,
             },
           }}
@@ -54,24 +60,13 @@ class AddressStack extends Component {
             },
             headerTintColor: 'white',
             headerTitleAlign: 'center',
-            // headerLeft: () => (
-            //   <Ionicons
-            //     name="md-arrow-back"
-            //     size={28}
-            //     color="white"
-            //     style={{marginLeft: 10}}
-            //     onPress={() => {
-            //       this.props.navigation.push('Add Address');
-            //     }}
-            //   />
-            // ),
 
             headerRight: () => (
               <AntDesign
                 name="plus"
                 size={30}
                 color="white"
-                style={{marginRight: 10}}
+                style={styles.plusIconStyle}
                 onPress={() => {
                   this.props.navigation.push('Add Address');
                 }}

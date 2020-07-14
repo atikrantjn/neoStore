@@ -2,10 +2,15 @@ import React, {Component} from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import appColors from '../../../../../utils/colors';
-// import AntDesign from 'react-native-vector-icons/AntDesign';
+
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5';
 
 import MyCart from '../../myCart/index';
+import {StyleSheet} from 'react-native';
+
+const styles = StyleSheet.create({
+  iconStyle: {marginLeft: 10},
+});
 const Stack = createStackNavigator();
 class MyCartStack extends Component {
   constructor(props) {
@@ -26,7 +31,7 @@ class MyCartStack extends Component {
                 name="bars"
                 size={28}
                 color="white"
-                style={{marginLeft: 10}}
+                style={styles.iconStyle}
                 onPress={() => {
                   this.props.navigation.openDrawer();
                 }}

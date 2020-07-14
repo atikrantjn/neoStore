@@ -1,6 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import appColors from '../../../utils/colors';
-const screenWidth = Math.round(Dimensions.get('window').width);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -18,6 +18,8 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
   },
+
+  newContainer: {marginHorizontal: 50},
 
   registerInput: {
     height: 45,
@@ -46,6 +48,19 @@ const styles = StyleSheet.create({
     color: appColors.themeColor,
     textAlign: 'center',
   },
+
+  iconStyle: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    color: 'white',
+  },
+
+  errorText: {color: 'white'},
+
+  alertMessage: {color: 'green', fontSize: 18},
+
+  alertContainer: {width: 350, height: 120},
 });
 
 export default styles;

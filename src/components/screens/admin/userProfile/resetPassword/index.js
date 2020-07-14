@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {API_URL, request} from '../../../../../config/api';
 
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
-import Loader from '../../../../custom/loaderComponent/loader';
+import Loader from '../../../../custom/modalLoader/index';
 
 export class ResetPassword extends Component {
   constructor(props) {
@@ -37,6 +37,8 @@ export class ResetPassword extends Component {
     let confirmpassword = this.validateConfPass();
 
     if (password && newpassword && confirmpassword) {
+      this.setState({isLoading: true});
+
       this.sendPassword();
     }
   };
@@ -53,8 +55,6 @@ export class ResetPassword extends Component {
       'Content-Type': 'application/x-www-form-urlencoded',
       Authorization: 'Bearer ' + token,
     };
-
-    this.setState({isLoading: true});
 
     request(
       this.changePassCallback,
@@ -192,20 +192,13 @@ export class ResetPassword extends Component {
           <Text style={styles.neostoreHeader}>NeoSTORE</Text>
         </View>
 
-        {this.state.isLoading ? <Loader /> : null}
+        {this.state.isLoading ? (
+          <Loader isLoading={this.state.isLoading} />
+        ) : null}
 
-        <View style={{flex: 1}}>
+        <View style={styles.inputContainer}>
           <View style={styles.registerInput}>
-            <FaIcon
-              name="lock"
-              size={22}
-              style={{
-                position: 'absolute',
-                top: 12,
-                left: 20,
-                color: 'white',
-              }}
-            />
+            <FaIcon name="lock" size={22} style={styles.iconStyle} />
             <TextInput
               style={styles.input}
               placeholder="Current Password"
@@ -226,32 +219,18 @@ export class ResetPassword extends Component {
             <FaIcon
               name={this.state.hidePassword ? 'eye' : 'eye-slash'}
               size={24}
-              style={{
-                position: 'absolute',
-                top: 12,
-                right: 20,
-                color: 'white',
-              }}
+              style={styles.rightIconStyle}
               onPress={() => {
                 this.setPasswordVisibility();
               }}
             />
 
             {this.state.passwordErr ? (
-              <Text style={{color: 'white'}}>{this.state.passwordErr}</Text>
+              <Text style={styles.errortext}>{this.state.passwordErr}</Text>
             ) : null}
           </View>
           <View style={styles.registerInput}>
-            <FaIcon
-              name="lock"
-              size={22}
-              style={{
-                position: 'absolute',
-                top: 12,
-                left: 20,
-                color: 'white',
-              }}
-            />
+            <FaIcon name="lock" size={22} style={styles.iconStyle} />
             <TextInput
               style={styles.input}
               placeholder="New Password"
@@ -272,31 +251,17 @@ export class ResetPassword extends Component {
             <FaIcon
               name={this.state.hidePassword ? 'eye' : 'eye-slash'}
               size={24}
-              style={{
-                position: 'absolute',
-                top: 12,
-                right: 20,
-                color: 'white',
-              }}
+              style={styles.rightIconStyle}
               onPress={() => {
                 this.setPasswordVisibility();
               }}
             />
             {this.state.newpassErr ? (
-              <Text style={{color: 'white'}}>{this.state.newpassErr}</Text>
+              <Text style={styles.errortext}>{this.state.newpassErr}</Text>
             ) : null}
           </View>
           <View style={styles.registerInput}>
-            <FaIcon
-              name="lock"
-              size={22}
-              style={{
-                position: 'absolute',
-                top: 12,
-                left: 20,
-                color: 'white',
-              }}
-            />
+            <FaIcon name="lock" size={22} style={styles.iconStyle} />
             <TextInput
               style={styles.input}
               placeholder="Confirm Password"
@@ -316,23 +281,18 @@ export class ResetPassword extends Component {
             <FaIcon
               name={this.state.hidePassword ? 'eye' : 'eye-slash'}
               size={24}
-              style={{
-                position: 'absolute',
-                top: 12,
-                right: 20,
-                color: 'white',
-              }}
+              style={styles.rightIconStyle}
               onPress={() => {
                 this.setPasswordVisibility();
               }}
             />
             {this.state.confirmPasswordErr ? (
-              <Text style={{color: 'white'}}>
+              <Text style={styles.errortext}>
                 {this.state.confirmPasswordErr}
               </Text>
             ) : null}
           </View>
-          <View style={{marginHorizontal: 50, marginBottom: 10}}>
+          <View style={styles.footerContainer}>
             <TouchableOpacity
               onPress={() => {
                 this.changePasswordHandler();

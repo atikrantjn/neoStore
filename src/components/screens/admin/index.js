@@ -4,7 +4,9 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import HomeStack from './stackRoutes/homeStack';
 import ProductDetails from '../productDetails/productDetails';
 import Sidebar from '../../custom/sidebarComponent/sidebar';
-import ProductList from '../ProductList/ProductList';
+
+import {StyleSheet} from 'react-native';
+
 import MyCartStack from '../admin/stackRoutes/myCartStack/index';
 import AddressStack from '../admin/stackRoutes/addressStack/index';
 import userProfileStack from '../admin/stackRoutes/userProfileStack/index';
@@ -12,6 +14,13 @@ import StoreLocatorStack from '../admin/stackRoutes/storeLocatorStack/index';
 import productListStack from '../admin/stackRoutes/productListStack/index';
 
 import MyOrderStack from '../admin/stackRoutes/myOrderStack/index';
+
+const styles = StyleSheet.create({
+  drawerStyle: {
+    width: 280,
+    color: 'white',
+  },
+});
 
 class Admin extends Component {
   constructor(props) {
@@ -24,10 +33,7 @@ class Admin extends Component {
     return (
       <Drawer.Navigator
         initialRouteName="Home"
-        drawerStyle={{
-          width: 280,
-          color: 'white',
-        }}
+        drawerStyle={styles.drawerStyle}
         drawerType="slide"
         drawerContent={props => {
           return <Sidebar {...props} />;

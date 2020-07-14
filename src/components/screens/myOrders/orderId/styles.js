@@ -1,41 +1,45 @@
-import {StyleSheet} from 'react-native';
-
+import {StyleSheet, Dimensions} from 'react-native';
+let {width, height} = Dimensions.get('window');
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {flex: 1},
+
+  headerContainer: {width: width, height: height - 80},
+
+  renderContainer: {
     flex: 1,
     margin: 10,
     flexDirection: 'row',
   },
 
-  imageStyle: {
+  renderImageStyle: {
     flex: 0.3,
   },
-  productNameContainer: {
+  renderProductNameContainer: {
     flexDirection: 'column',
     marginHorizontal: 15,
     flex: 0.7,
   },
 
-  productName: {
+  renderProductName: {
     fontSize: 22,
   },
 
-  productMaterial: {
+  renderProductMaterial: {
     fontSize: 18,
     width: 250,
     color: '#A09F9F',
   },
 
-  productCostContainer: {
+  renderProductCostContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
 
-  productQty: {
+  renderProductQty: {
     fontSize: 18,
   },
 
-  productCost: {
+  renderProductCost: {
     fontSize: 18,
   },
   itemSeperator: {
@@ -48,5 +52,21 @@ const styles = StyleSheet.create({
     height: 10,
     borderColor: '#B4B4B4',
   },
+
+  footerContainer: {
+    width: width,
+    height: 80,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  footerTotalContainer: {marginLeft: 20},
+
+  footerTotalText: {fontSize: 28},
+
+  footerPriceContainer: {marginRight: 20},
+
+  footerPriceText: {fontSize: 25},
 });
 export default styles;

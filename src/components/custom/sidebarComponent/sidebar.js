@@ -62,14 +62,10 @@ export default class Sidebar extends Component {
 
       .then(response => response.json())
       .then(async respData => {
-        let keys = ['userData', 'cartData'];
-
         if (respData.success) {
-          await AsyncStorage.multiRemove(keys, err => {
-            console.log('err', err);
-            this.setState({cartData: []});
-          });
-          console.log(this.state.cartData);
+          await AsyncStorage.removeItem('userData');
+          await AsyncStorage.removeItem('cartData');
+
           Alert.alert('Success', respData.message, [
             {
               text: 'OK',
@@ -130,8 +126,14 @@ export default class Sidebar extends Component {
     await this.getData();
     await this.getProductData();
 
-    setInterval(this.getData, 2000);
+    // setInterval(this.getData, 2000);
   }
+
+  componentDidUpdate = prev => {
+    if (prev.state.routes !== this.props.state.routes) {
+      this.getData();
+    }
+  };
 
   render(props) {
     const {profile_img} = this.state.data;
@@ -139,7 +141,7 @@ export default class Sidebar extends Component {
     return (
       <View style={styles.sideMenuContainer}>
         {this.state.isloggedIn === true ? (
-          <View style={{flexDirection: 'column'}}>
+          <View style={styles.mainContainer}>
             {profile_img === null ? (
               <Image
                 source={images.userIcon}
@@ -154,15 +156,13 @@ export default class Sidebar extends Component {
               />
             )}
 
-            <Text style={{textAlign: 'center', fontSize: 20}}>
+            <Text style={styles.fullNameText}>
               {this.state.data.first_name + ' ' + this.state.data.last_name}
             </Text>
-            <Text style={{textAlign: 'center', fontSize: 18}}>
-              {this.state.data.email}
-            </Text>
+            <Text style={styles.emailText}>{this.state.data.email}</Text>
           </View>
         ) : (
-          <View style={{flexDirection: 'column'}}>
+          <View style={styles.sideImageContainer}>
             <Image
               source={images.sideDrawerImage}
               style={styles.sideMenuProfileIconLog}
@@ -170,52 +170,43 @@ export default class Sidebar extends Component {
           </View>
         )}
         {this.state.isloggedIn ? (
-          <View
-            style={{
-              width: '100%',
-              height: 1,
-              backgroundColor: '#e2e2e2',
-              marginVertical: 25,
-            }}
-          />
+          <View style={styles.sideContainer_1} />
         ) : (
-          <View
-            style={{
-              width: '100%',
-              height: 1,
-              backgroundColor: '#e2e2e2',
-            }}
-          />
+          <View style={styles.sideContainer_2} />
         )}
 
-        <DrawerContentScrollView {...props} style={{marginHorizontal: 15}}>
+        <DrawerContentScrollView
+          {...props}
+          style={styles.drawerScrollViewStyle}>
           {!this.state.isloggedIn === true ? (
             <List.Accordion
-              titleStyle={{fontSize: 18, marginLeft: 25, color: 'black'}}
+              titleStyle={styles.accountTitleStyle}
               title="Account"
               left={() => <EnIcon name="users" size={22} />}>
-              <View style={{justifyContent: 'center'}}>
+              <View style={styles.loginRegisterContainer}>
                 <List.Item
-                  titleStyle={{
-                    fontSize: 16,
-                    fontWeight: '500',
-                    marginLeft: 25,
-                  }}
+                  titleStyle={styles.loginRegisterTextStyle}
                   title="Login"
-                  left={() => <FaIcon name="user" size={18} style={{top: 8}} />}
+                  left={() => (
+                    <FaIcon
+                      name="user"
+                      size={18}
+                      style={styles.loginRegisterIconStyle}
+                    />
+                  )}
                   onPress={() => {
                     this.props.navigation.navigate('Login');
                   }}
                 />
                 <List.Item
-                  titleStyle={{
-                    fontSize: 16,
-                    fontWeight: '500',
-                    marginLeft: 25,
-                  }}
+                  titleStyle={styles.loginRegisterTextStyle}
                   title="Register"
                   left={() => (
-                    <AntDesign name="adduser" size={18} style={{top: 8}} />
+                    <AntDesign
+                      name="adduser"
+                      size={18}
+                      style={styles.loginRegisterIconStyle}
+                    />
                   )}
                   onPress={() => {
                     this.props.navigation.navigate('Register');
@@ -228,13 +219,13 @@ export default class Sidebar extends Component {
           {this.state.isloggedIn ? (
             <View>
               <List.Item
-                titleStyle={{fontSize: 20}}
+                titleStyle={styles.listTitleStyle}
                 title="My Cart"
                 left={() => (
                   <EnIcon
                     name="shopping-cart"
                     size={22}
-                    style={{marginRight: 25, top: 8}}
+                    style={styles.listIconStyle}
                   />
                 )}
                 onPress={() => {
@@ -242,7 +233,7 @@ export default class Sidebar extends Component {
                 }}
               />
               <List.Item
-                titleStyle={{fontSize: 20}}
+                titleStyle={styles.listTitleStyle}
                 title="Add Address"
                 onPress={() => {
                   this.props.navigation.navigate('Add Address');
@@ -251,19 +242,19 @@ export default class Sidebar extends Component {
                   <EnIcon
                     name="location-pin"
                     size={22}
-                    style={{marginRight: 25, top: 9}}
+                    style={styles.listIconStyle}
                   />
                 )}
               />
 
               <List.Item
-                titleStyle={{fontSize: 20}}
+                titleStyle={styles.listTitleStyle}
                 title="My Account"
                 left={() => (
                   <MaterialIcon
                     name="dashboard"
                     size={22}
-                    style={{marginRight: 25, top: 9}}
+                    style={styles.listIconStyle}
                   />
                 )}
                 onPress={() => {
@@ -271,13 +262,13 @@ export default class Sidebar extends Component {
                 }}
               />
               <List.Item
-                titleStyle={{fontSize: 20}}
+                titleStyle={styles.listTitleStyle}
                 title="My Orders"
                 left={() => (
                   <EnIcon
                     name="shopping-cart"
                     size={22}
-                    style={{marginRight: 25, top: 9}}
+                    style={styles.listIconStyle}
                   />
                 )}
                 onPress={() => {
@@ -288,18 +279,14 @@ export default class Sidebar extends Component {
           ) : null}
 
           <List.Accordion
-            titleStyle={{fontSize: 20, marginLeft: 25, color: 'black'}}
+            titleStyle={styles.productTitleStyle}
             title="Products"
             left={() => <FaIcon name="sitemap" size={22} />}>
             <List.Item
-              titleStyle={{
-                fontSize: 16,
-                fontWeight: '500',
-                marginLeft: 25,
-              }}
+              titleStyle={styles.loginRegisterTextStyle}
               title="Bed"
               left={() => (
-                <FaIcon name="bed" size={22} style={{marginLeft: 50, top: 5}} />
+                <FaIcon name="bed" size={22} style={styles.productIconStyle} />
               )}
               onPress={() => {
                 this.props.navigation.navigate('Bed', {
@@ -309,11 +296,7 @@ export default class Sidebar extends Component {
               }}
             />
             <List.Item
-              titleStyle={{
-                fontSize: 16,
-                fontWeight: '500',
-                marginLeft: 25,
-              }}
+              titleStyle={styles.loginRegisterTextStyle}
               onPress={() => {
                 this.props.navigation.navigate('Sofa', {
                   id: '5cfe3c5aea821930af69281e',
@@ -325,22 +308,18 @@ export default class Sidebar extends Component {
                 <FaIcon
                   name="couch"
                   size={22}
-                  style={{marginLeft: 50, top: 5}}
+                  style={styles.productIconStyle}
                 />
               )}
             />
             <List.Item
-              titleStyle={{
-                fontSize: 16,
-                fontWeight: '500',
-                marginLeft: 25,
-              }}
+              titleStyle={styles.loginRegisterTextStyle}
               title="Table"
               left={() => (
                 <FaIcon
                   name="table"
                   size={22}
-                  style={{marginLeft: 50, top: 5}}
+                  style={styles.productIconStyle}
                 />
               )}
               onPress={() => {
@@ -351,17 +330,13 @@ export default class Sidebar extends Component {
               }}
             />
             <List.Item
-              titleStyle={{
-                fontSize: 16,
-                fontWeight: '500',
-                marginLeft: 25,
-              }}
+              titleStyle={styles.loginRegisterTextStyle}
               title="Chair"
               left={() => (
                 <FaIcon
                   name="chair"
                   size={22}
-                  style={{marginLeft: 50, top: 5}}
+                  style={styles.productIconStyle}
                 />
               )}
               onPress={() => {
@@ -372,17 +347,13 @@ export default class Sidebar extends Component {
               }}
             />
             <List.Item
-              titleStyle={{
-                fontSize: 16,
-                fontWeight: '500',
-                marginLeft: 25,
-              }}
+              titleStyle={styles.loginRegisterTextStyle}
               title="Almirah"
               left={() => (
                 <MaIcon
                   name="file-cabinet"
                   size={22}
-                  style={{marginLeft: 50, top: 5}}
+                  style={styles.productIconStyle}
                 />
               )}
               onPress={() => {
@@ -395,7 +366,7 @@ export default class Sidebar extends Component {
           </List.Accordion>
 
           <List.Item
-            titleStyle={{fontSize: 22}}
+            titleStyle={styles.storeLocatorTitle}
             title="Store locator"
             onPress={() => {
               this.props.navigation.navigate('Store Locator');
@@ -404,13 +375,13 @@ export default class Sidebar extends Component {
               <EnIcon
                 name="location-pin"
                 size={22}
-                style={{marginRight: 25, top: 9}}
+                style={styles.listIconStyle}
               />
             )}
           />
           {this.state.isloggedIn === true ? (
             <TouchableOpacity
-              style={{marginVertical: 10}}
+              style={styles.logoutBtnContainer}
               onPress={() => {
                 this.logoutHandler();
               }}>

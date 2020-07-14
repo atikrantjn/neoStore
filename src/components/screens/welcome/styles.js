@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     fontSize: 48,
     fontWeight: 'bold',
   },
+  spinnerContainer: {alignItems: 'center'},
 });
 
 export default styles;

@@ -4,13 +4,11 @@ import colors from '../../../../../utils/colors';
 const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: '#e6e6e6',
-    // backgroundColor: 'red',
-
     flex: 1,
   },
 
   container: {
-    flexDirection: 'column',
+    flex: 0.9,
   },
   addressContainer: {
     flexDirection: 'column',
@@ -146,6 +144,21 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
   },
+
+  errorText: {fontSize: 15, color: 'red', marginLeft: 15},
+
+  footerContainer: {flex: 0.1},
+
+  footerBtnRowContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+
+    marginBottom: 15,
+  },
+
+  footerBtnContainer: {flex: 0.5, marginHorizontal: 15},
 });
 
 export default styles;

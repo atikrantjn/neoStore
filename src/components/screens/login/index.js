@@ -12,9 +12,10 @@ import {
 import AwesomeAlert from 'react-native-awesome-alerts';
 import images from '../../../utils/images';
 import {request, API_URL} from '../../../config/api';
-import Loader from '../../custom/loaderComponent/loader';
+
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-community/async-storage';
+import ModalLoader from '../../custom/modalLoader/index';
 
 import styles from './styles';
 
@@ -85,7 +86,9 @@ class Login extends Component {
       this.setState({isLoading: false});
 
       setTimeout(() => {
-        this.props.navigation.navigate('Home');
+        this.props.navigation.navigate('Home', {
+          loggedIn: true,
+        });
         this.hideAlert();
       }, 3000);
     },
@@ -122,11 +125,16 @@ class Login extends Component {
   cartCallback = {
     success: async response => {
       console.log(response, 'from cart callback');
+      let arr = [];
       if (response.status_code === 200) {
-        await AsyncStorage.setItem(
-          'cartData',
-          JSON.stringify(response.product_details),
-        );
+        if (response.product_details === undefined) {
+          await AsyncStorage.setItem('cartData', JSON.stringify(arr));
+        } else {
+          await AsyncStorage.setItem(
+            'cartData',
+            JSON.stringify(response.product_details),
+          );
+        }
       }
     },
     error: error => {
@@ -176,19 +184,12 @@ class Login extends Component {
         <View style={styles.headingContainer}>
           <Text style={styles.neostoreHeader}>NeoSTORE</Text>
         </View>
-        {this.state.isLoading ? <Loader /> : null}
+        {this.state.isLoading ? (
+          <ModalLoader isLoading={this.state.isLoading} />
+        ) : null}
         <View>
           <View style={styles.loginInput}>
-            <FaIcon
-              name="user"
-              size={25}
-              style={{
-                position: 'absolute',
-                top: 10,
-                left: 10,
-                color: 'white',
-              }}
-            />
+            <FaIcon name="user" size={25} style={styles.iconStyle} />
             <TextInput
               style={styles.input}
               placeholder="Username"
@@ -201,23 +202,12 @@ class Login extends Component {
               underlineColorAndroid="transparent"
             />
             {this.state.emailErrr ? (
-              <Text style={{color: 'white', fontWeight: 'bold'}}>
-                {this.state.emailErrr}
-              </Text>
+              <Text style={styles.errorText}>{this.state.emailErrr}</Text>
             ) : null}
           </View>
 
           <View style={styles.loginInput}>
-            <FaIcon
-              name="lock"
-              size={25}
-              style={{
-                position: 'absolute',
-                top: 10,
-                left: 10,
-                color: 'white',
-              }}
-            />
+            <FaIcon name="lock" size={25} style={styles.iconStyle} />
             <TextInput
               style={styles.input}
               placeholder="Password"
@@ -231,7 +221,7 @@ class Login extends Component {
               underlineColorAndroid="transparent"
             />
             {this.state.passErr ? (
-              <Text style={{color: 'white'}}>{this.state.passErr}</Text>
+              <Text style={styles.errorText}>{this.state.passErr}</Text>
             ) : null}
           </View>
           <View style={styles.loginInput}>
@@ -255,12 +245,12 @@ class Login extends Component {
         </View>
         <View style={styles.accountContainer}>
           <Text style={styles.accountText}>DON'T HAVE AN ACCOUNT ?</Text>
-          <View style={styles.plusSign}>
+          <View style={styles.plusSignContainer}>
             <TouchableOpacity
               onPress={() => {
                 this.props.navigation.navigate('Register');
               }}>
-              <Image style={{width: 30, height: 30}} source={images.plusSign} />
+              <Image style={styles.plusIcon} source={images.plusSign} />
             </TouchableOpacity>
           </View>
         </View>

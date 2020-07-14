@@ -1,6 +1,5 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 import appcolors from '../../../utils/colors';
-const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -216,6 +215,11 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
   },
+  renderQuantity: {
+    marginTop: 5,
+  },
+
+  priceText: {fontSize: 17},
 });
 
 export default styles;

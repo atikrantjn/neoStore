@@ -4,6 +4,13 @@ import appColors from '../../../../../utils/colors';
 const styles = StyleSheet.create({
   mainContainer: {backgroundColor: appColors.themeColor, flex: 1},
 
+  imageContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 15,
+  },
+
+  image: {height: 130, width: 130, borderRadius: 65},
   input: {
     paddingLeft: 50,
     color: 'white',
@@ -29,6 +36,20 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'red',
     textAlign: 'center',
+  },
+
+  iconStyle: {
+    position: 'absolute',
+    top: 12,
+    left: 10,
+    color: 'white',
+  },
+
+  footerContainer: {
+    flexDirection: 'column',
+    flex: 1,
+    marginVertical: 15,
+    marginHorizontal: 15,
   },
 });
 export default styles;

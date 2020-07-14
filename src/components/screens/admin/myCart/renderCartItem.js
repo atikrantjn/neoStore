@@ -1,14 +1,7 @@
 import React, {Component} from 'react';
 
 import styles from './styles';
-import {
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-  Alert,
-} from 'react-native';
+import {Text, View, Image, TouchableOpacity, Alert} from 'react-native';
 import {BASE_URL} from '../../../../config/api';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -88,7 +81,7 @@ export class RenderCartItem extends Component {
             </View>
           </View>
         </View>
-        <View style={{flex: 0.2, alignSelf: 'center', marginEnd: 5}}>
+        <View style={styles.removeBtnContainer}>
           <TouchableOpacity
             onPress={() => {
               this.removeFromCart(data.product_id);

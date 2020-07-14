@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 import colors from '../../../utils/colors';
 
 const styles = StyleSheet.create({
@@ -12,6 +12,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: '#D5D5D5',
   },
+
+  mainProductNameContainer: {margin: 15, flex: 1},
   productNameContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -87,6 +89,16 @@ const styles = StyleSheet.create({
     padding: 5,
   },
 
+  modalVisiblityStyle: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: '100%',
+    width: '100%',
+    zIndex: 1,
+    backgroundColor: '#06060694',
+  },
+
   productDetailsContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -97,6 +109,8 @@ const styles = StyleSheet.create({
   productMaterial: {
     fontSize: 20,
   },
+
+  shareIconStyle: {color: '#989898'},
 
   productCostContainer: {
     flex: 1,
@@ -125,6 +139,19 @@ const styles = StyleSheet.create({
     color: colors.themeColor,
   },
 
+  subImageList: {marginHorizontal: 5},
+
+  subImageMainContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+  },
+
+  subImageContainer: {borderWidth: 1, borderColor: 'black'},
+
+  subImageStyle: {width: 110, height: 120},
+
   productImageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -141,6 +168,9 @@ const styles = StyleSheet.create({
     marginHorizontal: '5%',
     marginVertical: '5%',
   },
+
+  descriptionViewStyle: {flexDirection: 'row'},
+
   descriptionText: {
     fontSize: 25,
     fontWeight: 'bold',
@@ -152,6 +182,14 @@ const styles = StyleSheet.create({
     right: 10,
     zIndex: 1000,
     elevation: 24,
+  },
+
+  cartIconStyle: {
+    backgroundColor: '#3089AB',
+    color: 'white',
+    borderRadius: 25,
+    paddingHorizontal: 20,
+    paddingVertical: 15,
   },
 
   productDescription: {

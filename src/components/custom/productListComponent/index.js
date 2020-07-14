@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import {View, FlatList, ActivityIndicator, Dimensions} from 'react-native';
+import {View, FlatList} from 'react-native';
 import {API_URL, request} from '../../../config/api';
 import RenderProductItem from './renderProductItem';
+import ModalLoader from '../modalLoader/index';
+import styles from './styles';
 
 export default class ProductListModule extends Component {
   constructor(props) {
@@ -15,7 +17,6 @@ export default class ProductListModule extends Component {
 
   componentDidMount() {
     const id = this.props.id;
-    console.log(id, 'he');
 
     const header = {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -42,29 +43,13 @@ export default class ProductListModule extends Component {
   };
 
   FlatListItemSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: '100%',
-          backgroundColor: '#B4B4B4',
-        }}
-      />
-    );
+    return <View style={styles.itemSeperator} />;
   };
   render() {
     return (
       <View>
         {this.state.isLoading ? (
-          <ActivityIndicator
-            size={30}
-            color="blue"
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginVertical: '65%',
-            }}
-          />
+          <ModalLoader isLoading={this.state.isLoading} />
         ) : (
           <FlatList
             data={this.state.data}

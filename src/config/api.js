@@ -82,8 +82,8 @@ export const request = async (
       onResponse.error(responseJSON);
     }
   } catch (error) {
-    error = 'Network Error: please check your internet connection';
-    onResponse.error(error);
+    err = 'Network Error: please check your internet connection';
+    onResponse.error(err);
   }
 };
 

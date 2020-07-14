@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {TouchableOpacity} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import appColors from '../../../../../utils/colors';
@@ -8,6 +8,11 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import ProductList from '../../../ProductList/ProductList';
 import ProductDetails from '../../../productDetails/productDetails';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5';
+
+const styles = StyleSheet.create({
+  iconStyle: {marginLeft: 10},
+  iconStyle_2: {marginRight: 10},
+});
 
 const Stack = createStackNavigator();
 class ProductListStack extends Component {
@@ -34,7 +39,7 @@ class ProductListStack extends Component {
                 name="bars"
                 size={28}
                 color="white"
-                style={{marginLeft: 10}}
+                style={styles.iconStyle}
                 onPress={() => {
                   this.props.navigation.openDrawer();
                 }}
@@ -48,7 +53,7 @@ class ProductListStack extends Component {
                 name="search"
                 size={28}
                 color="white"
-                style={{marginRight: 10}}
+                style={styles.iconStyle_2}
               />
             ),
 
@@ -77,7 +82,7 @@ class ProductListStack extends Component {
                 name="bars"
                 size={28}
                 color="white"
-                style={{marginLeft: 10}}
+                style={styles.iconStyle}
                 onPress={() => {
                   this.props.navigation.openDrawer();
                 }}
@@ -88,7 +93,7 @@ class ProductListStack extends Component {
                 name="search"
                 size={28}
                 color="white"
-                style={{marginRight: 10}}
+                style={styles.iconStyle_2}
                 onPress={() => {
                   this.props.navigation.navigate('SearchBar');
                 }}
@@ -121,7 +126,7 @@ class ProductListStack extends Component {
                 name="bars"
                 size={28}
                 color="white"
-                style={{marginLeft: 10}}
+                style={styles.iconStyle}
                 onPress={() => {
                   this.props.navigation.openDrawer();
                 }}
@@ -133,7 +138,7 @@ class ProductListStack extends Component {
                 name="search"
                 size={28}
                 color="white"
-                style={{marginRight: 10}}
+                style={styles.iconStyle_2}
                 onPress={() => {
                   this.props.navigation.navigate('SearchBar');
                 }}
@@ -166,7 +171,7 @@ class ProductListStack extends Component {
                 name="bars"
                 size={28}
                 color="white"
-                style={{marginLeft: 10}}
+                style={styles.iconStyle}
                 onPress={() => {
                   this.props.navigation.openDrawer();
                 }}
@@ -177,7 +182,7 @@ class ProductListStack extends Component {
                 name="search"
                 size={28}
                 color="white"
-                style={{marginRight: 10}}
+                style={styles.iconStyle_2}
                 onPress={() => {
                   this.props.navigation.navigate('SearchBar');
                 }}
@@ -221,7 +226,7 @@ class ProductListStack extends Component {
                 name="search"
                 size={28}
                 color="white"
-                style={{marginRight: 10}}
+                style={styles.iconStyle_2}
                 onPress={() => {
                   this.props.navigation.navigate('SearchBar');
                 }}

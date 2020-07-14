@@ -1,3 +1,4 @@
 import setAddressListData from './addressListAction';
+import setOrderListData from './orderListAction';
 
-export {setAddressListData};
+export {setAddressListData, setOrderListData};

@@ -21,7 +21,7 @@ class welcome extends Component {
           <Text style={styles.welcomeText}>Welcome to</Text>
           <Text style={styles.neostoreHeading}>NeoSTORE</Text>
         </View>
-        <View style={{alignItems: 'center'}}>
+        <View style={styles.spinnerContainer}>
           <ActivityIndicator size="large" />
         </View>
       </View>

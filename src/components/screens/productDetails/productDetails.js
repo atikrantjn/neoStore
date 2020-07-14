@@ -44,7 +44,7 @@ export default class ProductDetails extends Component {
   }
 
   componentDidMount = async () => {
-    const {productId, product_name} = this.props.route.params;
+    const {productId} = this.props.route.params;
 
     this.setState({
       product_id: productId,
@@ -284,15 +284,7 @@ export default class ProductDetails extends Component {
               onPress={() => {
                 this.setModalVisible(false);
               }}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                height: '100%',
-                width: '100%',
-                zIndex: 1,
-                backgroundColor: '#06060694',
-              }}
+              style={styles.modalVisiblityStyle}
             />
           </View>
         </Modal>
@@ -307,7 +299,7 @@ export default class ProductDetails extends Component {
       <View style={styles.mainContainer}>
         <ScrollView>
           <View style={styles.container}>
-            <View style={{margin: 15, flex: 1}}>
+            <View style={styles.mainProductNameContainer}>
               <View style={styles.productNameContainer}>
                 <Text style={styles.productName}>
                   {productData.product_name}
@@ -352,7 +344,7 @@ export default class ProductDetails extends Component {
                   <FaIcon
                     name="share-alt"
                     size={28}
-                    style={{color: '#989898'}}
+                    style={styles.shareIconStyle}
                   />
                 </TouchableOpacity>
               </View>
@@ -368,7 +360,7 @@ export default class ProductDetails extends Component {
             </View>
 
             {/* subimages */}
-            <View style={{marginHorizontal: 5}}>
+            <View style={styles.subImageList}>
               <FlatList
                 horizontal
                 data={this.state.subImages}
@@ -378,16 +370,11 @@ export default class ProductDetails extends Component {
                       onPress={() => {
                         this.onpressSubImage(item);
                       }}
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        padding: 10,
-                      }}>
-                      <View style={{borderWidth: 1, borderColor: 'black'}}>
+                      style={styles.subImageMainContainer}>
+                      <View style={styles.subImageContainer}>
                         <Image
                           resizeMode="contain"
-                          style={{width: 110, height: 120}}
+                          style={styles.subImageStyle}
                           source={{uri: BASE_URL + item}}
                         />
                       </View>
@@ -402,7 +389,7 @@ export default class ProductDetails extends Component {
           <View style={styles.moduleSeperatorline} />
 
           <View style={styles.productDescriptionContainer}>
-            <View style={{flexDirection: 'row'}}>
+            <View style={styles.descriptionViewStyle}>
               <Text style={styles.descriptionText}>Description</Text>
               <TouchableOpacity
                 onPress={() => {
@@ -412,13 +399,7 @@ export default class ProductDetails extends Component {
                 <IonIcon
                   name="md-cart"
                   size={20}
-                  style={{
-                    backgroundColor: '#3089AB',
-                    color: 'white',
-                    borderRadius: 25,
-                    paddingHorizontal: 20,
-                    paddingVertical: 15,
-                  }}
+                  style={styles.cartIconStyle}
                 />
               </TouchableOpacity>
             </View>

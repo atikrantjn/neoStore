@@ -71,23 +71,18 @@ export class MyCart extends Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={styles.mainContainer}>
         {this.state.cartData.length === 0 ? (
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              flex: 1,
-            }}>
+          <View style={styles.emptyContainer}>
             <View>
               <FaIcon size={88} name="frown-open" />
             </View>
-            <Text style={{fontSize: 24, textAlign: 'center'}}>
+            <Text style={styles.emptyText}>
               Oooopsssss Your cart is empty!!
             </Text>
           </View>
         ) : (
-          <View style={{flex: 1, flexDirection: 'column'}}>
+          <View style={styles.listMainContainer}>
             <FlatList
               data={this.state.cartData}
               ItemSeparatorComponent={this.FlatListItemSeparator}

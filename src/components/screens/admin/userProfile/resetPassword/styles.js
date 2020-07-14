@@ -1,6 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import appColors from '../../../../../utils/colors';
-const screenWidth = Math.round(Dimensions.get('window').width);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -13,6 +13,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 25,
   },
+
+  inputContainer: {flex: 1},
   forgotText: {
     color: '#FFFFFF',
     fontSize: 28,
@@ -48,6 +50,24 @@ const styles = StyleSheet.create({
     color: 'red',
     textAlign: 'center',
   },
+
+  iconStyle: {
+    position: 'absolute',
+    top: 12,
+    left: 20,
+    color: 'white',
+  },
+
+  rightIconStyle: {
+    position: 'absolute',
+    top: 12,
+    right: 20,
+    color: 'white',
+  },
+
+  errortext: {color: 'white'},
+
+  footerContainer: {marginHorizontal: 50, marginBottom: 10},
 });
 
 export default styles;

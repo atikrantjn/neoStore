@@ -5,6 +5,13 @@ import appColors from '../../../../../utils/colors';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5';
 
 import StoreLocator from '../../../storeLocator/index';
+
+import {StyleSheet} from 'react-native';
+
+const styles = StyleSheet.create({
+  iconStyle: {marginLeft: 10},
+});
+
 const Stack = createStackNavigator();
 class StoreLocatorStack extends Component {
   constructor(props) {
@@ -25,7 +32,7 @@ class StoreLocatorStack extends Component {
                 name="bars"
                 size={28}
                 color="white"
-                style={{marginLeft: 10}}
+                style={styles.iconStyle}
                 onPress={() => {
                   this.props.navigation.openDrawer();
                 }}

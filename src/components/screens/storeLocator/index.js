@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
-import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import {View, Dimensions, ScrollView} from 'react-native';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import {List} from 'react-native-paper';
 // import FaIcon from 'react-native-vector-icons/FontAwesome5';
-import {ScrollView} from 'react-native-gesture-handler';
+
+import styles from './styles';
 
 const screen = Dimensions.get('window');
 
@@ -11,25 +12,48 @@ const ASPECT_RATIO = screen.width / screen.height;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-const styles = StyleSheet.create({
-  map: {
-    // ...StyleSheet.absoluteFillObject,
-    height: '55%',
-    width: '100%',
-  },
-});
-
 export class StoreLocator extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       expanded: true,
-      showMap: false,
+
       latitude: 18.57899549913118,
       longitude: 73.7385973893106,
       latitudeDelta: LATITUDE_DELTA,
       longitudeDelta: LONGITUDE_DELTA,
+
+      markers: [
+        {
+          title: 'hello',
+          coordinates: {
+            latitude: 19.018045,
+            longitude: 72.828343,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+          },
+        },
+        {
+          title: 'hello',
+          coordinates: {
+            latitude: 19.141132,
+            longitude: 73.008734,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+          },
+        },
+
+        {
+          title: 'hello',
+          coordinates: {
+            latitude: 18.57899549913118,
+            longitude: 73.7385973893106,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+          },
+        },
+      ],
     };
   }
 
@@ -39,7 +63,7 @@ export class StoreLocator extends Component {
     });
   render() {
     return (
-      <View style={{height: '100%', width: '100%'}}>
+      <View style={styles.container}>
         <MapView
           provider={PROVIDER_GOOGLE}
           region={{
@@ -49,20 +73,19 @@ export class StoreLocator extends Component {
             longitudeDelta: LONGITUDE_DELTA,
           }}
           style={styles.map}>
-          <Marker
-            coordinate={{
-              latitude: this.state.latitude,
-              longitude: this.state.longitude,
-            }}
-            description="here i work"
-          />
+          {this.state.markers.map((marker, key) => (
+            <MapView.Marker
+              coordinate={marker.coordinates}
+              title={marker.title}
+            />
+          ))}
         </MapView>
 
-        <View style={{height: '45%'}}>
+        <View style={styles.listContainer}>
           <ScrollView>
             <List.Accordion
               title="Store List"
-              titleStyle={{fontSize: 18}}
+              titleStyle={styles.listTitleStyle}
               left={props => <List.Icon {...props} icon="folder" />}>
               <List.Item
                 onPress={() => {
@@ -73,8 +96,8 @@ export class StoreLocator extends Component {
                 }}
                 left={() => <List.Icon icon="map-marker" />}
                 title="Neosoft Technologies pune"
-                style={{marginLeft: 30}}
-                titleStyle={{fontSize: 18}}
+                style={styles.listItemStyle}
+                titleStyle={styles.listTitleStyle}
               />
               <List.Item
                 onPress={() => {
@@ -83,10 +106,10 @@ export class StoreLocator extends Component {
                     longitude: 72.828343,
                   });
                 }}
-                style={{marginLeft: 30}}
+                style={styles.listItemStyle}
                 left={() => <List.Icon icon="map-marker" />}
                 title="Neosoft Technologies mumbai"
-                titleStyle={{fontSize: 18}}
+                titleStyle={styles.listTitleStyle}
               />
               <List.Item
                 onPress={() => {
@@ -95,10 +118,10 @@ export class StoreLocator extends Component {
                     longitude: 73.008734,
                   });
                 }}
-                style={{marginLeft: 30}}
+                style={styles.listItemStyle}
                 left={() => <List.Icon icon="map-marker" />}
                 title="Neosoft Technologies Rabale"
-                titleStyle={{fontSize: 18}}
+                titleStyle={styles.listTitleStyle}
               />
               <List.Item
                 onPress={() => {
@@ -107,10 +130,10 @@ export class StoreLocator extends Component {
                     longitude: 72.843736,
                   });
                 }}
-                style={{marginLeft: 30}}
+                style={styles.listItemStyle}
                 left={() => <List.Icon icon="map-marker" />}
                 title="Neosoft Technologies Head Office"
-                titleStyle={{fontSize: 18}}
+                titleStyle={styles.listTitleStyle}
               />
             </List.Accordion>
           </ScrollView>
