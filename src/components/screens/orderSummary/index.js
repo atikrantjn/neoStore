@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {BASE_URL, API_URL, request, api} from '../../../config/api';
 
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
+import {ScrollView} from 'react-native-gesture-handler';
 
 export class OrderSummary extends Component {
   constructor(props) {
@@ -30,6 +31,9 @@ export class OrderSummary extends Component {
       custAddress: [],
       isLoading: false,
       noAddressFound: false,
+
+      total_cart_Price: 0,
+      gst_price: 0,
     };
   }
 
@@ -150,15 +154,10 @@ export class OrderSummary extends Component {
   // function to decrease quantity of product
 
   decreaseQuantity = async id => {
-    const title = 'Remove!!';
-    const message = 'Are you sure you want to remove this item';
     const buttons = [
-      {text: 'Cancel', type: 'cancel'},
       {
-        text: 'yes',
-        onPress: () => {
-          this.remove_item(id);
-        },
+        text: 'Ok',
+        onPress: () => {},
       },
     ];
 
@@ -167,7 +166,7 @@ export class OrderSummary extends Component {
       return result._id === id;
     });
     if (dataFromCart[index].quantity <= 1) {
-      Alert.alert(title, message, buttons);
+      Alert.alert('Error!!', 'minimum limit is 1', buttons);
     } else if (dataFromCart[index].quantity > 1) {
       dataFromCart[index].quantity = dataFromCart[index].quantity - 1;
 
@@ -214,7 +213,26 @@ export class OrderSummary extends Component {
 
     let totalOrder = parseInt(totalCost + parseInt(gst));
 
-    this.setState({totalOrder});
+    this.setState({totalOrder, gst_price: gst, total_cart_Price: totalCost});
+  };
+
+  remove_from_list = id => {
+    const title = 'Remove!!';
+    const message = 'Are you sure you want to remove this item';
+    const buttons = [
+      {
+        text: 'Cancel',
+        onPress: () => {},
+      },
+      {
+        text: 'Yes',
+        onPress: () => {
+          this.remove_item(id);
+        },
+      },
+    ];
+
+    Alert.alert(title, message, buttons);
   };
 
   // function to remove item from list and from asyncstorage
@@ -296,43 +314,46 @@ export class OrderSummary extends Component {
         {this.state.isLoading ? (
           <ModalLoader isLoading={this.state.isLoading} />
         ) : null}
-        <View style={styles.userDetailContainer}>
-          <View>
-            <Text style={styles.userName}>{userFullName}</Text>
-          </View>
 
-          <View style={styles.userAddressContainer}>
-            <Text style={styles.userAddress}>{this.state.custAddress}</Text>
-          </View>
-          <View style={styles.changeAddressBTNcontainer}>
-            <TouchableOpacity
-              onPress={() => {
-                this.props.navigation.navigate('Add Address');
-              }}>
-              <View style={styles.changeAddressBTN}>
-                <Text style={styles.changeAddressBTNtext}>
-                  Change Or Add Address
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.moduleSeperatorline} />
-
-        <View style={styles.flatListMainContainer}>
-          {this.state.cartData.length === 0 ? (
-            <View style={styles.flatListEmptyContainer}>
-              <Text style={styles.flatListEmptyText}>No data found</Text>
+        <ScrollView style={{flex: 1}}>
+          <View style={styles.userDetailContainer}>
+            <View style={styles.userNameContainer}>
+              <Text style={styles.userName}>{userFullName}</Text>
             </View>
-          ) : (
-            <FlatList
-              data={this.state.cartData}
-              ItemSeparatorComponent={this.FlatListItemSeparator}
-              renderItem={({item}) => {
-                const productItem = JSON.parse(JSON.stringify(item));
 
-                return (
-                  <View>
+            <View style={styles.userAddressContainer}>
+              <Text style={styles.userAddress}>{this.state.custAddress}</Text>
+            </View>
+            <View style={styles.changeAddressBTNcontainer}>
+              <TouchableOpacity
+                onPress={() => {
+                  this.props.navigation.navigate('Add Address');
+                }}>
+                <View style={styles.changeAddressBTN}>
+                  <Text style={styles.changeAddressBTNtext}>
+                    Change Or Add Address
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.moduleSeperatorline} />
+
+          <View style={styles.flatListMainContainer}>
+            {this.state.cartData.length === 0 ? (
+              <View style={styles.flatListEmptyContainer}>
+                <Text style={styles.flatListEmptyText}>No data found</Text>
+              </View>
+            ) : (
+              <FlatList
+                scrollEnabled={false}
+                data={this.state.cartData}
+                ItemSeparatorComponent={this.FlatListItemSeparator}
+                ListFooterComponent={this.FlatListItemSeparator}
+                renderItem={({item}) => {
+                  const productItem = JSON.parse(JSON.stringify(item));
+
+                  return (
                     <View style={styles.rendercontainer}>
                       <View style={styles.renderFirstRowContainer}>
                         <Text style={styles.renderproductName}>
@@ -348,7 +369,7 @@ export class OrderSummary extends Component {
                         />
                       </View>
 
-                      <View style={styles.rendetSecondRowContainer}>
+                      <View style={styles.renderSecondRowContainer}>
                         <Text style={styles.renderproductMaterial}>
                           {productItem.product_id.product_material}
                         </Text>
@@ -391,41 +412,76 @@ export class OrderSummary extends Component {
                             />
                           </TouchableOpacity>
                         </View>
+                        <View style={styles.removeBtnContainer}>
+                          <TouchableOpacity
+                            onPress={() => {
+                              const p_id = item._id;
+                              this.remove_from_list(p_id);
+                            }}>
+                            <View style={styles.removeBTN}>
+                              <Text style={styles.removeBTNText}>Remove</Text>
+                            </View>
+                          </TouchableOpacity>
+                        </View>
                       </View>
                     </View>
-                  </View>
-                );
-              }}
-              keyExtractor={(item, index) => index.toString()}
-            />
-          )}
-        </View>
-
-        <View style={styles.moduleSeperatorline} />
-
-        <View style={styles.footerContainer}>
-          <View>
-            <Text style={styles.footerPriceDetails}>Price Details</Text>
+                  );
+                }}
+                keyExtractor={(item, index) => index.toString()}
+              />
+            )}
           </View>
 
-          <View style={styles.productCostContainer}>
+          <View style={styles.footerContainer}>
             <View>
-              <Text style={styles.productPrice}>
-                Price <Text style={styles.priceText}>(included 5% gst)</Text>
-              </Text>
+              <Text style={styles.footerPriceDetails}>Price Details</Text>
             </View>
-            <View>
-              <Text style={styles.productPrice}>
-                {'Rs.' + ' ' + this.state.totalOrder}
-              </Text>
+
+            <View style={styles.productCostContainer}>
+              <View>
+                <Text style={styles.productPrice}>Price</Text>
+              </View>
+              <View>
+                <Text style={styles.productPrice}>
+                  {'Rs.' + ' ' + this.state.total_cart_Price}
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.moduleSeperatorline} />
+
+            <View style={styles.gstCostContainer}>
+              <View>
+                <Text style={styles.productPrice}>gst(5% tax)</Text>
+              </View>
+              <View>
+                <Text style={styles.productPrice}>
+                  {'Rs.' + ' ' + this.state.gst_price}
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.moduleSeperatorline} />
+
+            <View style={styles.subTotalCostContainer}>
+              <View>
+                <Text style={styles.productPrice}>Subtotal</Text>
+              </View>
+              <View>
+                <Text style={styles.productPrice}>
+                  {'Rs.' + ' ' + this.state.totalOrder}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
-        <View style={styles.moduleSeperatorline} />
+
+          <View style={styles.moduleSeperatorline} />
+        </ScrollView>
 
         <View style={styles.orderSummaryFooterContainer}>
           <View>
-            <Text style={styles.productPrice}>
+            <Text style={styles.totalProductPrice}>Price</Text>
+            <Text style={styles.totalProductPrice}>
               {'Rs.' + ' ' + this.state.totalOrder}
             </Text>
           </View>

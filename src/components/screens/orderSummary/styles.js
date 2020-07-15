@@ -5,22 +5,25 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-evenly',
+    // justifyContent: 'space-evenly',
+    // backgroundColor: 'red',
   },
   userDetailContainer: {
     flexDirection: 'column',
-    justifyContent: 'center',
-    flex: 0.18,
-    marginHorizontal: 22,
+    marginHorizontal: 20,
     marginVertical: 5,
   },
+
+  userNameContainer: {paddingVertical: 2},
 
   userName: {
     fontSize: 22,
   },
 
   userAddressContainer: {
-    marginVertical: 12,
+    marginVertical: 10,
+
+    paddingVertical: 2,
   },
 
   userAddress: {fontSize: 18, fontStyle: 'italic'},
@@ -44,13 +47,16 @@ const styles = StyleSheet.create({
   },
 
   moduleSeperatorline: {
-    borderBottomWidth: 3,
-    height: 5,
-    borderColor: '#D5D5D5',
+    height: 1,
+    width: '100%',
+    backgroundColor: '#B4B4B4',
+    marginVertical: 5,
   },
 
   flatListMainContainer: {
-    flex: 0.4,
+    flex: 1,
+    // backgroundColor: 'red',
+    marginVertical: 5,
   },
 
   flatListEmptyContainer: {
@@ -61,101 +67,37 @@ const styles = StyleSheet.create({
 
   flatListEmptyText: {fontSize: 28, textAlign: 'center'},
 
-  productDetailsContainer: {
+  rendercontainer: {
+    marginHorizontal: 20,
     flex: 1,
     flexDirection: 'column',
-    // margin: 25,
   },
 
   renderFirstRowContainer: {
     flex: 1,
     flexDirection: 'row',
-  },
-
-  rendetSecondRowContainer: {
-    flexDirection: 'row',
-
-    justifyContent: 'space-around',
-    flex: 1,
-  },
-
-  productCost: {
-    fontSize: 20,
-  },
-
-  quantityContainer: {
-    flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '30%',
-    marginVertical: 5,
-  },
-
-  quantityItemText: {
-    fontSize: 18,
-  },
-
-  footerContainer: {
-    flexDirection: 'column',
-    flex: 0.1,
-    marginHorizontal: '5%',
-  },
-
-  footerPriceDetails: {
-    fontSize: 19,
-    textTransform: 'uppercase',
-    textDecorationLine: 'underline',
-  },
-  productCostContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-
-  productPrice: {fontSize: 22, color: 'black'},
-
-  orderSummaryFooterContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginHorizontal: 22,
-    flex: 0.1,
-  },
-
-  orderNowBTN: {
-    backgroundColor: appcolors.themeColor,
-    borderRadius: 7,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-  },
-
-  orderNowBTNtext: {
-    fontSize: 18,
-    color: 'white',
-    textAlign: 'center',
-  },
-
-  /////ddjfhjdfhjdhfj
-
-  rendercontainer: {
-    marginHorizontal: 22,
-    flex: 1,
-  },
-
-  renderlistContainer: {
-    flexDirection: 'row',
-  },
-
-  renderimageStyle: {
-    flex: 0.3,
-    height: 65,
   },
 
   renderproductName: {
-    fontSize: 24,
-    flex: 0.7,
+    fontSize: 22,
+    flex: 0.8,
+  },
+
+  renderimageStyle: {
+    width: 100,
+    height: 60,
+  },
+
+  renderSecondRowContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginVertical: 10,
   },
 
   renderproductMaterial: {
-    fontSize: 20,
+    fontSize: 18,
     alignSelf: 'center',
     color: '#A09F9F',
     fontWeight: 'bold',
@@ -164,29 +106,32 @@ const styles = StyleSheet.create({
 
   renderproductCostContainer: {
     marginVertical: 15,
-    flex: 0.4,
+    flex: 1,
+    alignItems: 'flex-end',
   },
 
-  renderproductCost: {
-    fontSize: 15,
+  productCost: {
+    fontSize: 20,
   },
 
-  renderfooterComponentContainer: {
+  renderQuantity: {
+    paddingVertical: 10,
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-around',
-
-    margin: 20,
+    justifyContent: 'space-between',
+    marginBottom: 10,
   },
 
-  renderfooterPrice: {fontSize: 25},
-
-  renderitemSeperator: {
-    height: 1,
-    width: '100%',
-    backgroundColor: '#B4B4B4',
+  quantityContainer: {
+    flexDirection: 'row',
     marginVertical: 5,
   },
+
+  quantityItemText: {
+    fontSize: 18,
+    paddingHorizontal: 20,
+  },
+
   minusBtn: {
     borderWidth: 1,
     borderColor: 'red',
@@ -203,23 +148,88 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     textAlign: 'center',
   },
+
   removeBTN: {
-    borderRadius: 7,
-    padding: 7,
-    backgroundColor: 'red',
-    height: 30,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 10,
+    backgroundColor: appcolors.themeColor,
   },
   removeBTNText: {
-    fontSize: 15,
-
+    fontSize: 14,
     color: 'white',
     textAlign: 'center',
   },
-  renderQuantity: {
-    marginTop: 5,
+
+  removeBtnContainer: {
+    flex: 0.4,
   },
 
-  priceText: {fontSize: 17},
+  footerContainer: {
+    flexDirection: 'column',
+    marginHorizontal: 20,
+    flex: 1,
+    marginVertical: 5,
+  },
+
+  footerPriceDetails: {
+    fontSize: 18,
+    textTransform: 'uppercase',
+    textDecorationLine: 'underline',
+  },
+  productCostContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
+  gstCostContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 5,
+  },
+
+  subTotalCostContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 5,
+  },
+
+  productPrice: {fontSize: 18.5, color: 'black'},
+
+  orderSummaryFooterContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginHorizontal: 20,
+    marginVertical: 20,
+  },
+
+  orderNowBTN: {
+    backgroundColor: appcolors.themeColor,
+    borderRadius: 7,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+  },
+
+  orderNowBTNtext: {
+    fontSize: 18,
+    color: 'white',
+    textAlign: 'center',
+  },
+
+  totalProductPrice: {
+    fontSize: 22,
+    color: 'black',
+  },
+
+  /////ddjfhjdfhjdhfj
+
+  renderitemSeperator: {
+    height: 1,
+    width: '100%',
+    backgroundColor: '#B4B4B4',
+    marginVertical: 2,
+  },
 });
 
 export default styles;

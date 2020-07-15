@@ -63,8 +63,10 @@ export default class Sidebar extends Component {
       .then(response => response.json())
       .then(async respData => {
         if (respData.success) {
-          await AsyncStorage.removeItem('userData');
-          await AsyncStorage.removeItem('cartData');
+          // await AsyncStorage.removeItem('userData');
+          // await AsyncStorage.removeItem('cartData');
+
+          await AsyncStorage.clear();
 
           Alert.alert('Success', respData.message, [
             {
@@ -90,9 +92,8 @@ export default class Sidebar extends Component {
         onPress: async () => {
           await this.removeValue();
           this.setState({isloggedIn: false});
-          setTimeout(() => {
-            this.props.navigation.navigate('Home');
-          }, 2000);
+
+          this.props.navigation.navigate('Home');
         },
       },
     ];
