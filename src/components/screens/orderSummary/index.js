@@ -68,7 +68,7 @@ export class OrderSummary extends Component {
 
     api
       .fetchapi(
-        'http://180.149.241.208:3022/addProductToCartCheckout',
+        'https://9db13fc36ac4.ngrok.io/addProductToCartCheckout',
         'post',
         JSON.stringify(data1),
         token,
@@ -263,7 +263,12 @@ export class OrderSummary extends Component {
       let address = a.map(s => {
         return s.address + ',' + s.pincode + ',' + s.country;
       });
-      this.setState({custAddress: address, isLoading: false});
+
+      this.setState({
+        custAddress: address,
+        isLoading: false,
+        noAddressFound: false,
+      });
     },
     error: error => {
       let empty = error.message;

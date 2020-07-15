@@ -12,7 +12,12 @@ import styles from './styles';
 import images from '../../../../../utils/images';
 import ModalLoader from '../../../../custom/modalLoader/index';
 
-import {request, API_URL, BASE_URL} from '../../../../../config/api';
+import {
+  request,
+  API_URL,
+  BASE_URL,
+  BASE_URL_2,
+} from '../../../../../config/api';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 

@@ -118,7 +118,7 @@ export class OrderList extends Component {
                   <RenderOrderList
                     product_details={item.product_details}
                     order_id={item.product_details[0].order_id}
-                    _id={item._id}
+                    id={item._id}
                     totalCost={totalCost}
                     orderDate={orderDate}
                   />

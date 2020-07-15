@@ -12,6 +12,7 @@ import {
 import styles from './styles';
 
 import StarRating from 'react-native-star-rating';
+import Share from 'react-native-share';
 
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
 import IonIcon from 'react-native-vector-icons/Ionicons';
@@ -292,6 +293,24 @@ export default class ProductDetails extends Component {
     );
   };
 
+  onShare = async () => {
+    const {productImg} = this.state;
+
+    let options = {
+      url: BASE_URL + productImg,
+      title: 'demo',
+      message: 'Check this product',
+    };
+
+    Share.open(options)
+      .then(res => {
+        console.log(res, 'eee');
+      })
+      .catch(err => {
+        err && console.log(err);
+      });
+  };
+
   render() {
     const {productData, product_id, productImg} = this.state;
 
@@ -345,6 +364,7 @@ export default class ProductDetails extends Component {
                     name="share-alt"
                     size={28}
                     style={styles.shareIconStyle}
+                    onPress={this.onShare}
                   />
                 </TouchableOpacity>
               </View>

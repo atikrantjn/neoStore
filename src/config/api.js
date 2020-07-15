@@ -1,9 +1,9 @@
-export const BASE_URL = 'http://180.149.241.208:3022/';
+export const BASE_URL = 'https://9db13fc36ac4.ngrok.io/';
+// export const BASE_URL_2 = 'http://180.149.241.208:3022/';
 
 export const API_URL = {
   GET_ALL_CATEGORIES: 'getAllCategories',
   UPDATE_RATING_API: 'updateProductRatingByCustomer',
-  // ADD_TO_CART_API: 'addDataToCart',
   GET_CUST_CART_API: 'getCartData',
   LOGIN_API: 'login',
   REGISTER_API: 'register',
