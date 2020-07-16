@@ -6,6 +6,7 @@ import {
   Image,
   FlatList,
   Alert,
+  ScrollView,
 } from 'react-native';
 
 import styles from './styles';
@@ -15,7 +16,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {BASE_URL, API_URL, request, api} from '../../../config/api';
 
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
-import {ScrollView} from 'react-native-gesture-handler';
 
 export class OrderSummary extends Component {
   constructor(props) {
@@ -47,10 +47,10 @@ export class OrderSummary extends Component {
       {
         text: 'confirm',
         onPress: () => {
-          if (this.state.noAddressFound === false) {
-            this.placeOrder();
+          if (this.state.cartData.length === 0) {
+            Alert.alert('Error', 'Please add product to your cart first');
           } else {
-            Alert.alert('Error', 'No shipping address found');
+            this.placeOrder();
           }
         },
       },
@@ -72,7 +72,7 @@ export class OrderSummary extends Component {
 
     api
       .fetchapi(
-        'https://9db13fc36ac4.ngrok.io/addProductToCartCheckout',
+        BASE_URL + API_URL.ADD_PRODUCT_CHECKOUT_API,
         'post',
         JSON.stringify(data1),
         token,
