@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "secondDemo.app"
-               BlueprintName = "secondDemo"
-               ReferencedContainer = "container:secondDemo.xcodeproj">
+               BuildableName = "NeoStore.app"
+               BlueprintName = "NeoStore"
+               ReferencedContainer = "container:NeoStore.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "secondDemoTests.xctest"
-               BlueprintName = "secondDemoTests"
-               ReferencedContainer = "container:secondDemo.xcodeproj">
+               BuildableName = "NeoStoreTests.xctest"
+               BlueprintName = "NeoStoreTests"
+               ReferencedContainer = "container:NeoStore.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "secondDemoTests.xctest"
-               BlueprintName = "secondDemoTests"
-               ReferencedContainer = "container:secondDemo.xcodeproj">
+               BuildableName = "NeoStoreTests.xctest"
+               BlueprintName = "NeoStoreTests"
+               ReferencedContainer = "container:NeoStore.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "secondDemo.app"
-            BlueprintName = "secondDemo"
-            ReferencedContainer = "container:secondDemo.xcodeproj">
+            BuildableName = "NeoStore.app"
+            BlueprintName = "NeoStore"
+            ReferencedContainer = "container:NeoStore.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "secondDemo.app"
-            BlueprintName = "secondDemo"
-            ReferencedContainer = "container:secondDemo.xcodeproj">
+            BuildableName = "NeoStore.app"
+            BlueprintName = "NeoStore"
+            ReferencedContainer = "container:NeoStore.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "secondDemo.app"
-            BlueprintName = "secondDemo"
-            ReferencedContainer = "container:secondDemo.xcodeproj">
+            BuildableName = "NeoStore.app"
+            BlueprintName = "NeoStore"
+            ReferencedContainer = "container:NeoStore.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

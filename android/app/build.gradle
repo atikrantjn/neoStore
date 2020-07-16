@@ -128,7 +128,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.seconddemo"
+        applicationId "com.neostore"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

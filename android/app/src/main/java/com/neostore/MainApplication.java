@@ -1,4 +1,4 @@
-package com.seconddemo;
+package com.neostore;
 
 import com.airbnb.android.react.maps.MapsPackage;
 import android.app.Application;

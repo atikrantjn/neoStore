@@ -7,19 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* secondDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* secondDemoTests.m */; };
+		00E356F31AD99517003FC87E /* NeoStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* NeoStoreTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		242A2B36E9769A0AA6BB801F /* libPods-secondDemo-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4118186CB7D508C7AADBD2E9 /* libPods-secondDemo-tvOS.a */; };
+		242A2B36E9769A0AA6BB801F /* libPods-NeoStore-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4118186CB7D508C7AADBD2E9 /* libPods-NeoStore-tvOS.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2DCD954D1E0B4F2C00145EB5 /* secondDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* secondDemoTests.m */; };
-		6717D1C750321EDD9FE739A7 /* libPods-secondDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D231C3F2FE04B56A3AB2C1A /* libPods-secondDemoTests.a */; };
-		CDF6420DBE545451764200E0 /* libPods-secondDemo-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDA0AE237CE0F7945565C439 /* libPods-secondDemo-tvOSTests.a */; };
-		F38256A9ABD218330E3D566F /* libPods-secondDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A1B1B9085044DCE47F21711 /* libPods-secondDemo.a */; };
+		2DCD954D1E0B4F2C00145EB5 /* NeoStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* NeoStoreTests.m */; };
+		6717D1C750321EDD9FE739A7 /* libPods-NeoStoreTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D231C3F2FE04B56A3AB2C1A /* libPods-NeoStoreTests.a */; };
+		CDF6420DBE545451764200E0 /* libPods-NeoStore-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDA0AE237CE0F7945565C439 /* libPods-NeoStore-tvOSTests.a */; };
+		F38256A9ABD218330E3D566F /* libPods-NeoStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A1B1B9085044DCE47F21711 /* libPods-NeoStore.a */; };
 		918FF8906BB34791A2D9A72A /* NotoSerif-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26786B689BC04DE69019D18E /* NotoSerif-Bold.ttf */; };
 		0B57BC86F5F14FA89D102561 /* NotoSerif-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94C98E4321C4472BB0CF4CB4 /* NotoSerif-BoldItalic.ttf */; };
 		4174627260784E76A2F54EE6 /* NotoSerif-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A5A426C1D4CD487CB0529E34 /* NotoSerif-Italic.ttf */; };
@@ -68,45 +68,45 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = secondDemo;
+			remoteInfo = NeoStore;
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "secondDemo-tvOS";
+			remoteInfo = "NeoStore-tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		002399C757BEE880BCE184D2 /* Pods-secondDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-secondDemo.debug.xcconfig"; path = "Target Support Files/Pods-secondDemo/Pods-secondDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		002399C757BEE880BCE184D2 /* Pods-NeoStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeoStore.debug.xcconfig"; path = "Target Support Files/Pods-NeoStore/Pods-NeoStore.debug.xcconfig"; sourceTree = "<group>"; };
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* secondDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = secondDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* NeoStoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NeoStoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* secondDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = secondDemoTests.m; sourceTree = "<group>"; };
-		07B96CCB1710A9EA03BC8136 /* Pods-secondDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-secondDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-secondDemoTests/Pods-secondDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* secondDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = secondDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = secondDemo/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = secondDemo/AppDelegate.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* NeoStoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NeoStoreTests.m; sourceTree = "<group>"; };
+		07B96CCB1710A9EA03BC8136 /* Pods-NeoStoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeoStoreTests.debug.xcconfig"; path = "Target Support Files/Pods-NeoStoreTests/Pods-NeoStoreTests.debug.xcconfig"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* NeoStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeoStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = NeoStore/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = NeoStore/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = secondDemo/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = secondDemo/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = secondDemo/main.m; sourceTree = "<group>"; };
-		2A1B1B9085044DCE47F21711 /* libPods-secondDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-secondDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E47B1E0B4A5D006451C7 /* secondDemo-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "secondDemo-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* secondDemo-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "secondDemo-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		379B1949CBC4278E4E25881D /* Pods-secondDemo-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-secondDemo-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-secondDemo-tvOS/Pods-secondDemo-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		4118186CB7D508C7AADBD2E9 /* libPods-secondDemo-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-secondDemo-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4D231C3F2FE04B56A3AB2C1A /* libPods-secondDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-secondDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		78906E7294C3CD4E7E036D48 /* Pods-secondDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-secondDemoTests.release.xcconfig"; path = "Target Support Files/Pods-secondDemoTests/Pods-secondDemoTests.release.xcconfig"; sourceTree = "<group>"; };
-		CDA0AE237CE0F7945565C439 /* libPods-secondDemo-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-secondDemo-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DD7A603AF7190BB4CDB57A45 /* Pods-secondDemo-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-secondDemo-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-secondDemo-tvOSTests/Pods-secondDemo-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		DEC0655B07B3BBC31E26E3F3 /* Pods-secondDemo-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-secondDemo-tvOS.release.xcconfig"; path = "Target Support Files/Pods-secondDemo-tvOS/Pods-secondDemo-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		E9737D70B756244E26754643 /* Pods-secondDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-secondDemo.release.xcconfig"; path = "Target Support Files/Pods-secondDemo/Pods-secondDemo.release.xcconfig"; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = NeoStore/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = NeoStore/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = NeoStore/main.m; sourceTree = "<group>"; };
+		2A1B1B9085044DCE47F21711 /* libPods-NeoStore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NeoStore.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E47B1E0B4A5D006451C7 /* NeoStore-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NeoStore-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* NeoStore-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NeoStore-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		379B1949CBC4278E4E25881D /* Pods-NeoStore-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeoStore-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-NeoStore-tvOS/Pods-NeoStore-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		4118186CB7D508C7AADBD2E9 /* libPods-NeoStore-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NeoStore-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D231C3F2FE04B56A3AB2C1A /* libPods-NeoStoreTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NeoStoreTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		78906E7294C3CD4E7E036D48 /* Pods-NeoStoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeoStoreTests.release.xcconfig"; path = "Target Support Files/Pods-NeoStoreTests/Pods-NeoStoreTests.release.xcconfig"; sourceTree = "<group>"; };
+		CDA0AE237CE0F7945565C439 /* libPods-NeoStore-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NeoStore-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD7A603AF7190BB4CDB57A45 /* Pods-NeoStore-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeoStore-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-NeoStore-tvOSTests/Pods-NeoStore-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		DEC0655B07B3BBC31E26E3F3 /* Pods-NeoStore-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeoStore-tvOS.release.xcconfig"; path = "Target Support Files/Pods-NeoStore-tvOS/Pods-NeoStore-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		E9737D70B756244E26754643 /* Pods-NeoStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeoStore.release.xcconfig"; path = "Target Support Files/Pods-NeoStore/Pods-NeoStore.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		F20E237B242C6E2E1294350A /* Pods-secondDemo-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-secondDemo-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-secondDemo-tvOSTests/Pods-secondDemo-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		F20E237B242C6E2E1294350A /* Pods-NeoStore-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeoStore-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-NeoStore-tvOSTests/Pods-NeoStore-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		26786B689BC04DE69019D18E /* NotoSerif-Bold.ttf */ = {isa = PBXFileReference; name = "NotoSerif-Bold.ttf"; path = "../assets/fonts/NotoSerif-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		94C98E4321C4472BB0CF4CB4 /* NotoSerif-BoldItalic.ttf */ = {isa = PBXFileReference; name = "NotoSerif-BoldItalic.ttf"; path = "../assets/fonts/NotoSerif-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		A5A426C1D4CD487CB0529E34 /* NotoSerif-Italic.ttf */ = {isa = PBXFileReference; name = "NotoSerif-Italic.ttf"; path = "../assets/fonts/NotoSerif-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
@@ -154,7 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6717D1C750321EDD9FE739A7 /* libPods-secondDemoTests.a in Frameworks */,
+				6717D1C750321EDD9FE739A7 /* libPods-NeoStoreTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,7 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F38256A9ABD218330E3D566F /* libPods-secondDemo.a in Frameworks */,
+				F38256A9ABD218330E3D566F /* libPods-NeoStore.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,7 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				242A2B36E9769A0AA6BB801F /* libPods-secondDemo-tvOS.a in Frameworks */,
+				242A2B36E9769A0AA6BB801F /* libPods-NeoStore-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,20 +178,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDF6420DBE545451764200E0 /* libPods-secondDemo-tvOSTests.a in Frameworks */,
+				CDF6420DBE545451764200E0 /* libPods-NeoStore-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* secondDemoTests */ = {
+		00E356EF1AD99517003FC87E /* NeoStoreTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* secondDemoTests.m */,
+				00E356F21AD99517003FC87E /* NeoStoreTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = secondDemoTests;
+			path = NeoStoreTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -202,7 +202,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* secondDemo */ = {
+		13B07FAE1A68108700A75B9A /* NeoStore */ = {
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -213,7 +213,7 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = secondDemo;
+			name = NeoStore;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -221,10 +221,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				2A1B1B9085044DCE47F21711 /* libPods-secondDemo.a */,
-				4118186CB7D508C7AADBD2E9 /* libPods-secondDemo-tvOS.a */,
-				CDA0AE237CE0F7945565C439 /* libPods-secondDemo-tvOSTests.a */,
-				4D231C3F2FE04B56A3AB2C1A /* libPods-secondDemoTests.a */,
+				2A1B1B9085044DCE47F21711 /* libPods-NeoStore.a */,
+				4118186CB7D508C7AADBD2E9 /* libPods-NeoStore-tvOS.a */,
+				CDA0AE237CE0F7945565C439 /* libPods-NeoStore-tvOSTests.a */,
+				4D231C3F2FE04B56A3AB2C1A /* libPods-NeoStoreTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -232,14 +232,14 @@
 		7746AD23CA363BC389CB8DF5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				002399C757BEE880BCE184D2 /* Pods-secondDemo.debug.xcconfig */,
-				E9737D70B756244E26754643 /* Pods-secondDemo.release.xcconfig */,
-				379B1949CBC4278E4E25881D /* Pods-secondDemo-tvOS.debug.xcconfig */,
-				DEC0655B07B3BBC31E26E3F3 /* Pods-secondDemo-tvOS.release.xcconfig */,
-				DD7A603AF7190BB4CDB57A45 /* Pods-secondDemo-tvOSTests.debug.xcconfig */,
-				F20E237B242C6E2E1294350A /* Pods-secondDemo-tvOSTests.release.xcconfig */,
-				07B96CCB1710A9EA03BC8136 /* Pods-secondDemoTests.debug.xcconfig */,
-				78906E7294C3CD4E7E036D48 /* Pods-secondDemoTests.release.xcconfig */,
+				002399C757BEE880BCE184D2 /* Pods-NeoStore.debug.xcconfig */,
+				E9737D70B756244E26754643 /* Pods-NeoStore.release.xcconfig */,
+				379B1949CBC4278E4E25881D /* Pods-NeoStore-tvOS.debug.xcconfig */,
+				DEC0655B07B3BBC31E26E3F3 /* Pods-NeoStore-tvOS.release.xcconfig */,
+				DD7A603AF7190BB4CDB57A45 /* Pods-NeoStore-tvOSTests.debug.xcconfig */,
+				F20E237B242C6E2E1294350A /* Pods-NeoStore-tvOSTests.release.xcconfig */,
+				07B96CCB1710A9EA03BC8136 /* Pods-NeoStoreTests.debug.xcconfig */,
+				78906E7294C3CD4E7E036D48 /* Pods-NeoStoreTests.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -255,9 +255,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* secondDemo */,
+				13B07FAE1A68108700A75B9A /* NeoStore */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* secondDemoTests */,
+				00E356EF1AD99517003FC87E /* NeoStoreTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				7746AD23CA363BC389CB8DF5 /* Pods */,
@@ -271,10 +271,10 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* secondDemo.app */,
-				00E356EE1AD99517003FC87E /* secondDemoTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* secondDemo-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* secondDemo-tvOSTests.xctest */,
+				13B07F961A680F5B00A75B9A /* NeoStore.app */,
+				00E356EE1AD99517003FC87E /* NeoStoreTests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* NeoStore-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* NeoStore-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -330,9 +330,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* secondDemoTests */ = {
+		00E356ED1AD99517003FC87E /* NeoStoreTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "secondDemoTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "NeoStoreTests" */;
 			buildPhases = (
 				5170E2085486E3A7CE6F4A9E /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -344,14 +344,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = secondDemoTests;
-			productName = secondDemoTests;
-			productReference = 00E356EE1AD99517003FC87E /* secondDemoTests.xctest */;
+			name = NeoStoreTests;
+			productName = NeoStoreTests;
+			productReference = 00E356EE1AD99517003FC87E /* NeoStoreTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* secondDemo */ = {
+		13B07F861A680F5B00A75B9A /* NeoStore */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "secondDemo" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "NeoStore" */;
 			buildPhases = (
 				F7334EC0069127A02B9709F9 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -364,14 +364,14 @@
 			);
 			dependencies = (
 			);
-			name = secondDemo;
-			productName = secondDemo;
-			productReference = 13B07F961A680F5B00A75B9A /* secondDemo.app */;
+			name = NeoStore;
+			productName = NeoStore;
+			productReference = 13B07F961A680F5B00A75B9A /* NeoStore.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* secondDemo-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* NeoStore-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "secondDemo-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "NeoStore-tvOS" */;
 			buildPhases = (
 				DEAB2C84DF1AFCAE7089CD97 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
@@ -384,14 +384,14 @@
 			);
 			dependencies = (
 			);
-			name = "secondDemo-tvOS";
-			productName = "secondDemo-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* secondDemo-tvOS.app */;
+			name = "NeoStore-tvOS";
+			productName = "NeoStore-tvOS";
+			productReference = 2D02E47B1E0B4A5D006451C7 /* NeoStore-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* secondDemo-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* NeoStore-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "secondDemo-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "NeoStore-tvOSTests" */;
 			buildPhases = (
 				CE582100A33A271726EE885D /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
@@ -403,9 +403,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "secondDemo-tvOSTests";
-			productName = "secondDemo-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* secondDemo-tvOSTests.xctest */;
+			name = "NeoStore-tvOSTests";
+			productName = "NeoStore-tvOSTests";
+			productReference = 2D02E4901E0B4A5D006451C7 /* NeoStore-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -432,7 +432,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "secondDemo" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "NeoStore" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -445,10 +445,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* secondDemo */,
-				00E356ED1AD99517003FC87E /* secondDemoTests */,
-				2D02E47A1E0B4A5D006451C7 /* secondDemo-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* secondDemo-tvOSTests */,
+				13B07F861A680F5B00A75B9A /* NeoStore */,
+				00E356ED1AD99517003FC87E /* NeoStoreTests */,
+				2D02E47A1E0B4A5D006451C7 /* NeoStore-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* NeoStore-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -571,7 +571,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-secondDemoTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-NeoStoreTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -593,7 +593,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-secondDemo-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-NeoStore-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -615,7 +615,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-secondDemo-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-NeoStore-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -637,7 +637,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-secondDemo-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-NeoStore-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -689,7 +689,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* secondDemoTests.m in Sources */,
+				00E356F31AD99517003FC87E /* NeoStoreTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -715,7 +715,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DCD954D1E0B4F2C00145EB5 /* secondDemoTests.m in Sources */,
+				2DCD954D1E0B4F2C00145EB5 /* NeoStoreTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -724,12 +724,12 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* secondDemo */;
+			target = 13B07F861A680F5B00A75B9A /* NeoStore */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* secondDemo-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* NeoStore-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -741,7 +741,7 @@
 				13B07FB21A68108700A75B9A /* Base */,
 			);
 			name = LaunchScreen.xib;
-			path = secondDemo;
+			path = NeoStore;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -749,14 +749,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 07B96CCB1710A9EA03BC8136 /* Pods-secondDemoTests.debug.xcconfig */;
+			baseConfigurationReference = 07B96CCB1710A9EA03BC8136 /* Pods-NeoStoreTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = secondDemoTests/Info.plist;
+				INFOPLIST_FILE = NeoStoreTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -766,17 +766,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/secondDemo.app/secondDemo";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NeoStore.app/NeoStore";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 78906E7294C3CD4E7E036D48 /* Pods-secondDemoTests.release.xcconfig */;
+			baseConfigurationReference = 78906E7294C3CD4E7E036D48 /* Pods-NeoStoreTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = secondDemoTests/Info.plist;
+				INFOPLIST_FILE = NeoStoreTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -786,18 +786,18 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/secondDemo.app/secondDemo";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NeoStore.app/NeoStore";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 002399C757BEE880BCE184D2 /* Pods-secondDemo.debug.xcconfig */;
+			baseConfigurationReference = 002399C757BEE880BCE184D2 /* Pods-NeoStore.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				INFOPLIST_FILE = secondDemo/Info.plist;
+				INFOPLIST_FILE = NeoStore/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -805,18 +805,18 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = secondDemo;
+				PRODUCT_NAME = NeoStore;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E9737D70B756244E26754643 /* Pods-secondDemo.release.xcconfig */;
+			baseConfigurationReference = E9737D70B756244E26754643 /* Pods-NeoStore.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = secondDemo/Info.plist;
+				INFOPLIST_FILE = NeoStore/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -824,14 +824,14 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = secondDemo;
+				PRODUCT_NAME = NeoStore;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 379B1949CBC4278E4E25881D /* Pods-secondDemo-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 379B1949CBC4278E4E25881D /* Pods-NeoStore-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -842,14 +842,14 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "secondDemo-tvOS/Info.plist";
+				INFOPLIST_FILE = "NeoStore-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.secondDemo-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.NeoStore-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -859,7 +859,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DEC0655B07B3BBC31E26E3F3 /* Pods-secondDemo-tvOS.release.xcconfig */;
+			baseConfigurationReference = DEC0655B07B3BBC31E26E3F3 /* Pods-NeoStore-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -870,14 +870,14 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "secondDemo-tvOS/Info.plist";
+				INFOPLIST_FILE = "NeoStore-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.secondDemo-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.NeoStore-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -887,7 +887,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD7A603AF7190BB4CDB57A45 /* Pods-secondDemo-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = DD7A603AF7190BB4CDB57A45 /* Pods-NeoStore-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -897,24 +897,24 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "secondDemo-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "NeoStore-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.secondDemo-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.NeoStore-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/secondDemo-tvOS.app/secondDemo-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NeoStore-tvOS.app/NeoStore-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F20E237B242C6E2E1294350A /* Pods-secondDemo-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = F20E237B242C6E2E1294350A /* Pods-NeoStore-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -924,17 +924,17 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "secondDemo-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "NeoStore-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.secondDemo-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.NeoStore-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/secondDemo-tvOS.app/secondDemo-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NeoStore-tvOS.app/NeoStore-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
@@ -1041,7 +1041,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "secondDemoTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "NeoStoreTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -1050,7 +1050,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "secondDemo" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "NeoStore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1059,7 +1059,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "secondDemo-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "NeoStore-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -1068,7 +1068,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "secondDemo-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "NeoStore-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -1077,7 +1077,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "secondDemo" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "NeoStore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
